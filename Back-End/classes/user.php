@@ -124,7 +124,7 @@ class user {
 	// verifying user
 	public function verify($verification) {
 	
-	}fgh
+	}
 	
 	// getting public data of user by id
 	public function getUser($user_id) {
