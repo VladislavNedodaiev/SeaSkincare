@@ -2,7 +2,7 @@
 
 namespace SeaSkincare\Backend\Entities;
 
-class UserProblem
+class Vacation
 {
 	
 	private $id;
