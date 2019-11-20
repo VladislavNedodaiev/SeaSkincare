@@ -12,7 +12,7 @@ class AirMapper
 	
 	public static EntityToDTO($entity) {
 	
-		$dto = new BusinessDTO;
+		$dto = new AirDTO;
 		
 		$dto->id = $entity->getID();
 		$dto->temperature = $entity->getTemperature();
@@ -24,7 +24,7 @@ class AirMapper
 	
 	public static DTOToEntity($dto) {
 		
-		$entity = new Business;
+		$entity = new Air;
 		
 		self::UpdateFromDTO(&$entity, &$dto);
 		
