@@ -11,6 +11,9 @@ class User
 	private $email;
 	private $verificationHash;
 	
+	public $userProblems;
+	public $vacations;
+	
 	// GET
 	
 	public function getID() {
