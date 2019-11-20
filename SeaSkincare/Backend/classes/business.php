@@ -1,19 +1,23 @@
 <?php
 
-class user {
+class business {
 	
-	public $user_id;
+	private $user_id;
 	private $password;
-	public $nickname;
-	public $email;
+	private $nickname;
+	private $description;
+	private $photo;
+	private $email;
 	
-	private const DB_TABLE = "User";
+	private const DB_TABLE = "Business";
 	
 	public const UNVERIFIED = "UNVERIFIED_USER";
-	public const NO_USER = "NO_USER";
+	public const NO_BUSINESS = "NO_BUSINESS";
 	public const EMAIL_REGISTERED = "EMAIL_REGISTERED";
 	public const NICKNAME_REGISTERED = "NICKNAME_REGISTERED";
 	public const WRONG_PASSWORD = "WRONG_PASSWORD";
+	public const NO_DESCRIPTION = "NO_DESCRIPTION";
+	public const NO_PHOTO = "NO_PHOTO";
 	
 	public const SUCCESS = "SUCCESS";
 	public const DB_ERROR = "DB_ERROR";
@@ -28,7 +32,7 @@ class user {
 		if (!$mysqli)
 			return self::DB_ERROR;
 		
-		if ($result = $mysqli->query("SELECT `User`.* FROM `User` WHERE `User`.`email`='".$email."';")) {
+		if ($result = $mysqli->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				if (!$res['verification'])
 					return self::UNVERIFIED;
@@ -39,6 +43,8 @@ class user {
 					$this->user_id = $res['user_id'];
 					$this->password = $res['hash']; 
 					$this->nickname = $res['nickname'];
+					$this->description = $res['description'];
+					$this->photo = $res['photo'];
 					$this->email = $res['email'];
 					
 					return self::SUCCESS;
@@ -69,7 +75,7 @@ class user {
 		if (!$mysqli)
 			return self::DB_ERROR;
 		
-		if ($result = $mysqli->query("SELECT `User`.* FROM `User` WHERE `User`.`email`='".$email."' OR `User`.`nickname`='".$nickname."';")) {
+		if ($result = $mysqli->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."' OR `".self::DB_TABLE."`.`nickname`='".$nickname."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				if ($email == $res['email'])
 					return self::EMAIL_REGISTERED;
@@ -84,14 +90,14 @@ class user {
 		$mysqli->query("START TRANSACTION;");
 		$mysqli->query("SAVEPOINT reg_".$nickname.";");
 		
-		if ($mysqli->query("INSERT INTO `User`(`hash`, `nickname`, `email`, `verification`)".
+		if ($mysqli->query("INSERT INTO `".self::DB_TABLE."`(`hash`, `nickname`, `email`, `verification`)".
 						   "VALUES (".
 						   "'".password_hash($password, PASSWORD_BCRYPT)."',".
 						   "'".$nickname."', ".
 						   "'".$email."', ".
 						   "'".$verification."');")) {
 			
-			if ($this->sendVerificationEmail(HOST, $email, $verification)) {
+			if ($this->sendVerificationEmail(HOST.'/verify_user.php', $email, $verification)) {
 				
 				$mysqli->query("COMMIT;");
 				return self::SUCCESS;
@@ -110,7 +116,7 @@ class user {
 	}
 	
 	// sending email with verification address
-	private function sendVerificationEmail($verify_host, $email, $verification) {
+	private function sendVerificationEmail($verify_http, $email, $verification) {
 		
 		$subject = 'Registration | Verification';
 		$message = '
@@ -120,7 +126,7 @@ class user {
 			
 			 
 			Активація акаунту:
-			'.HOST.'/verify.php?email='.$email.'&verification='.$verification.'
+			'.$verify_http.'?email='.$email.'&verification='.$verification.'
 		 
 		';
 		
@@ -137,9 +143,9 @@ class user {
 		if (!$mysqli)
 			return self::DB_ERROR;
 		
-		if ($result = $mysqli->query("SELECT `User`.* From `User` WHERE `User`.`email`='".$email."' AND `verification`='".$verification."';")) {
+		if ($result = $mysqli->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."' AND `verification`='".$verification."';")) {
 			
-			if ($mysqli->query("UPDATE `User` SET `verification`=NULL WHERE `email`='".$email."';"))
+			if ($mysqli->query("UPDATE `".self::DB_TABLE."` SET `verification`=NULL WHERE `email`='".$email."';"))
 				return self::SUCCESS;
 			
 			return self::DB_ERROR;
@@ -150,7 +156,7 @@ class user {
 	
 	}
 	
-	// getting public data of user by id
+	// getting public data of user by id from database
 	public function getUser($user_id) {
 		
 		require "env.php";
@@ -159,7 +165,7 @@ class user {
 		if (!$mysqli)
 			return self::DB_ERROR;
 		
-		if ($result = $mysqli->query("SELECT `User`.* From `User` WHERE `User`.`user_id`='".$user_id."';")) {
+		if ($result = $mysqli->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$user_id."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				$this->logout();
@@ -176,7 +182,7 @@ class user {
 		
 	}
 	
-	public function editPassword($old_password, $new_password) {
+	public function setPassword($old_password, $new_password) {
 		
 		if ($old_password == $new_password)
 			return self::SUCCESS;
@@ -192,7 +198,7 @@ class user {
 		if ($result == self::SUCCESS) {
 			
 			$temp = password_hash($new_password, PASSWORD_BCRYPT);
-			if ($mysqli->query("UPDATE `User` SET `hash`=".$temp." WHERE `email`='".$this->email."';")) {
+			if ($mysqli->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$temp." WHERE `email`='".$this->email."';")) {
 				
 				$this->password=$temp;
 				
@@ -208,7 +214,7 @@ class user {
 		
 	}
 	
-	public function editNickname($nickname) {
+	public function setNickname($nickname) {
 		
 		if ($nickname == $this->nickname)
 			return self::SUCCESS;
@@ -223,7 +229,7 @@ class user {
 		
 		if ($result == self::SUCCESS) {
 			
-			if ($mysqli->query("UPDATE `User` SET `hash`=".$nickname." WHERE `email`='".$this->email."';")) {
+			if ($mysqli->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$nickname." WHERE `email`='".$this->email."';")) {
 				
 				$this->nickname=$nickname;
 				
@@ -239,7 +245,7 @@ class user {
 		
 	}
 	
-	public function editEmail($email) {
+	public function setEmail($email) {
 		
 		if ($nickname == $this->nickname)
 			return self::SUCCESS;
@@ -260,7 +266,7 @@ class user {
 			$mysqli->query("START TRANSACTION;");
 			$mysqli->query("SAVEPOINT editEmail_".$nickname.";");
 			
-			if ($mysqli->query("UPDATE `User` SET `email`=".$email." WHERE `email`='".$this->email."';")) {
+			if ($mysqli->query("UPDATE `".self::DB_TABLE."` SET `email`=".$email." WHERE `email`='".$this->email."';")) {
 				
 				if ($this->sendVerificationEmail(HOST, $email, $verification)) {
 				
@@ -285,6 +291,24 @@ class user {
 		}
 		
 		return $result;
+		
+	}
+	
+	public function getUserID() {
+		
+		return $this->user_id;
+		
+	}
+	
+	public function getNickname() {
+		
+		return $this->nickname;
+		
+	}
+	
+	public function getEmail() {
+		
+		return $this->email;
 		
 	}
 	
