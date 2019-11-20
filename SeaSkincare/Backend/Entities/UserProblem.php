@@ -5,6 +5,7 @@ namespace SeaSkincare\Backend\Entities;
 class UserProblem
 {
 	
+	// Data
 	private $id;
 	private $userID;
 	private $skinProblemID;

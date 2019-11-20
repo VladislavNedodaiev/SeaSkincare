@@ -5,11 +5,13 @@ namespace SeaSkincare\Backend\Entities;
 class Buoy
 {
 	
+	// Data
 	private $id;
 	private $fabricationDate;
 	
-	public $subscriptions;
-	public $connections;
+	// Relations
+	private $subscriptions;
+	private $connections;
 	
 	// GET
 	
@@ -25,6 +27,18 @@ class Buoy
 	
 	}
 	
+	public function &getSubscriptions() {
+		
+		return $this->subscriptions;
+		
+	}
+	
+	public function &getConnections() {
+	
+		return $this->connections;
+	
+	}
+	
 	// SET
 	
 	public function setID($id) {
@@ -36,6 +50,18 @@ class Buoy
 	public function setFabricationDate($fabricationDate) {
 	
 		return $this->fabricationDate = $fabricationDate;
+	
+	}
+	
+	public function &setSubscriptions(&$subscriptions) {
+		
+		return $this->subscriptions = $subscriptions;
+		
+	}
+	
+	public function &setConnections(&$connections) {
+	
+		return $this->connections = $connections;
 	
 	}
 	

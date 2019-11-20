@@ -5,6 +5,7 @@ namespace SeaSkincare\Backend\Entities;
 class Vacation
 {
 	
+	// Data
 	private $id;
 	private $userID;
 	private $businessID;

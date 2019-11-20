@@ -5,14 +5,16 @@ namespace SeaSkincare\Backend\Entities;
 class User
 {
 	
+	// Data
 	private $id;
 	private $passwordHash;
 	private $nickname;
 	private $email;
 	private $verificationHash;
 	
-	public $userProblems;
-	public $vacations;
+	// Relations
+	private $userProblems;
+	private $vacations;
 	
 	// GET
 	
@@ -46,6 +48,18 @@ class User
 		
 	}
 	
+	public function &getUserProblems() {
+		
+		return $this->userProblems;
+		
+	}
+	
+	public function &getVacations() {
+		
+		return $this->vacations;
+		
+	}
+	
 	// SET
 	
 	public function setID($id) {
@@ -75,6 +89,18 @@ class User
 	public function setVerificationHash($verificationHash) {
 		
 		return $this->verificationHash = $verificationHash;
+		
+	}
+	
+	public function &setUserProblems(&$userProblems) {
+		
+		return $this->userProblems = $this->userProblems;
+		
+	}
+	
+	public function &setVacations(&$vacations) {
+		
+		return $this->vacations = $this->vacations;
 		
 	}
 	

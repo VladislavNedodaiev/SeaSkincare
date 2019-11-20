@@ -5,6 +5,7 @@ namespace SeaSkincare\Backend\Entities;
 class Business
 {
 	
+	// Data
 	private $id;
 	private $passwordHash;
 	private $nickname;
@@ -13,8 +14,9 @@ class Business
 	private $email;
 	private $verificationHash;
 	
-	public $vacations;
-	public $subscriptions;
+	// Relations
+	private $vacations;
+	private $subscriptions;
 	
 	// GET
 	
@@ -60,6 +62,18 @@ class Business
 		
 	}
 	
+	public function &getSubscriptions() {
+		
+		return $this->subscriptions;
+		
+	}
+	
+	public function &getVacations() {
+		
+		return $this->vacations;
+		
+	}
+	
 	// SET
 	
 	public function setID($id) {
@@ -101,6 +115,18 @@ class Business
 	public function setVerificationHash($verificationHash) {
 		
 		return $this->verificationHash = $verificationHash;
+		
+	}
+	
+	public function &setSubscriptions(&$subscriptions) {
+		
+		return $this->subscriptions = $this->subscriptions;
+		
+	}
+	
+	public function &setVacations(&$vacations) {
+		
+		return $this->vacations = $this->vacations;
 		
 	}
 	

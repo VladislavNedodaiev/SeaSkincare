@@ -5,6 +5,7 @@ namespace SeaSkincare\Backend\Entities;
 class SkinProblem
 {
 	
+	// Data
 	private $id;
 	private $title;
 	private $normalPH;
@@ -12,7 +13,8 @@ class SkinProblem
 	private $normalAirPollution;
 	private $normalSunPower;
 	
-	public $userProblems;
+	// Relations
+	private $userProblems;
 	
 	// GET
 	
@@ -52,6 +54,12 @@ class SkinProblem
 		
 	}
 	
+	public function &getUserProblems() {
+		
+		return $this->userProblems;
+		
+	}
+	
 	// SET
 	
 	public function setID($id) {
@@ -87,6 +95,12 @@ class SkinProblem
 	public function setNormalSunPower($normalSunPower) {
 		
 		return $this->normalSunPower = $normalSunPower;
+		
+	}
+	
+	public function &setUserProblems(&$userProblems) {
+		
+		return $this->userProblems = $this->userProblems;
 		
 	}
 	

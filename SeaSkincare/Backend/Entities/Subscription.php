@@ -5,6 +5,7 @@ namespace SeaSkincare\Backend\Entities;
 class Subscription
 {
 	
+	// Data
 	private $id;
 	private $buoyID;
 	private $businessID;
