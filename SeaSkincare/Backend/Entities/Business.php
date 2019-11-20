@@ -13,6 +13,9 @@ class Business
 	private $email;
 	private $verificationHash;
 	
+	public $vacations;
+	public $subscriptions;
+	
 	// GET
 	
 	public function getID() {
