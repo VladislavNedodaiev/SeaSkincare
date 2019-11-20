@@ -5,18 +5,18 @@ namespace SeaSkincare\Backend\Mappers;
 use SeaSkincare\Backend\Entities;
 use SeaSkincare\Backend\DTOs;
 
-class UserMapper
+class AirMapper
 {
 	
 	private function __construct() {}
 	
 	public static EntityToDTO($entity) {
 	
-		$dto = new UserDTO;
+		$dto = new BusinessDTO;
 		
 		$dto->id = $entity->getID();
-		$dto->nickname = $entity->getNickname();
-		$dto->email = $entity->getEmail();
+		$dto->temperature = $entity->getTemperature();
+		$dto->pollution = $entity->getPollution();
 		
 		return $dto;
 	
@@ -24,7 +24,7 @@ class UserMapper
 	
 	public static DTOToEntity($dto) {
 		
-		$entity = new User;
+		$entity = new Business;
 		
 		self::UpdateFromDTO(&$entity, &$dto);
 		
@@ -35,11 +35,10 @@ class UserMapper
 	public static UpdateFromDTO($entity, $dto) {
 		
 		$entity->setID($dto->id);
-		$entity->setNickname($dto->nickname);
-		$entity->setEmail($dto->email);
+		$entity->setTemperature($dto->temperature);
+		$entity->setPollution($dto->pollution);
 		
 	}	
 	
 }
-
 ?>

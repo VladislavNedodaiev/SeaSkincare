@@ -10,37 +10,37 @@ class BusinessMapper
 	
 	private function __construct() {}
 	
-	public static EntityToDTO($businessEntity) {
+	public static EntityToDTO($entity) {
 	
-		$businessDTO = new BusinessDTO;
+		$dto = new BusinessDTO;
 		
-		$businessDTO->id = $businessEntity->getID();
-		$businessDTO->nickname = $businessEntity->getNickname();
-		$businessDTO->description = $businessEntity->getDescription();
-		$businessDTO->photo = $businessEntity->getPhoto();
-		$businessDTO->email = $businessEntity->getEmail();
+		$dto->id = $entity->getID();
+		$dto->nickname = $entity->getNickname();
+		$dto->description = $entity->getDescription();
+		$dto->photo = $entity->getPhoto();
+		$dto->email = $entity->getEmail();
 		
-		return $businessDTO;
+		return $dto;
 	
 	}
 	
-	public static DTOToEntity($businessDTO) {
+	public static DTOToEntity($dto) {
 		
-		$businessEntity = new Business;
+		$entity = new Business;
 		
-		self::UpdateFromDTO(&$businessEntity, &$businessDTO);
+		self::UpdateFromDTO(&$entity, &$dto);
 		
-		return $businessEntity;	
+		return $entity;	
 		
 	}
 	
-	public static UpdateFromDTO($businessEntity, $businessDTO) {
+	public static UpdateFromDTO($entity, $dto) {
 		
-		$businessEntity->setID($businessDTO->id);
-		$businessEntity->setNickname($businessDTO->nickname);
-		$businessEntity->setDescription($businessDTO->description);
-		$businessEntity->setPhoto($businessDTO->photo);
-		$businessEntity->setEmail($businessDTO->email);
+		$entity->setID($dto->id);
+		$entity->setNickname($dto->nickname);
+		$entity->setDescription($dto->description);
+		$entity->setPhoto($dto->photo);
+		$entity->setEmail($dto->email);
 		
 	}	
 	
