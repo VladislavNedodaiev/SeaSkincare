@@ -24,7 +24,6 @@ class Buoy
 		return $this->fabricationDate;
 	
 	}
-	}
 	
 	// SET
 	
