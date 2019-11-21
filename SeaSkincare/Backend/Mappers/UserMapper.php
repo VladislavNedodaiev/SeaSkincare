@@ -15,10 +15,10 @@ class UserMapper
 		$dto = new UserDTO;
 		
 		$dto->id = $entity->getID();
-		$dto->passwordHash = $entity->getPasswordHash();
+		$dto->password = $entity->getPassword();
 		$dto->nickname = $entity->getNickname();
 		$dto->email = $entity->getEmail();
-		$dto->verificationHash = $entity->getVerificationHash();
+		$dto->verification = $entity->getVerification();
 		
 		return $dto;
 	
@@ -37,10 +37,10 @@ class UserMapper
 	public static function UpdateFromDTO($entity, $dto) {
 		
 		$entity->setID($dto->id);
-		$entity->setPasswordHash($dto->passwordHash);
+		$entity->setPassword($dto->password);
 		$entity->setNickname($dto->nickname);
 		$entity->setEmail($dto->email);
-		$entity->setVerificationHash($dto->verificationHash);
+		$entity->setVerification($dto->verification);
 		
 	}	
 	

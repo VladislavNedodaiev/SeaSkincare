@@ -7,12 +7,12 @@ class Business
 	
 	// Data
 	private $id;
-	private $passwordHash;
+	private $password;
 	private $nickname;
 	private $description;
 	private $photo;
 	private $email;
-	private $verificationHash;
+	private $verification;
 	
 	// Relations
 	private $vacations;
@@ -26,9 +26,9 @@ class Business
 		
 	}
 	
-	public function getPasswordHash() {
+	public function getPassword() {
 	
-		return $this->passwordHash;
+		return $this->password;
 	
 	}
 	
@@ -56,9 +56,9 @@ class Business
 		
 	}
 	
-	public function getVerificationHash() {
+	public function getVerification() {
 		
-		return $this->verificationHash;
+		return $this->verification;
 		
 	}
 	
@@ -82,9 +82,9 @@ class Business
 		
 	}
 	
-	public function setPasswordHash($passwordHash) {
+	public function setPassword($password) {
 	
-		return $this->passwordHash = $passwordHash;
+		return $this->password = $password;
 	
 	}
 	
@@ -112,9 +112,9 @@ class Business
 		
 	}
 	
-	public function setVerificationHash($verificationHash) {
+	public function setVerification($verification) {
 		
-		return $this->verificationHash = $verificationHash;
+		return $this->verification = $verification;
 		
 	}
 	

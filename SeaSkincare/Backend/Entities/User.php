@@ -7,10 +7,10 @@ class User
 	
 	// Data
 	private $id;
-	private $passwordHash;
+	private $password;
 	private $nickname;
 	private $email;
-	private $verificationHash;
+	private $verification;
 	
 	// Relations
 	private $userProblems;
@@ -24,9 +24,9 @@ class User
 		
 	}
 	
-	public function getPasswordHash() {
+	public function getPassword() {
 	
-		return $this->passwordHash;
+		return $this->password;
 	
 	}
 	
@@ -42,9 +42,9 @@ class User
 		
 	}
 	
-	public function getVerificationHash() {
+	public function getVerification() {
 		
-		return $this->verificationHash;
+		return $this->verification;
 		
 	}
 	
@@ -68,9 +68,9 @@ class User
 		
 	}
 	
-	public function setPasswordHash($passwordHash) {
+	public function setPassword($password) {
 	
-		return $this->passwordHash = $passwordHash;
+		return $this->password = $password;
 	
 	}
 	
@@ -86,9 +86,9 @@ class User
 		
 	}
 	
-	public function setVerificationHash($verificationHash) {
+	public function setVerification($verification) {
 		
-		return $this->verificationHash = $verificationHash;
+		return $this->verification = $verification;
 		
 	}
 	

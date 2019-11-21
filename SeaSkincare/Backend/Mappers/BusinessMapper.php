@@ -15,10 +15,12 @@ class BusinessMapper implements iMapper
 		$dto = new BusinessDTO;
 		
 		$dto->id = $entity->getID();
+		$dto->password = $entity->getPassword();
 		$dto->nickname = $entity->getNickname();
 		$dto->description = $entity->getDescription();
 		$dto->photo = $entity->getPhoto();
 		$dto->email = $entity->getEmail();
+		$dto->verification = $entity->getVerification();
 		
 		return $dto;
 	
@@ -37,10 +39,12 @@ class BusinessMapper implements iMapper
 	public static function UpdateFromDTO($entity, $dto) {
 		
 		$entity->setID($dto->id);
+		$entity->setPassword($dto->password);
 		$entity->setNickname($dto->nickname);
 		$entity->setDescription($dto->description);
 		$entity->setPhoto($dto->photo);
 		$entity->setEmail($dto->email);
+		$entity->setVerification($dto->verification);
 		
 	}	
 	

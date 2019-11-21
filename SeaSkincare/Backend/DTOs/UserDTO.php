@@ -9,10 +9,10 @@ class UserDTO
 	
 	// Data
 	public $id;
-	public $passwordHash;
+	public $password;
 	public $nickname;
 	public $email;
-	public $verificationHash;
+	public $verification;
 	
 }
 

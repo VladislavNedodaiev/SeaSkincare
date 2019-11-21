@@ -14,6 +14,7 @@ class BusinessDTO
 	public $description;
 	public $photo;
 	public $email;
+	public $verification;
 	
 }
 

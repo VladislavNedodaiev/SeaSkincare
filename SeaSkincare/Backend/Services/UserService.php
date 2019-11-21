@@ -60,10 +60,10 @@ class UserService
 					$userDto = new UserDTO;
 					
 					$userDto->ID = $res['user_id'];
-					$userDto->passwordHash = $res['hash'];
+					$userDto->password = $res['hash'];
 					$userDto->nickname = $res['nickname'];
 					$userDto->email = $res['email'];
-					$userDto->verificationHash = $res['verification'];
+					$userDto->verification = $res['verification'];
 					
 					return UserMapper::DTOToEntity($userDto);
 					
