@@ -5,10 +5,10 @@ namespace SeaSkincare\Backend\Services;
 class MailService
 {
 	
-	public static $host;
+	public $host;
 	
 	// sending email with verification address
-	public static function sendVerificationEmail($email, $verification) {
+	public function sendVerificationEmail($email, $verification) {
 		
 		$subject = 'Registration | Verification';
 		$message = '
