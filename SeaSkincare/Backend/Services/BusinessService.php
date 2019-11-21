@@ -59,7 +59,7 @@ class BusinessService
 
 					$dto = new BusinessDTO;
 					
-					$dto->ID = $res['business_id'];
+					$dto->id = $res['business_id'];
 					$dto->password = $res['hash'];
 					$dto->nickname = $res['nickname'];
 					$dto->description = $res['description'];

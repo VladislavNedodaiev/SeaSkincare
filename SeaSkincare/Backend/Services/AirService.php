@@ -10,7 +10,6 @@ class AirService
 {
 	
 	private $database;
-	private $mailService;
 	
 	private const DB_TABLE = "Air";
 	
@@ -19,10 +18,9 @@ class AirService
 	public const SUCCESS = "SUCCESS";
 	public const DB_ERROR = "DB_ERROR";
 	
-	public function __construct($host, $user, $pswd, $db, $mailService) {
+	public function __construct($host, $user, $pswd, $db) {
 	
 		$this->connectToDB();
-		$this->mailService = $mailService;
 	
 	}
 	
@@ -40,19 +38,38 @@ class AirService
 		
 	}
 	
+	public function createAir($connectionID, $dto) {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return self::DB_ERROR;
+		
+		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`connection_id`, `temperature`, `pollution`)".
+						   "VALUES (".
+						   "'".$connectionID."',".
+						   "'".$dto->temperature."', ".
+						   "'".$dto->pollution."');")) {
+			
+			return AirMapper::DTOToEntity($dto);
+			
+		}
+			
+		return self::DB_ERROR;
+		
+	}
+	
 	// getting public data of user by id from database
 	public function getAir($connectionID) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`connection_id`='".$connectionID."';")) {
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`connection_id`='".$connectionID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				
 				$dto = new AirDTO;
 					
-				$dto->ID = $res['connection_id'];
+				$dto->id = $res['connection_id'];
 				$dto->temperature = $res['temperature'];
 				$dto->pollution = $res['pollution'];
 				

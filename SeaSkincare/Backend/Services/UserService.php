@@ -59,7 +59,7 @@ class UserService
 
 					$dto = new UserDTO;
 					
-					$dto->ID = $res['user_id'];
+					$dto->id = $res['user_id'];
 					$dto->password = $res['hash'];
 					$dto->nickname = $res['nickname'];
 					$dto->email = $res['email'];
