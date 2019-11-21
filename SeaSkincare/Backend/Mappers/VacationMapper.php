@@ -9,7 +9,7 @@ class VacationMapper
 {
 	private function __construct() {}
 	
-	public static EntityToDTO($entity) {
+	public static function EntityToDTO($entity) {
 	
 		$dto = new VacationDTO;
 		
@@ -23,7 +23,7 @@ class VacationMapper
 	
 	}
 	
-	public static DTOToEntity($dto) {
+	public static function DTOToEntity($dto) {
 		
 		$entity = new Vacation;
 		
@@ -33,7 +33,7 @@ class VacationMapper
 		
 	}
 	
-	public static UpdateFromDTO($entity, $dto) {
+	public static function UpdateFromDTO($entity, $dto) {
 		
 		$entity->setID($dto->id);
 		$entity->setUserID($dto->userID);

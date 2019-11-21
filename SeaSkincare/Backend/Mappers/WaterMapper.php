@@ -9,7 +9,7 @@ class WaterMapper
 {
 	private function __construct() {}
 	
-	public static EntityToDTO($entity) {
+	public static function EntityToDTO($entity) {
 	
 		$dto = new WaterDTO;
 		
@@ -26,7 +26,7 @@ class WaterMapper
 	
 	}
 	
-	public static DTOToEntity($dto) {
+	public static function DTOToEntity($dto) {
 		
 		$entity = new Water;
 		
@@ -36,7 +36,7 @@ class WaterMapper
 		
 	}
 	
-	public static UpdateFromDTO($entity, $dto) {
+	public static function UpdateFromDTO($entity, $dto) {
 		
 		$entity->setID($dto->id);
 		$entity->setTemperature($dto->temperature);

@@ -10,7 +10,7 @@ class BuoyMapper
 	
 	private function __construct() {}
 	
-	public static EntityToDTO($entity) {
+	public static function EntityToDTO($entity) {
 	
 		$dto = new BuoyDTO;
 		
@@ -21,7 +21,7 @@ class BuoyMapper
 	
 	}
 	
-	public static DTOToEntity($dto) {
+	public static function DTOToEntity($dto) {
 		
 		$entity = new Buoy;
 		
@@ -31,7 +31,7 @@ class BuoyMapper
 		
 	}
 	
-	public static UpdateFromDTO($entity, $dto) {
+	public static function UpdateFromDTO($entity, $dto) {
 		
 		$entity->setID($dto->id);
 		$entity->setFabricationDate($dto->fabricationDate);

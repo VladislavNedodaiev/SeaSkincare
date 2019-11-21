@@ -9,7 +9,7 @@ class WeatherMapper
 {
 	private function __construct() {}
 	
-	public static EntityToDTO($entity) {
+	public static function EntityToDTO($entity) {
 	
 		$dto = new WeatherDTO;
 		
@@ -21,7 +21,7 @@ class WeatherMapper
 	
 	}
 	
-	public static DTOToEntity($dto) {
+	public static function DTOToEntity($dto) {
 		
 		$entity = new Weather;
 		
@@ -31,7 +31,7 @@ class WeatherMapper
 		
 	}
 	
-	public static UpdateFromDTO($entity, $dto) {
+	public static function UpdateFromDTO($entity, $dto) {
 		
 		$entity->setID($dto->id);
 		$entity->setSunPower($dto->sunPower);

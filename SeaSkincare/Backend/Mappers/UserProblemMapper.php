@@ -9,7 +9,7 @@ class UserProblemMapper
 {
 	private function __construct() {}
 	
-	public static EntityToDTO($entity) {
+	public static function EntityToDTO($entity) {
 	
 		$dto = new UserProblemDTO;
 		
@@ -21,7 +21,7 @@ class UserProblemMapper
 	
 	}
 	
-	public static DTOToEntity($dto) {
+	public static function DTOToEntity($dto) {
 		
 		$entity = new UserProblem;
 		
@@ -31,7 +31,7 @@ class UserProblemMapper
 		
 	}
 	
-	public static UpdateFromDTO($entity, $dto) {
+	public static function UpdateFromDTO($entity, $dto) {
 		
 		$entity->setID($dto->id);
 		$entity->setUserID($dto->userID);

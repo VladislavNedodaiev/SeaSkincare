@@ -10,7 +10,7 @@ class ConnectionMapper
 	
 	private function __construct() {}
 	
-	public static EntityToDTO($entity) {
+	public static function EntityToDTO($entity) {
 	
 		$dto = new ConnectionDTO;
 		
@@ -25,7 +25,7 @@ class ConnectionMapper
 	
 	}
 	
-	public static DTOToEntity($dto) {
+	public static function DTOToEntity($dto) {
 		
 		$entity = new Connection;
 		
@@ -35,7 +35,7 @@ class ConnectionMapper
 		
 	}
 	
-	public static UpdateFromDTO($entity, $dto) {
+	public static function UpdateFromDTO($entity, $dto) {
 		
 		$entity->setID($dto->id);
 		$entity->setBuoyID($dto->buoyID);

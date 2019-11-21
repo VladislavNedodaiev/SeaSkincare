@@ -10,7 +10,7 @@ class UserMapper
 	
 	private function __construct() {}
 	
-	public static EntityToDTO($entity) {
+	public static function EntityToDTO($entity) {
 	
 		$dto = new UserDTO;
 		
@@ -22,7 +22,7 @@ class UserMapper
 	
 	}
 	
-	public static DTOToEntity($dto) {
+	public static function DTOToEntity($dto) {
 		
 		$entity = new User;
 		
@@ -32,7 +32,7 @@ class UserMapper
 		
 	}
 	
-	public static UpdateFromDTO($entity, $dto) {
+	public static function UpdateFromDTO($entity, $dto) {
 		
 		$entity->setID($dto->id);
 		$entity->setNickname($dto->nickname);
