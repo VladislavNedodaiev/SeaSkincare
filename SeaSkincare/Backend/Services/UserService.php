@@ -9,7 +9,7 @@ use SeaSkincare\Backend\Mappers;
 class UserService
 {
 	
-	private $userDB;
+	private $database;
 	private $mailService;
 	
 	private const DB_TABLE = "User";
@@ -33,25 +33,25 @@ class UserService
 	
 	private function connectToDB($host, $user, $pswd, $db) {
 
-		$this->userDB = new mysqli($host, $user, $pswd, $db);
+		$this->database = new mysqli($host, $user, $pswd, $db);
 
-		if ($this->userDB->connect_errno) {
+		if ($this->database->connect_errno) {
 			return null;
 		}
 
-		$this->userDB->set_charset('utf8');
+		$this->database->set_charset('utf8');
 
-		return $this->userDB;
+		return $this->database;
 		
 	}
 	
 	// logging in (getting private data, such as email)
 	public function login($email, $password) {
 		
-		if (!$this->userDB || $this->userDB->connect_errno)
+		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 		
-		if ($result =$this->userDB->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."';")) {
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				if ($res['verification'])
 					return self::UNVERIFIED;
@@ -80,10 +80,10 @@ class UserService
 	// registering user
 	public function register($email, $password, $nickname) {
 		
-		if (!$this->userDB || $this->userDB->connect_errno)
+		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 		
-		if ($result = $this->userDB->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."' OR `".self::DB_TABLE."`.`nickname`='".$nickname."';")) {
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."' OR `".self::DB_TABLE."`.`nickname`='".$nickname."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				if ($email == $res['email'])
 					return self::EMAIL_REGISTERED;
@@ -95,10 +95,10 @@ class UserService
 		// generating verification hash
 		$verification = md5(rand(0, 10000));
 		
-		$this->userDB->query("START TRANSACTION;");
-		$this->userDB->query("SAVEPOINT reg_".$nickname.";");
+		$this->database->query("START TRANSACTION;");
+		$this->database->query("SAVEPOINT reg_".$nickname.";");
 		
-		if ($this->userDB->query("INSERT INTO `".self::DB_TABLE."`(`hash`, `nickname`, `email`, `verification`)".
+		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`hash`, `nickname`, `email`, `verification`)".
 						   "VALUES (".
 						   "'".password_hash($password, PASSWORD_BCRYPT)."',".
 						   "'".$nickname."', ".
@@ -107,12 +107,12 @@ class UserService
 			
 			if ($this->mailService->sendVerificationEmail($email, $verification)) {
 				
-				$this->userDB->query("COMMIT;");
+				$this->database->query("COMMIT;");
 				return self::SUCCESS;
 				
 			} else {
-				$this->userDB->query("ROLLBACK TO reg_".$nickname.";");
-				$this->userDB->query("COMMIT;");
+				$this->database->query("ROLLBACK TO reg_".$nickname.";");
+				$this->database->query("COMMIT;");
 				
 				return self::EMAIL_UNSENT;
 			}
@@ -126,12 +126,12 @@ class UserService
 	// verifying user
 	public function verify($email, $verification) {
 	
-		if (!$this->userDB || $this->userDB->connect_errno)
+		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 		
-		if ($result = $this->userDB->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."' AND `verification`='".$verification."';")) {
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."' AND `verification`='".$verification."';")) {
 			
-			if ($this->userDB->query("UPDATE `".self::DB_TABLE."` SET `verification`=NULL WHERE `email`='".$email."';"))
+			if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `verification`=NULL WHERE `email`='".$email."';"))
 				return self::SUCCESS;
 			
 			return self::DB_ERROR;
@@ -145,10 +145,10 @@ class UserService
 	// getting public data of user by id from database
 	public function getUser($userID) {
 		
-		if (!$this->userDB || $this->userDB->connect_errno)
+		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 		
-		if ($result = $this->userDB->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."';")) {
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				
@@ -169,10 +169,10 @@ class UserService
 	public function updateUser($dto) {
 		
 		
-		if (!$this->userDB || $this->userDB->connect_errno)
+		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 		
-		if ($this->userDB->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$dto->hashPassword.", `nickname`=".$dto->nickname.", `email`=".$dto->email." WHERE `user_id`='".$dto->id."';")) {
+		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$dto->hashPassword.", `nickname`=".$dto->nickname.", `email`=".$dto->email." WHERE `user_id`='".$dto->id."';")) {
 			
 			$this->nickname=$nickname;
 			
@@ -187,10 +187,10 @@ class UserService
 	public function deleteUser($userID)
 	{
 		
-		if (!$this->userDB || $this->userDB->connect_errno)
+		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 		
-		if ($this->userDB->query("DELETE FROM `".self::DB_TABLE."` WHERE `userID`='".$userID."';"))
+		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `userID`='".$userID."';"))
 			return self::SUCCESS;
 			
 		return self::DB_ERROR;
