@@ -176,7 +176,7 @@ class BusinessService
 		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 		
-		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$dto->password.", `nickname`=".$dto->nickname.", `description`=".$dto->description.", `photo`=".$dto->photo.", `email`=".$dto->email." WHERE `business_id`='".$dto->id."';"))
+		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `hash`='".$dto->password."', `nickname`='".$dto->nickname."', `description`='".$dto->description."', `photo`='".$dto->photo."', `email`='".$dto->email."' WHERE `business_id`='".$dto->id."';"))
 			return self::SUCCESS;
 			
 		return self::DB_ERROR;

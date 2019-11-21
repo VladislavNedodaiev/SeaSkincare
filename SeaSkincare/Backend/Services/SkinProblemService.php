@@ -139,6 +139,19 @@ class SkinProblemService
 		
 	}
 	
+	public function updateSkinProblem($dto) {
+		
+		
+		if (!$this->database || $this->database->connect_errno)
+			return self::DB_ERROR;
+		
+		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `title`='".$dto->title."', `norm_ph`='".$dto->normalPH."', `norm_salt`='".$dto->normalSalt."', `norm_air_pollution`='".$dto->normalAirPollution."', `norm_sun_power`='".$dto->normalSunPower."' WHERE `skin_problem_id`='".$dto->id."';"))
+			return self::SUCCESS;
+			
+		return self::DB_ERROR;
+		
+	}
+	
 	public function deleteSkinProblem($skinProblemID)
 	{
 		

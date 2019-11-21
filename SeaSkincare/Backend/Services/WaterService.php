@@ -6,12 +6,12 @@ use SeaSkincare\Backend\Entities;
 use SeaSkincare\Backend\DTOs;
 use SeaSkincare\Backend\Mappers;
 
-class AirService
+class WaterService
 {
 	
 	private $database;
 	
-	private const DB_TABLE = "Air";
+	private const DB_TABLE = "Water";
 	
 	public const NOT_FOUND = "NOT_FOUND";
 	
@@ -38,18 +38,23 @@ class AirService
 		
 	}
 	
-	public function createAir($connectionID, $dto) {
+	public function createWater($connectionID, $dto) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
-		
-		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`connection_id`, `temperature`, `pollution`)".
+
+		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`connection_id`, `temperature`, `pH`, `NaCl`, `MgCl2`, `MgSO4`, `CaSO4`, `NaBr`)".
 						   "VALUES (".
 						   "'".$connectionID."',".
 						   "'".$dto->temperature."', ".
-						   "'".$dto->pollution."');")) {
+						   "'".$dto->pH."', ".
+						   "'".$dto->NaCl."', ".
+						   "'".$dto->MgCl2."', ".
+						   "'".$dto->MgSO4."', ".
+						   "'".$dto->CaSO4."', ".
+						   "'".$dto->NaBr."');")) {
 			
-			return AirMapper::DTOToEntity($dto);
+			return WaterMapper::DTOToEntity($dto);
 			
 		}
 			
@@ -58,7 +63,7 @@ class AirService
 	}
 	
 	// getting public data of user by id from database
-	public function getAir($connectionID) {
+	public function getWater($connectionID) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
@@ -67,13 +72,18 @@ class AirService
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				
-				$dto = new AirDTO;
+				$dto = new WaterDTO;
 					
 				$dto->id = $res['connection_id'];
 				$dto->temperature = $res['temperature'];
-				$dto->pollution = $res['pollution'];
+				$dto->pH = $res['pH'];
+				$dto->NaCl = $res['NaCl'];
+				$dto->MgCl2 = $res['MgCl2'];
+				$dto->MgSO4 = $res['MgSO4'];
+				$dto->CaSO4 = $res['CaSO4'];
+				$dto->NaBr = $res['NaBr'];
 				
-				return AirMapper::DTOToEntity($dto);
+				return WaterMapper::DTOToEntity($dto);
 				
 			}
 		}
@@ -82,20 +92,20 @@ class AirService
 		
 	}
 	
-	public function updateAir($dto) {
+	public function updateWater($dto) {
 		
 		
 		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 		
-		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `temperature`='".$dto->temperature."', `pollution`='".$dto->pollution."' WHERE `connection_id`='".$dto->id."';"))
+		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `temperature`='".$dto->temperature."', `pH`='".$dto->pH."', `NaCl`='".$dto->NaCl."', `MgCl2`='".$dto->MgCl2."', `MgSO4`='".$dto->MgSO4."', `CaSO4`='".$dto->CaSO4."', `NaBr`='".$dto->NaBr."' WHERE `connection_id`='".$dto->id."';"))
 			return self::SUCCESS;
 			
 		return self::DB_ERROR;
 		
 	}
 	
-	public function deleteAir($connectionID)
+	public function deleteWater($connectionID)
 	{
 		
 		if (!$this->database || $this->database->connect_errno)
