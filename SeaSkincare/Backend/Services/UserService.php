@@ -15,7 +15,7 @@ class UserService
 	private const DB_TABLE = "User";
 	
 	public const UNVERIFIED = "UNVERIFIED_USER";
-	public const NO_USER = "NO_USER";
+	public const NOT_FOUND = "NOT_FOUND";
 	public const EMAIL_REGISTERED = "EMAIL_REGISTERED";
 	public const NICKNAME_REGISTERED = "NICKNAME_REGISTERED";
 	public const WRONG_PASSWORD = "WRONG_PASSWORD";
@@ -73,7 +73,7 @@ class UserService
 			}
 		}
 		
-		return self::NO_USER;
+		return self::NOT_FOUND;
 		
 	}
 	
@@ -138,7 +138,7 @@ class UserService
 			
 		}
 		
-		return self::NO_USER;
+		return self::NOT_FOUND;
 	
 	}
 	
@@ -162,7 +162,7 @@ class UserService
 			}
 		}
 		
-		return self::NO_USER;
+		return self::NOT_FOUND;
 		
 	}
 	
