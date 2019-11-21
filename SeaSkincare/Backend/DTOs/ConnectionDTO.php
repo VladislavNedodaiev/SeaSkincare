@@ -15,11 +15,6 @@ class ConnectionDTO
 	public $longitude;
 	public $battery;
 	
-	// Relations
-	public $air;
-	public $water;
-	public $weather;
-	
 }
 
 ?>

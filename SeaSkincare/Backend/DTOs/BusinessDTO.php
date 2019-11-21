@@ -15,10 +15,6 @@ class BusinessDTO
 	public $photo;
 	public $email;
 	
-	// Relations
-	public $vacations;
-	public $subscriptions;
-	
 }
 
 ?>
