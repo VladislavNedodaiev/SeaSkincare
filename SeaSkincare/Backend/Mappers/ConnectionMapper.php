@@ -5,7 +5,7 @@ namespace SeaSkincare\Backend\Mappers;
 use SeaSkincare\Backend\Entities;
 use SeaSkincare\Backend\DTOs;
 
-class ConnectionMapper
+class ConnectionMapper implements iMapper
 {
 	
 	private function __construct() {}

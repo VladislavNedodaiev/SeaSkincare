@@ -57,9 +57,9 @@ class UserService
 					return self::UNVERIFIED;
 				if (password_verify($password, $res['hash'])) {
 
-					$user = new User;
+					$user = new UserDTO;
 					
-					$user->setID($res['user_id']);
+					$user->ID = $res['user_id']);
 					$user->setPasswordHash($res['hash']);
 					$user->setNickname($res['nickname']);
 					$user->setEmail($res['email']);

@@ -5,7 +5,7 @@ namespace SeaSkincare\Backend\Mappers;
 use SeaSkincare\Backend\Entities;
 use SeaSkincare\Backend\DTOs;
 
-class WeatherMapper
+class WeatherMapper implements iMapper
 {
 	private function __construct() {}
 	
