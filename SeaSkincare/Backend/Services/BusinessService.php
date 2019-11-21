@@ -6,7 +6,7 @@ use SeaSkincare\Backend\Entities;
 use SeaSkincare\Backend\DTOs;
 use SeaSkincare\Backend\Mappers;
 
-class UserService
+class BusinessService
 {
 	
 	private $database;
@@ -57,11 +57,13 @@ class UserService
 					return self::UNVERIFIED;
 				if (password_verify($password, $res['hash'])) {
 
-					$dto = new UserDTO;
+					$dto = new BusinessDTO;
 					
-					$dto->ID = $res['user_id'];
+					$dto->ID = $res['business_id'];
 					$dto->password = $res['hash'];
 					$dto->nickname = $res['nickname'];
+					$dto->description = $res['description'];
+					$dto->photo = $res['photo'];
 					$dto->email = $res['email'];
 					$dto->verification = $res['verification'];
 					
@@ -143,21 +145,23 @@ class UserService
 	}
 	
 	// getting public data of user by id from database
-	public function getUser($userID) {
+	public function getBusiness($businessID) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."';")) {
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				
-				$dto = new UserDTO;
+				$dto = new BusinessDTO;
 					
-				$dto->ID = $res['user_id'];
+				$dto->ID = $res['business_id'];
 				$dto->nickname = $res['nickname'];
+				$dto->description = $res['description'];
+				$dto->photo = $res['photo'];
 				
-				return UserMapper::DTOToEntity($dto);
+				return BusinessMapper::DTOToEntity($dto);
 				
 			}
 		}
@@ -172,20 +176,20 @@ class UserService
 		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 		
-		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$dto->password.", `nickname`=".$dto->nickname.", `email`=".$dto->email." WHERE `user_id`='".$dto->id."';"))
+		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$dto->password.", `nickname`=".$dto->nickname.", `description`=".$dto->description.", `photo`=".$dto->photo.", `email`=".$dto->email." WHERE `business_id`='".$dto->id."';"))
 			return self::SUCCESS;
 			
 		return self::DB_ERROR;
 		
 	}
 	
-	public function deleteUser($userID)
+	public function deleteUser($businessID)
 	{
 		
 		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 		
-		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `user_id`='".$userID."';"))
+		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `busines_id`='".$businessID."';"))
 			return self::SUCCESS;
 			
 		return self::DB_ERROR;
