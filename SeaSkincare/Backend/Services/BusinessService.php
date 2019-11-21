@@ -170,7 +170,7 @@ class BusinessService
 		
 	}
 	
-	public function updateUser($dto) {
+	public function updateBusiness($dto) {
 		
 		
 		if (!$this->database || $this->database->connect_errno)
@@ -183,7 +183,7 @@ class BusinessService
 		
 	}
 	
-	public function deleteUser($businessID)
+	public function deleteBusiness($businessID)
 	{
 		
 		if (!$this->database || $this->database->connect_errno)
