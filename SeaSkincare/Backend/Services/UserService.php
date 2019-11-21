@@ -57,15 +57,15 @@ class UserService
 					return self::UNVERIFIED;
 				if (password_verify($password, $res['hash'])) {
 
-					$user = new UserDTO;
+					$userDto = new UserDTO;
 					
-					$user->ID = $res['user_id']);
-					$user->setPasswordHash($res['hash']);
-					$user->setNickname($res['nickname']);
-					$user->setEmail($res['email']);
-					$user->setVerificationHash($res['verification']);
+					$userDto->ID = $res['user_id'];
+					$userDto->passwordHash = $res['hash'];
+					$userDto->nickname = $res['nickname'];
+					$userDto->email = $res['email'];
+					$userDto->verificationHash = $res['verification'];
 					
-					return $user;
+					return UserMapper::DTOToEntity($userDto);
 					
 				}
 				else
@@ -148,21 +148,52 @@ class UserService
 		if (!$this->userDB || $this->userDB->connect_errno)
 			return self::DB_ERROR;
 		
-		if ($result = $this->userDB->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$user_id."';")) {
+		if ($result = $this->userDB->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				
-				$user = new User;
+				$userDto = new UserDTO;
 					
-				$user->setID($res['user_id']);
-				$user->setNickname($res['nickname']);
+				$userDto->ID = $res['user_id'];
+				$userDto->nickname = $res['nickname'];
 				
-				return $user;
+				return UserMapper::DTOToEntity($userDto);
 				
 			}
 		}
 		
 		return self::NO_USER;
+		
+	}
+	
+	public function updateUser($dto) {
+		
+		
+		if (!$this->userDB || $this->userDB->connect_errno)
+			return self::DB_ERROR;
+		
+		if ($this->userDB->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$dto->hashPassword.", `nickname`=".$dto->nickname.", `email`=".$dto->email." WHERE `user_id`='".$dto->id."';")) {
+			
+			$this->nickname=$nickname;
+			
+			return self::SUCCESS;
+		
+		}
+			
+		return self::DB_ERROR;
+		
+	}
+	
+	public function deleteUser($userID)
+	{
+		
+		if (!$this->userDB || $this->userDB->connect_errno)
+			return self::DB_ERROR;
+		
+		if ($this->userDB->query("DELETE FROM `".self::DB_TABLE."` WHERE `userID`='".$userID."';"))
+			return self::SUCCESS;
+			
+		return self::DB_ERROR;
 		
 	}
 	
