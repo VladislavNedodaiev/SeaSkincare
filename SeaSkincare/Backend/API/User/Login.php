@@ -1,11 +1,20 @@
 <?php
 namespace SeaSkincare\Backend\API\User;
 
-use SeaSkincare\Backend\Data;
-use SeaSkincare\Backend\Entities;
-use SeaSkincare\Backend\DTOs;
-use SeaSkincare\Backend\Mappers;
-use SeaSkincare\Backend\Services;
+include_once '../../Data/DataRepository.php';
+include_once '../../Entities/User.php';
+include_once '../../DTOs/UserDTO.php';
+include_once '../../Mappers/UserMapper.php';
+include_once '../../Services/MailService.php';
+include_once '../../Services/UserService.php';
+
+use SeaSkincare\Backend\Data\DataRepository;
+use SeaSkincare\Backend\Entities\User;
+use SeaSkincare\Backend\DTOs\UserDTO;
+use SeaSkincare\Backend\Mappers\UserMapper;
+use SeaSkincare\Backend\Services\MailService;
+use SeaSkincare\Backend\Services\UserService;
+use SeaSkincare\Backend\Communication\Response;
 
 header('Content-Type: text/html; charset=utf-8');
 session_start();
@@ -18,7 +27,7 @@ if (isset($_SESSION['profile'])) {
 	
 }
 
-if (!isset($_POST['email'])) {
+/*if (!isset($_POST['email'])) {
 	
 	http_response_code(400);
 	echo "NO_EMAIL";
@@ -32,7 +41,7 @@ if (!isset($_POST['password'])) {
 	echo "NO_PASSWORD";
 	exit;
 	
-}	
+}*/
 
 $dataRep = new DataRepository;
 
@@ -48,7 +57,7 @@ $userService = new UserService(
 
 );
 
-$response = $userService->login($email, $password);
+$response = $userService->login($_GET['email'], $_GET['password']);
 
 if ($response->status == UserService::SUCCESS) {
 	

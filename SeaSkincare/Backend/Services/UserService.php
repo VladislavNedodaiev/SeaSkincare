@@ -2,9 +2,18 @@
 
 namespace SeaSkincare\Backend\Services;
 
-use SeaSkincare\Backend\Entities;
-use SeaSkincare\Backend\DTOs;
-use SeaSkincare\Backend\Mappers;
+include_once '../../Entities/User.php';
+include_once '../../DTOs/UserDTO.php';
+include_once '../../Mappers/UserMapper.php';
+include_once '../../Services/MailService.php';
+include_once '../../Services/UserService.php';
+
+use SeaSkincare\Backend\Entities\User;
+use SeaSkincare\Backend\DTOs\UserDTO;
+use SeaSkincare\Backend\Mappers\UserMapper;
+use SeaSkincare\Backend\Services\MailService;
+use SeaSkincare\Backend\Services\UserService;
+use SeaSkincare\Backend\Communication\Response;
 
 class UserService
 {
@@ -26,14 +35,14 @@ class UserService
 	
 	public function __construct($host, $user, $pswd, $db, $mailService) {
 	
-		$this->connectToDB();
+		$this->connectToDB($host, $user, $pswd, $db);
 		$this->mailService = $mailService;
 	
 	}
 	
 	private function connectToDB($host, $user, $pswd, $db) {
 
-		$this->database = new mysqli($host, $user, $pswd, $db);
+		$this->database = new \mysqli($host, $user, $pswd, $db);
 
 		if ($this->database->connect_errno) {
 			return null;

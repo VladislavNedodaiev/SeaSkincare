@@ -10,7 +10,7 @@ class BuoyMapper implements iMapper
 	
 	private function __construct() {}
 	
-	public static function EntityToDTO($entity) {
+	public static function EntityToDTO(&$entity) {
 	
 		$dto = new BuoyDTO;
 		
@@ -21,17 +21,17 @@ class BuoyMapper implements iMapper
 	
 	}
 	
-	public static function DTOToEntity($dto) {
+	public static function DTOToEntity(&$dto) {
 		
 		$entity = new Buoy;
 		
-		self::UpdateFromDTO(&$entity, &$dto);
+		self::UpdateFromDTO($entity, $dto);
 		
 		return $entity;	
 		
 	}
 	
-	public static function UpdateFromDTO($entity, $dto) {
+	public static function UpdateFromDTO(&$entity, &$dto) {
 		
 		$entity->setID($dto->id);
 		$entity->setFabricationDate($dto->fabricationDate);

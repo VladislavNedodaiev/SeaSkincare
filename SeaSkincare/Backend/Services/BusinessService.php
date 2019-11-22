@@ -2,10 +2,10 @@
 
 namespace SeaSkincare\Backend\Services;
 
-use SeaSkincare\Backend\Entities;
-use SeaSkincare\Backend\DTOs;
-use SeaSkincare\Backend\Mappers;
-use SeaSkincare\Backend\Communication;
+use SeaSkincare\Backend\Entities\Business;
+use SeaSkincare\Backend\DTOs\BusinessDTO;
+use SeaSkincare\Backend\Mappers\BusinessMapper;
+use SeaSkincare\Backend\Communication\Response;
 
 class BusinessService
 {
@@ -27,14 +27,14 @@ class BusinessService
 	
 	public function __construct($host, $user, $pswd, $db, $mailService) {
 	
-		$this->connectToDB();
+		$this->connectToDB($host, $user, $pswd, $db);
 		$this->mailService = $mailService;
 	
 	}
 	
 	private function connectToDB($host, $user, $pswd, $db) {
 
-		$this->database = new mysqli($host, $user, $pswd, $db);
+		$this->database = new \mysqli($host, $user, $pswd, $db);
 
 		if ($this->database->connect_errno) {
 			return null;

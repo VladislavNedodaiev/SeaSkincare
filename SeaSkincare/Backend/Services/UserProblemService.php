@@ -2,10 +2,10 @@
 
 namespace SeaSkincare\Backend\Services;
 
-use SeaSkincare\Backend\Entities;
-use SeaSkincare\Backend\DTOs;
-use SeaSkincare\Backend\Mappers;
-use SeaSkincare\Backend\Communication;
+use SeaSkincare\Backend\Entities\UserProblem;
+use SeaSkincare\Backend\DTOs\UserProblemDTO;
+use SeaSkincare\Backend\Mappers\UserProblemMapper;
+use SeaSkincare\Backend\Communication\Response;
 
 class UserProblemService
 {
@@ -21,13 +21,13 @@ class UserProblemService
 	
 	public function __construct($host, $user, $pswd, $db) {
 	
-		$this->connectToDB();
+		$this->connectToDB($host, $user, $pswd, $db);
 	
 	}
 	
 	private function connectToDB($host, $user, $pswd, $db) {
 
-		$this->database = new mysqli($host, $user, $pswd, $db);
+		$this->database = new \mysqli($host, $user, $pswd, $db);
 
 		if ($this->database->connect_errno) {
 			return null;

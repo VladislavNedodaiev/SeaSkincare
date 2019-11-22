@@ -2,10 +2,10 @@
 
 namespace SeaSkincare\Backend\Services;
 
-use SeaSkincare\Backend\Entities;
-use SeaSkincare\Backend\DTOs;
-use SeaSkincare\Backend\Mappers;
-use SeaSkincare\Backend\Communication;
+use SeaSkincare\Backend\Entities\Subscription;
+use SeaSkincare\Backend\DTOs\SubscriptionDTO;
+use SeaSkincare\Backend\Mappers\SubscriptionMapper;
+use SeaSkincare\Backend\Communication\Response;
 
 class SubscriptionService
 {
@@ -21,13 +21,13 @@ class SubscriptionService
 	
 	public function __construct($host, $user, $pswd, $db) {
 	
-		$this->connectToDB();
+		$this->connectToDB($host, $user, $pswd, $db);
 	
 	}
 	
 	private function connectToDB($host, $user, $pswd, $db) {
 
-		$this->database = new mysqli($host, $user, $pswd, $db);
+		$this->database = new \mysqli($host, $user, $pswd, $db);
 
 		if ($this->database->connect_errno) {
 			return null;
