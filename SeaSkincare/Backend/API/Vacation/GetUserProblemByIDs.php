@@ -2,33 +2,31 @@
 namespace SeaSkincare\Backend\API\UserProblem;
 
 include_once '../../Data/DataRepository.php';
-include_once '../../Services/MailService.php';
 include_once '../../Entities/UserProblem.php';
 include_once '../../DTOs/UserProblemDTO.php';
 include_once '../../Mappers/UserProblemMapper.php';
+include_once '../../Services/MailService.php';
 include_once '../../Services/UserProblemService.php';
 include_once '../../Communication/Response.php';
 
 use SeaSkincare\Backend\Data\DataRepository;
-use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\Entities\UserProblem;
 use SeaSkincare\Backend\DTOs\UserProblemDTO;
 use SeaSkincare\Backend\Mappers\UserProblemMapper;
+use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\Services\UserProblemService;
 use SeaSkincare\Backend\Communication\Response;
 
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-if (!isset($_POST['userID'])) {
+if (!isset($_GET['userID'])) {
 	
 	http_response_code(400);
 	echo "NO_USERID";
 	exit;
 	
-}
-
-if (!isset($_POST['skinProblemID'])) {
+} else if (!isset($_GET['skinProblemID'])) {
 	
 	http_response_code(400);
 	echo "NO_SKINPROBLEMID";
@@ -47,15 +45,12 @@ $userProblemService = new UserProblemService(
 
 );
 
-$dto = new UserProblemDTO;
-$dto->userID = $_POST['userID'];
-$dto->skinProblemID = $_POST['skinProblemID'];
-$response = $userProblemService->createUserProblem($dto);
+$response = $userProblemService->getUserProblemByIDs($_GET['userID'], $_GET['skinProblemID']);
 
 if ($response->status == UserProblemService::SUCCESS) {
 	
 	http_response_code(200);
-	echo json_encode($response->content);
+	echo json_encode(UserProblemMapper::EntityToDTO($response->content));
 	exit;
 	
 } else if ($response->status == UserProblemService::DB_ERROR) {
@@ -64,7 +59,7 @@ if ($response->status == UserProblemService::SUCCESS) {
 	
 } else {
 	
-	http_response_code(400);
+	http_response_code(404);
 	
 }
 

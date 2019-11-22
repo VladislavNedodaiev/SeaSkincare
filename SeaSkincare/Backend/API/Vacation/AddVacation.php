@@ -1,20 +1,18 @@
 <?php
-namespace SeaSkincare\Backend\API\UserProblem;
+namespace SeaSkincare\Backend\API\Vacation;
 
 include_once '../../Data/DataRepository.php';
-include_once '../../Entities/User.php';
-include_once '../../DTOs/UserDTO.php';
-include_once '../../Mappers/UserMapper.php';
-include_once '../../Services/MailService.php';
-include_once '../../Services/UserService.php';
+include_once '../../Entities/Vacation.php';
+include_once '../../DTOs/VacationDTO.php';
+include_once '../../Mappers/VacationMapper.php';
+include_once '../../Services/VacationService.php';
 include_once '../../Communication/Response.php';
 
 use SeaSkincare\Backend\Data\DataRepository;
-use SeaSkincare\Backend\Entities\User;
-use SeaSkincare\Backend\DTOs\UserDTO;
-use SeaSkincare\Backend\Mappers\UserMapper;
-use SeaSkincare\Backend\Services\MailService;
-use SeaSkincare\Backend\Services\UserService;
+use SeaSkincare\Backend\Entities\Vacation;
+use SeaSkincare\Backend\DTOs\VacationDTO;
+use SeaSkincare\Backend\Mappers\VacationMapper;
+use SeaSkincare\Backend\Services\VacationService;
 use SeaSkincare\Backend\Communication\Response;
 
 header('Content-Type: text/html; charset=utf-8');
@@ -36,36 +34,25 @@ if (!isset($_POST['skinProblemID'])) {
 	
 }
 
+if (!isset($_POST['skinProblemID'])) {
+	
+	http_response_code(400);
+	echo "NO_SKINPROBLEMID";
+	exit;
+	
+}
+
+if (!isset($_POST['skinProblemID'])) {
+	
+	http_response_code(400);
+	echo "NO_SKINPROBLEMID";
+	exit;
+	
+}
+
 $dataRep = new DataRepository;
 
-$userService = new UserService(
-
-	$dataRep->getHost(),
-	$dataRep->getUser(),
-	$dataRep->getPassword(),
-	$dataRep->getDatabase(),
-	new MailService(
-		$_SERVER['HTTP_HOST']
-	)
-
-);
-
-$response = $userService->getUser($_POST['userID']);
-if ($response->status == UserService::DB_ERROR) {
-
-	http_response_code(500);
-	echo $response->status;
-	exit;
-
-} else if ($response->status == UserService::NOT_FOUND) {
-
-	http_response_code(400);
-	echo $response->status;
-	exit;
-
-}
-
-$skinProblemService = new SkinProblemService(
+$vacationService = new VacationService(
 
 	$dataRep->getHost(),
 	$dataRep->getUser(),
@@ -74,31 +61,7 @@ $skinProblemService = new SkinProblemService(
 
 );
 
-$response = $skinProblemService->getSkinProblem($_POST['skinProblemID']);
-if ($response->status == SkinProblemService::DB_ERROR) {
-
-	http_response_code(500);
-	echo $response->status;
-	exit;
-
-} else if ($response->status == SkinProblemService::NOT_FOUND) {
-
-	http_response_code(400);
-	echo $response->status;
-	exit;
-
-}
-
-$userProblemService = new UserProblemService(
-
-	$dataRep->getHost(),
-	$dataRep->getUser(),
-	$dataRep->getPassword(),
-	$dataRep->getDatabase()
-
-);
-
-$dto = new UserProblemDTO;
+$dto = new VacationmDTO;
 $dto->userID = $_POST['userID'];
 $dto->skinProblemID = $_POST['skinProblemID'];
 $response = $userProblemService->createUserProblem($dto);
