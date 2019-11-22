@@ -7,6 +7,7 @@ include_once '../../DTOs/UserDTO.php';
 include_once '../../Mappers/UserMapper.php';
 include_once '../../Services/MailService.php';
 include_once '../../Services/UserService.php';
+include_once '../../Communication/Response.php';
 
 use SeaSkincare\Backend\Data\DataRepository;
 use SeaSkincare\Backend\Entities\User;
@@ -27,7 +28,7 @@ if (isset($_SESSION['profile'])) {
 	
 }
 
-/*if (!isset($_POST['email'])) {
+if (!isset($_POST['email'])) {
 	
 	http_response_code(400);
 	echo "NO_EMAIL";
@@ -41,7 +42,7 @@ if (!isset($_POST['password'])) {
 	echo "NO_PASSWORD";
 	exit;
 	
-}*/
+}
 
 $dataRep = new DataRepository;
 
@@ -82,9 +83,6 @@ if ($response->status == UserService::SUCCESS) {
 }
 
 echo $response->status;
-
-//http_response_code(200);
-//echo json_encode($products_arr);*/
 exit;
 
 ?>

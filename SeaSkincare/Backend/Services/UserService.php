@@ -2,12 +2,6 @@
 
 namespace SeaSkincare\Backend\Services;
 
-include_once '../../Entities/User.php';
-include_once '../../DTOs/UserDTO.php';
-include_once '../../Mappers/UserMapper.php';
-include_once '../../Services/MailService.php';
-include_once '../../Services/UserService.php';
-
 use SeaSkincare\Backend\Entities\User;
 use SeaSkincare\Backend\DTOs\UserDTO;
 use SeaSkincare\Backend\Mappers\UserMapper;
