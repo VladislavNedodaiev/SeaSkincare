@@ -5,6 +5,7 @@ namespace SeaSkincare\Backend\Services;
 use SeaSkincare\Backend\Entities\Business;
 use SeaSkincare\Backend\DTOs\BusinessDTO;
 use SeaSkincare\Backend\Mappers\BusinessMapper;
+use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\Communication\Response;
 
 class BusinessService
@@ -13,9 +14,9 @@ class BusinessService
 	private $database;
 	private $mailService;
 	
-	private const DB_TABLE = "User";
+	private const DB_TABLE = "Business";
 	
-	public const UNVERIFIED = "UNVERIFIED_USER";
+	public const UNVERIFIED = "UNVERIFIED_BUSINESS";
 	public const NOT_FOUND = "NOT_FOUND";
 	public const EMAIL_REGISTERED = "EMAIL_REGISTERED";
 	public const NICKNAME_REGISTERED = "NICKNAME_REGISTERED";
@@ -162,7 +163,7 @@ class BusinessService
 				$dto->description = $res['description'];
 				$dto->photo = $res['photo'];
 				
-				return new Response(self::DB_ERROR, BusinessMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS, BusinessMapper::DTOToEntity($dto));
 				
 			}
 		}

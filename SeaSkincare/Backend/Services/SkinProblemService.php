@@ -5,6 +5,7 @@ namespace SeaSkincare\Backend\Services;
 use SeaSkincare\Backend\Entities\SkinProblem;
 use SeaSkincare\Backend\DTOs\SkinProblemDTO;
 use SeaSkincare\Backend\Mappers\SkinProblemMapper;
+use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\Communication\Response;
 
 class SkinProblemService
@@ -83,7 +84,7 @@ class SkinProblemService
 				$dto->normalAirPollution = $res['norm_air_pollution'];
 				$dto->normalSunPower = $res['norm_sun_power'];
 				
-				return new Response(self::DB_ERROR, SkinProblemMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS, SkinProblemMapper::DTOToEntity($dto));
 				
 			}
 		}

@@ -24,11 +24,17 @@ class MailService
 			
 			 
 			Активація акаунту:
-			'.$host.'?email='.$email.'&verification='.$verification.'
+			'.$this->host.'?email='.$email.'&verification='.$verification.'
 		 
 		';
 		
-		if (mail($email, $subject, $message))
+		$headers = array(
+			'From' => 'seaskincare@gmail.com',
+			'Reply-To' => 'seaskincare@gmail.com',
+			'X-Mailer' => 'PHP/' . phpversion()
+		);
+		
+		if (mail($email, $subject, $message, $headers))
 			return true;
 		
 		return false;

@@ -5,6 +5,7 @@ namespace SeaSkincare\Backend\Services;
 use SeaSkincare\Backend\Entities\UserProblem;
 use SeaSkincare\Backend\DTOs\UserProblemDTO;
 use SeaSkincare\Backend\Mappers\UserProblemMapper;
+use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\Communication\Response;
 
 class UserProblemService
@@ -43,6 +44,10 @@ class UserProblemService
 		
 		if (!$this->database || $this->database->connect_errno)
 			return self::new Response(self::DB_ERROR, null);
+
+		$response = $this->getUserProblemByIDs($dto->userID, $dto->skinProblemID);
+		if ($response->status == self::SUCCESS)
+			return $response;
 
 		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`user_id`, `skin_problem_id`)".
 						   "VALUES (".

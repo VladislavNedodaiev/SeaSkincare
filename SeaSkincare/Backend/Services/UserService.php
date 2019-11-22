@@ -6,7 +6,6 @@ use SeaSkincare\Backend\Entities\User;
 use SeaSkincare\Backend\DTOs\UserDTO;
 use SeaSkincare\Backend\Mappers\UserMapper;
 use SeaSkincare\Backend\Services\MailService;
-use SeaSkincare\Backend\Services\UserService;
 use SeaSkincare\Backend\Communication\Response;
 
 class UserService
@@ -160,7 +159,7 @@ class UserService
 				$dto->ID = $res['user_id'];
 				$dto->nickname = $res['nickname'];
 				
-				return new Response(self::DB_ERROR, UserMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS, UserMapper::DTOToEntity($dto));
 				
 			}
 		}
