@@ -58,7 +58,7 @@ $userService = new UserService(
 
 );
 
-$response = $userService->login($_GET['email'], $_GET['password']);
+$response = $userService->login($_POST['email'], $_POST['password']);
 
 if ($response->status == UserService::SUCCESS) {
 	
