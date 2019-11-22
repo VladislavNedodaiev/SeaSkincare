@@ -5,6 +5,7 @@ namespace SeaSkincare\Backend\Services;
 use SeaSkincare\Backend\Entities;
 use SeaSkincare\Backend\DTOs;
 use SeaSkincare\Backend\Mappers;
+use SeaSkincare\Backend\Communication;
 
 class SkinProblemService
 {
@@ -41,7 +42,7 @@ class SkinProblemService
 	public function createSkinProblem($dto) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`title`, `norm_ph`, `norm_salt`, `norm_air_pollution`, `norm_sun_power`)".
 						   "VALUES (".
@@ -55,20 +56,20 @@ class SkinProblemService
 					
 					$dto->id = $res['skin_problem_id'];
 					
-					return SkinProblemMapper::DTOToEntity($dto);
+					return new Response(self::SUCCESS, SkinProblemMapper::DTOToEntity($dto));
 					
 				}
 			}
 		}
 			
-		return self::DB_ERROR;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	
 	public function getSkinProblem($skinProblemID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`skin_problem_id`='".$skinProblemID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -82,19 +83,19 @@ class SkinProblemService
 				$dto->normalAirPollution = $res['norm_air_pollution'];
 				$dto->normalSunPower = $res['norm_sun_power'];
 				
-				return SkinProblemMapper::DTOToEntity($dto);
+				return new Response(self::DB_ERROR, SkinProblemMapper::DTOToEntity($dto));
 				
 			}
 		}
 		
-		return self::NOT_FOUND;
+		return new Response(self::NOT_FOUND, null);
 		
 	}
 	
 	public function getSkinProblems() {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."`;")) {
 			
@@ -115,10 +116,10 @@ class SkinProblemService
 				
 			}
 			
-			return $skinProblems;
+			return new Response(self::SUCCESS, $skinProblems);
 		}
 		
-		return self::NOT_FOUND;
+		return new Response(self::NOT_FOUND, null);
 		
 	}
 	
@@ -143,12 +144,12 @@ class SkinProblemService
 		
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `title`='".$dto->title."', `norm_ph`='".$dto->normalPH."', `norm_salt`='".$dto->normalSalt."', `norm_air_pollution`='".$dto->normalAirPollution."', `norm_sun_power`='".$dto->normalSunPower."' WHERE `skin_problem_id`='".$dto->id."';"))
-			return self::SUCCESS;
+			return new Response(self::SUCCESS, null);
 			
-		return self::DB_ERROR;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	
@@ -156,12 +157,12 @@ class SkinProblemService
 	{
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `skin_problem_id`='".$skinProblemID."';"))
-			return self::SUCCESS;
+			return new Response(self::SUCCESS, null);
 			
-		return self::DB_ERROR;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	

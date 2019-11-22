@@ -5,6 +5,7 @@ namespace SeaSkincare\Backend\Services;
 use SeaSkincare\Backend\Entities;
 use SeaSkincare\Backend\DTOs;
 use SeaSkincare\Backend\Mappers;
+use SeaSkincare\Backend\Communication;
 
 class ConnectionService
 {
@@ -41,7 +42,7 @@ class ConnectionService
 	public function createConnection($dto) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`buoy_id`, `latitude`, `longitude`, `battery`)".
 						   "VALUES ('".$dto->buoyID."',
@@ -54,13 +55,13 @@ class ConnectionService
 					$dto->id = $res['connection_id'];
 					$dto->connectionDate = $res['connection_date'];
 					
-					return ConnectionMapper::DTOToEntity($dto);
+					return new Response(self::SUCCESS, ConnectionMapper::DTOToEntity($dto));
 					
 				}
 			}
 		}
 			
-		return self::DB_ERROR;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	
@@ -68,7 +69,7 @@ class ConnectionService
 	public function getConnection($connectionID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`connection_id`='".$connectionID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -83,19 +84,19 @@ class ConnectionService
 				$dto->longitude = $res['longitude'];
 				$dto->battery = $res['battery'];
 				
-				return ConnectionMapper::DTOToEntity($dto);
+				return new Response(self::DB_ERROR, ConnectionMapper::DTOToEntity($dto));
 				
 			}
 		}
 		
-		return self::NOT_FOUND;
+		return new Response(self::NOT_FOUND, null);
 		
 	}
 	
 	public function getBuoyConnections($buoyID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`buoy_id`='".$buoyID."';")) {
 			
@@ -116,10 +117,10 @@ class ConnectionService
 				
 			}
 			
-			return $connections;
+			return new Response(self::SUCCESS, $connections);
 		}
 		
-		return self::NOT_FOUND;
+		return new Response(self::NOT_FOUND, null);
 		
 	}
 	
@@ -161,12 +162,12 @@ class ConnectionService
 		
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `latitude`='".$dto->latitude."', `longitude`='".$dto->longitude."', `battery`='".$dto->battery."' WHERE `connection_id`='".$dto->id."';"))
-			return self::SUCCESS;
+			return new Response(self::SUCCESS, null);
 			
-		return self::DB_ERROR;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	
@@ -174,12 +175,12 @@ class ConnectionService
 	{
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `connection_id`='".$connectionID."';"))
-			return self::SUCCESS;
+			return new Response(self::SUCCESS, null);
 			
-		return self::DB_ERROR;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	

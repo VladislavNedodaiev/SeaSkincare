@@ -5,6 +5,7 @@ namespace SeaSkincare\Backend\Services;
 use SeaSkincare\Backend\Entities;
 use SeaSkincare\Backend\DTOs;
 use SeaSkincare\Backend\Mappers;
+use SeaSkincare\Backend\Communication;
 
 class UserProblemService
 {
@@ -41,7 +42,7 @@ class UserProblemService
 	public function createUserProblem($dto) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return self::new Response(self::DB_ERROR, null);
 
 		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`user_id`, `skin_problem_id`)".
 						   "VALUES (".
@@ -53,20 +54,20 @@ class UserProblemService
 					
 					$dto->id = $res['user_problem_id'];
 					
-					return UserProblemMapper::DTOToEntity($dto);
+					return new Response(self::SUCCESS, UserProblemMapper::DTOToEntity($dto));
 					
 				}
 			}
 		}
 			
-		return self::DB_ERROR;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	
 	public function getUserProblem($userProblemID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_problem_id`='".$userProblemID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -77,19 +78,19 @@ class UserProblemService
 				$dto->userID = $res['user_id'];
 				$dto->skinProblemID = $res['skin_problem_id'];
 				
-				return UserProblemMapper::DTOToEntity($dto);
+				return new Response(self::SUCCESS, UserProblemMapper::DTOToEntity($dto));
 				
 			}
 		}
 		
-		return self::NOT_FOUND;
+		return new Response(self::NOT_FOUND, null);
 		
 	}
 	
 	public function getUserProblemByIDs($userID, $skinProblemID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."' AND `".self::DB_TABLE."`.`skin_problem_id`='".$skinProblemID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -100,19 +101,19 @@ class UserProblemService
 				$dto->userID = $res['user_id'];
 				$dto->skinProblemID = $res['skin_problem_id'];
 				
-				return UserProblemMapper::DTOToEntity($dto);
+				return new Response(self::SUCCESS, UserProblemMapper::DTOToEntity($dto));
 				
 			}
 		}
 		
-		return self::NOT_FOUND;
+		return new Response(self::NOT_FOUND, null);
 		
 	}
 	
 	public function getUserProblems($userID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."';")) {
 			
@@ -130,17 +131,17 @@ class UserProblemService
 				
 			}
 			
-			return $userProblems;
+			return new Response(self::SUCCESS, $userProblems);
 		}
 		
-		return self::NOT_FOUND;
+		return new Response(self::NOT_FOUND, null);
 		
 	}
 	
 	public function getUserProblemsBySkinProblem($skinProblemID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`skin_problem_id`='".$skinProblemID."';")) {
 			
@@ -158,10 +159,10 @@ class UserProblemService
 				
 			}
 			
-			return $userProblems;
+			return new Response(self::SUCCESS, $userProblems);
 		}
 		
-		return self::NOT_FOUND;
+		return new Response(self::NOT_FOUND, null);
 		
 	}
 	
@@ -186,12 +187,12 @@ class UserProblemService
 	{
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `user_problem_id`='".$userProblemID."';"))
-			return self::SUCCESS;
+			return new Response(self::SUCCESS, null);
 			
-		return self::DB_ERROR;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	

@@ -7,6 +7,12 @@ class MailService
 	
 	public $host;
 	
+	public function __construct($host) {
+	
+		$this->host = $host;
+	
+	}
+	
 	// sending email with verification address
 	public function sendVerificationEmail($email, $verification) {
 		

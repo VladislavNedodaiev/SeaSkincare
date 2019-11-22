@@ -5,6 +5,7 @@ namespace SeaSkincare\Backend\Services;
 use SeaSkincare\Backend\Entities;
 use SeaSkincare\Backend\DTOs;
 use SeaSkincare\Backend\Mappers;
+use SeaSkincare\Backend\Communication;
 
 class BusinessService
 {
@@ -49,12 +50,12 @@ class BusinessService
 	public function login($email, $password) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				if ($res['verification'])
-					return self::UNVERIFIED;
+					return new Response(self::UNVERIFIED, null);
 				if (password_verify($password, $res['hash'])) {
 
 					$dto = new BusinessDTO;
@@ -67,15 +68,15 @@ class BusinessService
 					$dto->email = $res['email'];
 					$dto->verification = $res['verification'];
 					
-					return UserMapper::DTOToEntity($dto);
+					return new Response(self::SUCCESS, BusinessMapper::DTOToEntity($dto));
 					
 				}
 				else
-					return self::WRONG_PASSWORD;
+					return new Response(self::WRONG_PASSWORD, null);
 			}
 		}
 		
-		return self::NOT_FOUND;
+		return new Response(self::NOT_FOUND, null);
 		
 	}
 	
@@ -83,14 +84,14 @@ class BusinessService
 	public function register($email, $password, $nickname) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."' OR `".self::DB_TABLE."`.`nickname`='".$nickname."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				if ($email == $res['email'])
-					return self::EMAIL_REGISTERED;
+					return new Response(self::EMAIL_REGISTERED, null);
 				else
-					return self::NICKNAME_REGISTERED;
+					return new Response(self::NICKNAME_REGISTERED, null);
 			}
 		}
 		
@@ -110,18 +111,18 @@ class BusinessService
 			if ($this->mailService->sendVerificationEmail($email, $verification)) {
 				
 				$this->database->query("COMMIT;");
-				return self::SUCCESS;
+				return new Response(self::SUCCESS, null);
 				
 			} else {
 				$this->database->query("ROLLBACK TO reg_".$nickname.";");
 				$this->database->query("COMMIT;");
 				
-				return self::EMAIL_UNSENT;
+				return new Response(self::EMAIL_UNSENT, null);
 			}
 			
 		}
 		
-		return self::DB_ERROR;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	
@@ -129,18 +130,18 @@ class BusinessService
 	public function verify($email, $verification) {
 	
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."' AND `verification`='".$verification."';")) {
 			
 			if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `verification`=NULL WHERE `email`='".$email."';"))
-				return self::SUCCESS;
+				return new Response(self::SUCCESS, null);
 			
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 			
 		}
 		
-		return self::NOT_FOUND;
+		return new Response(self::NOT_FOUND, null);
 	
 	}
 	
@@ -148,7 +149,7 @@ class BusinessService
 	public function getBusiness($businessID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -161,12 +162,12 @@ class BusinessService
 				$dto->description = $res['description'];
 				$dto->photo = $res['photo'];
 				
-				return BusinessMapper::DTOToEntity($dto);
+				return new Response(self::DB_ERROR, BusinessMapper::DTOToEntity($dto));
 				
 			}
 		}
 		
-		return self::NOT_FOUND;
+		return new Response(self::NOT_FOUND, null);
 		
 	}
 	
@@ -174,12 +175,12 @@ class BusinessService
 		
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `hash`='".$dto->password."', `nickname`='".$dto->nickname."', `description`='".$dto->description."', `photo`='".$dto->photo."', `email`='".$dto->email."' WHERE `business_id`='".$dto->id."';"))
-			return self::SUCCESS;
+			return new Response(self::SUCCESS, null);
 			
-		return self::DB_ERROR;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	
@@ -187,12 +188,12 @@ class BusinessService
 	{
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `busines_id`='".$businessID."';"))
-			return self::SUCCESS;
+			return new Response(self::SUCCESS, null);
 			
-		return self::DB_ERROR;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	

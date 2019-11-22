@@ -5,6 +5,7 @@ namespace SeaSkincare\Backend\Services;
 use SeaSkincare\Backend\Entities;
 use SeaSkincare\Backend\DTOs;
 use SeaSkincare\Backend\Mappers;
+use SeaSkincare\Backend\Communication;
 
 class BuoyService
 {
@@ -41,7 +42,7 @@ class BuoyService
 	public function createBuoy() {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`()".
 						   "VALUES ();")) {
@@ -53,13 +54,13 @@ class BuoyService
 					$dto->id = $res['buoy_id'];
 					$dto->fabricationDate = $res['fabrication_date'];
 					
-					return BuoyMapper::DTOToEntity($dto);
+					return new Response(self::SUCCESS, BuoyMapper::DTOToEntity($dto));
 					
 				}
 			}
 		}
 			
-		return self::DB_ERROR;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	
@@ -67,7 +68,7 @@ class BuoyService
 	public function getBuoy($buoyID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`buoy_id`='".$buoyID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -78,12 +79,12 @@ class BuoyService
 				$dto->id = $res['buoy_id'];
 				$dto->fabricationDate = $res['fabrication_date'];
 				
-				return BuoyMapper::DTOToEntity($dto);
+				return new Response(self::SUCCESS, BuoyMapper::DTOToEntity($dto));
 				
 			}
 		}
 		
-		return self::NOT_FOUND;
+		return new Response(self::NOT_FOUND, null);
 		
 	}
 	
@@ -108,12 +109,12 @@ class BuoyService
 	{
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `buoy_id`='".$buoyID."';"))
-			return self::SUCCESS;
+			return new Response(self::SUCCESS, null);
 			
-		return self::DB_ERROR;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	
