@@ -5,41 +5,25 @@ include_once '../../Data/DataRepository.php';
 include_once '../../Entities/Business.php';
 include_once '../../DTOs/BusinessDTO.php';
 include_once '../../Mappers/BusinessMapper.php';
-include_once '../../Services/MailService.php';
 include_once '../../Services/BusinessService.php';
+include_once '../../Services/MailService.php';
 include_once '../../Communication/Response.php';
 
 use SeaSkincare\Backend\Data\DataRepository;
 use SeaSkincare\Backend\Entities\Business;
 use SeaSkincare\Backend\DTOs\BusinessDTO;
 use SeaSkincare\Backend\Mappers\BusinessMapper;
-use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\Services\BusinessService;
+use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\Communication\Response;
 
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-if (isset($_SESSION['profile'])) {
-	
-	http_response_code(200);
-	echo json_encode($_SESSION['profile']);
-	exit;
-	
-}
-
-if (!isset($_POST['email'])) {
+if (!isset($_GET['businessID'])) {
 	
 	http_response_code(400);
-	echo "NO_EMAIL";
-	exit;
-	
-}
-
-if (!isset($_POST['password'])) {
-	
-	http_response_code(400);
-	echo "NO_PASSWORD";
+	echo "NO_USERID";
 	exit;
 	
 }
@@ -58,19 +42,13 @@ $businessService = new BusinessService(
 
 );
 
-$response = $businessService->login($_POST['email'], $_POST['password']);
+$response = $businessService->getBusiness($_GET['businessID']);
 
 if ($response->status == BusinessService::SUCCESS) {
 	
-	$_SESSION['profile'] = $response->content;
-	
 	http_response_code(200);
-	echo json_encode(UserMapper::EntityToDTO($response->content));
+	echo json_encode(BusinessMapper::EntityToDTO($response->content));
 	exit;
-	
-} else if ($response->status == BusinessService::UNVERIFIED){
-	
-	http_response_code(401);
 	
 } else if ($response->status == BusinessService::DB_ERROR) {
 	

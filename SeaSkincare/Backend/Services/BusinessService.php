@@ -27,10 +27,10 @@ class BusinessService
 	public const EMAIL_UNSENT = "EMAIL_UNSENT";
 	
 	public function __construct($host, $user, $pswd, $db, $mailService) {
-	
+
 		$this->connectToDB($host, $user, $pswd, $db);
 		$this->mailService = $mailService;
-	
+
 	}
 	
 	private function connectToDB($host, $user, $pswd, $db) {
@@ -128,14 +128,14 @@ class BusinessService
 	}
 	
 	// verifying user
-	public function verify($email, $verification) {
+	public function verify($userID, $verification) {
 	
 		if (!$this->database || $this->database->connect_errno)
 			return new Response(self::DB_ERROR, null);
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."' AND `verification`='".$verification."';")) {
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."' AND `verification`='".$verification."';")) {
 			
-			if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `verification`=NULL WHERE `email`='".$email."';"))
+			if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `verification`=NULL WHERE `user_id`='".$userID."';"))
 				return new Response(self::SUCCESS, null);
 			
 			return new Response(self::DB_ERROR, null);
@@ -178,11 +178,43 @@ class BusinessService
 		if (!$this->database || $this->database->connect_errno)
 			return new Response(self::DB_ERROR, null);
 		
-		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `hash`='".$dto->password."', `nickname`='".$dto->nickname."', `description`='".$dto->description."', `photo`='".$dto->photo."', `email`='".$dto->email."' WHERE `business_id`='".$dto->id."';"))
+		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `nickname`='".$dto->nickname."', `description`='".$dto->description."', `photo`='".$dto->photo."', `email`='".$dto->email."' WHERE `business_id`='".$dto->id."';"))
 			return new Response(self::SUCCESS, null);
 			
 		return new Response(self::DB_ERROR, null);
 		
+	}
+	
+	// update password
+	public function updatePassword($businessID, $oldPassword, $newPassword) {
+	
+		if ($oldPassword == $newPassword)
+			return new Response(self::SUCCESS, null);
+		
+		if (!$this->database || $this->database->connect_errno)
+			return new Response(self::DB_ERROR, null);
+		
+		$userResponse = $this->getUser($businessID);
+		if ($userResponse->status != self::SUCCESS)
+			return $userResponse;
+		
+		$result = $this->login($userResponse->content->email, $oldPassword);
+		
+		if ($result->status == self::SUCCESS) {
+			
+			$temp = password_hash($newPassword, PASSWORD_BCRYPT);
+			if ($mysqli->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$temp." WHERE `business_id`='".$businessID."';")) {
+				
+				return new Response(self::SUCCESS, null);
+			
+			}
+			
+			return new Response(self::DB_ERROR, null);
+			
+		}
+		
+		return $result;
+	
 	}
 	
 	public function deleteBusiness($businessID)

@@ -20,50 +20,26 @@ use SeaSkincare\Backend\Communication\Response;
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-if (!isset($_POST['email'])) {
+if (!isset($_POST['userID'])) {
 	
 	http_response_code(400);
-	echo "NO_EMAIL";
+	echo "NO_USERID";
 	exit;
 	
 }
 
-if(!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $_POST['email'])) {
+if (!isset($_POST['oldPassword'])) {
 	
 	http_response_code(400);
-	echo "INCORRECT_EMAIL";
+	echo "NO_OLD_PASSWORD";
 	exit;
 	
 }
 
-if (!isset($_POST['password'])) {
+if (!isset($_POST['newPassword'])) {
 	
 	http_response_code(400);
-	echo "NO_PASSWORD";
-	exit;
-	
-}
-
-if (!isset($_POST['password_repeat'])) {
-	
-	http_response_code(400);
-	echo "NO_REPEAT_PASSWORD";
-	exit;
-	
-}
-
-if ($_POST['password'] != $_POST['password_repeat']) {
-	
-	http_response_code(400);
-	echo "DIFFERENT_PASSWORDS";
-	exit;
-	
-}
-
-if (!isset($_POST['nickname'])) {
-	
-	http_response_code(400);
-	echo "NO_NICKNAME";
+	echo "NO_NEW_PASSWORD";
 	exit;
 	
 }
@@ -82,13 +58,13 @@ $userService = new UserService(
 
 );
 
-$response = $userService->register($_POST['email'], $_POST['password'], $_POST['nickname']);
+$response = $userService->updatePassword($_POST['userID'], $_POST['oldPassword'], $_POST['newPassword']);
 
 if ($response->status == UserService::SUCCESS) {
 	
 	http_response_code(200);
 	
-} else if ($response->status == UserService::DB_ERROR || $response->status == UserService::EMAIL_UNSENT) {
+} else if ($response->status == UserService::DB_ERROR) {
 	
 	http_response_code(500);
 	

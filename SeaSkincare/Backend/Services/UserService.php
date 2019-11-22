@@ -126,14 +126,14 @@ class UserService
 	}
 	
 	// verifying user
-	public function verify($email, $verification) {
+	public function verify($userID, $verification) {
 	
 		if (!$this->database || $this->database->connect_errno)
 			return new Response(self::DB_ERROR, null);
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."' AND `verification`='".$verification."';")) {
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."' AND `verification`='".$verification."';")) {
 			
-			if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `verification`=NULL WHERE `email`='".$email."';"))
+			if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `verification`=NULL WHERE `user_id`='".$userID."';"))
 				return new Response(self::SUCCESS, null);
 			
 			return new Response(self::DB_ERROR, null);
@@ -158,6 +158,7 @@ class UserService
 					
 				$dto->ID = $res['user_id'];
 				$dto->nickname = $res['nickname'];
+				$dto->email = $res['email'];
 				
 				return new Response(self::SUCCESS, UserMapper::DTOToEntity($dto));
 				
@@ -174,11 +175,43 @@ class UserService
 		if (!$this->database || $this->database->connect_errno)
 			return new Response(self::DB_ERROR, null);
 		
-		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$dto->password.", `nickname`=".$dto->nickname.", `email`=".$dto->email." WHERE `user_id`='".$dto->id."';"))
+		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `nickname`=".$dto->nickname.", `email`=".$dto->email." WHERE `user_id`='".$dto->id."';"))
 			return new Response(self::SUCCESS, null);
 			
 		return new Response(self::DB_ERROR, null);
 		
+	}
+	
+	// update password
+	public function updatePassword($userID, $oldPassword, $newPassword) {
+	
+		if ($oldPassword == $newPassword)
+			return new Response(self::SUCCESS, null);
+		
+		if (!$this->database || $this->database->connect_errno)
+			return new Response(self::DB_ERROR, null);
+		
+		$userResponse = $this->getUser($userID);
+		if ($userResponse->status != self::SUCCESS)
+			return $userResponse;
+		
+		$result = $this->login($userResponse->content->email, $oldPassword);
+		
+		if ($result->status == self::SUCCESS) {
+			
+			$temp = password_hash($newPassword, PASSWORD_BCRYPT);
+			if ($mysqli->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$temp." WHERE `business_id`='".$userID."';")) {
+				
+				return new Response(self::SUCCESS, null);
+			
+			}
+			
+			return new Response(self::DB_ERROR, null);
+			
+		}
+		
+		return $result;
+	
 	}
 	
 	public function deleteUser($userID)
