@@ -115,7 +115,7 @@ class UserProblemService
 		
 	}
 	
-	public function getUserProblems($userID) {
+	public function getUserProblemsByUserID($userID) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return new Response(self::DB_ERROR, null);
@@ -143,7 +143,7 @@ class UserProblemService
 		
 	}
 	
-	public function getUserProblemsBySkinProblem($skinProblemID) {
+	public function getUserProblemsBySkinProblemID($skinProblemID) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return new Response(self::DB_ERROR, null);

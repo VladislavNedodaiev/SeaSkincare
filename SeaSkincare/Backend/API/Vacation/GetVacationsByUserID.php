@@ -18,34 +18,10 @@ use SeaSkincare\Backend\Communication\Response;
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-if (!isset($_POST['userID'])) {
+if (!isset($_GET['userID'])) {
 	
 	http_response_code(400);
 	echo "NO_USERID";
-	exit;
-	
-}
-
-if (!isset($_POST['businessID'])) {
-	
-	http_response_code(400);
-	echo "NO_BUSINESSID";
-	exit;
-	
-}
-
-if (!isset($_POST['startDate'])) {
-	
-	http_response_code(400);
-	echo "NO_STARTDATE";
-	exit;
-	
-}
-
-if (!isset($_POST['finishDate'])) {
-	
-	http_response_code(400);
-	echo "NO_FINISHDATE";
 	exit;
 	
 }
@@ -61,17 +37,21 @@ $vacationService = new VacationService(
 
 );
 
-$dto = new VacationDTO;
-$dto->userID = $_POST['userID'];
-$dto->businessID = $_POST['businessID'];
-$dto->startDate = $_POST['startDate'];
-$dto->finishDate = $_POST['finishDate'];
-$response = $vacationService->createVacation($dto);
+$response = $vacationService->getVacationsByUserID($_GET['userID']);
 
 if ($response->status == VacationService::SUCCESS) {
 	
 	http_response_code(200);
-	echo json_encode(VacationMapper::EntityToDTO($response->content));
+	
+	$arr = new Array();
+	foreach($response as $val) {
+	
+		array_push($arr, VacationMapper::EntityToDTO($val));
+	
+	}
+	
+	echo json_encode(new Response($response->status, $arr));
+	
 	exit;
 	
 } else if ($response->status == VacationService::DB_ERROR) {
@@ -80,7 +60,7 @@ if ($response->status == VacationService::SUCCESS) {
 	
 } else {
 	
-	http_response_code(400);
+	http_response_code(404);
 	
 }
 

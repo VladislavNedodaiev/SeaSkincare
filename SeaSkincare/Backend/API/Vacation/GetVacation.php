@@ -18,17 +18,17 @@ use SeaSkincare\Backend\Communication\Response;
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-if (!isset($_GET['userProblemID'])) {
+if (!isset($_GET['vacationID'])) {
 	
 	http_response_code(400);
-	echo "NO_USERPROBLEMID";
+	echo "NO_VACATIONID";
 	exit;
 	
 }
 
 $dataRep = new DataRepository;
 
-$userProblemService = new UserProblemService(
+$vacationService = new VacationService(
 
 	$dataRep->getHost(),
 	$dataRep->getUser(),
@@ -37,15 +37,15 @@ $userProblemService = new UserProblemService(
 
 );
 
-$response = $userProblemService->getUserProblem($_GET['userProblemID']);
+$response = $vacationService->getVacation($_GET['vacationID']);
 
-if ($response->status == UserProblemService::SUCCESS) {
+if ($response->status == VacationService::SUCCESS) {
 	
 	http_response_code(200);
-	echo json_encode(UserProblemMapper::EntityToDTO($response->content));
+	echo json_encode(VacationMapper::EntityToDTO($response->content));
 	exit;
 	
-} else if ($response->status == UserProblemService::DB_ERROR) {
+} else if ($response->status == VacationService::DB_ERROR) {
 	
 	http_response_code(500);
 	

@@ -107,6 +107,99 @@ class VacationService
 		
 	}
 	
+	public function getVacationsByIDs($userID, $businessID) {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return new Response(self::DB_ERROR, null);
+		
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."' AND `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
+			
+			$vacations = new Array();
+			
+			while ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				
+				$dto = new VacationDTO;
+					
+				$dto->id = $res['vacation_id'];
+				$dto->userID = $res['user_id'];
+				$dto->businessID = $res['business_id'];
+				$dto->startDate = $res['start_date'];
+				$dto->finishDate = $res['finish_date'];
+				
+				array_push($vacations, VacationMapper::DTOToEntity($dto));
+				
+			}
+			
+			return new Response(self::SUCCESS, $vacations);
+			
+		}
+		
+		return new Response(self::NOT_FOUND, null);
+		
+	}
+	
+	public function getVacationsByUserID($userID) {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return new Response(self::DB_ERROR, null);
+		
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."';")) {
+			
+			$vacations = new Array();
+			
+			while ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				
+				$dto = new VacationDTO;
+					
+				$dto->id = $res['vacation_id'];
+				$dto->userID = $res['user_id'];
+				$dto->businessID = $res['business_id'];
+				$dto->startDate = $res['start_date'];
+				$dto->finishDate = $res['finish_date'];
+				
+				array_push($vacations, VacationMapper::DTOToEntity($dto));
+				
+			}
+			
+			return new Response(self::SUCCESS, $vacations);
+			
+		}
+		
+		return new Response(self::NOT_FOUND, null);
+		
+	}
+	
+	public function getUserProblemsBySkinProblem($businessID) {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return new Response(self::DB_ERROR, null);
+		
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
+			
+			$vacations = new Array();
+			
+			while ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				
+				$dto = new VacationDTO;
+					
+				$dto->id = $res['vacation_id'];
+				$dto->userID = $res['user_id'];
+				$dto->businessID = $res['business_id'];
+				$dto->startDate = $res['start_date'];
+				$dto->finishDate = $res['finish_date'];
+				
+				array_push($vacations, VacationMapper::DTOToEntity($dto));
+				
+			}
+			
+			return new Response(self::SUCCESS, $vacations);
+			
+		}
+		
+		return new Response(self::NOT_FOUND, null);
+		
+	}
+	
 	public function updateVacation($dto) {
 		
 		

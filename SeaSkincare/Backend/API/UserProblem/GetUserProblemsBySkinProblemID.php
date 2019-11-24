@@ -5,7 +5,6 @@ include_once '../../Data/DataRepository.php';
 include_once '../../Entities/UserProblem.php';
 include_once '../../DTOs/UserProblemDTO.php';
 include_once '../../Mappers/UserProblemMapper.php';
-include_once '../../Services/MailService.php';
 include_once '../../Services/UserProblemService.php';
 include_once '../../Communication/Response.php';
 
@@ -13,14 +12,13 @@ use SeaSkincare\Backend\Data\DataRepository;
 use SeaSkincare\Backend\Entities\UserProblem;
 use SeaSkincare\Backend\DTOs\UserProblemDTO;
 use SeaSkincare\Backend\Mappers\UserProblemMapper;
-use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\Services\UserProblemService;
 use SeaSkincare\Backend\Communication\Response;
 
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-if (!isset($_GET['userID'])) {
+if (!isset($_GET['skinProblemID'])) {
 	
 	http_response_code(400);
 	echo "NO_USERID";
@@ -39,7 +37,7 @@ $userProblemService = new UserProblemService(
 
 );
 
-$response = $userProblemService->getUserProblems($_GET['userID']);
+$response = $userProblemService->getUserProblemsBySkinProblemID($_GET['skinProblemID']);
 
 if ($response->status == UserProblemService::SUCCESS) {
 	
@@ -52,7 +50,7 @@ if ($response->status == UserProblemService::SUCCESS) {
 	
 	}
 	
-	echo json_encode($arr);
+	echo json_encode(new Response($response->status, $arr));
 	
 	exit;
 	

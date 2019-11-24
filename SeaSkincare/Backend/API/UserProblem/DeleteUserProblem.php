@@ -2,7 +2,6 @@
 namespace SeaSkincare\Backend\API\UserProblem;
 
 include_once '../../Data/DataRepository.php';
-include_once '../../Services/MailService.php';
 include_once '../../Entities/UserProblem.php';
 include_once '../../DTOs/UserProblemDTO.php';
 include_once '../../Mappers/UserProblemMapper.php';
@@ -10,7 +9,6 @@ include_once '../../Services/UserProblemService.php';
 include_once '../../Communication/Response.php';
 
 use SeaSkincare\Backend\Data\DataRepository;
-use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\Entities\UserProblem;
 use SeaSkincare\Backend\DTOs\UserProblemDTO;
 use SeaSkincare\Backend\Mappers\UserProblemMapper;
