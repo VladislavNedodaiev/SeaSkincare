@@ -16,15 +16,16 @@ class UserService
 	
 	private const DB_TABLE = "User";
 	
-	public const UNVERIFIED = "UNVERIFIED_USER";
-	public const NOT_FOUND = "NOT_FOUND";
-	public const EMAIL_REGISTERED = "EMAIL_REGISTERED";
-	public const NICKNAME_REGISTERED = "NICKNAME_REGISTERED";
-	public const WRONG_PASSWORD = "WRONG_PASSWORD";
+	public const UNVERIFIED = new Response("UNVERIFIED_USER", null);
+	public const EMAIL_REGISTERED = new Response("EMAIL_REGISTERED", null);
+	public const NICKNAME_REGISTERED = new Response("NICKNAME_REGISTERED", null);
+	public const WRONG_PASSWORD = new Response("WRONG_PASSWORD", null);
+	public const EMAIL_UNSENT = new Response("EMAIL_UNSENT", null);
+	public const SAME_PASSWORDS = new Response("SAME_PASSWORDS", null);
 	
-	public const SUCCESS = "SUCCESS";
-	public const DB_ERROR = "DB_ERROR";
-	public const EMAIL_UNSENT = "EMAIL_UNSENT";
+	public const NOT_FOUND = new Response("NOT_FOUND", null);
+	public const SUCCESS = new Response("SUCCESS", null);
+	public const DB_ERROR = new Response("DB_ERROR", null);
 	
 	public function __construct($host, $user, $pswd, $db, $mailService) {
 	
@@ -38,12 +39,12 @@ class UserService
 		$this->database = new \mysqli($host, $user, $pswd, $db);
 
 		if ($this->database->connect_errno) {
-			return null;
+			return self::DB_ERROR;
 		}
 
 		$this->database->set_charset('utf8');
 
-		return $this->database;
+		return new Response(self::SUCCESS->status, $this->database);
 		
 	}
 	
@@ -51,12 +52,12 @@ class UserService
 	public function login($email, $password) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return new Response(self::DB_ERROR, null);
+			return self::DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				if ($res['verification'])
-					return new Response(self::UNVERIFIED, null);
+					return self::UNVERIFIED;
 				if (password_verify($password, $res['hash'])) {
 
 					$dto = new UserDTO;
@@ -67,15 +68,15 @@ class UserService
 					$dto->email = $res['email'];
 					$dto->verification = $res['verification'];
 					
-					return new Response(self::SUCCESS, UserMapper::DTOToEntity($dto));
+					return new Response(self::SUCCESS->status, UserMapper::DTOToEntity($dto));
 					
 				}
 				else
-					return new Response(self::WRONG_PASSWORD, null);
+					return self::WRONG_PASSWORD;
 			}
 		}
 		
-		return new Response(self::NOT_FOUND, null);
+		return self::NOT_FOUND;
 		
 	}
 	
@@ -83,14 +84,14 @@ class UserService
 	public function register($email, $password, $nickname) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return new Response(self::DB_ERROR, null);
+			return self::DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."' OR `".self::DB_TABLE."`.`nickname`='".$nickname."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				if ($email == $res['email'])
-					return new Response(self::EMAIL_REGISTERED, null);
+					return self::EMAIL_REGISTERED;
 				else
-					return new Response(self::NICKNAME_REGISTERED, null);
+					return self::NICKNAME_REGISTERED;
 			}
 		}
 		
@@ -107,21 +108,21 @@ class UserService
 						   "'".$email."', ".
 						   "'".$verification."');")) {
 			
-			if ($this->mailService->sendVerificationEmail($email, $verification)) {
+			if ($this->mailService->sendVerificationEmail($email, $verification) == MailService::SUCCESS->status) {
 				
 				$this->database->query("COMMIT;");
-				return new Response(self::SUCCESS, null);
+				return self::SUCCESS;
 				
 			} else {
 				$this->database->query("ROLLBACK TO reg_".$nickname.";");
 				$this->database->query("COMMIT;");
 				
-				return new Response(self::EMAIL_UNSENT, null);
+				return self::EMAIL_UNSENT;
 			}
 			
 		}
 		
-		return new Response(self::DB_ERROR, null);
+		return self::DB_ERROR;
 		
 	}
 	
@@ -129,18 +130,18 @@ class UserService
 	public function verify($userID, $verification) {
 	
 		if (!$this->database || $this->database->connect_errno)
-			return new Response(self::DB_ERROR, null);
+			return self::DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."' AND `verification`='".$verification."';")) {
 			
 			if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `verification`=NULL WHERE `user_id`='".$userID."';"))
-				return new Response(self::SUCCESS, null);
+				return self::SUCCESS;
 			
-			return new Response(self::DB_ERROR, null);
+			return self::DB_ERROR;
 			
 		}
 		
-		return new Response(self::NOT_FOUND, null);
+		return self::NOT_FOUND;
 	
 	}
 	
@@ -148,7 +149,7 @@ class UserService
 	public function getUser($userID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return new Response(self::DB_ERROR, null);
+			return self::DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -160,12 +161,12 @@ class UserService
 				$dto->nickname = $res['nickname'];
 				$dto->email = $res['email'];
 				
-				return new Response(self::SUCCESS, UserMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS->status, UserMapper::DTOToEntity($dto));
 				
 			}
 		}
 		
-		return new Response(self::NOT_FOUND, null);
+		return self::NOT_FOUND;
 		
 	}
 	
@@ -173,12 +174,12 @@ class UserService
 		
 		
 		if (!$this->database || $this->database->connect_errno)
-			return new Response(self::DB_ERROR, null);
+			return self::DB_ERROR;
 		
 		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `nickname`=".$dto->nickname.", `email`=".$dto->email." WHERE `user_id`='".$dto->id."';"))
-			return new Response(self::SUCCESS, null);
+			return self::SUCCESS;
 			
-		return new Response(self::DB_ERROR, null);
+		return self::DB_ERROR;
 		
 	}
 	
@@ -186,10 +187,10 @@ class UserService
 	public function updatePassword($userID, $oldPassword, $newPassword) {
 	
 		if ($oldPassword == $newPassword)
-			return new Response(self::SUCCESS, null);
+			return self::SAME_PASSWORDS;
 		
 		if (!$this->database || $this->database->connect_errno)
-			return new Response(self::DB_ERROR, null);
+			return self::DB_ERROR;
 		
 		$userResponse = $this->getUser($userID);
 		if ($userResponse->status != self::SUCCESS)
@@ -197,16 +198,13 @@ class UserService
 		
 		$result = $this->login($userResponse->content->email, $oldPassword);
 		
-		if ($result->status == self::SUCCESS) {
+		if ($result->status == self::SUCCESS->status) {
 			
 			$temp = password_hash($newPassword, PASSWORD_BCRYPT);
-			if ($mysqli->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$temp." WHERE `business_id`='".$userID."';")) {
-				
-				return new Response(self::SUCCESS, null);
+			if ($mysqli->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$temp." WHERE `user_id`='".$userID."';"))
+				return self::SUCCESS;
 			
-			}
-			
-			return new Response(self::DB_ERROR, null);
+			return self::NOT_FOUND;
 			
 		}
 		
@@ -218,12 +216,12 @@ class UserService
 	{
 		
 		if (!$this->database || $this->database->connect_errno)
-			return new Response(self::DB_ERROR, null);
+			return self::DB_ERROR;
 		
 		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `user_id`='".$userID."';"))
-			return new Response(self::SUCCESS, null);
+			return self::SUCCESS;
 			
-		return new Response(self::DB_ERROR, null);
+		return self::NOT_FOUND;
 		
 	}
 	
