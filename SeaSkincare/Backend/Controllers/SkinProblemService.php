@@ -5,6 +5,7 @@ namespace SeaSkincare\Backend\Services;
 use SeaSkincare\Backend\Entities\SkinProblem;
 use SeaSkincare\Backend\DTOs\SkinProblemDTO;
 use SeaSkincare\Backend\Mappers\SkinProblemMapper;
+use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\Communication\Response;
 
 class SkinProblemService
@@ -14,9 +15,10 @@ class SkinProblemService
 	
 	private const DB_TABLE = "Skin_Problem";
 	
-	public const NOT_FOUND = new Response("NOT_FOUND", null);
-	public const SUCCESS = new Response("SUCCESS", null);
-	public const DB_ERROR = new Response("DB_ERROR", null);
+	public const NOT_FOUND = "NOT_FOUND";
+	
+	public const SUCCESS = "SUCCESS";
+	public const DB_ERROR = "DB_ERROR";
 	
 	public function __construct($host, $user, $pswd, $db) {
 	
@@ -29,19 +31,19 @@ class SkinProblemService
 		$this->database = new \mysqli($host, $user, $pswd, $db);
 
 		if ($this->database->connect_errno) {
-			return self::DB_ERROR;
+			return null;
 		}
 
 		$this->database->set_charset('utf8');
 
-		return new Response(self::SUCCESS->status, $this->database);
+		return $this->database;
 		
 	}
 	
 	public function createSkinProblem($dto) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`title`, `norm_ph`, `norm_salt`, `norm_air_pollution`, `norm_sun_power`)".
 						   "VALUES (".
@@ -50,27 +52,25 @@ class SkinProblemService
 						   "'".$dto->normalSalt."', ".
 						   "'".$dto->normalAirPollution."', ".
 						   "'".$dto->normalSunPower."');")) {
-			$lastID = $this->getLastID();
-			if ($lastID->status == self::SUCCESS->status
-				&& $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`skin_problem_id`=".$lastID->content.";")) {
+			if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`skin_problem_id`=".$this->getLastID().";")) {
 				if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 					
 					$dto->id = $res['skin_problem_id'];
 					
-					return new Response(self::SUCCESS->status, SkinProblemMapper::DTOToEntity($dto));
+					return new Response(self::SUCCESS, SkinProblemMapper::DTOToEntity($dto));
 					
 				}
 			}
 		}
 			
-		return self::DB_ERROR;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	
 	public function getSkinProblem($skinProblemID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`skin_problem_id`='".$skinProblemID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -84,19 +84,19 @@ class SkinProblemService
 				$dto->normalAirPollution = $res['norm_air_pollution'];
 				$dto->normalSunPower = $res['norm_sun_power'];
 				
-				return new Response(self::SUCCESS->status, SkinProblemMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS, SkinProblemMapper::DTOToEntity($dto));
 				
 			}
 		}
 		
-		return self::NOT_FOUND;
+		return new Response(self::NOT_FOUND, null);
 		
 	}
 	
 	public function getSkinProblems() {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."`;")) {
 			
@@ -117,27 +117,27 @@ class SkinProblemService
 				
 			}
 			
-			return new Response(self::SUCCESS->status, $skinProblems);
+			return new Response(self::SUCCESS, $skinProblems);
 		}
 		
-		return self::NOT_FOUND;
+		return new Response(self::NOT_FOUND, null);
 		
 	}
 	
 	public function getLastID() {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return new Response(self::DB_ERROR->status, 0);
+			return 0;
 		
 		if ($result = $this->database->query("SELECT MAX(`".self::DB_TABLE."`.`skin_problem_id`) AS `id` FROM `".self::DB_TABLE."`;")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
-				return new Response(self::SUCCESS->status, $res['id']);
+				return $res['id'];
 				
 			}
 		}
 		
-		return new Response(self::DB_ERROR->status, 0);
+		return 0;
 		
 	}
 	
@@ -145,24 +145,25 @@ class SkinProblemService
 		
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `title`='".$dto->title."', `norm_ph`='".$dto->normalPH."', `norm_salt`='".$dto->normalSalt."', `norm_air_pollution`='".$dto->normalAirPollution."', `norm_sun_power`='".$dto->normalSunPower."' WHERE `skin_problem_id`='".$dto->id."';"))
-			return self::SUCCESS;
+			return new Response(self::SUCCESS, null);
 			
-		return self::NOT_FOUND;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	
-	public function deleteSkinProblem($skinProblemID) {
+	public function deleteSkinProblem($skinProblemID)
+	{
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `skin_problem_id`='".$skinProblemID."';"))
-			return self::SUCCESS;
+			return new Response(self::SUCCESS, null);
 			
-		return self::NOT_FOUND;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	

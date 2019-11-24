@@ -14,9 +14,10 @@ class BuoyService
 	
 	private const DB_TABLE = "Buoy";
 	
-	public const NOT_FOUND = new Response("NOT_FOUND", null);
-	public const SUCCESS = new Response("SUCCESS", null);
-	public const DB_ERROR = new Response("DB_ERROR", null);
+	public const NOT_FOUND = "NOT_FOUND";
+	
+	public const SUCCESS = "SUCCESS";
+	public const DB_ERROR = "DB_ERROR";
 	
 	public function __construct($host, $user, $pswd, $db) {
 	
@@ -29,26 +30,23 @@ class BuoyService
 		$this->database = new \mysqli($host, $user, $pswd, $db);
 
 		if ($this->database->connect_errno) {
-			return self::DB_ERROR;
+			return null;
 		}
 
 		$this->database->set_charset('utf8');
 
-		return new Response(self::SUCCESS->status, $this->database);
+		return $this->database;
 		
 	}
 	
 	public function createBuoy() {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`()".
 						   "VALUES ();")) {
-							   
-			$lastID = $this->getLastID();
-			if ($lastID->status == self::SUCCESS->status
-				&& $result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`buoy_id`=".$lastID->content.";")) {
+			if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`buoy_id`=".$this->getLastID().";")) {
 				if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 					
 					$dto = new BuoyDTO;
@@ -56,13 +54,13 @@ class BuoyService
 					$dto->id = $res['buoy_id'];
 					$dto->fabricationDate = $res['fabrication_date'];
 					
-					return new Response(self::SUCCESS->status, BuoyMapper::DTOToEntity($dto));
+					return new Response(self::SUCCESS, BuoyMapper::DTOToEntity($dto));
 					
 				}
 			}
 		}
 			
-		return self::DB_ERROR;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	
@@ -70,7 +68,7 @@ class BuoyService
 	public function getBuoy($buoyID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`buoy_id`='".$buoyID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -81,29 +79,29 @@ class BuoyService
 				$dto->id = $res['buoy_id'];
 				$dto->fabricationDate = $res['fabrication_date'];
 				
-				return new Response(self::SUCCESS->status, BuoyMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS, BuoyMapper::DTOToEntity($dto));
 				
 			}
 		}
 		
-		return self::NOT_FOUND;
+		return new Response(self::NOT_FOUND, null);
 		
 	}
 	
 	public function getLastID() {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return new Response(self::DB_ERROR->status, 0);
+			return 0;
 		
 		if ($result = $this->database->query("SELECT MAX(`".self::DB_TABLE."`.`buoy_id`) AS `id` FROM `".self::DB_TABLE."`;")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
-				return new Response(self::SUCCESS->status, $res['id']);
+				return $res['id'];
 				
 			}
 		}
 		
-		return new Response(self::NOT_FOUND->status, 0);
+		return 0;
 		
 	}
 	
@@ -111,24 +109,25 @@ class BuoyService
 		
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `fabrication_date`='".$dto->fabricationDate."' WHERE `buoy_id`='".$dto->id."';"))
-			return self::SUCCESS;
+			return new Response(self::SUCCESS, null);
 			
-		return self::NOT_FOUND;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	
-	public function deleteBuoy($buoyID) {
+	public function deleteBuoy($buoyID)
+	{
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return new Response(self::DB_ERROR, null);
 		
 		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `buoy_id`='".$buoyID."';"))
-			return self::SUCCESS;
+			return new Response(self::SUCCESS, null);
 			
-		return self::NOT_FOUND;
+		return new Response(self::DB_ERROR, null);
 		
 	}
 	

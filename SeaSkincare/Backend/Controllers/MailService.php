@@ -7,9 +7,6 @@ class MailService
 	
 	public $host;
 	
-	public const SUCCESS = new Response("SUCCESS", null);
-	public const EMAIL_UNSENT = new Response("EMAIL_UNSENT", null);
-	
 	public function __construct($host) {
 	
 		$this->host = $host;
@@ -38,9 +35,9 @@ class MailService
 		);
 		
 		if (mail($email, $subject, $message, $headers))
-			return self::SUCCESS;
+			return true;
 		
-		return self::EMAIL_UNSENT;
+		return false;
 		
 	}
 	
