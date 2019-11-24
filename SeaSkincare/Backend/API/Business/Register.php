@@ -23,7 +23,7 @@ session_start();
 if (!isset($_POST['email'])) {
 	
 	http_response_code(400);
-	echo "NO_EMAIL";
+	echo json_encode(new Response("NO_EMAIL", null));
 	exit;
 	
 }
@@ -31,7 +31,7 @@ if (!isset($_POST['email'])) {
 if(!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $_POST['email'])) {
 	
 	http_response_code(400);
-	echo "INCORRECT_EMAIL";
+	echo json_encode(new Response("INCORRECT_EMAIL", null));
 	exit;
 	
 }
@@ -39,7 +39,7 @@ if(!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2
 if (!isset($_POST['password'])) {
 	
 	http_response_code(400);
-	echo "NO_PASSWORD";
+	echo json_encode(new Response("NO_PASSWORD", null));
 	exit;
 	
 }
@@ -47,7 +47,7 @@ if (!isset($_POST['password'])) {
 if (!isset($_POST['password_repeat'])) {
 	
 	http_response_code(400);
-	echo "NO_REPEAT_PASSWORD";
+	echo json_encode(new Response("NO_REPEAT_PASSWORD", null));
 	exit;
 	
 }
@@ -55,7 +55,7 @@ if (!isset($_POST['password_repeat'])) {
 if ($_POST['password'] != $_POST['password_repeat']) {
 	
 	http_response_code(400);
-	echo "DIFFERENT_PASSWORDS";
+	echo json_encode(new Response("DIFFERENT_PASSWORDS", null));
 	exit;
 	
 }
@@ -63,7 +63,7 @@ if ($_POST['password'] != $_POST['password_repeat']) {
 if (!isset($_POST['nickname'])) {
 	
 	http_response_code(400);
-	echo "NO_NICKNAME";
+	echo json_encode(new Response("NO_NICKNAME", null));
 	exit;
 	
 }
@@ -98,7 +98,7 @@ if ($response->status == BusinessService::SUCCESS) {
 	
 }
 
-echo $response->status;
+echo json_encode($response);
 exit;
 
 ?>

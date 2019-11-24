@@ -21,7 +21,7 @@ session_start();
 if (!isset($_POST['vacationID'])) {
 	
 	http_response_code(400);
-	echo "NO_VACATIONID";
+	echo json_encode(new Response("NO_VACATIONID", null));
 	exit;
 	
 }
@@ -29,7 +29,7 @@ if (!isset($_POST['vacationID'])) {
 if (!isset($_POST['startDate'])) {
 	
 	http_response_code(400);
-	echo "NO_STARTDATE";
+	echo json_encode(new Response("NO_STARTDATE", null));
 	exit;
 	
 }
@@ -37,7 +37,7 @@ if (!isset($_POST['startDate'])) {
 if (!isset($_POST['finishDate'])) {
 	
 	http_response_code(400);
-	echo "NO_FINISHDATE";
+	echo json_encode(new Response("NO_FINISHDATE", null));
 	exit;
 	
 }
@@ -73,7 +73,7 @@ if ($response->status == VacationService::SUCCESS) {
 	
 }
 
-echo $response->status;
+echo json_encode($response);
 exit;
 
 ?>

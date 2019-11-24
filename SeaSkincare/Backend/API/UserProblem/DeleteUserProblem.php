@@ -21,7 +21,7 @@ session_start();
 if (!isset($_POST['userProblemID'])) {
 	
 	http_response_code(400);
-	echo "NO_USERPROBLEMID";
+	echo json_encode(new Response("NO_USERPROBLEMID", null));
 	exit;
 	
 }
@@ -49,7 +49,7 @@ if ($response->status == UserProblemService::SUCCESS) {
 	
 }
 
-echo $response->status;
+echo json_encode($response);
 exit;
 
 ?>

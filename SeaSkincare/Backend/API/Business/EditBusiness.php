@@ -23,7 +23,7 @@ session_start();
 if (!isset($_POST['userID'])) {
 	
 	http_response_code(400);
-	echo "NO_USERID";
+	echo json_encode(new Response("NO_USERID", null));
 	exit;
 	
 }
@@ -31,7 +31,7 @@ if (!isset($_POST['userID'])) {
 if (!isset($_POST['nickname'])) {
 	
 	http_response_code(400);
-	echo "NO_NICKNAME";
+	echo json_encode(new Response("NO_NICKNAME", null));
 	exit;
 	
 }
@@ -51,7 +51,7 @@ if (!isset($_POST['photo'])) {
 if (!isset($_POST['email'])) {
 	
 	http_response_code(400);
-	echo "NO_EMAIL";
+	echo json_encode(new Response("NO_EMAIL", null));
 	exit;
 	
 }
@@ -92,7 +92,7 @@ if ($response->status == BusinessService::SUCCESS) {
 	
 }
 
-echo $response->status;
+echo json_encode($response);
 exit;
 
 ?>

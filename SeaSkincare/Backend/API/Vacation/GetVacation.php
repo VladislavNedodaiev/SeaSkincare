@@ -21,7 +21,7 @@ session_start();
 if (!isset($_GET['vacationID'])) {
 	
 	http_response_code(400);
-	echo "NO_VACATIONID";
+	echo json_encode(new Response("NO_VACATIONID", null));
 	exit;
 	
 }
@@ -42,7 +42,7 @@ $response = $vacationService->getVacation($_GET['vacationID']);
 if ($response->status == VacationService::SUCCESS) {
 	
 	http_response_code(200);
-	echo json_encode(VacationMapper::EntityToDTO($response->content));
+	echo json_encode(new Response($response->status, VacationMapper::EntityToDTO($response->content)));
 	exit;
 	
 } else if ($response->status == VacationService::DB_ERROR) {
@@ -55,7 +55,7 @@ if ($response->status == VacationService::SUCCESS) {
 	
 }
 
-echo $response->status;
+echo json_encode($response);
 exit;
 
 ?>

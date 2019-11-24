@@ -26,7 +26,7 @@ if (isset($_SESSION['profile'])) {
 	unset($_SESSION);
 	
 	http_response_code(200);
-	echo "SUCCESS";
+	echo json_encode(new Response("SUCCESS", null));
 	exit;
 	
 }

@@ -21,7 +21,7 @@ session_start();
 if (!isset($_GET['userProblemID'])) {
 	
 	http_response_code(400);
-	echo "NO_USERPROBLEMID";
+	echo json_encode(new Response("NO_USERPROBLEMID", null));
 	exit;
 	
 }
@@ -42,7 +42,7 @@ $response = $userProblemService->getUserProblem($_GET['userProblemID']);
 if ($response->status == UserProblemService::SUCCESS) {
 	
 	http_response_code(200);
-	echo json_encode(UserProblemMapper::EntityToDTO($response->content));
+	echo json_encode(new Response($response->status, UserProblemMapper::EntityToDTO($response->content)));
 	exit;
 	
 } else if ($response->status == UserProblemService::DB_ERROR) {
@@ -55,7 +55,7 @@ if ($response->status == UserProblemService::SUCCESS) {
 	
 }
 
-echo $response->status;
+echo json_encode($response);
 exit;
 
 ?>

@@ -21,7 +21,7 @@ session_start();
 if (!isset($_POST['userID'])) {
 	
 	http_response_code(400);
-	echo "NO_USERID";
+	echo json_encode(new Response("NO_USERID", null));
 	exit;
 	
 }
@@ -29,7 +29,7 @@ if (!isset($_POST['userID'])) {
 if (!isset($_POST['skinProblemID'])) {
 	
 	http_response_code(400);
-	echo "NO_SKINPROBLEMID";
+	echo json_encode(new Response("NO_SKINPROBLEMID", null));
 	exit;
 	
 }
@@ -53,7 +53,7 @@ $response = $userProblemService->createUserProblem($dto);
 if ($response->status == UserProblemService::SUCCESS) {
 	
 	http_response_code(200);
-	echo json_encode(UserProblemMapper::EntityToDTO($response->content));
+	echo json_encode(new Response($response->status, UserProblemMapper::EntityToDTO($response->content)));
 	exit;
 	
 } else if ($response->status == UserProblemService::DB_ERROR) {
@@ -66,7 +66,7 @@ if ($response->status == UserProblemService::SUCCESS) {
 	
 }
 
-echo $response->status;
+echo json_encode($response);
 exit;
 
 ?>

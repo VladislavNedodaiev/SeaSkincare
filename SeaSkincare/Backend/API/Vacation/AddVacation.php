@@ -21,7 +21,7 @@ session_start();
 if (!isset($_POST['userID'])) {
 	
 	http_response_code(400);
-	echo "NO_USERID";
+	echo json_encode(new Response("NO_USERID", null));
 	exit;
 	
 }
@@ -29,7 +29,7 @@ if (!isset($_POST['userID'])) {
 if (!isset($_POST['businessID'])) {
 	
 	http_response_code(400);
-	echo "NO_BUSINESSID";
+	echo json_encode(new Response("NO_BUSINESSID", null));
 	exit;
 	
 }
@@ -37,7 +37,7 @@ if (!isset($_POST['businessID'])) {
 if (!isset($_POST['startDate'])) {
 	
 	http_response_code(400);
-	echo "NO_STARTDATE";
+	echo json_encode(new Response("NO_STARTDATE", null));
 	exit;
 	
 }
@@ -45,7 +45,7 @@ if (!isset($_POST['startDate'])) {
 if (!isset($_POST['finishDate'])) {
 	
 	http_response_code(400);
-	echo "NO_FINISHDATE";
+	echo json_encode(new Response("NO_FINISHDATE", null));
 	exit;
 	
 }
@@ -71,7 +71,7 @@ $response = $vacationService->createVacation($dto);
 if ($response->status == VacationService::SUCCESS) {
 	
 	http_response_code(200);
-	echo json_encode(VacationMapper::EntityToDTO($response->content));
+	echo json_encode(new Response($response->status, VacationMapper::EntityToDTO($response->content)));
 	exit;
 	
 } else if ($response->status == VacationService::DB_ERROR) {
@@ -84,7 +84,7 @@ if ($response->status == VacationService::SUCCESS) {
 	
 }
 
-echo $response->status;
+echo json_encode($response);
 exit;
 
 ?>

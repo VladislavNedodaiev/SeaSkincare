@@ -23,7 +23,7 @@ session_start();
 if (isset($_SESSION['profile'])) {
 	
 	http_response_code(200);
-	echo json_encode($_SESSION['profile']);
+	echo json_encode(new Response($_SESSION['profile'], null));
 	exit;
 	
 }
@@ -31,7 +31,7 @@ if (isset($_SESSION['profile'])) {
 if (!isset($_POST['email'])) {
 	
 	http_response_code(400);
-	echo "NO_EMAIL";
+	echo json_encode(new Response("NO_EMAIL", null));
 	exit;
 	
 }
@@ -39,7 +39,7 @@ if (!isset($_POST['email'])) {
 if (!isset($_POST['password'])) {
 	
 	http_response_code(400);
-	echo "NO_PASSWORD";
+	echo json_encode(new Response("NO_PASSWORD", null));
 	exit;
 	
 }
@@ -82,7 +82,7 @@ if ($response->status == UserService::SUCCESS) {
 	
 }
 
-echo $response->status;
+echo json_encode($response);
 exit;
 
 ?>

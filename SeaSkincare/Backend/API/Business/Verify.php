@@ -20,10 +20,10 @@ use SeaSkincare\Backend\Communication\Response;
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-if (!isset($_GET['userID'])) {
+if (!isset($_GET['businessID'])) {
 	
 	http_response_code(400);
-	echo "NO_USERID";
+	echo json_encode(new Response("NO_BUSINESSID", null));
 	exit;
 	
 }
@@ -31,7 +31,7 @@ if (!isset($_GET['userID'])) {
 if (!isset($_GET['verification'])) {
 	
 	http_response_code(400);
-	echo "NO_VERIFICATION";
+	echo json_encode(new Response("NO_VERIFICATION", null));
 	exit;
 	
 }
@@ -50,7 +50,7 @@ $businessService = new BusinessService(
 
 );
 
-$response = $businessService->verify($_GET['userID'], $_GET['verification']);
+$response = $businessService->verify($_GET['businessID'], $_GET['verification']);
 
 if ($response->status == BusinessService::SUCCESS) {
 	
@@ -66,7 +66,7 @@ if ($response->status == BusinessService::SUCCESS) {
 	
 }
 
-echo $response->status;
+echo json_encode($response);
 exit;
 
 ?>

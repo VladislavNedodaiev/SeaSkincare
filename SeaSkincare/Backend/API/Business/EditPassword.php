@@ -23,7 +23,7 @@ session_start();
 if (!isset($_POST['businesID'])) {
 	
 	http_response_code(400);
-	echo "NO_USERID";
+	echo json_encode(new Response("NO_USERID", null));
 	exit;
 	
 }
@@ -31,7 +31,7 @@ if (!isset($_POST['businesID'])) {
 if (!isset($_POST['oldPassword'])) {
 	
 	http_response_code(400);
-	echo "NO_OLD_PASSWORD";
+	echo json_encode(new Response("NO_OLD_PASSWORD", null));
 	exit;
 	
 }
@@ -39,7 +39,7 @@ if (!isset($_POST['oldPassword'])) {
 if (!isset($_POST['newPassword'])) {
 	
 	http_response_code(400);
-	echo "NO_NEW_PASSWORD";
+	echo json_encode(new Response("NO_NEW_PASSWORD", null));
 	exit;
 	
 }
@@ -74,7 +74,7 @@ if ($response->status == UserService::SUCCESS) {
 	
 }
 
-echo $response->status;
+echo json_encode($response);
 exit;
 
 ?>

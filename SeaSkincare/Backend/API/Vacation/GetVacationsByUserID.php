@@ -21,7 +21,7 @@ session_start();
 if (!isset($_GET['userID'])) {
 	
 	http_response_code(400);
-	echo "NO_USERID";
+	echo json_encode(new Response("NO_USERID", null));
 	exit;
 	
 }
@@ -64,7 +64,7 @@ if ($response->status == VacationService::SUCCESS) {
 	
 }
 
-echo $response->status;
+echo json_encode($response);
 exit;
 
 ?>
