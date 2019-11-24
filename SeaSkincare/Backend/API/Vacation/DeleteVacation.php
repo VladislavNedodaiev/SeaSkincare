@@ -18,34 +18,10 @@ use SeaSkincare\Backend\Communication\Response;
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-if (!isset($_POST['userID'])) {
+if (!isset($_POST['vacationID'])) {
 	
 	http_response_code(400);
-	echo "NO_USERID";
-	exit;
-	
-}
-
-if (!isset($_POST['businessID'])) {
-	
-	http_response_code(400);
-	echo "NO_BUSINESSID";
-	exit;
-	
-}
-
-if (!isset($_POST['startDate'])) {
-	
-	http_response_code(400);
-	echo "NO_STARTDATE";
-	exit;
-	
-}
-
-if (!isset($_POST['finishDate'])) {
-	
-	http_response_code(400);
-	echo "NO_FINISHDATE";
+	echo "NO_VACATIONID";
 	exit;
 	
 }
@@ -61,26 +37,15 @@ $vacationService = new VacationService(
 
 );
 
-$dto = new VacationDTO;
-$dto->userID = $_POST['userID'];
-$dto->businessID = $_POST['businessID'];
-$dto->startDate = $_POST['startDate'];
-$dto->finishDate = $_POST['finishDate'];
-$response = $vacationService->createVacation($dto);
+$response = $vacationService->deleteVacation($_POST['vacationID']);
 
-if ($response->status == vacationService::SUCCESS) {
+if ($response->status == VacationService::SUCCESS) {
 	
 	http_response_code(200);
-	echo json_encode($response->content);
-	exit;
-	
-} else if ($response->status == vacationService::DB_ERROR) {
-	
-	http_response_code(500);
 	
 } else {
 	
-	http_response_code(400);
+	http_response_code(500);
 	
 }
 

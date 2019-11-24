@@ -1,20 +1,18 @@
 <?php
-namespace SeaSkincare\Backend\API\UserProblem;
+namespace SeaSkincare\Backend\API\Vacation;
 
 include_once '../../Data/DataRepository.php';
-include_once '../../Entities/UserProblem.php';
-include_once '../../DTOs/UserProblemDTO.php';
-include_once '../../Mappers/UserProblemMapper.php';
-include_once '../../Services/MailService.php';
-include_once '../../Services/UserProblemService.php';
+include_once '../../Entities/Vacation.php';
+include_once '../../DTOs/VacationDTO.php';
+include_once '../../Mappers/VacationMapper.php';
+include_once '../../Services/VacationService.php';
 include_once '../../Communication/Response.php';
 
 use SeaSkincare\Backend\Data\DataRepository;
-use SeaSkincare\Backend\Entities\UserProblem;
-use SeaSkincare\Backend\DTOs\UserProblemDTO;
-use SeaSkincare\Backend\Mappers\UserProblemMapper;
-use SeaSkincare\Backend\Services\MailService;
-use SeaSkincare\Backend\Services\UserProblemService;
+use SeaSkincare\Backend\Entities\Vacation;
+use SeaSkincare\Backend\DTOs\VacationDTO;
+use SeaSkincare\Backend\Mappers\VacationMapper;
+use SeaSkincare\Backend\Services\VacationService;
 use SeaSkincare\Backend\Communication\Response;
 
 header('Content-Type: text/html; charset=utf-8');
