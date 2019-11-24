@@ -206,7 +206,7 @@ class VacationService
 		if (!$this->database || $this->database->connect_errno)
 			return new Response(self::DB_ERROR, null);
 		
-		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `user_id`='".$dto->userID."', `business_id`='".$dto->businessID."', `start_date`='".$dto->startDate."', `finish_date`='".$dto->finishDate."' WHERE `vacation_id`='".$dto->id."';"))
+		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `start_date`='".$dto->startDate."', `finish_date`='".$dto->finishDate."' WHERE `vacation_id`='".$dto->id."';"))
 			return new Response(self::SUCCESS, null);
 			
 		return new Response(self::DB_ERROR, null);
