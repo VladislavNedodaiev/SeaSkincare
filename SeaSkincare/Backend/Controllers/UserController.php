@@ -18,6 +18,16 @@ class UserController
 	private $userService;
 	
 	public const NO_EMAIL = new Response("NO_EMAIL", null);
+	public const NO_PASSWORD = new Response("NO_PASSWORD", null);
+	public const NO_REPEAT_PASSWORD = new Response("NO_REPEAT_PASSWORD", null);
+	public const DIFFERENT_PASSWORDS = new Response("DIFFERENT_PASSWORDS", null);
+	public const NO_NICKNAME = new Response("NO_NICKNAME", null);
+	public const NO_USERID = new Response("NO_USERID", null);
+	public const NO_VERIFICATION = new Response("NO_VERIFICATION", null);
+	public const NO_LOGIN = new Response("NO_LOGIN", null);
+	public const SUCCESS = new Response("SUCCESS", null);
+	public const NO_OLD_PASSWORD = new Response("NO_OLD_PASSWORD", null);
+	public const NO_NEW_PASSWORD = new Response("NO_NEW_PASSWORD", null);
 	
 	
 	public function __construct() {
@@ -41,170 +51,106 @@ class UserController
 	public function login($email, $password) {
 		
 		if (!isset($email))
-			return new self::NO_EMAIL;
-	
-	http_response_code(400);
-	echo json_encode(new Response("NO_EMAIL", null));
-	exit;
-	
-}
-
-if (!isset($_POST['password'])) {
-	
-	http_response_code(400);
-	echo json_encode(new Response("NO_PASSWORD", null));
-	exit;
-	
-}
+			return self::NO_EMAIL;
+		
+		if (!isset($password))
+			return self::NO_PASSWORD;
+		
+		return $this->userService->login($email, $password);
 		
 	}
 	
 	// registering user
-	public function register($email, $password, $nickname) {
+	public function register($email, $password, $repeat_password, $nickname) {
 		
-		if (!$this->database || $this->database->connect_errno)
-			return new Response(self::DB_ERROR, null);
+		if (!isset($email))
+			return self::NO_EMAIL;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."' OR `".self::DB_TABLE."`.`nickname`='".$nickname."';")) {
-			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				if ($email == $res['email'])
-					return new Response(self::EMAIL_REGISTERED, null);
-				else
-					return new Response(self::NICKNAME_REGISTERED, null);
-			}
-		}
+		if (!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $email))
+			return self::NO_PASSWORD;
 		
-		// generating verification hash
-		$verification = md5(rand(0, 10000));
+		if (!isset($password))
+			return self::NO_PASSWORD;
 		
-		$this->database->query("START TRANSACTION;");
-		$this->database->query("SAVEPOINT reg_".$nickname.";");
+		if (!isset($repeat_password))
+			return self::NO_REPEAT_PASSWORD;
 		
-		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`hash`, `nickname`, `email`, `verification`)".
-						   "VALUES (".
-						   "'".password_hash($password, PASSWORD_BCRYPT)."',".
-						   "'".$nickname."', ".
-						   "'".$email."', ".
-						   "'".$verification."');")) {
-			
-			if ($this->mailService->sendVerificationEmail($email, $verification)) {
-				
-				$this->database->query("COMMIT;");
-				return new Response(self::SUCCESS, null);
-				
-			} else {
-				$this->database->query("ROLLBACK TO reg_".$nickname.";");
-				$this->database->query("COMMIT;");
-				
-				return new Response(self::EMAIL_UNSENT, null);
-			}
-			
-		}
+		if ($password != $repeat_password)
+			return self::DIFFERENT_PASSWORDS;
 		
-		return new Response(self::DB_ERROR, null);
+		if (!isset($nickname))
+			return self::NO_NICKNAME;
+		
+		return $this->userService->register($email, $password, $nickname);
 		
 	}
 	
 	// verifying user
 	public function verify($userID, $verification) {
 	
-		if (!$this->database || $this->database->connect_errno)
-			return new Response(self::DB_ERROR, null);
+		if (!isset($userID))
+			return self::NO_USERID;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."' AND `verification`='".$verification."';")) {
-			
-			if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `verification`=NULL WHERE `user_id`='".$userID."';"))
-				return new Response(self::SUCCESS, null);
-			
-			return new Response(self::DB_ERROR, null);
-			
-		}
+		if (!isset($verification))
+			return self::NO_VERIFICATION;
 		
-		return new Response(self::NOT_FOUND, null);
+		return $this->userService->verify($userID, $verification);
+	
+	}
+	
+	public function logout(&user) {
+	
+		if (!isset($user))
+			return self::NO_LOGIN;
+		
+		unset($user);
+		return self::SUCCESS;
 	
 	}
 	
 	// getting public data of user by id from database
 	public function getUser($userID) {
 		
-		if (!$this->database || $this->database->connect_errno)
-			return new Response(self::DB_ERROR, null);
+		if (!isset($userID))
+			return self::NO_USERID;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."';")) {
-			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				
-				
-				$dto = new UserDTO;
-					
-				$dto->ID = $res['user_id'];
-				$dto->nickname = $res['nickname'];
-				$dto->email = $res['email'];
-				
-				return new Response(self::SUCCESS, UserMapper::DTOToEntity($dto));
-				
-			}
-		}
-		
-		return new Response(self::NOT_FOUND, null);
+		return $this->$userService->getUser($userID);
 		
 	}
 	
-	public function updateUser($dto) {
-		
-		
-		if (!$this->database || $this->database->connect_errno)
-			return new Response(self::DB_ERROR, null);
-		
-		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `nickname`=".$dto->nickname.", `email`=".$dto->email." WHERE `user_id`='".$dto->id."';"))
-			return new Response(self::SUCCESS, null);
-			
-		return new Response(self::DB_ERROR, null);
-		
-	}
+	public function editUser($userID, $nickname, $email) {
 	
-	// update password
-	public function updatePassword($userID, $oldPassword, $newPassword) {
-	
-		if ($oldPassword == $newPassword)
-			return new Response(self::SUCCESS, null);
+		if (!isset($userID))
+			return self::NO_LOGIN;
 		
-		if (!$this->database || $this->database->connect_errno)
-			return new Response(self::DB_ERROR, null);
+		if (!isset($nickname))
+			return self::NO_NICKNAME;
 		
-		$userResponse = $this->getUser($userID);
-		if ($userResponse->status != self::SUCCESS)
-			return $userResponse;
+		if (!isset($email))
+			return self::NO_EMAIL;
 		
-		$result = $this->login($userResponse->content->email, $oldPassword);
+		$dto = UserDTO;
+		$dto->id = $userID;
+		$dto->nickname = $nickname;
+		$dto->email = $email;
 		
-		if ($result->status == self::SUCCESS) {
-			
-			$temp = password_hash($newPassword, PASSWORD_BCRYPT);
-			if ($mysqli->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$temp." WHERE `business_id`='".$userID."';")) {
-				
-				return new Response(self::SUCCESS, null);
-			
-			}
-			
-			return new Response(self::DB_ERROR, null);
-			
-		}
-		
-		return $result;
+		return $this->userService->updateUser($dto);
 	
 	}
 	
-	public function deleteUser($userID)
-	{
+	public function editPassword($userID, $oldPassword, $newPassword) {
+	
+		if (!isset($userID))
+			return self::NO_LOGIN;
 		
-		if (!$this->database || $this->database->connect_errno)
-			return new Response(self::DB_ERROR, null);
+		if (!isset($oldPassword))
+			return self::NO_OLD_PASSWORD;
 		
-		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `user_id`='".$userID."';"))
-			return new Response(self::SUCCESS, null);
-			
-		return new Response(self::DB_ERROR, null);
+		if (!isset($newPassword))
+			return self::NO_NEW_PASSWORD;
 		
+		return $this->userService->updatePassword($userID, $oldPassword, $newPassword);
+	
 	}
 	
 }
