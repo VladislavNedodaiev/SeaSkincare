@@ -4,25 +4,25 @@ namespace SeaSkincare\Backend\Controllers;
 
 use SeaSkincare\Backend\Data\DataRepository;
 use SeaSkincare\Backend\Services\MailService;
-use SeaSkincare\Backend\Entities\User;
-use SeaSkincare\Backend\DTOs\UserDTO;
-use SeaSkincare\Backend\Mappers\UserMapper;
-use SeaSkincare\Backend\Services\UserService;
+use SeaSkincare\Backend\Entities\Business;
+use SeaSkincare\Backend\DTOs\BusinessDTO;
+use SeaSkincare\Backend\Mappers\BusinessMapper;
+use SeaSkincare\Backend\Services\BusinessService;
 use SeaSkincare\Backend\Communication\Response;
 
-class UserController
+class BusinessController
 {
 	
 	private $dataRep;
 	private $mailService;
-	private $userService;
+	private $businessService;
 	
 	public const NO_EMAIL = new Response("NO_EMAIL", null);
 	public const NO_PASSWORD = new Response("NO_PASSWORD", null);
 	public const NO_REPEAT_PASSWORD = new Response("NO_REPEAT_PASSWORD", null);
 	public const DIFFERENT_PASSWORDS = new Response("DIFFERENT_PASSWORDS", null);
 	public const NO_NICKNAME = new Response("NO_NICKNAME", null);
-	public const NO_USERID = new Response("NO_USERID", null);
+	public const NO_BUSINESSID = new Response("NO_BUSINESSID", null);
 	public const NO_VERIFICATION = new Response("NO_VERIFICATION", null);
 	public const NO_LOGIN = new Response("NO_LOGIN", null);
 	public const SUCCESS = new Response("SUCCESS", null);
@@ -36,7 +36,7 @@ class UserController
 
 		$this->mailService = new MailService($_SERVER['HTTP_HOST']);
 
-		$this->userService = new UserService(
+		$this->businessService = new BusinessService(
 
 			$this->dataRep->getHost(),
 			$this->dataRep->getUser(),
@@ -56,7 +56,7 @@ class UserController
 		if (!isset($password))
 			return self::NO_PASSWORD;
 		
-		return $this->userService->login($email, $password);
+		return $this->businessService->login($email, $password);
 		
 	}
 	
@@ -81,47 +81,47 @@ class UserController
 		if (!isset($nickname))
 			return self::NO_NICKNAME;
 		
-		return $this->userService->register($email, $password, $nickname);
+		return $this->businessService->register($email, $password, $nickname);
 		
 	}
 	
 	// verifying user
-	public function verify($userID, $verification) {
+	public function verify($businessID, $verification) {
 	
-		if (!isset($userID))
-			return self::NO_USERID;
+		if (!isset($businessID))
+			return self::NO_BUSINESSID;
 		
 		if (!isset($verification))
 			return self::NO_VERIFICATION;
 		
-		return $this->userService->verify($userID, $verification);
+		return $this->businessService->verify($businessID, $verification);
 	
 	}
 	
-	public function logout(&user) {
+	public function logout(&business) {
 	
-		if (!isset($user))
+		if (!isset($business))
 			return self::NO_LOGIN;
 		
-		unset($user);
+		unset($business);
 		return self::SUCCESS;
 	
 	}
 	
 	// getting public data of user by id from database
-	public function getUser($userID) {
+	public function getBusiness($businessID) {
 		
-		if (!isset($userID))
-			return self::NO_USERID;
+		if (!isset($businessID))
+			return self::NO_BUSINESSID;
 		
-		return $this->userService->getUser($userID);
+		return $this->$businessService->getBusiness($businessID);
 		
 	}
 	
-	public function editUser($userID, $nickname, $email) {
+	public function editUser($businessID, $nickname, $email) {
 	
-		if (!isset($userID))
-			return self::NO_USERID;
+		if (!isset($businessID))
+			return self::NO_BUSINESSID;
 		
 		if (!isset($nickname))
 			return self::NO_NICKNAME;
@@ -129,19 +129,19 @@ class UserController
 		if (!isset($email))
 			return self::NO_EMAIL;
 		
-		$dto = UserDTO;
-		$dto->id = $userID;
+		$dto = BusinessDTO;
+		$dto->id = $businessID;
 		$dto->nickname = $nickname;
 		$dto->email = $email;
 		
-		return $this->userService->updateUser($dto);
+		return $this->businessService->updateBusiness($dto);
 	
 	}
 	
-	public function editPassword($userID, $oldPassword, $newPassword) {
+	public function editPassword($businessID, $oldPassword, $newPassword) {
 	
-		if (!isset($userID))
-			return self::NO_USERID;
+		if (!isset($businessID))
+			return self::NO_BUSINESSID;
 		
 		if (!isset($oldPassword))
 			return self::NO_OLD_PASSWORD;
@@ -149,7 +149,7 @@ class UserController
 		if (!isset($newPassword))
 			return self::NO_NEW_PASSWORD;
 		
-		return $this->userService->updatePassword($userID, $oldPassword, $newPassword);
+		return $this->businessService->updatePassword($businessID, $oldPassword, $newPassword);
 	
 	}
 	
