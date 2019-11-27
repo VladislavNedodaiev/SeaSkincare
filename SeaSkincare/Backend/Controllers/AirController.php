@@ -15,15 +15,17 @@ class AirController
 	private $dataRep;
 	private $airService;
 	
-	public const NO_AIRID = new Response("NO_AIRID", null);
 	public const SUCCESS = new Response("SUCCESS", null);
+	public const NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
+	public const NO_TEMPERATURE = new Response("NO_TEMPERATURE", null);
+	public const NO_POLLUTION = new Response("NO_POLLUTION", null);
 	
 	
 	public function __construct() {
 	
 		$this->dataRep = new DataRepository;
 
-		$this->userService = new UserService(
+		$this->airService = new AirService(
 
 			$this->dataRep->getHost(),
 			$this->dataRep->getUser(),
@@ -34,41 +36,61 @@ class AirController
 	
 	}
 	
+	public function createAir($connectionID, $temperature, $pollution) {
+		
+		if (!isset($connectionID))
+			return self::NO_CONNECTIONID;
+		
+		if (!isset($temperature))
+			return self::NO_TEMPERATURE;
+		
+		if (!isset($pollution))
+			return self::NO_POLLUTION;
+		
+		$dto = AirDTO;
+		$dto->id = $connectionID;
+		$dto->temperature = $temperature;
+		$dto->pollution = $pollution;
+		
+		return $this->airService->createAir($dto);
+		
+	}
+	
 	public function getAir($airID) {
 		
 		if (!isset($airID))
-			return self::NO_AIRID;
+			return self::NO_CONNECTIONID;
 		
 		return $this->airService->getAir($airID);
 		
 	}
 	
-	public function editAir($airID) {
+	public function editAir($connectionID, $temperature, $pollution) {
 	
-		/*if (!isset($userID))
-			return self::NO_USERID;
+		if (!isset($connectionID))
+			return self::NO_CONNECTIONID;
 		
-		$dto = UserDTO;
-		$dto->id = $userID;
-		$dto->nickname = $nickname;
-		$dto->email = $email;
+		if (!isset($temperature))
+			return self::NO_TEMPERATURE;
 		
-		return $this->userService->updateUser($dto);*/
+		if (!isset($pollution))
+			return self::NO_POLLUTION;
+		
+		$dto = AirDTO;
+		$dto->id = $connectionID;
+		$dto->temperature = $temperature;
+		$dto->pollution = $pollution;
+		
+		return $this->airService->updateAir($dto);
 	
 	}
 	
-	public function deleteAir($airID, $oldPassword, $newPassword) {
+	public function deleteAir($airID) {
 	
-		/*if (!isset($userID))
-			return self::NO_USERID;
+		if (!isset($airID))
+			return self::NO_CONNECTIONID;
 		
-		if (!isset($oldPassword))
-			return self::NO_OLD_PASSWORD;
-		
-		if (!isset($newPassword))
-			return self::NO_NEW_PASSWORD;
-		
-		return $this->userService->updatePassword($userID, $oldPassword, $newPassword);*/
+		return $this->airService->deleteAir($airID);
 	
 	}
 	

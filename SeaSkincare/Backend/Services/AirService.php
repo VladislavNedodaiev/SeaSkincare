@@ -38,14 +38,14 @@ class AirService
 		
 	}
 	
-	public function createAir($connectionID, $dto) {
+	public function createAir($dto) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 		
 		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`connection_id`, `temperature`, `pollution`)".
 						   "VALUES (".
-						   "'".$connectionID."',".
+						   "'".$dto->id."',".
 						   "'".$dto->temperature."', ".
 						   "'".$dto->pollution."');")) {
 			
