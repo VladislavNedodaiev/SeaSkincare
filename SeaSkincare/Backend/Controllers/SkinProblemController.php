@@ -56,7 +56,7 @@ class SkinProblemController
 		if (!isset($normalSunPower))
 			return self::NO_NORMAL_SUN_POWER;
 		
-		$dto = SkinProblemDTO;
+		$dto = new SkinProblemDTO;
 		$dto->title = $title;
 		$dto->normalPH = $normalPH;
 		$dto->normalSalt = $normalSalt;
@@ -109,7 +109,7 @@ class SkinProblemController
 		if (!isset($normalSunPower))
 			return self::NO_NORMAL_SUN_POWER;
 		
-		$dto = SkinProblemDTO;
+		$dto = new SkinProblemDTO;
 		$dto->title = $title;
 		$dto->normalPH = $normalPH;
 		$dto->normalSalt = $normalSalt;

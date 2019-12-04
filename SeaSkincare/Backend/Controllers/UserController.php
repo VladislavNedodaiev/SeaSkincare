@@ -129,7 +129,7 @@ class UserController
 		if (!isset($email))
 			return self::NO_EMAIL;
 		
-		$dto = UserDTO;
+		$dto = new UserDTO;
 		$dto->id = $userID;
 		$dto->nickname = $nickname;
 		$dto->email = $email;

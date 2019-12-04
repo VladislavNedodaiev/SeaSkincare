@@ -47,7 +47,7 @@ class AirController
 		if (!isset($pollution))
 			return self::NO_POLLUTION;
 		
-		$dto = AirDTO;
+		$dto = new AirDTO;
 		$dto->id = $connectionID;
 		$dto->temperature = $temperature;
 		$dto->pollution = $pollution;
@@ -76,7 +76,7 @@ class AirController
 		if (!isset($pollution))
 			return self::NO_POLLUTION;
 		
-		$dto = AirDTO;
+		$dto = new AirDTO;
 		$dto->id = $connectionID;
 		$dto->temperature = $temperature;
 		$dto->pollution = $pollution;

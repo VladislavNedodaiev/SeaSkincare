@@ -129,7 +129,7 @@ class BusinessController
 		if (!isset($email))
 			return self::NO_EMAIL;
 		
-		$dto = BusinessDTO;
+		$dto = new BusinessDTO;
 		$dto->id = $businessID;
 		$dto->nickname = $nickname;
 		$dto->email = $email;

@@ -52,7 +52,7 @@ class ConnectionController
 		if (!isset($battery))
 			return self::NO_BATTERY;
 		
-		$dto = ConnectionDTO;
+		$dto = new ConnectionDTO;
 		$dto->buoyID = $buoyID;
 		$dto->latitude = $latitude;
 		$dto->longitude = $longitude;
@@ -114,7 +114,7 @@ class ConnectionController
 		if (!isset($battery))
 			return self::NO_BATTERY;
 		
-		$dto = ConnectionDTO;
+		$dto = new ConnectionDTO;
 		$dto->id = $connectionID;
 		$dto->latitude = $latitude;
 		$dto->longitude = $longitude;

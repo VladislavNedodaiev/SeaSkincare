@@ -92,7 +92,7 @@ class UserProblemService
 		
 	}
 	
-	public function getUserProblemByIDs($userID, $skinProblemID) {
+	public function getUserProblemsByIDs($userID, $skinProblemID) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;

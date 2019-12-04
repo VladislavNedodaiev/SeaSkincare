@@ -63,7 +63,7 @@ class BuoyController
 		if (!((bool)$fabDate))
 			return self::INCORRECT_FABRICATIONDATE;
 		
-		$dto = BuoyDTO;
+		$dto = new BuoyDTO;
 		$dto->id = $buoyID;
 		$dto->fabricationDate = $fabricationDate;
 		

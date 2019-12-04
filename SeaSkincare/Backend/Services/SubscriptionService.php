@@ -91,6 +91,93 @@ class SubscriptionService
 		
 	}
 	
+	public function getSubscriptionsByIDs($buoyID, $businessID) {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return self::DB_ERROR;
+		
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`buoy_id`='".$buoyID."' AND `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
+			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				
+				$dto = new SubscriptionDTO;
+					
+				$dto->id = $res['subscription_id'];
+				$dto->buoyID = $res['buoy_id'];
+				$dto->businessID = $res['business_id'];
+				$dto->startDate = $res['startDate'];
+				$dto->finishDate = $res['finishDate'];
+				
+				return new Response(self::SUCCESS->status, SubscriptionMapper::DTOToEntity($dto));
+				
+			}
+		}
+		
+		return self::NOT_FOUND;
+		
+	}
+	
+	public function getSubscriptionsByBuoyID($buoyID) {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return self::DB_ERROR;
+		
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`buoy_id`='".$buoyID."';")) {
+			
+			$vacations = new Array();
+			
+			while ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				
+				$dto = new SubscriptionDTO;
+					
+				$dto->id = $res['subscription_id'];
+				$dto->buoyID = $res['buoy_id'];
+				$dto->businessID = $res['business_id'];
+				$dto->startDate = $res['startDate'];
+				$dto->finishDate = $res['finishDate'];
+				
+				return new Response(self::SUCCESS->status, SubscriptionMapper::DTOToEntity($dto));
+				
+			}
+			
+			return new Response(self::SUCCESS->status, $vacations);
+			
+		}
+		
+		return self::NOT_FOUND;
+		
+	}
+	
+	public function getSubscriptionsByBusinessID($businessID) {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return self::DB_ERROR;
+		
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
+			
+			$vacations = new Array();
+			
+			while ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				
+				$dto = new SubscriptionDTO;
+					
+				$dto->id = $res['subscription_id'];
+				$dto->buoyID = $res['buoy_id'];
+				$dto->businessID = $res['business_id'];
+				$dto->startDate = $res['startDate'];
+				$dto->finishDate = $res['finishDate'];
+				
+				return new Response(self::SUCCESS->status, SubscriptionMapper::DTOToEntity($dto));
+				
+			}
+			
+			return new Response(self::SUCCESS->status, $vacations);
+			
+		}
+		
+		return self::NOT_FOUND;
+		
+	}
+	
 	public function getLastID() {
 		
 		if (!$this->database || $this->database->connect_errno)
