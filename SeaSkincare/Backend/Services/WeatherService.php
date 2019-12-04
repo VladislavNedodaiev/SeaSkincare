@@ -38,14 +38,14 @@ class WeatherService
 		
 	}
 	
-	public function createWeather($connectionID, $dto) {
+	public function createWeather($dto) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 	
 		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`connection_id`, `sun_power`, `wind_speed`)".
 						   "VALUES (".
-						   "'".$connectionID."',".
+						   "'".$dto->id."',".
 						   "'".$dto->sunPower."', ".
 						   "'".$dto->windSpeed."');")) {
 			

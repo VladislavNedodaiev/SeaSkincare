@@ -38,14 +38,14 @@ class WaterService
 		
 	}
 	
-	public function createWater($connectionID, $dto) {
+	public function createWater($dto) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 
 		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`connection_id`, `temperature`, `pH`, `NaCl`, `MgCl2`, `MgSO4`, `CaSO4`, `NaBr`)".
 						   "VALUES (".
-						   "'".$connectionID."',".
+						   "'".$dto->id."',".
 						   "'".$dto->temperature."', ".
 						   "'".$dto->pH."', ".
 						   "'".$dto->NaCl."', ".
