@@ -170,7 +170,7 @@ class VacationService
 		
 	}
 	
-	public function getUserProblemsBySkinProblem($businessID) {
+	public function getVacationByBusinessID($businessID) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;

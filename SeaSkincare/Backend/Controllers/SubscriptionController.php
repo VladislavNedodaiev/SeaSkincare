@@ -20,7 +20,9 @@ class SubscriptionController
 	public const NO_BUOYID = new Response("NO_BUOYID", null);
 	public const NO_BUSINESSID = new Response("NO_BUSINESSID", null);
 	public const NO_STARTDATE = new Response("NO_STARTDATE", null);
-	public const NO_FINISHDATE = new Response("NO_FINISHDATE", null);	
+	public const INCORRECT_STARTDATE = new Response("NO_STARTDATE", null);
+	public const NO_FINISHDATE = new Response("NO_FINISHDATE", null);
+	public const INCORRECT_FINISHDATE = new Response("NO_STARTDATE", null);
 	
 	public function __construct() {
 	
@@ -50,6 +52,12 @@ class SubscriptionController
 		
 		if (!isset($finishDate))
 			return self::NO_FINISHDATE;
+		
+		if (!((bool)(strtotime($startDate))))
+			return self::INCORRECT_STARTDATE;
+		
+		if (!((bool)(strtotime($finishDate))))
+			return self::INCORRECT_FINISHDATE;
 		
 		$dto = new SubscriptionDTO;
 		$dto->buoyID = $buoyID;
@@ -123,6 +131,12 @@ class SubscriptionController
 		
 		if (!isset($finishDate))
 			return self::NO_FINISHDATE;
+		
+		if (!((bool)(strtotime($startDate))))
+			return self::INCORRECT_STARTDATE;
+		
+		if (!((bool)(strtotime($finishDate))))
+			return self::INCORRECT_FINISHDATE;
 		
 		$dto = new SubscriptionDTO;
 		$dto->buoyID = $buoyID;
