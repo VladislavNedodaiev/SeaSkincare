@@ -22,6 +22,7 @@ class SkinProblemController
 	public const NO_NORMAL_SALT = new Response("NO_NORMAL_SALT", null);
 	public const NO_NORMAL_AIR_POLLUTION = new Response("NO_NORMAL_AIR_POLLUTION", null);
 	public const NO_NORMAL_SUN_POWER = new Response("NO_NORMAL_SUN_POWER", null);
+	public const UNDEFINED = new Response("UNDEFINED", null);
 	
 	
 	public function __construct() {
@@ -89,6 +90,41 @@ class SkinProblemController
 			return $skinProblemID;
 		
 		return $this->skinProblemService->getSkinProblem($skinProblemID->content);
+		
+	}
+	
+	public function getAverageSkinProblem($dtos) {
+		
+		$skinProblemDTO = new SkinProblemDTO;
+		$skinProblemDTO->id = 0;
+		$skinProblemDTO->title = "";
+		$skinProblemDTO->normalPH = 0;
+		$skinProblemDTO->normalSalt = 0;
+		$skinProblemDTO->normalAirPollution = 0;
+		$skinProblemDTO->normalSunPower = 0;
+		
+		$count = 0;
+		foreach ($dtos as $key => &$value) {
+		
+			$skinProblemDTO->normalPH += $value->normalPH;
+			$skinProblemDTO->normalSalt += $value->normalSalt;
+			$skinProblemDTO->normalAirPollution += $value->normalAirPollution;
+			$skinProblemDTO->normalSunPower += $value->normalSunPower;
+		
+		}
+		
+		if ($count) {
+			
+			$skinProblemDTO->normalPH /= $count;
+			$skinProblemDTO->normalSalt /= $count;
+			$skinProblemDTO->normalAirPollution /= $count;
+			$skinProblemDTO->normalSunPower /= $count;
+			
+			return new Response("SUCCESS", $skinProblemDTO);
+			
+		}
+		
+		return self::UNDEFINED;
 		
 	}
 	

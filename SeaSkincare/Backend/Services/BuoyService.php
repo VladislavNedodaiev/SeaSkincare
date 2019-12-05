@@ -2,9 +2,7 @@
 
 namespace SeaSkincare\Backend\Services;
 
-use SeaSkincare\Backend\Entities\Buoy;
 use SeaSkincare\Backend\DTOs\BuoyEntity;
-use SeaSkincare\Backend\Mappers\BuoyMapper;
 use SeaSkincare\Backend\Communication\Response;
 
 class BuoyService

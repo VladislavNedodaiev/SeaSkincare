@@ -2,9 +2,7 @@
 
 namespace SeaSkincare\Backend\Services;
 
-use SeaSkincare\Backend\Entities\Water;
 use SeaSkincare\Backend\DTOs\WaterDTO;
-use SeaSkincare\Backend\Mappers\WaterMapper;
 use SeaSkincare\Backend\Communication\Response;
 
 class WaterService

@@ -2,9 +2,7 @@
 
 namespace SeaSkincare\Backend\Services;
 
-use SeaSkincare\Backend\Entities\Air;
 use SeaSkincare\Backend\DTOs\AirDTO;
-use SeaSkincare\Backend\Mappers\AirMapper;
 use SeaSkincare\Backend\Communication\Response;
 
 class AirService

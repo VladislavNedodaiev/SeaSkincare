@@ -4,22 +4,29 @@ namespace SeaSkincare\Backend\Controllers;
 
 use SeaSkincare\Backend\Data\DataRepository;
 use SeaSkincare\Backend\Services\MailService;
-use SeaSkincare\Backend\Entities\User;
 use SeaSkincare\Backend\DTOs\UserDTO;
 use SeaSkincare\Backend\Mappers\UserMapper;
 use SeaSkincare\Backend\Services\UserService;
 use SeaSkincare\Backend\Communication\Response;
+
+use SeaSkincare\Backend\DTOs\VacationDTO;
+use SeaSkincare\Backend\Controllers\VacationController;
+
+use SeaSkincare\Backend\DTOs\UserProblemDTO;
 use SeaSkincare\Backend\Controllers\UserProblemController;
-use SeaSkincare\Backend\Controllers\UserProblemDTO;
-use SeaSkincare\Backend\Controllers\UserProblemMapper;
+
+use SeaSkincare\Backend\DTOs\SkinProblemDTO;
 use SeaSkincare\Backend\Controllers\SkinProblemController;
 
-class UserController
-{
+class UserController {
 	
 	private $dataRep;
 	private $mailService;
 	private $userService;
+	
+	private $vacationController;
+	private $userProblemController;
+	private $skinProblemController;
 	
 	public const NO_EMAIL = new Response("NO_EMAIL", null);
 	public const INCORRECT_EMAIL = new Response("INCORRECT_EMAIL", null);
@@ -50,6 +57,10 @@ class UserController
 			$this->mailService
 
 		);
+		
+		$this->vacationController = new VacationController;
+		$this->userProblemController = new UserProblemController;
+		$this->skinProblemController = new SkinProblemController;
 	
 	}
 	
@@ -123,15 +134,21 @@ class UserController
 		
 	}
 	
-	public function getAverageUserProblem($userID) {
+	public function getAverageSkinProblem($userID) {
 		
+		$userProblems = $this->userProblemController->getUserProblemsByUserID($userID);
 		
+		if ($userProblems->status != UserProblemController::SUCCESS)
+			return $userProblems;
 		
-	}
-	
-	public function getRecommendationUserVacation($userID) {
+		$userProblems = $userProblems->content;
+		foreach ($userProblems as $key => &$value) {
 		
+			$userProblems[$key] = $this->skinProblemController->getSkinProblem($value->id)->content;
 		
+		}
+		
+		return $this->skinProblemController->getAverageSkinProblem($userProblems);
 		
 	}
 	

@@ -2,9 +2,7 @@
 
 namespace SeaSkincare\Backend\Services;
 
-use SeaSkincare\Backend\Entities\Connection;
 use SeaSkincare\Backend\DTOs\ConnectionDTO;
-use SeaSkincare\Backend\Mappers\ConnectionMapper;
 use SeaSkincare\Backend\Communication\Response;
 
 class ConnectionService

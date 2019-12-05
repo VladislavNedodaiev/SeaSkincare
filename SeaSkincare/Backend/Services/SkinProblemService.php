@@ -2,9 +2,7 @@
 
 namespace SeaSkincare\Backend\Services;
 
-use SeaSkincare\Backend\Entities\SkinProblem;
 use SeaSkincare\Backend\DTOs\SkinProblemDTO;
-use SeaSkincare\Backend\Mappers\SkinProblemMapper;
 use SeaSkincare\Backend\Communication\Response;
 
 class SkinProblemService

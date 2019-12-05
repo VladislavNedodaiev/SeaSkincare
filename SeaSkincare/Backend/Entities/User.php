@@ -60,6 +60,18 @@ class User
 		
 	}
 	
+	public function getAverageUserProblem() {
+		
+		
+		
+		for ($userProblems as $key => &$value) {
+		
+			
+		
+		}
+		
+	}
+	
 	// SET
 	
 	public function setID($id) {

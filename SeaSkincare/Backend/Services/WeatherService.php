@@ -2,9 +2,7 @@
 
 namespace SeaSkincare\Backend\Services;
 
-use SeaSkincare\Backend\Entities\Weather;
 use SeaSkincare\Backend\DTOs\WeatherDTO;
-use SeaSkincare\Backend\Mappers\WeatherMapper;
 use SeaSkincare\Backend\Communication\Response;
 
 class WeatherService

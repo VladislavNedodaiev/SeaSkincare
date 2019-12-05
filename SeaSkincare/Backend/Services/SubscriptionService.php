@@ -2,9 +2,7 @@
 
 namespace SeaSkincare\Backend\Services;
 
-use SeaSkincare\Backend\Entities\Subscription;
 use SeaSkincare\Backend\DTOs\SubscriptionDTO;
-use SeaSkincare\Backend\Mappers\SubscriptionMapper;
 use SeaSkincare\Backend\Communication\Response;
 
 class SubscriptionService

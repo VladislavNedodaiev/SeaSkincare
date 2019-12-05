@@ -2,9 +2,7 @@
 
 namespace SeaSkincare\Backend\Services;
 
-use SeaSkincare\Backend\Entities\User;
 use SeaSkincare\Backend\DTOs\UserDTO;
-use SeaSkincare\Backend\Mappers\UserMapper;
 use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\Communication\Response;
 

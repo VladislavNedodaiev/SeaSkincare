@@ -2,9 +2,7 @@
 
 namespace SeaSkincare\Backend\Services;
 
-use SeaSkincare\Backend\Entities\Business;
 use SeaSkincare\Backend\DTOs\BusinessDTO;
-use SeaSkincare\Backend\Mappers\BusinessMapper;
 use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\Communication\Response;
 

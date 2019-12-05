@@ -2,13 +2,10 @@
 
 namespace SeaSkincare\Backend\Services;
 
-use SeaSkincare\Backend\Entities\UserProblem;
 use SeaSkincare\Backend\DTOs\UserProblemDTO;
-use SeaSkincare\Backend\Mappers\UserProblemMapper;
 use SeaSkincare\Backend\Communication\Response;
 
-class UserProblemService
-{
+class UserProblemService {
 	
 	private $database;
 	

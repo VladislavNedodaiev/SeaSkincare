@@ -2,9 +2,7 @@
 
 namespace SeaSkincare\Backend\Services;
 
-use SeaSkincare\Backend\Entities\Vacation;
 use SeaSkincare\Backend\DTOs\VacationDTO;
-use SeaSkincare\Backend\Mappers\VacationMapper;
 use SeaSkincare\Backend\Communication\Response;
 
 class VacationService
@@ -97,6 +95,23 @@ class VacationService
 			return new Response(self::DB_ERROR->status, 0);
 		
 		if ($result = $this->database->query("SELECT MAX(`".self::DB_TABLE."`.`vacation_id`) AS `id` FROM `".self::DB_TABLE."`;")) {
+			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				
+				return new Response(self::SUCCESS->status, $res['id']);
+				
+			}
+		}
+		
+		return new Response(self:NOT_FOUND->status, 0);
+		
+	}
+	
+	public function getLastIDByUserID($userID) {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return new Response(self::DB_ERROR->status, 0);
+		
+		if ($result = $this->database->query("SELECT MAX(`".self::DB_TABLE."`.`vacation_id`) AS `id` FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				return new Response(self::SUCCESS->status, $res['id']);
