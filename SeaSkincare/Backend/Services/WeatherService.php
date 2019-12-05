@@ -49,7 +49,7 @@ class WeatherService
 						   "'".$dto->sunPower."', ".
 						   "'".$dto->windSpeed."');")) {
 			
-			return new Response(self::SUCCESS->status, WeatherMapper::DTOToEntity($dto));
+			return new Response(self::SUCCESS->status, $dto);
 			
 		}
 			
@@ -73,7 +73,7 @@ class WeatherService
 				$dto->sunPower = $res['sun_power'];
 				$dto->windSpeed = $res['wind_speed'];
 				
-				return new Response(self::SUCCESS->status, WeatherMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS->status, $dto);
 				
 			}
 		}

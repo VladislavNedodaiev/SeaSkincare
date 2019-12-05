@@ -56,7 +56,7 @@ class SubscriptionService
 					
 					$dto->id = $res['subscription_id'];
 					
-					return new Response(self::SUCCESS->status, SubscriptionMapper::DTOToEntity($dto));
+					return new Response(self::SUCCESS->status, $dto);
 					
 				}
 			}
@@ -82,7 +82,7 @@ class SubscriptionService
 				$dto->startDate = $res['startDate'];
 				$dto->finishDate = $res['finishDate'];
 				
-				return new Response(self::SUCCESS->status, SubscriptionMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS->status, $dto);
 				
 			}
 		}
@@ -107,7 +107,7 @@ class SubscriptionService
 				$dto->startDate = $res['startDate'];
 				$dto->finishDate = $res['finishDate'];
 				
-				return new Response(self::SUCCESS->status, SubscriptionMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS->status, $dto);
 				
 			}
 		}
@@ -135,7 +135,7 @@ class SubscriptionService
 				$dto->startDate = $res['startDate'];
 				$dto->finishDate = $res['finishDate'];
 				
-				return new Response(self::SUCCESS->status, SubscriptionMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS->status, $dto);
 				
 			}
 			
@@ -166,7 +166,7 @@ class SubscriptionService
 				$dto->startDate = $res['startDate'];
 				$dto->finishDate = $res['finishDate'];
 				
-				return new Response(self::SUCCESS->status, SubscriptionMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS->status, $dto);
 				
 			}
 			

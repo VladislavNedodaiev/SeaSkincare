@@ -56,7 +56,7 @@ class VacationService
 					
 					$dto->id = $res['vacation_id'];
 					
-					return new Response(self::SUCCESS->status, VacationMapper::DTOToEntity($dto));
+					return new Response(self::SUCCESS->status, $dto);
 					
 				}
 			}
@@ -82,7 +82,7 @@ class VacationService
 				$dto->startDate = $res['startDate'];
 				$dto->finishDate = $res['finishDate'];
 				
-				return new Response(self::SUCCESS->status, VacationMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS->status, $dto);
 				
 			}
 		}
@@ -127,7 +127,7 @@ class VacationService
 				$dto->startDate = $res['start_date'];
 				$dto->finishDate = $res['finish_date'];
 				
-				array_push($vacations, VacationMapper::DTOToEntity($dto));
+				array_push($vacations, $dto);
 				
 			}
 			
@@ -158,7 +158,7 @@ class VacationService
 				$dto->startDate = $res['start_date'];
 				$dto->finishDate = $res['finish_date'];
 				
-				array_push($vacations, VacationMapper::DTOToEntity($dto));
+				array_push($vacations, $dto);
 				
 			}
 			
@@ -189,7 +189,7 @@ class VacationService
 				$dto->startDate = $res['start_date'];
 				$dto->finishDate = $res['finish_date'];
 				
-				array_push($vacations, VacationMapper::DTOToEntity($dto));
+				array_push($vacations, $dto);
 				
 			}
 			

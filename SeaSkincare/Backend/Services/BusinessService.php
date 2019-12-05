@@ -70,7 +70,7 @@ class BusinessService
 					$dto->email = $res['email'];
 					$dto->verification = $res['verification'];
 					
-					return new Response(self::SUCCESS->status, BusinessMapper::DTOToEntity($dto));
+					return new Response(self::SUCCESS->status, $dto);
 					
 				}
 				
@@ -164,7 +164,7 @@ class BusinessService
 				$dto->description = $res['description'];
 				$dto->photo = $res['photo'];
 				
-				return new Response(self::SUCCESS->status, BusinessMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS->status, $dto);
 				
 			}
 		}

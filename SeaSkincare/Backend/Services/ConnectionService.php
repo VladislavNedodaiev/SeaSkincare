@@ -56,7 +56,7 @@ class ConnectionService
 					$dto->id = $res['connection_id'];
 					$dto->connectionDate = $res['connection_date'];
 					
-					return new Response(self::SUCCESS->status, ConnectionMapper::DTOToEntity($dto));
+					return new Response(self::SUCCESS->status, $dto);
 					
 				}
 			}
@@ -85,7 +85,7 @@ class ConnectionService
 				$dto->longitude = $res['longitude'];
 				$dto->battery = $res['battery'];
 				
-				return new Response(self::SUCCESS->status, ConnectionMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS->status, $dto);
 				
 			}
 		}
@@ -114,7 +114,7 @@ class ConnectionService
 				$dto->longitude = $res['longitude'];
 				$dto->battery = $res['battery'];
 				
-				array_push($connections, ConnectionMapper::DTOToEntity($dto));
+				array_push($connections, $dto);
 				
 			}
 			

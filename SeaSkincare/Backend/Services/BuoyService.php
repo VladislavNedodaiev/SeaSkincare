@@ -56,7 +56,7 @@ class BuoyService
 					$dto->id = $res['buoy_id'];
 					$dto->fabricationDate = $res['fabrication_date'];
 					
-					return new Response(self::SUCCESS->status, BuoyMapper::DTOToEntity($dto));
+					return new Response(self::SUCCESS->status, $dto);
 					
 				}
 			}
@@ -81,7 +81,7 @@ class BuoyService
 				$dto->id = $res['buoy_id'];
 				$dto->fabricationDate = $res['fabrication_date'];
 				
-				return new Response(self::SUCCESS->status, BuoyMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS->status, $dto);
 				
 			}
 		}

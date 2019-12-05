@@ -49,7 +49,7 @@ class AirService
 						   "'".$dto->temperature."', ".
 						   "'".$dto->pollution."');")) {
 			
-			return new Response(self::SUCCESS->status, AirMapper::DTOToEntity($dto));
+			return new Response(self::SUCCESS->status, $dto);
 			
 		}
 			
@@ -73,7 +73,7 @@ class AirService
 				$dto->temperature = $res['temperature'];
 				$dto->pollution = $res['pollution'];
 				
-				return new Response(self::SUCCESS->status, AirMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS->status, $dto);
 				
 			}
 		}

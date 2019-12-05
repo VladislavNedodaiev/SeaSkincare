@@ -54,7 +54,7 @@ class WaterService
 						   "'".$dto->CaSO4."', ".
 						   "'".$dto->NaBr."');")) {
 			
-			return new Response(self::SUCCESS->status, WaterMapper::DTOToEntity($dto));
+			return new Response(self::SUCCESS->status, $dto);
 			
 		}
 			
@@ -83,7 +83,7 @@ class WaterService
 				$dto->CaSO4 = $res['CaSO4'];
 				$dto->NaBr = $res['NaBr'];
 				
-				return new Response(self::DB_ERROR->status, WaterMapper::DTOToEntity($dto));
+				return new Response(self::DB_ERROR->status, $dto);
 				
 			}
 		}

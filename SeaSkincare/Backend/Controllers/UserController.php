@@ -9,6 +9,10 @@ use SeaSkincare\Backend\DTOs\UserDTO;
 use SeaSkincare\Backend\Mappers\UserMapper;
 use SeaSkincare\Backend\Services\UserService;
 use SeaSkincare\Backend\Communication\Response;
+use SeaSkincare\Backend\Controllers\UserProblemController;
+use SeaSkincare\Backend\Controllers\UserProblemDTO;
+use SeaSkincare\Backend\Controllers\UserProblemMapper;
+use SeaSkincare\Backend\Controllers\SkinProblemController;
 
 class UserController
 {
@@ -18,6 +22,7 @@ class UserController
 	private $userService;
 	
 	public const NO_EMAIL = new Response("NO_EMAIL", null);
+	public const INCORRECT_EMAIL = new Response("INCORRECT_EMAIL", null);
 	public const NO_PASSWORD = new Response("NO_PASSWORD", null);
 	public const NO_REPEAT_PASSWORD = new Response("NO_REPEAT_PASSWORD", null);
 	public const DIFFERENT_PASSWORDS = new Response("DIFFERENT_PASSWORDS", null);
@@ -67,7 +72,7 @@ class UserController
 			return self::NO_EMAIL;
 		
 		if (!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $email))
-			return self::NO_PASSWORD;
+			return self::INCORRECT_EMAIL;
 		
 		if (!isset($password))
 			return self::NO_PASSWORD;
@@ -115,6 +120,18 @@ class UserController
 			return self::NO_USERID;
 		
 		return $this->userService->getUser($userID);
+		
+	}
+	
+	public function getAverageUserProblem($userID) {
+		
+		
+		
+	}
+	
+	public function getRecommendationUserVacation($userID) {
+		
+		
 		
 	}
 	

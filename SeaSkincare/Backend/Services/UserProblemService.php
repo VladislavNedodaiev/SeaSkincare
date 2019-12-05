@@ -59,7 +59,7 @@ class UserProblemService
 					
 					$dto->id = $res['user_problem_id'];
 					
-					return new Response(self::SUCCESS->status, UserProblemMapper::DTOToEntity($dto));
+					return new Response(self::SUCCESS->status, $dto);
 					
 				}
 			}
@@ -83,7 +83,7 @@ class UserProblemService
 				$dto->userID = $res['user_id'];
 				$dto->skinProblemID = $res['skin_problem_id'];
 				
-				return new Response(self::SUCCESS->status, UserProblemMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS->status, $dto);
 				
 			}
 		}
@@ -106,7 +106,7 @@ class UserProblemService
 				$dto->userID = $res['user_id'];
 				$dto->skinProblemID = $res['skin_problem_id'];
 				
-				return new Response(self::SUCCESS->status, UserProblemMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS->status, $dto);
 				
 			}
 		}
@@ -132,7 +132,7 @@ class UserProblemService
 				$dto->userID = $res['user_id'];
 				$dto->skinProblemID = $res['skin_problem_id'];
 				
-				array_push($userProblems, UserProblemMapper::DTOToEntity($dto));
+				array_push($userProblems, $dto);
 				
 			}
 			
@@ -160,7 +160,7 @@ class UserProblemService
 				$dto->userID = $res['user_id'];
 				$dto->skinProblemID = $res['skin_problem_id'];
 				
-				array_push($userProblems, UserProblemMapper::DTOToEntity($dto));
+				array_push($userProblems, $dto);
 				
 			}
 			

@@ -68,7 +68,7 @@ class UserService
 					$dto->email = $res['email'];
 					$dto->verification = $res['verification'];
 					
-					return new Response(self::SUCCESS->status, UserMapper::DTOToEntity($dto));
+					return new Response(self::SUCCESS->status, $dto);
 					
 				}
 				else
@@ -161,7 +161,7 @@ class UserService
 				$dto->nickname = $res['nickname'];
 				$dto->email = $res['email'];
 				
-				return new Response(self::SUCCESS->status, UserMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS->status, $dto);
 				
 			}
 		}

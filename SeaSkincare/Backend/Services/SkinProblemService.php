@@ -57,7 +57,7 @@ class SkinProblemService
 					
 					$dto->id = $res['skin_problem_id'];
 					
-					return new Response(self::SUCCESS->status, SkinProblemMapper::DTOToEntity($dto));
+					return new Response(self::SUCCESS->status, $dto);
 					
 				}
 			}
@@ -84,7 +84,7 @@ class SkinProblemService
 				$dto->normalAirPollution = $res['norm_air_pollution'];
 				$dto->normalSunPower = $res['norm_sun_power'];
 				
-				return new Response(self::SUCCESS->status, SkinProblemMapper::DTOToEntity($dto));
+				return new Response(self::SUCCESS->status, $dto);
 				
 			}
 		}
@@ -113,7 +113,7 @@ class SkinProblemService
 				$dto->normalAirPollution = $res['norm_air_pollution'];
 				$dto->normalSunPower = $res['norm_sun_power'];
 				
-				array_push($skinProblems, SkinProblemMapper::DTOToEntity($dto));
+				array_push($skinProblems, $dto);
 				
 			}
 			
