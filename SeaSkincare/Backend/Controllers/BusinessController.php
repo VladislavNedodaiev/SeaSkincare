@@ -118,7 +118,7 @@ class BusinessController
 		
 	}
 	
-	public function editUser($businessID, $nickname, $email) {
+	public function editBusiness($businessID, $nickname, $email) {
 	
 		if (!isset($businessID))
 			return self::NO_BUSINESSID;
