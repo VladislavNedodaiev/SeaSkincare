@@ -29,7 +29,7 @@ session_start();
 
 $userController = new UserController;
 
-echo json_encode($userController->login($_GET['email'], $_GET['password']));
+echo json_encode($userController->getAverageSkinProblem($_GET['userID']));
 exit;
 
 ?>

@@ -5,7 +5,6 @@ namespace SeaSkincare\Backend\Controllers;
 use SeaSkincare\Backend\Data\DataRepository;
 use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\DTOs\UserDTO;
-use SeaSkincare\Backend\Mappers\UserMapper;
 use SeaSkincare\Backend\Services\UserService;
 use SeaSkincare\Backend\Communication\Response;
 
