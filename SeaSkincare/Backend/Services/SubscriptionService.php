@@ -193,13 +193,38 @@ class SubscriptionService
 		
 	}
 	
+	public function getLastSubscriptionByBuoyID($buoyID) {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return self::DB_ERROR;
+		
+		if ($result = $this->database->query("SELECT `S1`.* FROM `".self::DB_TABLE."` AS `S1` WHERE `S1`.`buoy_id`='".$buoyID."' AND `S1`.`subscription_id`=(SELECT MAX(`S2`.`subscription_id`) FROM `".self::DB_TABLE."` AS `S2` WHERE `S2`.`buoy_id`='".$buoyID."');")) {
+			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				
+				$dto = new SubscriptionDTO;
+					
+				$dto->id = $res['subscription_id'];
+				$dto->buoyID = $res['buoy_id'];
+				$dto->businessID = $res['business_id'];
+				$dto->startDate = $res['startDate'];
+				$dto->finishDate = $res['finishDate'];
+				
+				return new Response(self::SUCCESS->status, $dto);
+				
+			}
+		}
+		
+		return self::NOT_FOUND;
+		
+	}
+	
 	public function updateSubscription($dto) {
 		
 		
 		if (!$this->database || $this->database->connect_errno)
 			return self::DB_ERROR;
 		
-		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `buoy_id`='".$dto->buoyID."', `business_id`='".$dto->businessID."', `start_date`='".$dto->startDate."', `finish_date`='".$dto->finishDate."' WHERE `subscription_id`='".$dto->id."';"))
+		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `start_date`='".$dto->startDate."', `finish_date`='".$dto->finishDate."' WHERE `subscription_id`='".$dto->id."';"))
 			return self::SUCCESS;
 			
 		return self::NOT_FOUND;

@@ -118,13 +118,19 @@ class SubscriptionController
 		
 	}
 	
-	public function editSubscription($buoyID, $businessID, $startDate, $finishDate) {
+	public function getLastSubscriptionByBuoyID($buoyID) {
 		
 		if (!isset($buoyID))
 			return self::NO_BUOYID;
 		
-		if (!isset($businessID))
-			return self::NO_BUSINESSID;
+		return $this->subscriptionService->getLastSubscriptionByBuoyID($buoyID);
+		
+	}
+	
+	public function editSubscription($subscriptionID, $startDate, $finishDate) {
+		
+		if (!isset($subscriptionID))
+			return self::NO_SUBSCRIPTIONID;
 		
 		if (!isset($startDate))
 			return self::NO_STARTDATE;
@@ -139,8 +145,7 @@ class SubscriptionController
 			return self::INCORRECT_FINISHDATE;
 		
 		$dto = new SubscriptionDTO;
-		$dto->buoyID = $buoyID;
-		$dto->businessID = $businessID;
+		$dto->id = $subscriptionID;
 		$dto->startDate = $startDate;
 		$dto->finishDate = $finishDate;
 		
