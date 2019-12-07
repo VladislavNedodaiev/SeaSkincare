@@ -16,6 +16,10 @@ class BusinessDTO
 	public $email;
 	public $verification;
 	
+	// Relations
+	public $vacations;
+	public $subscriptions;
+	
 }
 
 ?>

@@ -15,6 +15,9 @@ class SkinProblemDTO
 	public $normalAirPollution;
 	public $normalSunPower;
 	
+	// Relations
+	public $userProblems;
+	
 }
 
 ?>

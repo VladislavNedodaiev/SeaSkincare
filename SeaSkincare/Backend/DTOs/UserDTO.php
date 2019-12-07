@@ -14,6 +14,10 @@ class UserDTO
 	public $email;
 	public $verification;
 	
+	// Relations
+	public $userProblems;
+	public $vacations;
+	
 }
 
 ?>
