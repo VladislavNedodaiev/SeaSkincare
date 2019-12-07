@@ -50,22 +50,22 @@ class WaterController
 			return self::NO_TEMPERATURE;
 		
 		if (!isset($pH))
-			return self::pH;
+			return self::NO_PH;
 		
 		if (!isset($NaCl))
-			return self::NaCl;
+			return self::NO_NACL;
 		
 		if (!isset($MgCl2))
-			return self::MgCl2;
+			return self::NO_MGCL2;
 		
 		if (!isset($MgSO4))
-			return self::MgSO4;
+			return self::NO_MGSO4;
 		
 		if (!isset($CaSO4))
-			return self::CaSO4;
+			return self::NO_CASO4;
 		
 		if (!isset($NaBr))
-			return self::NaBr;
+			return self::NO_NABR;
 		
 		$dto = new WaterDTO;
 		$dto->id = $connectionID;
@@ -99,22 +99,22 @@ class WaterController
 			return self::NO_TEMPERATURE;
 		
 		if (!isset($pH))
-			return self::pH;
+			return self::NO_PH;
 		
 		if (!isset($NaCl))
-			return self::NaCl;
+			return self::NO_NACL;
 		
 		if (!isset($MgCl2))
-			return self::MgCl2;
+			return self::NO_MGCL2;
 		
 		if (!isset($MgSO4))
-			return self::MgSO4;
+			return self::NO_MGSO4;
 		
 		if (!isset($CaSO4))
-			return self::CaSO4;
+			return self::NO_CASO4;
 		
 		if (!isset($NaBr))
-			return self::NaBr;
+			return self::NO_NABR;
 		
 		$dto = new WaterDTO;
 		$dto->id = $connectionID;

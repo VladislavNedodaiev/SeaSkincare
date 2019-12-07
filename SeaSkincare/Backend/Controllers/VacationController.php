@@ -116,7 +116,16 @@ class VacationController
 		
 	}
 	
-	public function editVacation($userID, $businessID, $startDate, $finishDate) {
+	public function getLastVacationByUserID($userID) {
+		
+		if (!isset($userID))
+			return self::NO_USERID;
+		
+		return $this->vacationService->getLastVacationByUserID($userID);
+		
+	}
+	
+	public function editVacation($vacationID, $startDate, $finishDate) {
 		
 		if (!isset($userID))
 			return self::NO_USERID;
@@ -137,8 +146,7 @@ class VacationController
 			return self::INCORRECT_FINISHDATE;
 		
 		$dto = new VacationDTO;
-		$dto->userID = $userID;
-		$dto->businessID = $businessID;
+		$dto->id = $vacationID;
 		$dto->startDate = $startDate;
 		$dto->finishDate = $finishDate;
 		

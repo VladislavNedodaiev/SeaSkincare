@@ -216,6 +216,31 @@ class VacationService
 		
 	}
 	
+	public function getLastVacationByUserID($userID) {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return self::DB_ERROR;
+		
+		if ($result = $this->database->query("SELECT `S1`.* FROM `".self::DB_TABLE."` AS `S1` WHERE `S1`.`user_id`='".$userID."' AND `S1`.`subscription_id`=(SELECT MAX(`S2`.`subscription_id`) FROM `".self::DB_TABLE."` AS `S2` WHERE `S2`.`user_id`='".$userID."');")) {
+			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				
+				$dto = new SubscriptionDTO;
+					
+				$dto->id = $res['vacation_id'];
+				$dto->userID = $res['user_id'];
+				$dto->businessID = $res['business_id'];
+				$dto->startDate = $res['startDate'];
+				$dto->finishDate = $res['finishDate'];
+				
+				return new Response(self::SUCCESS->status, $dto);
+				
+			}
+		}
+		
+		return self::NOT_FOUND;
+		
+	}
+	
 	public function updateVacation($dto) {
 		
 		
