@@ -128,7 +128,10 @@ class SkinProblemController
 		
 	}
 	
-	public function editSkinProblem($title, $normalPH, $normalSalt, $normalAirPollution, $normalSunPower) {
+	public function editSkinProblem($skinProblemID, $title, $normalPH, $normalSalt, $normalAirPollution, $normalSunPower) {
+	
+		if (!isset($skinProblemID))
+			return self::NO_SKINPROBLEMID;
 	
 		if (!isset($title))
 			return self::NO_TITLE;
@@ -146,6 +149,7 @@ class SkinProblemController
 			return self::NO_NORMAL_SUN_POWER;
 		
 		$dto = new SkinProblemDTO;
+		$dto->id = $skinProblemID;
 		$dto->title = $title;
 		$dto->normalPH = $normalPH;
 		$dto->normalSalt = $normalSalt;
