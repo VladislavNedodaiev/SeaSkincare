@@ -116,7 +116,7 @@ class VacationController
 	public function getLastVacation() {
 		
 		$vacationID = $this->vacationService->getLastID();
-		if ($vacationID->status != $this->vacationService->->status)
+		if ($vacationID->status != $this->vacationService->SUCCESS->status)
 			return $vacationID;
 		
 		return $this->vacationService->getVacation($vacationID->content);
