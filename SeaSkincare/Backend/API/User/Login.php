@@ -36,7 +36,7 @@ else {
 	
 	$userController = new UserController;
 	$result = $userController->login($_GET['email'], $_GET['password']);
-	if ($result->status == "SUCCESS")
+	if ($result->status == $userController->SUCCESS->status)
 		$_SESSION['profile'] = $result->content;
 
 	echo json_encode($result);

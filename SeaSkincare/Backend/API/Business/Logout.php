@@ -19,7 +19,11 @@ $fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOS
 
 $businessController = new BusinessController;
 
-echo json_encode($businessController->logout($_SESSION['profile']));
+$response = $businessController->logout($_SESSION['profile']);
+if ($response->status == $businessController->SUCCESS->status)
+	unset($_SESSION['profile']);
+
+echo json_encode($response);
 exit;
 
 ?>

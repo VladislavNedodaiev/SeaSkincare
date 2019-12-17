@@ -31,7 +31,11 @@ $fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOS
 
 $userController = new UserController;
 
-echo json_encode($userController->logout($_SESSION['profile']));
+$response = $userController->logout($_SESSION['profile']);
+if ($response->status == $userController->SUCCESS->status)
+	unset($_SESSION['profile']);
+
+echo json_encode($response);
 exit;
 
 ?>

@@ -24,7 +24,7 @@ else {
 	
 	$businessController = new BusinessController;
 	$result = $businessController->login($_GET['email'], $_GET['password']);
-	if ($result->status == "SUCCESS")
+	if ($result->status == $businessController->SUCCESS->status)
 		$_SESSION['profile'] = $result->content;
 
 	echo json_encode($result);
