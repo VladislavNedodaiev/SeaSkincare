@@ -7,17 +7,17 @@ include_once 'localization/localization.php';
 // Initialize session and set URL.
 $channel = curl_init();
 
-$url = '127.0.0.1/SeaSkincare/Backend/API/User/Register.php';
+$url = '127.0.0.1/SeaSkincare/Backend/API';
 if (isset($_POST['register_option'])) {
 	
 	if ($_POST['register_option'] == 'as_user')
-		$url .= '';
+		$url .= '/User/Register.php';
 	else
-		$url .= '';
+		$url .= '/Business/Register.php';
 
 }
 else
-	$url .= '';
+	$url .= '/User/Register.php';
 
 curl_setopt($channel, CURLOPT_URL, $url);
 
