@@ -15,12 +15,12 @@ class VacationController
 	private $dataRep;
 	private $vacationService;
 	
-	public const SUCCESS = new Response("SUCCESS", null);
-	public const NO_VACATIONID = new Response("NO_VACATIONID", null);
-	public const NO_USERID = new Response("NO_USERID", null);
-	public const NO_BUSINESSID = new Response("NO_BUSINESSID", null);
-	public const NO_STARTDATE = new Response("NO_STARTDATE", null);
-	public const NO_FINISHDATE = new Response("NO_FINISHDATE", null);	
+	public $SUCCESS = new Response("SUCCESS", null);
+	public $NO_VACATIONID = new Response("NO_VACATIONID", null);
+	public $NO_USERID = new Response("NO_USERID", null);
+	public $NO_BUSINESSID = new Response("NO_BUSINESSID", null);
+	public $NO_STARTDATE = new Response("NO_STARTDATE", null);
+	public $NO_FINISHDATE = new Response("NO_FINISHDATE", null);	
 	
 	public function __construct() {
 	
@@ -40,22 +40,22 @@ class VacationController
 	public function createVacation($userID, $businessID, $startDate, $finishDate) {
 		
 		if (!isset($userID))
-			return self::NO_USERID;
+			return this->NO_USERID;
 		
 		if (!isset($businessID))
-			return self::NO_BUSINESSID;
+			return this->NO_BUSINESSID;
 		
 		if (!isset($startDate))
-			return self::NO_STARTDATE;
+			return this->NO_STARTDATE;
 		
 		if (!isset($finishDate))
-			return self::NO_FINISHDATE;
+			return this->NO_FINISHDATE;
 		
 		if (!((bool)(strtotime($startDate))))
-			return self::INCORRECT_STARTDATE;
+			return this->INCORRECT_STARTDATE;
 		
 		if (!((bool)(strtotime($finishDate))))
-			return self::INCORRECT_FINISHDATE;
+			return this->INCORRECT_FINISHDATE;
 		
 		$dto = new VacationDTO;
 		$dto->userID = $userID;
@@ -70,7 +70,7 @@ class VacationController
 	public function getVacation($vacationID) {
 		
 		if (!isset($vacationID))
-			return self::NO_VACATIONID;
+			return this->NO_VACATIONID;
 		
 		return $this->vacationService->getVacation($vacationID);
 		
@@ -79,10 +79,10 @@ class VacationController
 	public function getVacationsByIDs($userID, $businessID) {
 		
 		if (!isset($userID))
-			return self::NO_USERID;
+			return this->NO_USERID;
 		
 		if (!isset($businessID))
-			return self::NO_BUSINESSID;
+			return this->NO_BUSINESSID;
 		
 		return $this->vacationService->getVacationsByIDs($userID, $businessID);
 		
@@ -91,7 +91,7 @@ class VacationController
 	public function getVacationsByUserID($userID) {
 		
 		if (!isset($userID))
-			return self::NO_USERID;
+			return this->NO_USERID;
 		
 		return $this->vacationService->getVacationsByUserID($userID);
 		
@@ -100,7 +100,7 @@ class VacationController
 	public function getVacationsByBusinessID($businessID) {
 		
 		if (!isset($businessID))
-			return self::NO_BUSINESSID;
+			return this->NO_BUSINESSID;
 		
 		return $this->vacationService->getVacationsByBusinessID($businessID);
 		
@@ -119,7 +119,7 @@ class VacationController
 	public function getLastVacationByUserID($userID) {
 		
 		if (!isset($userID))
-			return self::NO_USERID;
+			return this->NO_USERID;
 		
 		return $this->vacationService->getLastVacationByUserID($userID);
 		
@@ -128,22 +128,22 @@ class VacationController
 	public function editVacation($vacationID, $startDate, $finishDate) {
 		
 		if (!isset($userID))
-			return self::NO_USERID;
+			return this->NO_USERID;
 		
 		if (!isset($businessID))
-			return self::NO_BUSINESSID;
+			return this->NO_BUSINESSID;
 		
 		if (!isset($startDate))
-			return self::NO_STARTDATE;
+			return this->NO_STARTDATE;
 		
 		if (!isset($finishDate))
-			return self::NO_FINISHDATE;
+			return this->NO_FINISHDATE;
 		
 		if (!((bool)(strtotime($startDate))))
-			return self::INCORRECT_STARTDATE;
+			return this->INCORRECT_STARTDATE;
 		
 		if (!((bool)(strtotime($finishDate))))
-			return self::INCORRECT_FINISHDATE;
+			return this->INCORRECT_FINISHDATE;
 		
 		$dto = new VacationDTO;
 		$dto->id = $vacationID;
@@ -157,7 +157,7 @@ class VacationController
 	public function deleteVacation($vacationID) {
 	
 		if (!isset($vacationID))
-			return self::NO_VACATIONID;
+			return this->NO_VACATIONID;
 		
 		return $this->vacationService->deleteVacation($vacationID);
 	

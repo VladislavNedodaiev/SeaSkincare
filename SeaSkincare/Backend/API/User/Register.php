@@ -27,6 +27,9 @@ use SeaSkincare\Backend\Communication\Response;
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
+$req_dump = print_r($_REQUEST, true);
+$fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s: ').$req_dump.'\n', FILE_APPEND);
+
 $userController = new UserController;
 
 echo json_encode($userController->register($_POST['email'], $_POST['password'], $_POST['repeat_password'], $_POST['nickname']));

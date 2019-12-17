@@ -15,10 +15,10 @@ class UserProblemController
 	private $dataRep;
 	private $userProblemService;
 	
-	public const SUCCESS = new Response("SUCCESS", null);
-	public const NO_USERPROBLEMID = new Response("NO_USERPROBLEMID", null);
-	public const NO_USERID = new Response("NO_USERID", null);
-	public const NO_SKINPROBLEMID = new Response("NO_SKINPROBLEMID", null);
+	public $SUCCESS = new Response("SUCCESS", null);
+	public $NO_USERPROBLEMID = new Response("NO_USERPROBLEMID", null);
+	public $NO_USERID = new Response("NO_USERID", null);
+	public $NO_SKINPROBLEMID = new Response("NO_SKINPROBLEMID", null);
 	
 	public function __construct() {
 	
@@ -38,10 +38,10 @@ class UserProblemController
 	public function createUserProblem($userID, $skinProblemID) {
 		
 		if (!isset($userID))
-			return self::NO_USERID;
+			return this->NO_USERID;
 		
 		if (!isset($skinProblemID))
-			return self::NO_SKINPROBLEMID;
+			return this->NO_SKINPROBLEMID;
 		
 		$dto = new UserProblemDTO;
 		$dto->userID = $userID;
@@ -54,7 +54,7 @@ class UserProblemController
 	public function getUserProblem($userProblemID) {
 		
 		if (!isset($userProblemID))
-			return self::NO_USERPROBLEMID;
+			return this->NO_USERPROBLEMID;
 		
 		return $this->userProblemService->getUserProblem($userProblemID);
 		
@@ -63,10 +63,10 @@ class UserProblemController
 	public function getUserProblemsByIDs($userID, $skinProblemID) {
 		
 		if (!isset($userID))
-			return self::NO_USERID;
+			return this->NO_USERID;
 		
 		if (!isset($skinProblemID))
-			return self::NO_SKINPROBLEMID;
+			return this->NO_SKINPROBLEMID;
 		
 		return $this->userProblemService->getUserProblemsByIDs($userID, $skinProblemID);
 		
@@ -75,7 +75,7 @@ class UserProblemController
 	public function getUserProblemsByUserID($userID) {
 		
 		if (!isset($userID))
-			return self::NO_USERID;
+			return this->NO_USERID;
 		
 		return $this->userProblemService->getUserProblemsByUserID($userID);
 		
@@ -84,7 +84,7 @@ class UserProblemController
 	public function getUserProblemsBySkinProblemID($skinProblemID) {
 		
 		if (!isset($skinProblemID))
-			return self::NO_SKINPROBLEMID;
+			return this->NO_SKINPROBLEMID;
 		
 		return $this->userProblemService->getUserProblemsBySkinProblemID($skinProblemID);
 		
@@ -103,7 +103,7 @@ class UserProblemController
 	public function deleteUserProblem($userProblemID) {
 	
 		if (!isset($userProblemID))
-			return self::NO_USERPROBLEMID;
+			return this->NO_USERPROBLEMID;
 		
 		return $this->userProblemService->deleteUserProblem($userProblemID);
 	

@@ -15,14 +15,14 @@ class SubscriptionController
 	private $dataRep;
 	private $subscriptionService;
 	
-	public const SUCCESS = new Response("SUCCESS", null);
-	public const NO_SUBSCRIPTIONID = new Response("NO_SUBSCRIPTIONID", null);
-	public const NO_BUOYID = new Response("NO_BUOYID", null);
-	public const NO_BUSINESSID = new Response("NO_BUSINESSID", null);
-	public const NO_STARTDATE = new Response("NO_STARTDATE", null);
-	public const INCORRECT_STARTDATE = new Response("NO_STARTDATE", null);
-	public const NO_FINISHDATE = new Response("NO_FINISHDATE", null);
-	public const INCORRECT_FINISHDATE = new Response("NO_STARTDATE", null);
+	public $SUCCESS = new Response("SUCCESS", null);
+	public $NO_SUBSCRIPTIONID = new Response("NO_SUBSCRIPTIONID", null);
+	public $NO_BUOYID = new Response("NO_BUOYID", null);
+	public $NO_BUSINESSID = new Response("NO_BUSINESSID", null);
+	public $NO_STARTDATE = new Response("NO_STARTDATE", null);
+	public $INCORRECT_STARTDATE = new Response("NO_STARTDATE", null);
+	public $NO_FINISHDATE = new Response("NO_FINISHDATE", null);
+	public $INCORRECT_FINISHDATE = new Response("NO_STARTDATE", null);
 	
 	public function __construct() {
 	
@@ -42,22 +42,22 @@ class SubscriptionController
 	public function createSubscription($buoyID, $businessID, $startDate, $finishDate) {
 		
 		if (!isset($buoyID))
-			return self::NO_BUOYID;
+			return this->NO_BUOYID;
 		
 		if (!isset($businessID))
-			return self::NO_BUSINESSID;
+			return this->NO_BUSINESSID;
 		
 		if (!isset($startDate))
-			return self::NO_STARTDATE;
+			return this->NO_STARTDATE;
 		
 		if (!isset($finishDate))
-			return self::NO_FINISHDATE;
+			return this->NO_FINISHDATE;
 		
 		if (!((bool)(strtotime($startDate))))
-			return self::INCORRECT_STARTDATE;
+			return this->INCORRECT_STARTDATE;
 		
 		if (!((bool)(strtotime($finishDate))))
-			return self::INCORRECT_FINISHDATE;
+			return this->INCORRECT_FINISHDATE;
 		
 		$dto = new SubscriptionDTO;
 		$dto->buoyID = $buoyID;
@@ -72,7 +72,7 @@ class SubscriptionController
 	public function getSubscription($subscriptionID) {
 		
 		if (!isset($subscriptionID))
-			return self::NO_SUBSCRIPTIONID;
+			return this->NO_SUBSCRIPTIONID;
 		
 		return $this->subscriptionService->getSubscription($subscriptionID);
 		
@@ -81,10 +81,10 @@ class SubscriptionController
 	public function getSubscriptionsByIDs($buoyID, $businessID) {
 		
 		if (!isset($buoyID))
-			return self::NO_BUOYID;
+			return this->NO_BUOYID;
 		
 		if (!isset($businessID))
-			return self::NO_BUSINESSID;
+			return this->NO_BUSINESSID;
 		
 		return $this->subscriptionService->getSubscriptionsByIDs($buoyID, $businessID);
 		
@@ -93,7 +93,7 @@ class SubscriptionController
 	public function getSubscriptionsByBuoyID($buoyID) {
 		
 		if (!isset($buoyID))
-			return self::NO_BUOYID;
+			return this->NO_BUOYID;
 		
 		return $this->subscriptionService->getSubscriptionsByBuoyID($buoyID);
 		
@@ -102,7 +102,7 @@ class SubscriptionController
 	public function getSubscriptionsByBusinessID($businessID) {
 		
 		if (!isset($businessID))
-			return self::NO_BUSINESSID;
+			return this->NO_BUSINESSID;
 		
 		return $this->subscriptionService->getSubscriptionsByBusinessID($businessID);
 		
@@ -121,7 +121,7 @@ class SubscriptionController
 	public function getLastSubscriptionByBuoyID($buoyID) {
 		
 		if (!isset($buoyID))
-			return self::NO_BUOYID;
+			return this->NO_BUOYID;
 		
 		return $this->subscriptionService->getLastSubscriptionByBuoyID($buoyID);
 		
@@ -130,19 +130,19 @@ class SubscriptionController
 	public function editSubscription($subscriptionID, $startDate, $finishDate) {
 		
 		if (!isset($subscriptionID))
-			return self::NO_SUBSCRIPTIONID;
+			return this->NO_SUBSCRIPTIONID;
 		
 		if (!isset($startDate))
-			return self::NO_STARTDATE;
+			return this->NO_STARTDATE;
 		
 		if (!isset($finishDate))
-			return self::NO_FINISHDATE;
+			return this->NO_FINISHDATE;
 		
 		if (!((bool)(strtotime($startDate))))
-			return self::INCORRECT_STARTDATE;
+			return this->INCORRECT_STARTDATE;
 		
 		if (!((bool)(strtotime($finishDate))))
-			return self::INCORRECT_FINISHDATE;
+			return this->INCORRECT_FINISHDATE;
 		
 		$dto = new SubscriptionDTO;
 		$dto->id = $subscriptionID;
@@ -156,7 +156,7 @@ class SubscriptionController
 	public function deleteSubscription($subscriptionID) {
 	
 		if (!isset($subscriptionID))
-			return self::NO_SUBSCRIPTIONID;
+			return this->NO_SUBSCRIPTIONID;
 		
 		return $this->subscriptionService->deleteSubscription($subscriptionID);
 	

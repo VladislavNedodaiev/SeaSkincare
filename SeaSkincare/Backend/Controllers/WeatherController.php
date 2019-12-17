@@ -15,10 +15,10 @@ class WeatherController
 	private $dataRep;
 	private $weatherService;
 	
-	public const SUCCESS = new Response("SUCCESS", null);
-	public const NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
-	public const NO_SUNPOWER = new Response("NO_SUNPOWER", null);
-	public const NO_WINDSPEED = new Response("NO_WINDSPEED", null);
+	public $SUCCESS = new Response("SUCCESS", null);
+	public $NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
+	public $NO_SUNPOWER = new Response("NO_SUNPOWER", null);
+	public $NO_WINDSPEED = new Response("NO_WINDSPEED", null);
 	
 	
 	public function __construct() {
@@ -39,13 +39,13 @@ class WeatherController
 	public function createWeather($connectionID, $sunPower, $windSpeed) {
 		
 		if (!isset($connectionID))
-			return self::NO_CONNECTIONID;
+			return this->NO_CONNECTIONID;
 		
 		if (!isset($sunPower))
-			return self::NO_TEMPERATURE;
+			return this->NO_TEMPERATURE;
 		
 		if (!isset($windSpeed))
-			return self::NO_POLLUTION;
+			return this->NO_POLLUTION;
 		
 		$dto = new WeatherDTO;
 		$dto->id = $connectionID;
@@ -59,7 +59,7 @@ class WeatherController
 	public function getWeather($weatherID) {
 		
 		if (!isset($weatherID))
-			return self::NO_CONNECTIONID;
+			return this->NO_CONNECTIONID;
 		
 		return $this->weatherService->getWeather($weatherID);
 		
@@ -68,13 +68,13 @@ class WeatherController
 	public function editWeather($connectionID, $temperature, $pollution) {
 	
 		if (!isset($connectionID))
-			return self::NO_CONNECTIONID;
+			return this->NO_CONNECTIONID;
 		
 		if (!isset($sunPower))
-			return self::NO_TEMPERATURE;
+			return this->NO_TEMPERATURE;
 		
 		if (!isset($windSpeed))
-			return self::NO_POLLUTION;
+			return this->NO_POLLUTION;
 		
 		$dto = new WeatherDTO;
 		$dto->id = $connectionID;
@@ -88,7 +88,7 @@ class WeatherController
 	public function deleteWeather($weatherID) {
 	
 		if (!isset($weatherID))
-			return self::NO_CONNECTIONID;
+			return this->NO_CONNECTIONID;
 		
 		return $this->weatherService->deleteWeather($weatherID);
 	

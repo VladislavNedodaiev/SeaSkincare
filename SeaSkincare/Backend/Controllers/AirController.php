@@ -15,10 +15,10 @@ class AirController
 	private $dataRep;
 	private $airService;
 	
-	public const SUCCESS = new Response("SUCCESS", null);
-	public const NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
-	public const NO_TEMPERATURE = new Response("NO_TEMPERATURE", null);
-	public const NO_POLLUTION = new Response("NO_POLLUTION", null);
+	public $SUCCESS = new Response("SUCCESS", null);
+	public $NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
+	public $NO_TEMPERATURE = new Response("NO_TEMPERATURE", null);
+	public $NO_POLLUTION = new Response("NO_POLLUTION", null);
 	
 	
 	public function __construct() {
@@ -39,13 +39,13 @@ class AirController
 	public function createAir($connectionID, $temperature, $pollution) {
 		
 		if (!isset($connectionID))
-			return self::NO_CONNECTIONID;
+			return this->NO_CONNECTIONID;
 		
 		if (!isset($temperature))
-			return self::NO_TEMPERATURE;
+			return this->NO_TEMPERATURE;
 		
 		if (!isset($pollution))
-			return self::NO_POLLUTION;
+			return this->NO_POLLUTION;
 		
 		$dto = new AirDTO;
 		$dto->id = $connectionID;
@@ -59,7 +59,7 @@ class AirController
 	public function getAir($airID) {
 		
 		if (!isset($airID))
-			return self::NO_CONNECTIONID;
+			return this->NO_CONNECTIONID;
 		
 		return $this->airService->getAir($airID);
 		
@@ -68,13 +68,13 @@ class AirController
 	public function editAir($connectionID, $temperature, $pollution) {
 	
 		if (!isset($connectionID))
-			return self::NO_CONNECTIONID;
+			return this->NO_CONNECTIONID;
 		
 		if (!isset($temperature))
-			return self::NO_TEMPERATURE;
+			return this->NO_TEMPERATURE;
 		
 		if (!isset($pollution))
-			return self::NO_POLLUTION;
+			return this->NO_POLLUTION;
 		
 		$dto = new AirDTO;
 		$dto->id = $connectionID;
@@ -88,7 +88,7 @@ class AirController
 	public function deleteAir($airID) {
 	
 		if (!isset($airID))
-			return self::NO_CONNECTIONID;
+			return this->NO_CONNECTIONID;
 		
 		return $this->airService->deleteAir($airID);
 	
