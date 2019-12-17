@@ -37,12 +37,12 @@ class BusinessService
 		$this->database = new \mysqli($host, $user, $pswd, $db);
 
 		if ($this->database->connect_errno) {
-			return this->DB_ERROR;
+			return$this->DB_ERROR;
 		}
 
 		$this->database->set_charset('utf8');
 
-		return new Response(this->SUCCESS->status, $this->database);
+		return new Response($this->SUCCESS->status, $this->database);
 		
 	}
 	
@@ -50,12 +50,12 @@ class BusinessService
 	public function login($email, $password) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return this->DB_ERROR;
+			return$this->DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				if ($res['verification'])
-					return this->UNVERIFIED;
+					return$this->UNVERIFIED;
 				if (password_verify($password, $res['hash'])) {
 
 					$dto = new BusinessDTO;
@@ -68,15 +68,15 @@ class BusinessService
 					$dto->email = $res['email'];
 					$dto->verification = $res['verification'];
 					
-					return new Response(this->SUCCESS->status, $dto);
+					return new Response($this->SUCCESS->status, $dto);
 					
 				}
 				
-				return this->WRONG_PASSWORD;
+				return$this->WRONG_PASSWORD;
 			}
 		}
 		
-		return this->NOT_FOUND;
+		return$this->NOT_FOUND;
 		
 	}
 	
@@ -84,14 +84,14 @@ class BusinessService
 	public function register($email, $password, $nickname) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return this->DB_ERROR;
+			return$this->DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."' OR `".self::DB_TABLE."`.`nickname`='".$nickname."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				if ($email == $res['email'])
-					return this->EMAIL_REGISTERED;
+					return$this->EMAIL_REGISTERED;
 				else
-					return this->NICKNAME_REGISTERED;
+					return$this->NICKNAME_REGISTERED;
 			}
 		}
 		
@@ -111,18 +111,18 @@ class BusinessService
 			if ($this->mailService->sendVerificationEmail($email, $verification) == MailService::SUCCESS->status) {
 				
 				$this->database->query("COMMIT;");
-				return this->SUCCESS;
+				return$this->SUCCESS;
 				
 			} else {
 				$this->database->query("ROLLBACK TO reg_".$nickname.";");
 				$this->database->query("COMMIT;");
 				
-				return this->EMAIL_UNSENT;
+				return$this->EMAIL_UNSENT;
 			}
 			
 		}
 		
-		return this->DB_ERROR;
+		return$this->DB_ERROR;
 		
 	}
 	
@@ -130,18 +130,18 @@ class BusinessService
 	public function verify($businessID, $verification) {
 	
 		if (!$this->database || $this->database->connect_errno)
-			return this->DB_ERROR;
+			return$this->DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`business_id`='".$businessID."' AND `verification`='".$verification."';")) {
 			
 			if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `verification`=NULL WHERE `business_id`='".$businessID."';"))
-				return this->SUCCESS;
+				return$this->SUCCESS;
 			
-			return this->DB_ERROR;
+			return$this->DB_ERROR;
 			
 		}
 		
-		return this->NOT_FOUND;
+		return$this->NOT_FOUND;
 	
 	}
 	
@@ -149,7 +149,7 @@ class BusinessService
 	public function getBusiness($businessID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return this->DB_ERROR;
+			return$this->DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -162,12 +162,12 @@ class BusinessService
 				$dto->description = $res['description'];
 				$dto->photo = $res['photo'];
 				
-				return new Response(this->SUCCESS->status, $dto);
+				return new Response($this->SUCCESS->status, $dto);
 				
 			}
 		}
 		
-		return this->NOT_FOUND;
+		return$this->NOT_FOUND;
 		
 	}
 	
@@ -175,12 +175,12 @@ class BusinessService
 		
 		
 		if (!$this->database || $this->database->connect_errno)
-			return this->DB_ERROR;
+			return$this->DB_ERROR;
 		
 		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `nickname`='".$dto->nickname."', `description`='".$dto->description."', `photo`='".$dto->photo."', `email`='".$dto->email."' WHERE `business_id`='".$dto->id."';"))
-			return this->SUCCESS;
+			return$this->SUCCESS;
 			
-		return this->DB_ERROR;
+		return$this->DB_ERROR;
 		
 	}
 	
@@ -188,24 +188,24 @@ class BusinessService
 	public function updatePassword($businessID, $oldPassword, $newPassword) {
 	
 		if ($oldPassword == $newPassword)
-			return this->SAME_PASSWORDS;
+			return$this->SAME_PASSWORDS;
 		
 		if (!$this->database || $this->database->connect_errno)
-			return this->DB_ERROR;
+			return$this->DB_ERROR;
 		
 		$businessResponse = $this->getBusiness($businessID);
-		if ($businessResponse->status != this->SUCCESS->status)
+		if ($businessResponse->status !=$this->SUCCESS->status)
 			return $businessResponse;
 		
 		$result = $this->login($businessResponse->content->email, $oldPassword);
 		
-		if ($result->status == this->SUCCESS->status) {
+		if ($result->status ==$this->SUCCESS->status) {
 			
 			$temp = password_hash($newPassword, PASSWORD_BCRYPT);
 			if ($mysqli->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$temp." WHERE `business_id`='".$businessID."';"))
-				return this->SUCCESS;
+				return$this->SUCCESS;
 			
-			return this->NOT_FOUND;
+			return$this->NOT_FOUND;
 			
 		}
 		
@@ -216,12 +216,12 @@ class BusinessService
 	public function deleteBusiness($businessID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return this->DB_ERROR;
+			return$this->DB_ERROR;
 		
 		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `busines_id`='".$businessID."';"))
-			return this->SUCCESS;
+			return$this->SUCCESS;
 			
-		return this->NOT_FOUND;
+		return$this->NOT_FOUND;
 		
 	}
 	

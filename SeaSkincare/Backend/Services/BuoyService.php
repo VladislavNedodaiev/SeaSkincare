@@ -27,25 +27,25 @@ class BuoyService
 		$this->database = new \mysqli($host, $user, $pswd, $db);
 
 		if ($this->database->connect_errno) {
-			return this->DB_ERROR;
+			return$this->DB_ERROR;
 		}
 
 		$this->database->set_charset('utf8');
 
-		return new Response(this->SUCCESS->status, $this->database);
+		return new Response($this->SUCCESS->status, $this->database);
 		
 	}
 	
 	public function createBuoy() {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return this->DB_ERROR;
+			return$this->DB_ERROR;
 		
 		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`()".
 						   "VALUES ();")) {
 							   
 			$lastID = $this->getLastID();
-			if ($lastID->status == this->SUCCESS->status
+			if ($lastID->status ==$this->SUCCESS->status
 				&& $result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`buoy_id`=".$lastID->content.";")) {
 				if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 					
@@ -54,13 +54,13 @@ class BuoyService
 					$dto->id = $res['buoy_id'];
 					$dto->fabricationDate = $res['fabrication_date'];
 					
-					return new Response(this->SUCCESS->status, $dto);
+					return new Response($this->SUCCESS->status, $dto);
 					
 				}
 			}
 		}
 			
-		return this->DB_ERROR;
+		return$this->DB_ERROR;
 		
 	}
 	
@@ -68,7 +68,7 @@ class BuoyService
 	public function getBuoy($buoyID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return this->DB_ERROR;
+			return$this->DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`buoy_id`='".$buoyID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -79,29 +79,29 @@ class BuoyService
 				$dto->id = $res['buoy_id'];
 				$dto->fabricationDate = $res['fabrication_date'];
 				
-				return new Response(this->SUCCESS->status, $dto);
+				return new Response($this->SUCCESS->status, $dto);
 				
 			}
 		}
 		
-		return this->NOT_FOUND;
+		return$this->NOT_FOUND;
 		
 	}
 	
 	public function getLastID() {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return new Response(this->DB_ERROR->status, 0);
+			return new Response($this->DB_ERROR->status, 0);
 		
 		if ($result = $this->database->query("SELECT MAX(`".self::DB_TABLE."`.`buoy_id`) AS `id` FROM `".self::DB_TABLE."`;")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
-				return new Response(this->SUCCESS->status, $res['id']);
+				return new Response($this->SUCCESS->status, $res['id']);
 				
 			}
 		}
 		
-		return new Response(this->NOT_FOUND->status, 0);
+		return new Response($this->NOT_FOUND->status, 0);
 		
 	}
 	
@@ -109,24 +109,24 @@ class BuoyService
 		
 		
 		if (!$this->database || $this->database->connect_errno)
-			return this->DB_ERROR;
+			return$this->DB_ERROR;
 		
 		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `fabrication_date`='".$dto->fabricationDate."' WHERE `buoy_id`='".$dto->id."';"))
-			return this->SUCCESS;
+			return$this->SUCCESS;
 			
-		return this->NOT_FOUND;
+		return$this->NOT_FOUND;
 		
 	}
 	
 	public function deleteBuoy($buoyID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return this->DB_ERROR;
+			return$this->DB_ERROR;
 		
 		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `buoy_id`='".$buoyID."';"))
-			return this->SUCCESS;
+			return$this->SUCCESS;
 			
-		return this->NOT_FOUND;
+		return$this->NOT_FOUND;
 		
 	}
 	

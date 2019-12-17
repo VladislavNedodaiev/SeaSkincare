@@ -38,9 +38,9 @@ class MailService
 		);
 		
 		if (mail($email, $subject, $message, $headers))
-			return this->SUCCESS;
+			return$this->SUCCESS;
 		
-		return this->EMAIL_UNSENT;
+		return$this->EMAIL_UNSENT;
 		
 	}
 	

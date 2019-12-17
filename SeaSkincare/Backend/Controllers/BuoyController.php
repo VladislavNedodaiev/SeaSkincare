@@ -45,7 +45,7 @@ class BuoyController
 	public function getBuoy($buoyID) {
 		
 		if (!isset($buoyID))
-			return this->NO_BUOYID;
+			return$this->NO_BUOYID;
 		
 		return $this->buoyService->getBuoy($buoyID);
 		
@@ -54,14 +54,14 @@ class BuoyController
 	public function editBuoy($buoyID, $fabricationDate) {
 	
 		if (!isset($buoyID))
-			return this->NO_BUOYID;
+			return$this->NO_BUOYID;
 		
 		if (!isset($fabricationDate))
-			return this->NO_FABRICATIONDATE;
+			return$this->NO_FABRICATIONDATE;
 		
 		$fabDate = strtotime($fabricationDate);
 		if (!((bool)$fabDate))
-			return this->INCORRECT_FABRICATIONDATE;
+			return$this->INCORRECT_FABRICATIONDATE;
 		
 		$dto = new BuoyDTO;
 		$dto->id = $buoyID;
@@ -74,7 +74,7 @@ class BuoyController
 	public function deleteBuoy($buoyID) {
 	
 		if (!isset($buoyID))
-			return this->NO_BUOYID;
+			return$this->NO_BUOYID;
 		
 		return $this->buoyService->deleteBuoy($buoyID);
 	

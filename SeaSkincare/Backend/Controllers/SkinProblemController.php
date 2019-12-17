@@ -43,19 +43,19 @@ class SkinProblemController
 	public function createSkinProblem($title, $normalPH, $normalSalt, $normalAirPollution, $normalSunPower) {
 		
 		if (!isset($title))
-			return this->NO_TITLE;
+			return$this->NO_TITLE;
 		
 		if (!isset($normalPH))
-			return this->NO_NORMAL_PH;
+			return$this->NO_NORMAL_PH;
 		
 		if (!isset($normalSalt))
-			return this->NO_NORMAL_SALT;
+			return$this->NO_NORMAL_SALT;
 		
 		if (!isset($normalAirPollution))
-			return this->NO_NORMAL_AIR_POLLUTION;
+			return$this->NO_NORMAL_AIR_POLLUTION;
 		
 		if (!isset($normalSunPower))
-			return this->NO_NORMAL_SUN_POWER;
+			return$this->NO_NORMAL_SUN_POWER;
 		
 		$dto = new SkinProblemDTO;
 		$dto->title = $title;
@@ -71,7 +71,7 @@ class SkinProblemController
 	public function getSkinProblem($skinProblemID) {
 		
 		if (!isset($skinProblemID))
-			return this->NO_SKINPROBLEMID;
+			return$this->NO_SKINPROBLEMID;
 		
 		return $this->skinProblemService->getSkinProblem($skinProblemID);
 		
@@ -124,29 +124,29 @@ class SkinProblemController
 			
 		}
 		
-		return this->UNDEFINED;
+		return$this->UNDEFINED;
 		
 	}
 	
 	public function editSkinProblem($skinProblemID, $title, $normalPH, $normalSalt, $normalAirPollution, $normalSunPower) {
 	
 		if (!isset($skinProblemID))
-			return this->NO_SKINPROBLEMID;
+			return$this->NO_SKINPROBLEMID;
 	
 		if (!isset($title))
-			return this->NO_TITLE;
+			return$this->NO_TITLE;
 		
 		if (!isset($normalPH))
-			return this->NO_NORMAL_PH;
+			return$this->NO_NORMAL_PH;
 		
 		if (!isset($normalSalt))
-			return this->NO_NORMAL_SALT;
+			return$this->NO_NORMAL_SALT;
 		
 		if (!isset($normalAirPollution))
-			return this->NO_NORMAL_AIR_POLLUTION;
+			return$this->NO_NORMAL_AIR_POLLUTION;
 		
 		if (!isset($normalSunPower))
-			return this->NO_NORMAL_SUN_POWER;
+			return$this->NO_NORMAL_SUN_POWER;
 		
 		$dto = new SkinProblemDTO;
 		$dto->id = $skinProblemID;
@@ -163,7 +163,7 @@ class SkinProblemController
 	public function deleteSkinProblem($skinProblemID) {
 	
 		if (!isset($skinProblemID))
-			return this->NO_SKINPROBLEMID;
+			return$this->NO_SKINPROBLEMID;
 		
 		return $this->skinProblemService->deleteSkinProblem($skinProblemID);
 	

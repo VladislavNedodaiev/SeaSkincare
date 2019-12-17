@@ -66,10 +66,10 @@ class UserController {
 	public function login($email, $password) {
 		
 		if (!isset($email))
-			return this->NO_EMAIL;
+			return$this->NO_EMAIL;
 		
 		if (!isset($password))
-			return this->NO_PASSWORD;
+			return$this->NO_PASSWORD;
 		
 		return $this->userService->login($email, $password);
 		
@@ -79,22 +79,22 @@ class UserController {
 	public function register($email, $password, $repeat_password, $nickname) {
 		
 		if (!isset($email))
-			return this->NO_EMAIL;
+			return$this->NO_EMAIL;
 		
 		if (!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $email))
-			return this->INCORRECT_EMAIL;
+			return$this->INCORRECT_EMAIL;
 		
 		if (!isset($password))
-			return this->NO_PASSWORD;
+			return$this->NO_PASSWORD;
 		
 		if (!isset($repeat_password))
-			return this->NO_REPEAT_PASSWORD;
+			return$this->NO_REPEAT_PASSWORD;
 		
 		if ($password != $repeat_password)
-			return this->DIFFERENT_PASSWORDS;
+			return$this->DIFFERENT_PASSWORDS;
 		
 		if (!isset($nickname))
-			return this->NO_NICKNAME;
+			return$this->NO_NICKNAME;
 		
 		return $this->userService->register($email, $password, $nickname);
 		
@@ -104,10 +104,10 @@ class UserController {
 	public function verify($userID, $verification) {
 	
 		if (!isset($userID))
-			return this->NO_USERID;
+			return$this->NO_USERID;
 		
 		if (!isset($verification))
-			return this->NO_VERIFICATION;
+			return$this->NO_VERIFICATION;
 		
 		return $this->userService->verify($userID, $verification);
 	
@@ -116,10 +116,10 @@ class UserController {
 	public function logout(&user) {
 	
 		if (!isset($user))
-			return this->NO_LOGIN;
+			return$this->NO_LOGIN;
 		
 		unset($user);
-		return this->SUCCESS;
+		return$this->SUCCESS;
 	
 	}
 	
@@ -127,7 +127,7 @@ class UserController {
 	public function getUser($userID) {
 		
 		if (!isset($userID))
-			return this->NO_USERID;
+			return$this->NO_USERID;
 		
 		return $this->userService->getUser($userID);
 		
@@ -154,13 +154,13 @@ class UserController {
 	public function editUser($userID, $nickname, $email) {
 	
 		if (!isset($userID))
-			return this->NO_USERID;
+			return$this->NO_USERID;
 		
 		if (!isset($nickname))
-			return this->NO_NICKNAME;
+			return$this->NO_NICKNAME;
 		
 		if (!isset($email))
-			return this->NO_EMAIL;
+			return$this->NO_EMAIL;
 		
 		$dto = new UserDTO;
 		$dto->id = $userID;
@@ -174,13 +174,13 @@ class UserController {
 	public function editPassword($userID, $oldPassword, $newPassword) {
 	
 		if (!isset($userID))
-			return this->NO_USERID;
+			return$this->NO_USERID;
 		
 		if (!isset($oldPassword))
-			return this->NO_OLD_PASSWORD;
+			return$this->NO_OLD_PASSWORD;
 		
 		if (!isset($newPassword))
-			return this->NO_NEW_PASSWORD;
+			return$this->NO_NEW_PASSWORD;
 		
 		return $this->userService->updatePassword($userID, $oldPassword, $newPassword);
 	

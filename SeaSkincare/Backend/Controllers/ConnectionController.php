@@ -41,16 +41,16 @@ class ConnectionController
 	public function createConnection($buoyID, $latitude, $longitude, $battery) {
 		
 		if (!isset($buoyID))
-			return this->NO_BUOYID;
+			return$this->NO_BUOYID;
 		
 		if (!isset($latitude))
-			return this->NO_LATITUDE;
+			return$this->NO_LATITUDE;
 		
 		if (!isset($longitude))
-			return this->NO_LONGITUDE;
+			return$this->NO_LONGITUDE;
 		
 		if (!isset($battery))
-			return this->NO_BATTERY;
+			return$this->NO_BATTERY;
 		
 		$dto = new ConnectionDTO;
 		$dto->buoyID = $buoyID;
@@ -65,7 +65,7 @@ class ConnectionController
 	public function getConnection($connectionID) {
 		
 		if (!isset($connectionID))
-			return this->NO_CONNECTIONID;
+			return$this->NO_CONNECTIONID;
 		
 		return $this->connectionService->getConnection($connectionID);
 		
@@ -74,7 +74,7 @@ class ConnectionController
 	public function getBuoyConnections($buoyID) {
 		
 		if (!isset($buoyID))
-			return this->NO_BUOYID;
+			return$this->NO_BUOYID;
 		
 		return $this->connectionService->getBuoyConnections($buoyID);
 		
@@ -103,16 +103,16 @@ class ConnectionController
 	public function editConnection($connectionID, $latitude, $longitude, $battery) {
 	
 		if (!isset($connectionID))
-			return this->NO_CONNECTIONID;
+			return$this->NO_CONNECTIONID;
 		
 		if (!isset($latitude))
-			return this->NO_LATITUDE;
+			return$this->NO_LATITUDE;
 		
 		if (!isset($longitude))
-			return this->NO_LONGITUDE;
+			return$this->NO_LONGITUDE;
 		
 		if (!isset($battery))
-			return this->NO_BATTERY;
+			return$this->NO_BATTERY;
 		
 		$dto = new ConnectionDTO;
 		$dto->id = $connectionID;
@@ -127,7 +127,7 @@ class ConnectionController
 	public function deleteConnection($connectionID) {
 	
 		if (!isset($connectionID))
-			return this->NO_CONNECTIONID;
+			return$this->NO_CONNECTIONID;
 		
 		return $this->connectionService->deleteConnection($connectionID);
 	

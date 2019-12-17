@@ -44,28 +44,28 @@ class WaterController
 	public function createWater($connectionID, $temperature, $pH, $NaCl, $MgCl2, $MgSO4, $CaSO4, $NaBr) {
 		
 		if (!isset($connectionID))
-			return this->NO_CONNECTIONID;
+			return$this->NO_CONNECTIONID;
 		
 		if (!isset($temperature))
-			return this->NO_TEMPERATURE;
+			return$this->NO_TEMPERATURE;
 		
 		if (!isset($pH))
-			return this->NO_PH;
+			return$this->NO_PH;
 		
 		if (!isset($NaCl))
-			return this->NO_NACL;
+			return$this->NO_NACL;
 		
 		if (!isset($MgCl2))
-			return this->NO_MGCL2;
+			return$this->NO_MGCL2;
 		
 		if (!isset($MgSO4))
-			return this->NO_MGSO4;
+			return$this->NO_MGSO4;
 		
 		if (!isset($CaSO4))
-			return this->NO_CASO4;
+			return$this->NO_CASO4;
 		
 		if (!isset($NaBr))
-			return this->NO_NABR;
+			return$this->NO_NABR;
 		
 		$dto = new WaterDTO;
 		$dto->id = $connectionID;
@@ -84,7 +84,7 @@ class WaterController
 	public function getWater($waterID) {
 		
 		if (!isset($waterID))
-			return this->NO_CONNECTIONID;
+			return$this->NO_CONNECTIONID;
 		
 		return $this->waterService->getWater($waterID);
 		
@@ -93,28 +93,28 @@ class WaterController
 	public function editWater($connectionID, $temperature, $pH, $NaCl, $MgCl2, $MgSO4, $CaSO4, $NaBr) {
 		
 		if (!isset($connectionID))
-			return this->NO_CONNECTIONID;
+			return$this->NO_CONNECTIONID;
 		
 		if (!isset($temperature))
-			return this->NO_TEMPERATURE;
+			return$this->NO_TEMPERATURE;
 		
 		if (!isset($pH))
-			return this->NO_PH;
+			return$this->NO_PH;
 		
 		if (!isset($NaCl))
-			return this->NO_NACL;
+			return$this->NO_NACL;
 		
 		if (!isset($MgCl2))
-			return this->NO_MGCL2;
+			return$this->NO_MGCL2;
 		
 		if (!isset($MgSO4))
-			return this->NO_MGSO4;
+			return$this->NO_MGSO4;
 		
 		if (!isset($CaSO4))
-			return this->NO_CASO4;
+			return$this->NO_CASO4;
 		
 		if (!isset($NaBr))
-			return this->NO_NABR;
+			return$this->NO_NABR;
 		
 		$dto = new WaterDTO;
 		$dto->id = $connectionID;
@@ -133,7 +133,7 @@ class WaterController
 	public function deleteWater($waterID) {
 	
 		if (!isset($waterID))
-			return this->NO_CONNECTIONID;
+			return$this->NO_CONNECTIONID;
 		
 		return $this->waterService->deleteWater($waterID);
 	

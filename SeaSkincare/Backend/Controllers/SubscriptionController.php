@@ -42,22 +42,22 @@ class SubscriptionController
 	public function createSubscription($buoyID, $businessID, $startDate, $finishDate) {
 		
 		if (!isset($buoyID))
-			return this->NO_BUOYID;
+			return$this->NO_BUOYID;
 		
 		if (!isset($businessID))
-			return this->NO_BUSINESSID;
+			return$this->NO_BUSINESSID;
 		
 		if (!isset($startDate))
-			return this->NO_STARTDATE;
+			return$this->NO_STARTDATE;
 		
 		if (!isset($finishDate))
-			return this->NO_FINISHDATE;
+			return$this->NO_FINISHDATE;
 		
 		if (!((bool)(strtotime($startDate))))
-			return this->INCORRECT_STARTDATE;
+			return$this->INCORRECT_STARTDATE;
 		
 		if (!((bool)(strtotime($finishDate))))
-			return this->INCORRECT_FINISHDATE;
+			return$this->INCORRECT_FINISHDATE;
 		
 		$dto = new SubscriptionDTO;
 		$dto->buoyID = $buoyID;
@@ -72,7 +72,7 @@ class SubscriptionController
 	public function getSubscription($subscriptionID) {
 		
 		if (!isset($subscriptionID))
-			return this->NO_SUBSCRIPTIONID;
+			return$this->NO_SUBSCRIPTIONID;
 		
 		return $this->subscriptionService->getSubscription($subscriptionID);
 		
@@ -81,10 +81,10 @@ class SubscriptionController
 	public function getSubscriptionsByIDs($buoyID, $businessID) {
 		
 		if (!isset($buoyID))
-			return this->NO_BUOYID;
+			return$this->NO_BUOYID;
 		
 		if (!isset($businessID))
-			return this->NO_BUSINESSID;
+			return$this->NO_BUSINESSID;
 		
 		return $this->subscriptionService->getSubscriptionsByIDs($buoyID, $businessID);
 		
@@ -93,7 +93,7 @@ class SubscriptionController
 	public function getSubscriptionsByBuoyID($buoyID) {
 		
 		if (!isset($buoyID))
-			return this->NO_BUOYID;
+			return$this->NO_BUOYID;
 		
 		return $this->subscriptionService->getSubscriptionsByBuoyID($buoyID);
 		
@@ -102,7 +102,7 @@ class SubscriptionController
 	public function getSubscriptionsByBusinessID($businessID) {
 		
 		if (!isset($businessID))
-			return this->NO_BUSINESSID;
+			return$this->NO_BUSINESSID;
 		
 		return $this->subscriptionService->getSubscriptionsByBusinessID($businessID);
 		
@@ -121,7 +121,7 @@ class SubscriptionController
 	public function getLastSubscriptionByBuoyID($buoyID) {
 		
 		if (!isset($buoyID))
-			return this->NO_BUOYID;
+			return$this->NO_BUOYID;
 		
 		return $this->subscriptionService->getLastSubscriptionByBuoyID($buoyID);
 		
@@ -130,19 +130,19 @@ class SubscriptionController
 	public function editSubscription($subscriptionID, $startDate, $finishDate) {
 		
 		if (!isset($subscriptionID))
-			return this->NO_SUBSCRIPTIONID;
+			return$this->NO_SUBSCRIPTIONID;
 		
 		if (!isset($startDate))
-			return this->NO_STARTDATE;
+			return$this->NO_STARTDATE;
 		
 		if (!isset($finishDate))
-			return this->NO_FINISHDATE;
+			return$this->NO_FINISHDATE;
 		
 		if (!((bool)(strtotime($startDate))))
-			return this->INCORRECT_STARTDATE;
+			return$this->INCORRECT_STARTDATE;
 		
 		if (!((bool)(strtotime($finishDate))))
-			return this->INCORRECT_FINISHDATE;
+			return$this->INCORRECT_FINISHDATE;
 		
 		$dto = new SubscriptionDTO;
 		$dto->id = $subscriptionID;
@@ -156,7 +156,7 @@ class SubscriptionController
 	public function deleteSubscription($subscriptionID) {
 	
 		if (!isset($subscriptionID))
-			return this->NO_SUBSCRIPTIONID;
+			return$this->NO_SUBSCRIPTIONID;
 		
 		return $this->subscriptionService->deleteSubscription($subscriptionID);
 	

@@ -39,13 +39,13 @@ class WeatherController
 	public function createWeather($connectionID, $sunPower, $windSpeed) {
 		
 		if (!isset($connectionID))
-			return this->NO_CONNECTIONID;
+			return$this->NO_CONNECTIONID;
 		
 		if (!isset($sunPower))
-			return this->NO_TEMPERATURE;
+			return$this->NO_TEMPERATURE;
 		
 		if (!isset($windSpeed))
-			return this->NO_POLLUTION;
+			return$this->NO_POLLUTION;
 		
 		$dto = new WeatherDTO;
 		$dto->id = $connectionID;
@@ -59,7 +59,7 @@ class WeatherController
 	public function getWeather($weatherID) {
 		
 		if (!isset($weatherID))
-			return this->NO_CONNECTIONID;
+			return$this->NO_CONNECTIONID;
 		
 		return $this->weatherService->getWeather($weatherID);
 		
@@ -68,13 +68,13 @@ class WeatherController
 	public function editWeather($connectionID, $temperature, $pollution) {
 	
 		if (!isset($connectionID))
-			return this->NO_CONNECTIONID;
+			return$this->NO_CONNECTIONID;
 		
 		if (!isset($sunPower))
-			return this->NO_TEMPERATURE;
+			return$this->NO_TEMPERATURE;
 		
 		if (!isset($windSpeed))
-			return this->NO_POLLUTION;
+			return$this->NO_POLLUTION;
 		
 		$dto = new WeatherDTO;
 		$dto->id = $connectionID;
@@ -88,7 +88,7 @@ class WeatherController
 	public function deleteWeather($weatherID) {
 	
 		if (!isset($weatherID))
-			return this->NO_CONNECTIONID;
+			return$this->NO_CONNECTIONID;
 		
 		return $this->weatherService->deleteWeather($weatherID);
 	
