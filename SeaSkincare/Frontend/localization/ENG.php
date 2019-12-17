@@ -54,6 +54,8 @@ $registration = array (
 	'NICKNAME_REGISTERED' => 'Account with the same nickname is already registered',
 	'EMAIL_UNSENT' => "The confirmation email hasn't been sent, try registering again later",
 	'DB_ERROR' => 'Database error occured',
+	'INCORRECT_EMAIL' => 'Incorrect email format',
+	'DIFFERENT_PASSWORDS' => 'The passwords you have entered are different',
 	'UNKNOWN' => 'Unknown error occured'
 
 );

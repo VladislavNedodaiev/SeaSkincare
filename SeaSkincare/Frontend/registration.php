@@ -32,7 +32,8 @@ $response = curl_exec($channel);
 curl_close($channel);
 
 $response = json_decode($response);
-if ($response['status'] == "SUCCESS") {
+
+if ($response->status == "SUCCESS") {
 	
 	$_SESSION['msg']['type'] = 'alert-success';
 	$_SESSION['msg']['text'] = getLocalString('registration', 'SUCCESS');
@@ -40,30 +41,40 @@ if ($response['status'] == "SUCCESS") {
 	header("Location: login.php");
 	exit;
 	
-} else if ($response['status'] == "EMAIL_REGISTERED") {
+} else if ($response->status == "EMAIL_REGISTERED") {
 	
 	$_SESSION['msg']['type'] = 'alert-primary';
 	$_SESSION['msg']['text'] = getLocalString('registration', 'EMAIL_REGISTERED');
 	
-} else if ($response['status'] == "NICKNAME_REGISTERED") {
+} else if ($response->status == "NICKNAME_REGISTERED") {
 	
 	$_SESSION['msg']['type'] = 'alert-primary';
 	$_SESSION['msg']['text'] = getLocalString('registration', 'NICKNAME_REGISTERED');
 	
-} else if ($response['status'] == "EMAIL_UNSENT") {
+} else if ($response->status == "EMAIL_UNSENT") {
 	
 	$_SESSION['msg']['type'] = 'alert-danger';
 	$_SESSION['msg']['text'] = getLocalString('registration', 'EMAIL_UNSENT');
 	
-} else if ($response['status'] == "DB_ERROR") {
+} else if ($response->status == "DB_ERROR") {
 	
 	$_SESSION['msg']['type'] = 'alert-danger';
 	$_SESSION['msg']['text'] = getLocalString('registration', 'DB_ERROR');
 	
+} else if ($response->status == "INCORRECT_EMAIL") {
+	
+	$_SESSION['msg']['type'] = 'alert-danger';
+	$_SESSION['msg']['text'] = getLocalString('registration', 'INCORRECT_EMAIL');
+	
+} else if ($response->status == "DIFFERENT_PASSWORDS") {
+	
+	$_SESSION['msg']['type'] = 'alert-danger';
+	$_SESSION['msg']['text'] = getLocalString('registration', 'DIFFERENT_PASSWORDS');
+	
 } else {
 	
 	$_SESSION['msg']['type'] = 'alert-danger';
-	$_SESSION['msg']['text'] = json_encode($response); //getLocalString('registration', 'UNKNOWN');
+	$_SESSION['msg']['text'] = getLocalString('registration', 'UNKNOWN');
 	
 } 
 
