@@ -7,7 +7,7 @@ include_once 'localization/localization.php';
 // Initialize session and set URL.
 $channel = curl_init();
 
-$url = '';
+$url = '127.0.0.1/SeaSkincare/Backend/API/User/Register.php';
 if (isset($_POST['register_option'])) {
 	
 	if ($_POST['register_option'] == 'as_user')
@@ -40,19 +40,39 @@ $response = json_decode($response);
 if ($response['status'] == "SUCCESS") {
 	
 	$_SESSION['msg']['type'] = 'alert-success';
-	$_SESSION['msg']['text'] = getLocalString('registration', 'success');
+	$_SESSION['msg']['text'] = getLocalString('registration', 'SUCCESS');
 	
 	header("Location: login.php");
 	exit;
 	
-} else ($response['status'] == "SUCCESS") {
+} else ($response['status'] == "EMAIL_REGISTERED") {
 	
-	$_SESSION['msg']['type'] = 'success';
-	$_SESSION['msg']['text'] = getLocalString('registration', 'success');
+	$_SESSION['msg']['type'] = 'alert-primary';
+	$_SESSION['msg']['text'] = getLocalString('registration', 'EMAIL_REGISTERED');
 	
-	header("Location: login.php");
-	exit;
+} else ($response['status'] == "NICKNAME_REGISTERED") {
+	
+	$_SESSION['msg']['type'] = 'alert-primary';
+	$_SESSION['msg']['text'] = getLocalString('registration', 'NICKNAME_REGISTERED');
+	
+} else ($response['status'] == "EMAIL_UNSENT") {
+	
+	$_SESSION['msg']['type'] = 'alert-danger';
+	$_SESSION['msg']['text'] = getLocalString('registration', 'EMAIL_UNSENT');
+	
+} else ($response['status'] == "DB_ERROR") {
+	
+	$_SESSION['msg']['type'] = 'alert-danger';
+	$_SESSION['msg']['text'] = getLocalString('registration', 'DB_ERROR');
+	
+} else {
+	
+	$_SESSION['msg']['type'] = 'alert-danger';
+	$_SESSION['msg']['text'] = getLocalString('registration', 'UNKNOWN');
 	
 } 
+
+header("Location: register.php");
+exit;
 
 ?>

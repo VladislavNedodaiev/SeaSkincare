@@ -47,12 +47,24 @@ $register = array (
 	
 );
 
+$registration = array (
+
+	'SUCCESS' => 'The confirmation email has been sent, check your email to verify your account',
+	'EMAIL_REGISTERED' => 'Account with the same email is already registered',
+	'NICKNAME_REGISTERED' => 'Account with the same nickname is already registered',
+	'EMAIL_UNSENT' => "The confirmation email hasn't been sent, try registering again later",
+	'DB_ERROR' => 'Database error occured',
+	'UNKNOWN' => 'Unknown error occured'
+
+);
+
 return array (
 
 	'header' => $header,
 	'footer' => $footer,
 	'login' => $login,
-	'register' => $register
+	'register' => $register,
+	'registration' => $registration
 
 );
 

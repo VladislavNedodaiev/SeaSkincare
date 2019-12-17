@@ -47,12 +47,24 @@ $register = array (
 	
 );
 
+$registration = array (
+
+	'SUCCESS' => 'Пітверджувальний лист надіслано, перевірте вашу електронну пошту, щоб верифікувати акаунт',
+	'EMAIL_REGISTERED' => 'Акаунт з такою електронною поштою вже зареєстровано',
+	'NICKNAME_REGISTERED' => "Акаунт з таким ім'ям вже зареєстровано",
+	'EMAIL_UNSENT' => "Підтверджувальний лист не було надіслано, спробуйте зареєструватися пізніше",
+	'DB_ERROR' => 'Сталася помилка при зверненні до бази даних',
+	'UNKNOWN' => 'Сталася невідома помилка'
+
+);
+
 return array (
 
 	'header' => $header,
 	'footer' => $footer,
 	'login' => $login,
-	'register' => $register
+	'register' => $register,
+	'registration' => $registration
 
 );
 
