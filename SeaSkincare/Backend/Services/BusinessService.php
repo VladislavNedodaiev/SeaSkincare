@@ -119,7 +119,7 @@ class BusinessService
 						   "'".$email."', ".
 						   "'".$verification."');")) {
 			
-			if ($this->mailService->sendVerificationEmail($email, $verification) == $mailService->SUCCESS->status) {
+			if ($this->mailService->sendVerificationEmail($email, $verification) == $this->mailService->SUCCESS->status) {
 				
 				$this->database->query("COMMIT;");
 				return $this->SUCCESS;
