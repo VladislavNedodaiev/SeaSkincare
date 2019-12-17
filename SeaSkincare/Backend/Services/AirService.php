@@ -12,13 +12,17 @@ class AirService
 	
 	private const DB_TABLE = "Air";
 	
-	public $NOT_FOUND = new Response("NOT_FOUND", null);
-	public $SUCCESS = new Response("SUCCESS", null);
-	public $DB_ERROR = new Response("DB_ERROR", null);
+	public $NOT_FOUND;
+	public $SUCCESS;
+	public $DB_ERROR;
 	
 	public function __construct($host, $user, $pswd, $db) {
 	
 		$this->connectToDB($host, $user, $pswd, $db);
+		
+		$NOT_FOUND = new Response("NOT_FOUND", null);
+		$SUCCESS = new Response("SUCCESS", null);
+		$DB_ERROR = new Response("DB_ERROR", null);
 	
 	}
 	
@@ -27,7 +31,7 @@ class AirService
 		$this->database = new \mysqli($host, $user, $pswd, $db);
 
 		if ($this->database->connect_errno) {
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		}
 
 		$this->database->set_charset('utf8');
@@ -39,7 +43,7 @@ class AirService
 	public function createAir($dto) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`connection_id`, `temperature`, `pollution`)".
 						   "VALUES (".
@@ -51,7 +55,7 @@ class AirService
 			
 		}
 			
-		return$this->DB_ERROR;
+		return $this->DB_ERROR;
 		
 	}
 	
@@ -59,7 +63,7 @@ class AirService
 	public function getAir($connectionID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`connection_id`='".$connectionID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -76,7 +80,7 @@ class AirService
 			}
 		}
 		
-		return$this->NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	
@@ -84,10 +88,10 @@ class AirService
 		
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `temperature`='".$dto->temperature."', `pollution`='".$dto->pollution."' WHERE `connection_id`='".$dto->id."';"))
-			return$this->SUCCESS;
+			return $this->SUCCESS;
 			
 		return new$this->NOT_FOUND;
 		
@@ -96,12 +100,12 @@ class AirService
 	public function deleteAir($connectionID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `connection_id`='".$connectionID."';"))
-			return$this->SUCCESS;
+			return $this->SUCCESS;
 			
-		return$this->NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	

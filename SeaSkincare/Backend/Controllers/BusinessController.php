@@ -17,17 +17,17 @@ class BusinessController
 	private $mailService;
 	private $businessService;
 	
-	public $NO_EMAIL = new Response("NO_EMAIL", null);
-	public $NO_PASSWORD = new Response("NO_PASSWORD", null);
-	public $NO_REPEAT_PASSWORD = new Response("NO_REPEAT_PASSWORD", null);
-	public $DIFFERENT_PASSWORDS = new Response("DIFFERENT_PASSWORDS", null);
-	public $NO_NICKNAME = new Response("NO_NICKNAME", null);
-	public $NO_BUSINESSID = new Response("NO_BUSINESSID", null);
-	public $NO_VERIFICATION = new Response("NO_VERIFICATION", null);
-	public $NO_LOGIN = new Response("NO_LOGIN", null);
-	public $SUCCESS = new Response("SUCCESS", null);
-	public $NO_OLD_PASSWORD = new Response("NO_OLD_PASSWORD", null);
-	public $NO_NEW_PASSWORD = new Response("NO_NEW_PASSWORD", null);
+	public $NO_EMAIL;
+	public $NO_PASSWORD;
+	public $NO_REPEAT_PASSWORD;
+	public $DIFFERENT_PASSWORDS;
+	public $NO_NICKNAME;
+	public $NO_BUSINESSID;
+	public $NO_VERIFICATION;
+	public $NO_LOGIN;
+	public $SUCCESS;
+	public $NO_OLD_PASSWORD;
+	public $NO_NEW_PASSWORD;
 	
 	
 	public function __construct() {
@@ -45,16 +45,28 @@ class BusinessController
 			$this->mailService
 
 		);
+		
+		$NO_EMAIL = new Response("NO_EMAIL", null);
+		$NO_PASSWORD = new Response("NO_PASSWORD", null);
+		$NO_REPEAT_PASSWORD = new Response("NO_REPEAT_PASSWORD", null);
+		$DIFFERENT_PASSWORDS = new Response("DIFFERENT_PASSWORDS", null);
+		$NO_NICKNAME = new Response("NO_NICKNAME", null);
+		$NO_BUSINESSID = new Response("NO_BUSINESSID", null);
+		$NO_VERIFICATION = new Response("NO_VERIFICATION", null);
+		$NO_LOGIN = new Response("NO_LOGIN", null);
+		$SUCCESS = new Response("SUCCESS", null);
+		$NO_OLD_PASSWORD = new Response("NO_OLD_PASSWORD", null);
+		$NO_NEW_PASSWORD = new Response("NO_NEW_PASSWORD", null);
 	
 	}
 	
 	public function login($email, $password) {
 		
 		if (!isset($email))
-			return$this->NO_EMAIL;
+			return $this->NO_EMAIL;
 		
 		if (!isset($password))
-			return$this->NO_PASSWORD;
+			return $this->NO_PASSWORD;
 		
 		return $this->businessService->login($email, $password);
 		
@@ -64,22 +76,22 @@ class BusinessController
 	public function register($email, $password, $repeat_password, $nickname) {
 		
 		if (!isset($email))
-			return$this->NO_EMAIL;
+			return $this->NO_EMAIL;
 		
 		if (!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $email))
-			return$this->NO_PASSWORD;
+			return $this->NO_PASSWORD;
 		
 		if (!isset($password))
-			return$this->NO_PASSWORD;
+			return $this->NO_PASSWORD;
 		
 		if (!isset($repeat_password))
-			return$this->NO_REPEAT_PASSWORD;
+			return $this->NO_REPEAT_PASSWORD;
 		
 		if ($password != $repeat_password)
-			return$this->DIFFERENT_PASSWORDS;
+			return $this->DIFFERENT_PASSWORDS;
 		
 		if (!isset($nickname))
-			return$this->NO_NICKNAME;
+			return $this->NO_NICKNAME;
 		
 		return $this->businessService->register($email, $password, $nickname);
 		
@@ -89,10 +101,10 @@ class BusinessController
 	public function verify($businessID, $verification) {
 	
 		if (!isset($businessID))
-			return$this->NO_BUSINESSID;
+			return $this->NO_BUSINESSID;
 		
 		if (!isset($verification))
-			return$this->NO_VERIFICATION;
+			return $this->NO_VERIFICATION;
 		
 		return $this->businessService->verify($businessID, $verification);
 	
@@ -101,10 +113,10 @@ class BusinessController
 	public function logout(&business) {
 	
 		if (!isset($business))
-			return$this->NO_LOGIN;
+			return $this->NO_LOGIN;
 		
 		unset($business);
-		return$this->SUCCESS;
+		return $this->SUCCESS;
 	
 	}
 	
@@ -112,7 +124,7 @@ class BusinessController
 	public function getBusiness($businessID) {
 		
 		if (!isset($businessID))
-			return$this->NO_BUSINESSID;
+			return $this->NO_BUSINESSID;
 		
 		return $this->$businessService->getBusiness($businessID);
 		
@@ -121,13 +133,13 @@ class BusinessController
 	public function editBusiness($businessID, $nickname, $email) {
 	
 		if (!isset($businessID))
-			return$this->NO_BUSINESSID;
+			return $this->NO_BUSINESSID;
 		
 		if (!isset($nickname))
-			return$this->NO_NICKNAME;
+			return $this->NO_NICKNAME;
 		
 		if (!isset($email))
-			return$this->NO_EMAIL;
+			return $this->NO_EMAIL;
 		
 		$dto = new BusinessDTO;
 		$dto->id = $businessID;
@@ -141,13 +153,13 @@ class BusinessController
 	public function editPassword($businessID, $oldPassword, $newPassword) {
 	
 		if (!isset($businessID))
-			return$this->NO_BUSINESSID;
+			return $this->NO_BUSINESSID;
 		
 		if (!isset($oldPassword))
-			return$this->NO_OLD_PASSWORD;
+			return $this->NO_OLD_PASSWORD;
 		
 		if (!isset($newPassword))
-			return$this->NO_NEW_PASSWORD;
+			return $this->NO_NEW_PASSWORD;
 		
 		return $this->businessService->updatePassword($businessID, $oldPassword, $newPassword);
 	

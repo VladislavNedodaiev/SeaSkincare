@@ -15,12 +15,12 @@ class VacationController
 	private $dataRep;
 	private $vacationService;
 	
-	public $SUCCESS = new Response("SUCCESS", null);
-	public $NO_VACATIONID = new Response("NO_VACATIONID", null);
-	public $NO_USERID = new Response("NO_USERID", null);
-	public $NO_BUSINESSID = new Response("NO_BUSINESSID", null);
-	public $NO_STARTDATE = new Response("NO_STARTDATE", null);
-	public $NO_FINISHDATE = new Response("NO_FINISHDATE", null);	
+	public $SUCCESS;
+	public $NO_VACATIONID;
+	public $NO_USERID;
+	public $NO_BUSINESSID;
+	public $NO_STARTDATE;
+	public $NO_FINISHDATE;	
 	
 	public function __construct() {
 	
@@ -34,28 +34,35 @@ class VacationController
 			$this->dataRep->getDatabase()
 
 		);
+		
+		$SUCCESS = new Response("SUCCESS", null);
+		$NO_VACATIONID = new Response("NO_VACATIONID", null);
+		$NO_USERID = new Response("NO_USERID", null);
+		$NO_BUSINESSID = new Response("NO_BUSINESSID", null);
+		$NO_STARTDATE = new Response("NO_STARTDATE", null);
+		$NO_FINISHDATE = new Response("NO_FINISHDATE", null);
 	
 	}
 	
 	public function createVacation($userID, $businessID, $startDate, $finishDate) {
 		
 		if (!isset($userID))
-			return$this->NO_USERID;
+			return $this->NO_USERID;
 		
 		if (!isset($businessID))
-			return$this->NO_BUSINESSID;
+			return $this->NO_BUSINESSID;
 		
 		if (!isset($startDate))
-			return$this->NO_STARTDATE;
+			return $this->NO_STARTDATE;
 		
 		if (!isset($finishDate))
-			return$this->NO_FINISHDATE;
+			return $this->NO_FINISHDATE;
 		
 		if (!((bool)(strtotime($startDate))))
-			return$this->INCORRECT_STARTDATE;
+			return $this->INCORRECT_STARTDATE;
 		
 		if (!((bool)(strtotime($finishDate))))
-			return$this->INCORRECT_FINISHDATE;
+			return $this->INCORRECT_FINISHDATE;
 		
 		$dto = new VacationDTO;
 		$dto->userID = $userID;
@@ -70,7 +77,7 @@ class VacationController
 	public function getVacation($vacationID) {
 		
 		if (!isset($vacationID))
-			return$this->NO_VACATIONID;
+			return $this->NO_VACATIONID;
 		
 		return $this->vacationService->getVacation($vacationID);
 		
@@ -79,10 +86,10 @@ class VacationController
 	public function getVacationsByIDs($userID, $businessID) {
 		
 		if (!isset($userID))
-			return$this->NO_USERID;
+			return $this->NO_USERID;
 		
 		if (!isset($businessID))
-			return$this->NO_BUSINESSID;
+			return $this->NO_BUSINESSID;
 		
 		return $this->vacationService->getVacationsByIDs($userID, $businessID);
 		
@@ -91,7 +98,7 @@ class VacationController
 	public function getVacationsByUserID($userID) {
 		
 		if (!isset($userID))
-			return$this->NO_USERID;
+			return $this->NO_USERID;
 		
 		return $this->vacationService->getVacationsByUserID($userID);
 		
@@ -100,7 +107,7 @@ class VacationController
 	public function getVacationsByBusinessID($businessID) {
 		
 		if (!isset($businessID))
-			return$this->NO_BUSINESSID;
+			return $this->NO_BUSINESSID;
 		
 		return $this->vacationService->getVacationsByBusinessID($businessID);
 		
@@ -119,7 +126,7 @@ class VacationController
 	public function getLastVacationByUserID($userID) {
 		
 		if (!isset($userID))
-			return$this->NO_USERID;
+			return $this->NO_USERID;
 		
 		return $this->vacationService->getLastVacationByUserID($userID);
 		
@@ -128,22 +135,22 @@ class VacationController
 	public function editVacation($vacationID, $startDate, $finishDate) {
 		
 		if (!isset($userID))
-			return$this->NO_USERID;
+			return $this->NO_USERID;
 		
 		if (!isset($businessID))
-			return$this->NO_BUSINESSID;
+			return $this->NO_BUSINESSID;
 		
 		if (!isset($startDate))
-			return$this->NO_STARTDATE;
+			return $this->NO_STARTDATE;
 		
 		if (!isset($finishDate))
-			return$this->NO_FINISHDATE;
+			return $this->NO_FINISHDATE;
 		
 		if (!((bool)(strtotime($startDate))))
-			return$this->INCORRECT_STARTDATE;
+			return $this->INCORRECT_STARTDATE;
 		
 		if (!((bool)(strtotime($finishDate))))
-			return$this->INCORRECT_FINISHDATE;
+			return $this->INCORRECT_FINISHDATE;
 		
 		$dto = new VacationDTO;
 		$dto->id = $vacationID;
@@ -157,7 +164,7 @@ class VacationController
 	public function deleteVacation($vacationID) {
 	
 		if (!isset($vacationID))
-			return$this->NO_VACATIONID;
+			return $this->NO_VACATIONID;
 		
 		return $this->vacationService->deleteVacation($vacationID);
 	

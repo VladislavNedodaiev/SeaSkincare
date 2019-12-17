@@ -15,10 +15,10 @@ class WeatherController
 	private $dataRep;
 	private $weatherService;
 	
-	public $SUCCESS = new Response("SUCCESS", null);
-	public $NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
-	public $NO_SUNPOWER = new Response("NO_SUNPOWER", null);
-	public $NO_WINDSPEED = new Response("NO_WINDSPEED", null);
+	public $SUCCESS;
+	public $NO_CONNECTIONID;
+	public $NO_SUNPOWER;
+	public $NO_WINDSPEED;
 	
 	
 	public function __construct() {
@@ -34,18 +34,23 @@ class WeatherController
 
 		);
 	
+		$SUCCESS = new Response("SUCCESS", null);
+		$NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
+		$NO_SUNPOWER = new Response("NO_SUNPOWER", null);
+		$NO_WINDSPEED = new Response("NO_WINDSPEED", null);
+	
 	}
 	
 	public function createWeather($connectionID, $sunPower, $windSpeed) {
 		
 		if (!isset($connectionID))
-			return$this->NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		if (!isset($sunPower))
-			return$this->NO_TEMPERATURE;
+			return $this->NO_TEMPERATURE;
 		
 		if (!isset($windSpeed))
-			return$this->NO_POLLUTION;
+			return $this->NO_POLLUTION;
 		
 		$dto = new WeatherDTO;
 		$dto->id = $connectionID;
@@ -59,7 +64,7 @@ class WeatherController
 	public function getWeather($weatherID) {
 		
 		if (!isset($weatherID))
-			return$this->NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		return $this->weatherService->getWeather($weatherID);
 		
@@ -68,13 +73,13 @@ class WeatherController
 	public function editWeather($connectionID, $temperature, $pollution) {
 	
 		if (!isset($connectionID))
-			return$this->NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		if (!isset($sunPower))
-			return$this->NO_TEMPERATURE;
+			return $this->NO_TEMPERATURE;
 		
 		if (!isset($windSpeed))
-			return$this->NO_POLLUTION;
+			return $this->NO_POLLUTION;
 		
 		$dto = new WeatherDTO;
 		$dto->id = $connectionID;
@@ -88,7 +93,7 @@ class WeatherController
 	public function deleteWeather($weatherID) {
 	
 		if (!isset($weatherID))
-			return$this->NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		return $this->weatherService->deleteWeather($weatherID);
 	

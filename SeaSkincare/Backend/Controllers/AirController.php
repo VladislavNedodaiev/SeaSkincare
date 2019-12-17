@@ -15,10 +15,10 @@ class AirController
 	private $dataRep;
 	private $airService;
 	
-	public $SUCCESS = new Response("SUCCESS", null);
-	public $NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
-	public $NO_TEMPERATURE = new Response("NO_TEMPERATURE", null);
-	public $NO_POLLUTION = new Response("NO_POLLUTION", null);
+	public $SUCCESS;
+	public $NO_CONNECTIONID;
+	public $NO_TEMPERATURE;
+	public $NO_POLLUTION;
 	
 	
 	public function __construct() {
@@ -34,18 +34,23 @@ class AirController
 
 		);
 	
+		$SUCCESS = new Response("SUCCESS", null);
+		$NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
+		$NO_TEMPERATURE = new Response("NO_TEMPERATURE", null);
+		$NO_POLLUTION = new Response("NO_POLLUTION", null);
+	
 	}
 	
 	public function createAir($connectionID, $temperature, $pollution) {
 		
 		if (!isset($connectionID))
-			return$this->NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		if (!isset($temperature))
-			return$this->NO_TEMPERATURE;
+			return $this->NO_TEMPERATURE;
 		
 		if (!isset($pollution))
-			return$this->NO_POLLUTION;
+			return $this->NO_POLLUTION;
 		
 		$dto = new AirDTO;
 		$dto->id = $connectionID;
@@ -59,7 +64,7 @@ class AirController
 	public function getAir($airID) {
 		
 		if (!isset($airID))
-			return$this->NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		return $this->airService->getAir($airID);
 		
@@ -68,13 +73,13 @@ class AirController
 	public function editAir($connectionID, $temperature, $pollution) {
 	
 		if (!isset($connectionID))
-			return$this->NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		if (!isset($temperature))
-			return$this->NO_TEMPERATURE;
+			return $this->NO_TEMPERATURE;
 		
 		if (!isset($pollution))
-			return$this->NO_POLLUTION;
+			return $this->NO_POLLUTION;
 		
 		$dto = new AirDTO;
 		$dto->id = $connectionID;
@@ -88,7 +93,7 @@ class AirController
 	public function deleteAir($airID) {
 	
 		if (!isset($airID))
-			return$this->NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		return $this->airService->deleteAir($airID);
 	

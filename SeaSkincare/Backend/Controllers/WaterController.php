@@ -15,15 +15,15 @@ class WaterController
 	private $dataRep;
 	private $waterService;
 	
-	public $SUCCESS = new Response("SUCCESS", null);
-	public $NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
-	public $NO_TEMPERATURE = new Response("NO_TEMPERATURE", null);
-	public $NO_PH = new Response("NO_PH", null);
-	public $NO_NACL = new Response("NO_NACL", null);
-	public $NO_MGCL2 = new Response("NO_MGCL2", null);
-	public $NO_MGSO4 = new Response("NO_MGSO4", null);
-	public $NO_CASO4 = new Response("NO_CASO4", null);
-	public $NO_NABR = new Response("NO_NABR", null);
+	public $SUCCESS;
+	public $NO_CONNECTIONID;
+	public $NO_TEMPERATURE;
+	public $NO_PH;
+	public $NO_NACL;
+	public $NO_MGCL2;
+	public $NO_MGSO4;
+	public $NO_CASO4;
+	public $NO_NABR;
 	
 	
 	public function __construct() {
@@ -38,34 +38,44 @@ class WaterController
 			$this->dataRep->getDatabase()
 
 		);
+		
+		$SUCCESS = new Response("SUCCESS", null);
+		$NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
+		$NO_TEMPERATURE = new Response("NO_TEMPERATURE", null);
+		$NO_PH = new Response("NO_PH", null);
+		$NO_NACL = new Response("NO_NACL", null);
+		$NO_MGCL2 = new Response("NO_MGCL2", null);
+		$NO_MGSO4 = new Response("NO_MGSO4", null);
+		$NO_CASO4 = new Response("NO_CASO4", null);
+		$NO_NABR = new Response("NO_NABR", null);
 	
 	}
 	
 	public function createWater($connectionID, $temperature, $pH, $NaCl, $MgCl2, $MgSO4, $CaSO4, $NaBr) {
 		
 		if (!isset($connectionID))
-			return$this->NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		if (!isset($temperature))
-			return$this->NO_TEMPERATURE;
+			return $this->NO_TEMPERATURE;
 		
 		if (!isset($pH))
-			return$this->NO_PH;
+			return $this->NO_PH;
 		
 		if (!isset($NaCl))
-			return$this->NO_NACL;
+			return $this->NO_NACL;
 		
 		if (!isset($MgCl2))
-			return$this->NO_MGCL2;
+			return $this->NO_MGCL2;
 		
 		if (!isset($MgSO4))
-			return$this->NO_MGSO4;
+			return $this->NO_MGSO4;
 		
 		if (!isset($CaSO4))
-			return$this->NO_CASO4;
+			return $this->NO_CASO4;
 		
 		if (!isset($NaBr))
-			return$this->NO_NABR;
+			return $this->NO_NABR;
 		
 		$dto = new WaterDTO;
 		$dto->id = $connectionID;
@@ -84,7 +94,7 @@ class WaterController
 	public function getWater($waterID) {
 		
 		if (!isset($waterID))
-			return$this->NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		return $this->waterService->getWater($waterID);
 		
@@ -93,28 +103,28 @@ class WaterController
 	public function editWater($connectionID, $temperature, $pH, $NaCl, $MgCl2, $MgSO4, $CaSO4, $NaBr) {
 		
 		if (!isset($connectionID))
-			return$this->NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		if (!isset($temperature))
-			return$this->NO_TEMPERATURE;
+			return $this->NO_TEMPERATURE;
 		
 		if (!isset($pH))
-			return$this->NO_PH;
+			return $this->NO_PH;
 		
 		if (!isset($NaCl))
-			return$this->NO_NACL;
+			return $this->NO_NACL;
 		
 		if (!isset($MgCl2))
-			return$this->NO_MGCL2;
+			return $this->NO_MGCL2;
 		
 		if (!isset($MgSO4))
-			return$this->NO_MGSO4;
+			return $this->NO_MGSO4;
 		
 		if (!isset($CaSO4))
-			return$this->NO_CASO4;
+			return $this->NO_CASO4;
 		
 		if (!isset($NaBr))
-			return$this->NO_NABR;
+			return $this->NO_NABR;
 		
 		$dto = new WaterDTO;
 		$dto->id = $connectionID;
@@ -133,7 +143,7 @@ class WaterController
 	public function deleteWater($waterID) {
 	
 		if (!isset($waterID))
-			return$this->NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		return $this->waterService->deleteWater($waterID);
 	

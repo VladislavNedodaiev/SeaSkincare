@@ -12,13 +12,17 @@ class WaterService
 	
 	private const DB_TABLE = "Water";
 	
-	public $NOT_FOUND = new Response("NOT_FOUND", null);
-	public $SUCCESS = new Response("SUCCESS", null);
-	public $DB_ERROR = new Response("DB_ERROR", null);
+	public $NOT_FOUND;
+	public $SUCCESS;
+	public $DB_ERROR;
 	
 	public function __construct($host, $user, $pswd, $db) {
 	
 		$this->connectToDB($host, $user, $pswd, $db);
+		
+		$NOT_FOUND = new Response("NOT_FOUND", null);
+		$SUCCESS = new Response("SUCCESS", null);
+		$DB_ERROR = new Response("DB_ERROR", null);
 	
 	}
 	
@@ -27,7 +31,7 @@ class WaterService
 		$this->database = new \mysqli($host, $user, $pswd, $db);
 
 		if ($this->database->connect_errno) {
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		}
 
 		$this->database->set_charset('utf8');
@@ -39,7 +43,7 @@ class WaterService
 	public function createWater($dto) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 
 		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`connection_id`, `temperature`, `pH`, `NaCl`, `MgCl2`, `MgSO4`, `CaSO4`, `NaBr`)".
 						   "VALUES (".
@@ -56,7 +60,7 @@ class WaterService
 			
 		}
 			
-		return$this->DB_ERROR;
+		return $this->DB_ERROR;
 		
 	}
 	
@@ -64,7 +68,7 @@ class WaterService
 	public function getWater($connectionID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`connection_id`='".$connectionID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -86,7 +90,7 @@ class WaterService
 			}
 		}
 		
-		return$this->NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	
@@ -94,12 +98,12 @@ class WaterService
 		
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `temperature`='".$dto->temperature."', `pH`='".$dto->pH."', `NaCl`='".$dto->NaCl."', `MgCl2`='".$dto->MgCl2."', `MgSO4`='".$dto->MgSO4."', `CaSO4`='".$dto->CaSO4."', `NaBr`='".$dto->NaBr."' WHERE `connection_id`='".$dto->id."';"))
-			return$this->SUCCESS;
+			return $this->SUCCESS;
 			
-		return$this->NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	
@@ -107,12 +111,12 @@ class WaterService
 	{
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `connection_id`='".$connectionID."';"))
-			return$this->SUCCESS;
+			return $this->SUCCESS;
 			
-		return$this->NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	

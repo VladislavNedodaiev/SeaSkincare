@@ -12,13 +12,17 @@ class ConnectionService
 	
 	private const DB_TABLE = "Connection";
 	
-	public $NOT_FOUND = new Response("NOT_FOUND", null);
-	public $SUCCESS = new Response("SUCCESS", null);
-	public $DB_ERROR = new Response("DB_ERROR", null);
+	public $NOT_FOUND;
+	public $SUCCESS;
+	public $DB_ERROR;
 	
 	public function __construct($host, $user, $pswd, $db) {
 	
 		$this->connectToDB($host, $user, $pswd, $db);
+	
+		$NOT_FOUND = new Response("NOT_FOUND", null);
+		$SUCCESS = new Response("SUCCESS", null);
+		$DB_ERROR = new Response("DB_ERROR", null);
 	
 	}
 	
@@ -27,7 +31,7 @@ class ConnectionService
 		$this->database = new \mysqli($host, $user, $pswd, $db);
 
 		if ($this->database->connect_errno) {
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		}
 
 		$this->database->set_charset('utf8');
@@ -39,7 +43,7 @@ class ConnectionService
 	public function createConnection($dto) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`buoy_id`, `latitude`, `longitude`, `battery`)".
 						   "VALUES ('".$dto->buoyID."',
@@ -60,7 +64,7 @@ class ConnectionService
 			}
 		}
 			
-		return$this->DB_ERROR;
+		return $this->DB_ERROR;
 		
 	}
 	
@@ -68,7 +72,7 @@ class ConnectionService
 	public function getConnection($connectionID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`connection_id`='".$connectionID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -88,14 +92,14 @@ class ConnectionService
 			}
 		}
 		
-		return$this->NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	
 	public function getBuoyConnections($buoyID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`buoy_id`='".$buoyID."';")) {
 			
@@ -119,7 +123,7 @@ class ConnectionService
 			return new Response($this->SUCCESS->status, $connections);
 		}
 		
-		return$this->NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	
@@ -161,24 +165,24 @@ class ConnectionService
 		
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `latitude`='".$dto->latitude."', `longitude`='".$dto->longitude."', `battery`='".$dto->battery."' WHERE `connection_id`='".$dto->id."';"))
-			return$this->SUCCESS;
+			return $this->SUCCESS;
 			
-		return$this->NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	
 	public function deleteConnection($connectionID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `connection_id`='".$connectionID."';"))
-			return$this->SUCCESS;
+			return $this->SUCCESS;
 			
-		return$this->NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	

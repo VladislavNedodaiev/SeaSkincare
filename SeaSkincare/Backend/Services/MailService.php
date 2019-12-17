@@ -7,12 +7,15 @@ class MailService
 	
 	public $host;
 	
-	public $SUCCESS = new Response("SUCCESS", null);
-	public $EMAIL_UNSENT = new Response("EMAIL_UNSENT", null);
+	public $SUCCESS;
+	public $EMAIL_UNSENT;
 	
 	public function __construct($host) {
 	
 		$this->host = $host;
+		
+		$SUCCESS = new Response("SUCCESS", null);
+		$EMAIL_UNSENT = new Response("EMAIL_UNSENT", null);
 	
 	}
 	
@@ -38,9 +41,9 @@ class MailService
 		);
 		
 		if (mail($email, $subject, $message, $headers))
-			return$this->SUCCESS;
+			return $this->SUCCESS;
 		
-		return$this->EMAIL_UNSENT;
+		return $this->EMAIL_UNSENT;
 		
 	}
 	

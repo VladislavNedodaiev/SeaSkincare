@@ -15,10 +15,10 @@ class BuoyController
 	private $dataRep;
 	private $buoyService;
 	
-	public $NO_BUOYID = new Response("NO_BUOYID", null);
-	public $SUCCESS = new Response("SUCCESS", null);
-	public $NO_FABRICATIONDATE = new Response("NO_FABRICATIONDATE", null);
-	public $INCORRECT_FABRICATIONDATE = new Response("INCORRECT_FABRICATIONDATE", null);
+	public $NO_BUOYID;
+	public $SUCCESS;
+	public $NO_FABRICATIONDATE;
+	public $INCORRECT_FABRICATIONDATE;
 	
 	
 	public function __construct() {
@@ -34,6 +34,11 @@ class BuoyController
 
 		);
 	
+		$NO_BUOYID = new Response("NO_BUOYID", null);
+		$SUCCESS = new Response("SUCCESS", null);
+		$NO_FABRICATIONDATE = new Response("NO_FABRICATIONDATE", null);
+		$INCORRECT_FABRICATIONDATE = new Response("INCORRECT_FABRICATIONDATE", null);
+	
 	}
 	
 	public function createBuoy() {
@@ -45,7 +50,7 @@ class BuoyController
 	public function getBuoy($buoyID) {
 		
 		if (!isset($buoyID))
-			return$this->NO_BUOYID;
+			return $this->NO_BUOYID;
 		
 		return $this->buoyService->getBuoy($buoyID);
 		
@@ -54,14 +59,14 @@ class BuoyController
 	public function editBuoy($buoyID, $fabricationDate) {
 	
 		if (!isset($buoyID))
-			return$this->NO_BUOYID;
+			return $this->NO_BUOYID;
 		
 		if (!isset($fabricationDate))
-			return$this->NO_FABRICATIONDATE;
+			return $this->NO_FABRICATIONDATE;
 		
 		$fabDate = strtotime($fabricationDate);
 		if (!((bool)$fabDate))
-			return$this->INCORRECT_FABRICATIONDATE;
+			return $this->INCORRECT_FABRICATIONDATE;
 		
 		$dto = new BuoyDTO;
 		$dto->id = $buoyID;
@@ -74,7 +79,7 @@ class BuoyController
 	public function deleteBuoy($buoyID) {
 	
 		if (!isset($buoyID))
-			return$this->NO_BUOYID;
+			return $this->NO_BUOYID;
 		
 		return $this->buoyService->deleteBuoy($buoyID);
 	

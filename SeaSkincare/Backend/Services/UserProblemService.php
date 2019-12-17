@@ -11,13 +11,17 @@ class UserProblemService {
 	
 	private const DB_TABLE = "User_Problem";
 	
-	public $NOT_FOUND = new Response("NOT_FOUND", null);
-	public $SUCCESS = new Response("SUCCESS", null);
-	public $DB_ERROR = new Response("DB_ERROR", null);
+	public $NOT_FOUND;
+	public $SUCCESS;
+	public $DB_ERROR;
 	
 	public function __construct($host, $user, $pswd, $db) {
 	
 		$this->connectToDB($host, $user, $pswd, $db);
+		
+		$NOT_FOUND = new Response("NOT_FOUND", null);
+		$SUCCESS = new Response("SUCCESS", null);
+		$DB_ERROR = new Response("DB_ERROR", null);
 	
 	}
 	
@@ -26,7 +30,7 @@ class UserProblemService {
 		$this->database = new \mysqli($host, $user, $pswd, $db);
 
 		if ($this->database->connect_errno) {
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		}
 
 		$this->database->set_charset('utf8');
@@ -38,7 +42,7 @@ class UserProblemService {
 	public function createUserProblem($dto) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 
 		$response = $this->getUserProblemByIDs($dto->userID, $dto->skinProblemID);
 		if ($response->status ==$this->SUCCESS->status)
@@ -62,14 +66,14 @@ class UserProblemService {
 			}
 		}
 			
-		return$this->DB_ERROR;
+		return $this->DB_ERROR;
 		
 	}
 	
 	public function getUserProblem($userProblemID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_problem_id`='".$userProblemID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -85,14 +89,14 @@ class UserProblemService {
 			}
 		}
 		
-		return$this->NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	
 	public function getUserProblemsByIDs($userID, $skinProblemID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."' AND `".self::DB_TABLE."`.`skin_problem_id`='".$skinProblemID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -108,14 +112,14 @@ class UserProblemService {
 			}
 		}
 		
-		return$this->NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	
 	public function getUserProblemsByUserID($userID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."';")) {
 			
@@ -136,14 +140,14 @@ class UserProblemService {
 			return new Response($this->SUCCESS->status, $userProblems);
 		}
 		
-		return$this->NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	
 	public function getUserProblemsBySkinProblemID($skinProblemID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`skin_problem_id`='".$skinProblemID."';")) {
 			
@@ -164,7 +168,7 @@ class UserProblemService {
 			return new Response($this->SUCCESS->status, $userProblems);
 		}
 		
-		return$this->NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	
@@ -188,12 +192,12 @@ class UserProblemService {
 	public function deleteUserProblem($userProblemID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return$this->DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `user_problem_id`='".$userProblemID."';"))
-			return$this->SUCCESS;
+			return $this->SUCCESS;
 			
-		return$this->NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	
