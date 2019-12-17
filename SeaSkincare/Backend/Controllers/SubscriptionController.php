@@ -120,7 +120,7 @@ class SubscriptionController
 	public function getLastSubscription() {
 		
 		$subscriptionID = $this->subscriptionService->getLastID();
-		if ($subscriptionID->status != SubscriptionService::SUCCESS->status)
+		if ($subscriptionID->status != $this->subscriptionService->SUCCESS->status)
 			return $subscriptionID;
 		
 		return $this->subscriptionService->getSubscription($subscriptionID->content);

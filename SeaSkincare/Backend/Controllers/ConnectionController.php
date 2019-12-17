@@ -99,7 +99,7 @@ class ConnectionController
 	public function getLastConnectionByBuoy($buoyID) {
 		
 		$connectionID = $this->connectionService->getLastIDByBuoy($buoyID);
-		if ($connectionID->status != ConnectionService::SUCCESS->status)
+		if ($connectionID->status != $this->connectionService->SUCCESS->status)
 			return $connectionID;
 		
 		return $this->connectionService->getConnection($connectionID->content);

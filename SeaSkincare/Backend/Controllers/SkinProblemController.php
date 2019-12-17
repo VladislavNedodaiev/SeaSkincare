@@ -95,7 +95,7 @@ class SkinProblemController
 	public function getLastSkinProblem() {
 		
 		$skinProblemID = $this->skinProblemService->getLastID();
-		if ($skinProblemID->status != SkinProblemService::SUCCESS->status)
+		if ($skinProblemID->status != $this->skinProblemService->SUCCESS->status)
 			return $skinProblemID;
 		
 		return $this->skinProblemService->getSkinProblem($skinProblemID->content);

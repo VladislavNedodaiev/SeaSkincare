@@ -98,7 +98,7 @@ class UserProblemController
 	public function getLastUserProblem() {
 		
 		$userProblemID = $this->userProblemService->getLastID();
-		if ($userProblemID->status != UserProblemService::SUCCESS->status)
+		if ($userProblemID->status != $this->userProblemService->SUCCESS->status)
 			return $userProblemID;
 		
 		return $this->userProblemService->getUserProblem($userProblemID->content);
