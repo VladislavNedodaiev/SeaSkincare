@@ -19,10 +19,10 @@ if (isset($_GET['login_option'])) {
 else
 	$url .= '/User/Login.php';
 
-curl_setopt($channel, CURLOPT_URL, $url);
+$url .= '?email='.$_GET['email'];
+$url .= '&password='.$_GET['password'];
 
-curl_setopt($channel, CURLOPT_HTTPHEADER, http_build_query($_GET));
-curl_setopt($channel, CURLOPT_HEADER, 0);
+curl_setopt($channel, CURLOPT_URL, $url);
 
 // Set so curl_exec returns the result instead of outputting it.
 curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
