@@ -26,14 +26,14 @@ class SubscriptionController
 	
 	public function __construct() {
 		
-		$SUCCESS = new Response("SUCCESS", null);
-		$NO_SUBSCRIPTIONID = new Response("NO_SUBSCRIPTIONID", null);
-		$NO_BUOYID = new Response("NO_BUOYID", null);
-		$NO_BUSINESSID = new Response("NO_BUSINESSID", null);
-		$NO_STARTDATE = new Response("NO_STARTDATE", null);
-		$INCORRECT_STARTDATE = new Response("NO_STARTDATE", null);
-		$NO_FINISHDATE = new Response("NO_FINISHDATE", null);
-		$INCORRECT_FINISHDATE = new Response("NO_STARTDATE", null);
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->NO_SUBSCRIPTIONID = new Response("NO_SUBSCRIPTIONID", null);
+		$this->NO_BUOYID = new Response("NO_BUOYID", null);
+		$this->NO_BUSINESSID = new Response("NO_BUSINESSID", null);
+		$this->NO_STARTDATE = new Response("NO_STARTDATE", null);
+		$this->INCORRECT_STARTDATE = new Response("NO_STARTDATE", null);
+		$this->NO_FINISHDATE = new Response("NO_FINISHDATE", null);
+		$this->INCORRECT_FINISHDATE = new Response("NO_STARTDATE", null);
 		
 		$this->dataRep = new DataRepository;
 

@@ -22,10 +22,10 @@ class UserProblemController
 	
 	public function __construct() {
 		
-		$SUCCESS = new Response("SUCCESS", null);
-		$NO_USERPROBLEMID = new Response("NO_USERPROBLEMID", null);
-		$NO_USERID = new Response("NO_USERID", null);
-		$NO_SKINPROBLEMID = new Response("NO_SKINPROBLEMID", null);
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->NO_USERPROBLEMID = new Response("NO_USERPROBLEMID", null);
+		$this->NO_USERID = new Response("NO_USERID", null);
+		$this->NO_SKINPROBLEMID = new Response("NO_SKINPROBLEMID", null);
 		
 		$this->dataRep = new DataRepository;
 

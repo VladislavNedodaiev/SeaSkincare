@@ -28,15 +28,15 @@ class WaterController
 	
 	public function __construct() {
 		
-		$SUCCESS = new Response("SUCCESS", null);
-		$NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
-		$NO_TEMPERATURE = new Response("NO_TEMPERATURE", null);
-		$NO_PH = new Response("NO_PH", null);
-		$NO_NACL = new Response("NO_NACL", null);
-		$NO_MGCL2 = new Response("NO_MGCL2", null);
-		$NO_MGSO4 = new Response("NO_MGSO4", null);
-		$NO_CASO4 = new Response("NO_CASO4", null);
-		$NO_NABR = new Response("NO_NABR", null);
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
+		$this->NO_TEMPERATURE = new Response("NO_TEMPERATURE", null);
+		$this->NO_PH = new Response("NO_PH", null);
+		$this->NO_NACL = new Response("NO_NACL", null);
+		$this->NO_MGCL2 = new Response("NO_MGCL2", null);
+		$this->NO_MGSO4 = new Response("NO_MGSO4", null);
+		$this->NO_CASO4 = new Response("NO_CASO4", null);
+		$this->NO_NABR = new Response("NO_NABR", null);
 		
 		$this->dataRep = new DataRepository;
 

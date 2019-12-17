@@ -24,12 +24,12 @@ class VacationController
 	
 	public function __construct() {
 		
-		$SUCCESS = new Response("SUCCESS", null);
-		$NO_VACATIONID = new Response("NO_VACATIONID", null);
-		$NO_USERID = new Response("NO_USERID", null);
-		$NO_BUSINESSID = new Response("NO_BUSINESSID", null);
-		$NO_STARTDATE = new Response("NO_STARTDATE", null);
-		$NO_FINISHDATE = new Response("NO_FINISHDATE", null);
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->NO_VACATIONID = new Response("NO_VACATIONID", null);
+		$this->NO_USERID = new Response("NO_USERID", null);
+		$this->NO_BUSINESSID = new Response("NO_BUSINESSID", null);
+		$this->NO_STARTDATE = new Response("NO_STARTDATE", null);
+		$this->NO_FINISHDATE = new Response("NO_FINISHDATE", null);
 		
 		$this->dataRep = new DataRepository;
 

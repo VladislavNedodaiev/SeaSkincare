@@ -23,10 +23,10 @@ class BuoyController
 	
 	public function __construct() {
 	
-		$NO_BUOYID = new Response("NO_BUOYID", null);
-		$SUCCESS = new Response("SUCCESS", null);
-		$NO_FABRICATIONDATE = new Response("NO_FABRICATIONDATE", null);
-		$INCORRECT_FABRICATIONDATE = new Response("INCORRECT_FABRICATIONDATE", null);
+		$this->NO_BUOYID = new Response("NO_BUOYID", null);
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->NO_FABRICATIONDATE = new Response("NO_FABRICATIONDATE", null);
+		$this->INCORRECT_FABRICATIONDATE = new Response("INCORRECT_FABRICATIONDATE", null);
 	
 		$this->dataRep = new DataRepository;
 

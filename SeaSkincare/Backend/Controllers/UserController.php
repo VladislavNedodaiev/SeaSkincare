@@ -43,18 +43,18 @@ class UserController {
 	
 	public function __construct() {
 		
-		$NO_EMAIL = new Response("NO_EMAIL", null);
-		$INCORRECT_EMAIL = new Response("INCORRECT_EMAIL", null);
-		$NO_PASSWORD = new Response("NO_PASSWORD", null);
-		$NO_REPEAT_PASSWORD = new Response("NO_REPEAT_PASSWORD", null);
-		$DIFFERENT_PASSWORDS = new Response("DIFFERENT_PASSWORDS", null);
-		$NO_NICKNAME = new Response("NO_NICKNAME", null);
-		$NO_USERID = new Response("NO_USERID", null);
-		$NO_VERIFICATION = new Response("NO_VERIFICATION", null);
-		$NO_LOGIN = new Response("NO_LOGIN", null);
-		$SUCCESS = new Response("SUCCESS", null);
-		$NO_OLD_PASSWORD = new Response("NO_OLD_PASSWORD", null);
-		$NO_NEW_PASSWORD = new Response("NO_NEW_PASSWORD", null);
+		$this->NO_EMAIL = new Response("NO_EMAIL", null);
+		$this->INCORRECT_EMAIL = new Response("INCORRECT_EMAIL", null);
+		$this->NO_PASSWORD = new Response("NO_PASSWORD", null);
+		$this->NO_REPEAT_PASSWORD = new Response("NO_REPEAT_PASSWORD", null);
+		$this->DIFFERENT_PASSWORDS = new Response("DIFFERENT_PASSWORDS", null);
+		$this->NO_NICKNAME = new Response("NO_NICKNAME", null);
+		$this->NO_USERID = new Response("NO_USERID", null);
+		$this->NO_VERIFICATION = new Response("NO_VERIFICATION", null);
+		$this->NO_LOGIN = new Response("NO_LOGIN", null);
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->NO_OLD_PASSWORD = new Response("NO_OLD_PASSWORD", null);
+		$this->NO_NEW_PASSWORD = new Response("NO_NEW_PASSWORD", null);
 		
 		$this->dataRep = new DataRepository;
 

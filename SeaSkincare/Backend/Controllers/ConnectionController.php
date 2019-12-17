@@ -24,12 +24,12 @@ class ConnectionController
 	
 	public function __construct() {
 	
-		$SUCCESS = new Response("SUCCESS", null);
-		$NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
-		$NO_BUOYID = new Response("NO_BUOYID", null);
-		$NO_LATITUDE = new Response("NO_LATITUDE", null);
-		$NO_LONGITUDE = new Response("NO_LONGITUDE", null);
-		$NO_BATTERY = new Response("NO_BATTERY", null);
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
+		$this->NO_BUOYID = new Response("NO_BUOYID", null);
+		$this->NO_LATITUDE = new Response("NO_LATITUDE", null);
+		$this->NO_LONGITUDE = new Response("NO_LONGITUDE", null);
+		$this->NO_BATTERY = new Response("NO_BATTERY", null);
 	
 		$this->dataRep = new DataRepository;
 

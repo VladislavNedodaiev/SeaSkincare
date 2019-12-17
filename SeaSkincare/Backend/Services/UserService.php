@@ -27,16 +27,16 @@ class UserService
 	
 	public function __construct($host, $user, $pswd, $db, $mailService) {
 		
-		$UNVERIFIED = new Response("UNVERIFIED_USER", null);
-		$EMAIL_REGISTERED = new Response("EMAIL_REGISTERED", null);
-		$NICKNAME_REGISTERED = new Response("NICKNAME_REGISTERED", null);
-		$WRONG_PASSWORD = new Response("WRONG_PASSWORD", null);
-		$EMAIL_UNSENT = new Response("EMAIL_UNSENT", null);
-		$SAME_PASSWORDS = new Response("SAME_PASSWORDS", null);
+		$this->UNVERIFIED = new Response("UNVERIFIED_USER", null);
+		$this->EMAIL_REGISTERED = new Response("EMAIL_REGISTERED", null);
+		$this->NICKNAME_REGISTERED = new Response("NICKNAME_REGISTERED", null);
+		$this->WRONG_PASSWORD = new Response("WRONG_PASSWORD", null);
+		$this->EMAIL_UNSENT = new Response("EMAIL_UNSENT", null);
+		$this->SAME_PASSWORDS = new Response("SAME_PASSWORDS", null);
 		
-		$NOT_FOUND = new Response("NOT_FOUND", null);
-		$SUCCESS = new Response("SUCCESS", null);
-		$DB_ERROR = new Response("DB_ERROR", null);
+		$this->NOT_FOUND = new Response("NOT_FOUND", null);
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->DB_ERROR = new Response("DB_ERROR", null);
 		
 		$this->connectToDB($host, $user, $pswd, $db);
 		$this->mailService = $mailService;

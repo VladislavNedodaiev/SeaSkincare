@@ -13,8 +13,8 @@ class MailService
 	
 	public function __construct($host) {
 		
-		$SUCCESS = new Response("SUCCESS", null);
-		$EMAIL_UNSENT = new Response("EMAIL_UNSENT", null);
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->EMAIL_UNSENT = new Response("EMAIL_UNSENT", null);
 		
 		$this->host = $host;
 	

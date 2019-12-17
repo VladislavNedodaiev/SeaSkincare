@@ -27,14 +27,14 @@ class SkinProblemController
 	
 	public function __construct() {
 		
-		$SUCCESS = new Response("SUCCESS", null);
-		$NO_SKINPROBLEMID = new Response("NO_SKINPROBLEMID", null);
-		$NO_TITLE = new Response("NO_TITLE", null);
-		$NO_NORMAL_PH = new Response("NO_NORMAL_PH", null);
-		$NO_NORMAL_SALT = new Response("NO_NORMAL_SALT", null);
-		$NO_NORMAL_AIR_POLLUTION = new Response("NO_NORMAL_AIR_POLLUTION", null);
-		$NO_NORMAL_SUN_POWER = new Response("NO_NORMAL_SUN_POWER", null);
-		$UNDEFINED = new Response("UNDEFINED", null);
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->NO_SKINPROBLEMID = new Response("NO_SKINPROBLEMID", null);
+		$this->NO_TITLE = new Response("NO_TITLE", null);
+		$this->NO_NORMAL_PH = new Response("NO_NORMAL_PH", null);
+		$this->NO_NORMAL_SALT = new Response("NO_NORMAL_SALT", null);
+		$this->NO_NORMAL_AIR_POLLUTION = new Response("NO_NORMAL_AIR_POLLUTION", null);
+		$this->NO_NORMAL_SUN_POWER = new Response("NO_NORMAL_SUN_POWER", null);
+		$this->UNDEFINED = new Response("UNDEFINED", null);
 		
 		$this->dataRep = new DataRepository;
 
