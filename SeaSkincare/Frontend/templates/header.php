@@ -12,10 +12,10 @@ include_once "localization/localization.php";
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		
-		<meta name="author" content="Недодаєв Владислав"> 
-		<meta name="copyright" content="Недодаєв Владислав"> 
+		<meta name="author" content="Nedodaiev Vladyslav"> 
+		<meta name="copyright" content="Nedodaiev Vladyslav"> 
 		
-		<title><?php echo $_SESSION['localization']['site_title']; ?></title>
+		<title><?php echo $_SESSION['localization']['header']['title']; ?></title>
 		
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
@@ -36,15 +36,14 @@ include_once "localization/localization.php";
 				</button>
 				<div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
 					<div class="navbar-nav">
-						<a class="nav-item nav-link" href="index.php"><?php echo $_SESSION['localization']['index_button']; ?></a>
-						<a class="nav-item nav-link" href="businesses.php"><?php echo $_SESSION['localization']['businesses_button']; ?></a>
-						<a class="nav-item nav-link" href="buoys.php"><?php echo $_SESSION['localization']['buoys_button']; ?></a>
+						<a class="nav-item nav-link" href="index.php"><?php echo $_SESSION['localization']['header']['index_button_text']; ?></a>
+						<a class="nav-item nav-link" href="businesses.php"><?php echo $_SESSION['localization']['header']['businesses_button_text']; ?></a>
 						<?php if (!isset($_SEESION['profile'])) { ?>
-						<a class="nav-item nav-link" href="login_user.php"><?php echo $_SESSION['localization']['login_user']; ?></a>
-						<a class="nav-item nav-link" href="login_business.php"><?php echo $_SESSION['localization']['login_business_button']; ?></a>
-						<a class="nav-item nav-link" href="register.php"><?php echo $_SESSION['localization']['register_button']; ?></a>
+						<a class="nav-item nav-link" href="login_user.php"><?php echo $_SESSION['localization']['header']['login_user_button_text']; ?></a>
+						<a class="nav-item nav-link" href="login_business.php"><?php echo $_SESSION['localization']['header']['login_business_button_text']; ?></a>
+						<a class="nav-item nav-link" href="register.php"><?php echo $_SESSION['localization']['header']['register_button_text']; ?></a>
 						<?php } else { ?>
-						<a class="nav-item nav-link" href="profile.php"><?php echo $_SESSION['localization']['profile_button']; ?></a>
+						<a class="nav-item nav-link" href="profile.php"><?php echo $_SESSION['localization']['header']['profile_button_text']; ?></a>
 						<?php } ?>
 					</div>
 				</div>
