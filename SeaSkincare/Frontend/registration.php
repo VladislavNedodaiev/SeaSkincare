@@ -21,13 +21,8 @@ else
 
 curl_setopt($channel, CURLOPT_URL, $url);
 
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
-	'nickname' => $_POST['nickname'],
-	'email' => $_POST['email'],
-	'password' => $_POST['password'],
-	'repeat_password' => $_POST['repeat_password']
-)));
+curl_setopt($channel, CURLOPT_POST, 1);
+curl_setopt($channel, CURLOPT_POSTFIELDS, http_build_query($_POST));
 
 // Set so curl_exec returns the result instead of outputting it.
 curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
@@ -68,7 +63,7 @@ if ($response['status'] == "SUCCESS") {
 } else {
 	
 	$_SESSION['msg']['type'] = 'alert-danger';
-	$_SESSION['msg']['text'] = json_encode($response);
+	$_SESSION['msg']['text'] = json_encode($response); //getLocalString('registration', 'UNKNOWN');
 	
 } 
 
