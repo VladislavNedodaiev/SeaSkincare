@@ -39,6 +39,16 @@ session_start();
 			<input name="repeat_password" class="form-control" placeholder="<?php echo getLocalString('register', 'repeat_password_placeholder'); ?>" type="password" required>
 		</div>
 		
+		<div class="custom-control custom-radio">
+			<input type="radio" id="as_user" name="register_option" class="custom-control-input" value="as_user" required>
+			<label class="custom-control-label" for="as_user"><?php echo getLocalString('register', 'as_user'); ?></label>
+		</div>
+		<div class="custom-control custom-radio">
+			<input type="radio" id="as_business" name="register_option" class="custom-control-input" value="as_business" required>
+			<label class="custom-control-label" for="as_business"><?php echo getLocalString('register', 'as_business'); ?></label>
+		</div>
+		<br>
+		
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary btn-block"><?php echo getLocalString('register', 'submit_text'); ?></button>
 		</div>
