@@ -1,6 +1,7 @@
 <?php
 
 namespace SeaSkincare\Backend\Services;
+use SeaSkincare\Backend\Communication\Response;
 
 class MailService
 {
