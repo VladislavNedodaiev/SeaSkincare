@@ -26,9 +26,6 @@ class BusinessService
 	public $DB_ERROR;
 	
 	public function __construct($host, $user, $pswd, $db, $mailService) {
-
-		$this->connectToDB($host, $user, $pswd, $db);
-		$this->mailService = $mailService;
 		
 		$UNVERIFIED = new Response("UNVERIFIED_BUSINESS", null);
 		$EMAIL_REGISTERED = new Response("EMAIL_REGISTERED", null);
@@ -40,6 +37,9 @@ class BusinessService
 		$NOT_FOUND = new Response("NOT_FOUND", null);
 		$SUCCESS = new Response("SUCCESS", null);
 		$DB_ERROR = new Response("DB_ERROR", null);
+		
+		$this->connectToDB($host, $user, $pswd, $db);
+		$this->mailService = $mailService;
 
 	}
 	

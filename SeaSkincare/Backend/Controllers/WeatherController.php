@@ -23,6 +23,11 @@ class WeatherController
 	
 	public function __construct() {
 	
+		$SUCCESS = new Response("SUCCESS", null);
+		$NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
+		$NO_SUNPOWER = new Response("NO_SUNPOWER", null);
+		$NO_WINDSPEED = new Response("NO_WINDSPEED", null);
+		
 		$this->dataRep = new DataRepository;
 
 		$this->weatherService = new WeatherService(
@@ -33,11 +38,6 @@ class WeatherController
 			$this->dataRep->getDatabase()
 
 		);
-	
-		$SUCCESS = new Response("SUCCESS", null);
-		$NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
-		$NO_SUNPOWER = new Response("NO_SUNPOWER", null);
-		$NO_WINDSPEED = new Response("NO_WINDSPEED", null);
 	
 	}
 	

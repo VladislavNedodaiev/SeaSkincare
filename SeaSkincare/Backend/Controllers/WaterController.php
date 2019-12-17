@@ -27,17 +27,6 @@ class WaterController
 	
 	
 	public function __construct() {
-	
-		$this->dataRep = new DataRepository;
-
-		$this->waterService = new WaterService(
-
-			$this->dataRep->getHost(),
-			$this->dataRep->getUser(),
-			$this->dataRep->getPassword(),
-			$this->dataRep->getDatabase()
-
-		);
 		
 		$SUCCESS = new Response("SUCCESS", null);
 		$NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
@@ -48,6 +37,17 @@ class WaterController
 		$NO_MGSO4 = new Response("NO_MGSO4", null);
 		$NO_CASO4 = new Response("NO_CASO4", null);
 		$NO_NABR = new Response("NO_NABR", null);
+		
+		$this->dataRep = new DataRepository;
+
+		$this->waterService = new WaterService(
+
+			$this->dataRep->getHost(),
+			$this->dataRep->getUser(),
+			$this->dataRep->getPassword(),
+			$this->dataRep->getDatabase()
+
+		);
 	
 	}
 	

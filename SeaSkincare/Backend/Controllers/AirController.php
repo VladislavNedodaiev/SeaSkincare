@@ -23,6 +23,11 @@ class AirController
 	
 	public function __construct() {
 	
+		$SUCCESS = new Response("SUCCESS", null);
+		$NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
+		$NO_TEMPERATURE = new Response("NO_TEMPERATURE", null);
+		$NO_POLLUTION = new Response("NO_POLLUTION", null);
+	
 		$this->dataRep = new DataRepository;
 
 		$this->airService = new AirService(
@@ -33,11 +38,6 @@ class AirController
 			$this->dataRep->getDatabase()
 
 		);
-	
-		$SUCCESS = new Response("SUCCESS", null);
-		$NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
-		$NO_TEMPERATURE = new Response("NO_TEMPERATURE", null);
-		$NO_POLLUTION = new Response("NO_POLLUTION", null);
 	
 	}
 	

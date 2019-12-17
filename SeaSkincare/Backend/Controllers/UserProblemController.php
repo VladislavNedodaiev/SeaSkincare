@@ -21,7 +21,12 @@ class UserProblemController
 	public $NO_SKINPROBLEMID;
 	
 	public function __construct() {
-	
+		
+		$SUCCESS = new Response("SUCCESS", null);
+		$NO_USERPROBLEMID = new Response("NO_USERPROBLEMID", null);
+		$NO_USERID = new Response("NO_USERID", null);
+		$NO_SKINPROBLEMID = new Response("NO_SKINPROBLEMID", null);
+		
 		$this->dataRep = new DataRepository;
 
 		$this->userProblemService = new UserProblemService(
@@ -32,11 +37,6 @@ class UserProblemController
 			$this->dataRep->getDatabase()
 
 		);
-		
-		$SUCCESS = new Response("SUCCESS", null);
-		$NO_USERPROBLEMID = new Response("NO_USERPROBLEMID", null);
-		$NO_USERID = new Response("NO_USERID", null);
-		$NO_SKINPROBLEMID = new Response("NO_SKINPROBLEMID", null);
 	
 	}
 	

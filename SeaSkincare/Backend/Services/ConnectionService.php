@@ -18,11 +18,11 @@ class ConnectionService
 	
 	public function __construct($host, $user, $pswd, $db) {
 	
-		$this->connectToDB($host, $user, $pswd, $db);
-	
 		$NOT_FOUND = new Response("NOT_FOUND", null);
 		$SUCCESS = new Response("SUCCESS", null);
 		$DB_ERROR = new Response("DB_ERROR", null);
+	
+		$this->connectToDB($host, $user, $pswd, $db);
 	
 	}
 	

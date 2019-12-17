@@ -23,7 +23,14 @@ class VacationController
 	public $NO_FINISHDATE;	
 	
 	public function __construct() {
-	
+		
+		$SUCCESS = new Response("SUCCESS", null);
+		$NO_VACATIONID = new Response("NO_VACATIONID", null);
+		$NO_USERID = new Response("NO_USERID", null);
+		$NO_BUSINESSID = new Response("NO_BUSINESSID", null);
+		$NO_STARTDATE = new Response("NO_STARTDATE", null);
+		$NO_FINISHDATE = new Response("NO_FINISHDATE", null);
+		
 		$this->dataRep = new DataRepository;
 
 		$this->vacationService = new VacationService(
@@ -34,13 +41,6 @@ class VacationController
 			$this->dataRep->getDatabase()
 
 		);
-		
-		$SUCCESS = new Response("SUCCESS", null);
-		$NO_VACATIONID = new Response("NO_VACATIONID", null);
-		$NO_USERID = new Response("NO_USERID", null);
-		$NO_BUSINESSID = new Response("NO_BUSINESSID", null);
-		$NO_STARTDATE = new Response("NO_STARTDATE", null);
-		$NO_FINISHDATE = new Response("NO_FINISHDATE", null);
 	
 	}
 	

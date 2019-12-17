@@ -12,11 +12,11 @@ class MailService
 	public $EMAIL_UNSENT;
 	
 	public function __construct($host) {
-	
-		$this->host = $host;
 		
 		$SUCCESS = new Response("SUCCESS", null);
 		$EMAIL_UNSENT = new Response("EMAIL_UNSENT", null);
+		
+		$this->host = $host;
 	
 	}
 	
