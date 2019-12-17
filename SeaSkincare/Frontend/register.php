@@ -9,41 +9,41 @@ session_start();
 	<?php include "templates/alert.php"; ?>
 	
 	<article class="card-body mx-auto" style="max-width: 400px;">
-		<h4 class="card-title mt-3 text-center"><?php echo $_SESSION['localization']['register']['title']; ?></h4>
+		<h4 class="card-title mt-3 text-center"><?php echo getLocalString('register', 'title'); ?></h4>
 		
 		<form action="registration.php" method="POST">
 		<div class="form-group input-group">
 			<div class="input-group-prepend">
 				<span class="input-group-text"> <i class="fa fa-user"></i> </span>
 			</div>
-			<input name="nickname" class="form-control" placeholder="<?php echo $_SESSION['localization']['register']['nickname_placeholder']; ?>" type="text" required>
+			<input name="nickname" class="form-control" placeholder="<?php echo getLocalString('register', 'nickname_placeholder'); ?>" type="text" required>
 		</div>
 		
 		<div class="form-group input-group">
 			<div class="input-group-prepend">
 				<span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 			</div>
-			<input name="email" class="form-control" placeholder="<?php echo $_SESSION['localization']['register']['email_placeholder']; ?>" type="email" required>
+			<input name="email" class="form-control" placeholder="<?php echo getLocalString('register', 'email_placeholder'); ?>" type="email" required>
 		</div>
 		
 		<div class="form-group input-group">
 			<div class="input-group-prepend">
 				<span class="input-group-text"> <i class="fa fa-lock"></i> </span>
 			</div>
-			<input name="password" class="form-control" placeholder="<?php echo $_SESSION['localization']['register']['password_placeholder']; ?>" type="password" required>
+			<input name="password" class="form-control" placeholder="<?php echo getLocalString('register', 'password_placeholder'); ?>" type="password" required>
 		</div>
 		<div class="form-group input-group">
 			<div class="input-group-prepend">
 				<span class="input-group-text"> <i class="fa fa-lock"></i> </span>
 			</div>
-			<input name="repeat_password" class="form-control" placeholder="<?php echo $_SESSION['localization']['register']['repeat_password_placeholder']; ?>" type="password" required>
+			<input name="repeat_password" class="form-control" placeholder="<?php echo getLocalString('register', 'repeat_password_placeholder'); ?>" type="password" required>
 		</div>
 		
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary btn-block"><?php echo $_SESSION['localization']['register']['submit_text']; ?></button>
+			<button type="submit" class="btn btn-primary btn-block"><?php echo getLocalString('register', 'submit_text'0; ?></button>
 		</div>
 		
-		<p class="text-center"><?php echo $_SESSION['localization']['register']['login_text']; ?> <a href="login.php"><?php echo $_SESSION['localization']['register']['login']; ?></a> </p>                                                                 
+		<p class="text-center"><?php echo getLocalString('register', 'login_text'); ?>? <a href="login.php"><?php echo getLocalString('register', 'login'); ?></a> </p>                                                                 
 		</form>
 	</article>
 	
