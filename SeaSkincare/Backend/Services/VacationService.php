@@ -106,7 +106,7 @@ class VacationService
 			}
 		}
 		
-		return new Response(self:NOT_FOUND->status, 0);
+		return new Response($this->NOT_FOUND->status, 0);
 		
 	}
 	
@@ -123,7 +123,7 @@ class VacationService
 			}
 		}
 		
-		return new Response(self:NOT_FOUND->status, 0);
+		return new Response($this->NOT_FOUND->status, 0);
 		
 	}
 	
