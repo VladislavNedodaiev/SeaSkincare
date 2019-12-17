@@ -45,22 +45,22 @@ if ($response['status'] == "SUCCESS") {
 	header("Location: login.php");
 	exit;
 	
-} else ($response['status'] == "EMAIL_REGISTERED") {
+} else if ($response['status'] == "EMAIL_REGISTERED") {
 	
 	$_SESSION['msg']['type'] = 'alert-primary';
 	$_SESSION['msg']['text'] = getLocalString('registration', 'EMAIL_REGISTERED');
 	
-} else ($response['status'] == "NICKNAME_REGISTERED") {
+} else if ($response['status'] == "NICKNAME_REGISTERED") {
 	
 	$_SESSION['msg']['type'] = 'alert-primary';
 	$_SESSION['msg']['text'] = getLocalString('registration', 'NICKNAME_REGISTERED');
 	
-} else ($response['status'] == "EMAIL_UNSENT") {
+} else if ($response['status'] == "EMAIL_UNSENT") {
 	
 	$_SESSION['msg']['type'] = 'alert-danger';
 	$_SESSION['msg']['text'] = getLocalString('registration', 'EMAIL_UNSENT');
 	
-} else ($response['status'] == "DB_ERROR") {
+} else if ($response['status'] == "DB_ERROR") {
 	
 	$_SESSION['msg']['type'] = 'alert-danger';
 	$_SESSION['msg']['text'] = getLocalString('registration', 'DB_ERROR');
@@ -68,7 +68,7 @@ if ($response['status'] == "SUCCESS") {
 } else {
 	
 	$_SESSION['msg']['type'] = 'alert-danger';
-	$_SESSION['msg']['text'] = getLocalString('registration', 'UNKNOWN');
+	$_SESSION['msg']['text'] = json_encode($response);
 	
 } 
 
