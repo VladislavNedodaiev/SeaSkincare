@@ -1,0 +1,74 @@
+<?php
+header('Content-Type: text/html; charset=utf-8');
+session_start();
+
+include_once 'localization/localization.php';
+
+// Initialize session and set URL.
+$channel = curl_init();
+
+$url = '127.0.0.1/SeaSkincare/Backend/API';
+if (isset($_GET['login_option'])) {
+	
+	if ($_GET['login_option'] == 'as_user')
+		$url .= '/User/Login.php';
+	else
+		$url .= '/Business/Login.php';
+
+}
+else
+	$url .= '/User/Login.php';
+
+curl_setopt($channel, CURLOPT_URL, $url);
+
+curl_setopt($channel, CURLOPT_HTTPHEADER, http_build_query($_GET));
+curl_setopt($channel, CURLOPT_HEADER, 0);
+
+// Set so curl_exec returns the result instead of outputting it.
+curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
+    
+// Get the response and close the channel.
+$response = curl_exec($channel);
+curl_close($channel);
+
+$response = json_decode($response);
+
+if ($response->status == "SUCCESS") {
+	
+	$_SESSION['msg']['type'] = 'alert-success';
+	$_SESSION['msg']['text'] = getLocalString('authorize', 'SUCCESS');
+	
+	header("Location: index.php");
+	exit;
+	
+} else if ($response->status == "UNVERIFIED") {
+	
+	$_SESSION['msg']['type'] = 'alert-primary';
+	$_SESSION['msg']['text'] = getLocalString('authorize', 'UNVERIFIED');
+	
+} else if ($response->status == "WRONG_PASSWORD") {
+	
+	$_SESSION['msg']['type'] = 'alert-danger';
+	$_SESSION['msg']['text'] = getLocalString('authorize', 'WRONG_PASSWORD');
+	
+} else if ($response->status == "NOT_FOUND") {
+	
+	$_SESSION['msg']['type'] = 'alert-danger';
+	$_SESSION['msg']['text'] = getLocalString('authorize', 'NOT_FOUND');
+	
+} else if ($response->status == "DB_ERROR") {
+	
+	$_SESSION['msg']['type'] = 'alert-danger';
+	$_SESSION['msg']['text'] = getLocalString('authorize', 'DB_ERROR');
+	
+} else {
+	
+	$_SESSION['msg']['type'] = 'alert-danger';
+	$_SESSION['msg']['text'] = getLocalString('authorize', 'UNKNOWN');
+	
+} 
+
+header("Location: login.php");
+exit;
+
+?>

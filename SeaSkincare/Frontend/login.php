@@ -11,7 +11,7 @@ session_start();
 	<article class="card-body mx-auto" style="max-width: 400px;">
 		<h4 class="card-title mt-3 text-center"><?php echo getLocalString('login', 'title'); ?></h4>
 		
-		<form action="authorization.php" method="POST">
+		<form action="authorize.php" method="POST">
 			<div class="form-group input-group">
 				<div class="input-group-prepend">
 					<span class="input-group-text"> <i class="fa fa-user"></i> </span>
@@ -27,7 +27,7 @@ session_start();
 			</div>
 			
 			<div class="custom-control custom-radio">
-				<input type="radio" id="as_user" name="login_option" class="custom-control-input" value="as_user" required>
+				<input type="radio" id="as_user" name="login_option" class="custom-control-input" value="as_user" required checked="">
 				<label class="custom-control-label" for="as_user"><?php echo getLocalString('login', 'as_user'); ?></label>
 			</div>
 			<div class="custom-control custom-radio">

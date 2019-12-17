@@ -40,7 +40,7 @@ session_start();
 		</div>
 		
 		<div class="custom-control custom-radio">
-			<input type="radio" id="as_user" name="register_option" class="custom-control-input" value="as_user" required>
+			<input type="radio" id="as_user" name="register_option" class="custom-control-input" value="as_user" required checked="">
 			<label class="custom-control-label" for="as_user"><?php echo getLocalString('register', 'as_user'); ?></label>
 		</div>
 		<div class="custom-control custom-radio">

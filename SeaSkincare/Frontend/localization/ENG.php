@@ -32,6 +32,17 @@ $login = array (
 
 );
 
+$authorize = array (
+
+	'SUCCESS' => 'Logged in successfully',
+	'UNVERIFIED' => 'Account is unverified, check your email to verify',
+	'WRONG_PASSWORD' => 'Wrong password entered',
+	'NOT_FOUND' => "No user with such email",
+	'DB_ERROR' => 'Database error occured',
+	'UNKNOWN' => 'Unknown error occured'
+
+);
+
 $register = array (
 
 	'title' => 'Create new profile',
@@ -65,6 +76,7 @@ return array (
 	'header' => $header,
 	'footer' => $footer,
 	'login' => $login,
+	'authorize' => $authorize,
 	'register' => $register,
 	'registration' => $registration
 
