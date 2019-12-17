@@ -7,7 +7,8 @@ $header = array (
 	'businesses_button_text' => 'Бізнеси',
 	'login_button_text' => 'Вхід',
 	'register_button_text' => 'Реєстрація',
-	'profile_button_text' => 'Мій профіль'
+	'profile_button_text' => 'Мій профіль',
+	'logout_button_text' => 'Вийти'
 	
 );
 
@@ -71,13 +72,23 @@ $registration = array (
 
 );
 
+$logout = array (
+
+	'SUCCESS' => 'Ви успішно вийшли з профіля',
+	'NO_LOGIN' => 'Ви не авторизовані в системі',
+	'UNKNOWN' => 'Сталася невідома помилка'
+
+);
+
 return array (
 
 	'header' => $header,
 	'footer' => $footer,
 	'login' => $login,
+	'authorize' => $authorize,
 	'register' => $register,
-	'registration' => $registration
+	'registration' => $registration,
+	'logout' => $logout
 
 );
 

@@ -7,7 +7,8 @@ $header = array (
 	'businesses_button_text' => 'Businesses',
 	'login_button_text' => 'Login',
 	'register_button_text' => 'Register',
-	'profile_button_text' => 'My Profile'
+	'profile_button_text' => 'My Profile',
+	'logout_button_text' => 'Logout'
 	
 );
 
@@ -71,6 +72,14 @@ $registration = array (
 
 );
 
+$logout = array (
+
+	'SUCCESS' => 'You have successfully logged out',
+	'NO_LOGIN' => 'You are not logged in',
+	'UNKNOWN' => 'Unknown error occured'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -78,7 +87,8 @@ return array (
 	'login' => $login,
 	'authorize' => $authorize,
 	'register' => $register,
-	'registration' => $registration
+	'registration' => $registration,
+	'logout' => $logout
 
 );
 

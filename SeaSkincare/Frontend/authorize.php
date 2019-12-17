@@ -38,6 +38,8 @@ if ($response->status == "SUCCESS") {
 	$_SESSION['msg']['type'] = 'alert-success';
 	$_SESSION['msg']['text'] = getLocalString('authorize', 'SUCCESS');
 	
+	$_SESSION['profile'] = $response->content;
+	
 	header("Location: index.php");
 	exit;
 	
