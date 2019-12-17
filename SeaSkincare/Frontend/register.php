@@ -40,7 +40,7 @@ session_start();
 		</div>
 		
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary btn-block"><?php echo getLocalString('register', 'submit_text'0; ?></button>
+			<button type="submit" class="btn btn-primary btn-block"><?php echo getLocalString('register', 'submit_text'); ?></button>
 		</div>
 		
 		<p class="text-center"><?php echo getLocalString('register', 'login_text'); ?>? <a href="login.php"><?php echo getLocalString('register', 'login'); ?></a> </p>                                                                 

@@ -2,17 +2,21 @@
 if (!isset($_SESSION))
 	session_start();
 
+if (isset($_SERVER['localization']))
+	unset ($_SERVER['localization']);
+
 function getLanguageString($language, $section, $string) {
 	
 	if (!isset($_SERVER['localization'])) {
 		
 		$_SERVER['localization']['ENG'] = include_once "ENG.php";
+		$_SERVER['localization']['UA'] = include_once "UA.php";
 		
 	}
 	
 	if (!isset($_SERVER['localization'][$language]))
 		$language = 'ENG';
-	
+		
 	if (!isset($_SERVER['localization'][$language][$section])
 		|| !isset($_SERVER['localization'][$language][$section][$string]))
 		return '';
@@ -25,7 +29,7 @@ function getLocalString($section, $string) {
 	
 	if (!isset($_SESSION['language'])) {
 		
-		$ipInfo = simplexml_load_file("http://www.geoplugin.net/xml.gp?ip=".getRealIpAddr());
+		$ipInfo = simplexml_load_file("http://www.geoplugin.net/xml.gp?ip=".$_SERVER["REMOTE_ADDR"]);
 		if (isset($ipInfo) && $ipInfo['geoplugin_countryCode'] == 'UA')
 			$_SESSION['language']='UA';
 		else
