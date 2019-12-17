@@ -110,7 +110,7 @@ class BusinessController
 	
 	}
 	
-	public function logout(&business) {
+	public function logout(&$business) {
 	
 		if (!isset($business))
 			return $this->NO_LOGIN;

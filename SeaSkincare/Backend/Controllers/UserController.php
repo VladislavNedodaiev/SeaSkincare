@@ -126,7 +126,7 @@ class UserController {
 	
 	}
 	
-	public function logout(&user) {
+	public function logout(&$user) {
 	
 		if (!isset($user))
 			return $this->NO_LOGIN;
