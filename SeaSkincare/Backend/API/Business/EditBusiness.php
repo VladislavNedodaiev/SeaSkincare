@@ -15,6 +15,10 @@ use SeaSkincare\Backend\Communication\Response;
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
+if (!isset($_SESSION['profile'])) {
+	echo json_encode('NOT_LOGGED_IN', null);
+}
+
 $businessController = new BusinessController;
 
 echo json_encode($businessController->editBusiness($_POST['businessID'], $_POST['nickname'], $_POST['email']));
