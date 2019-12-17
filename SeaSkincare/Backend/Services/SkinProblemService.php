@@ -102,7 +102,7 @@ class SkinProblemService
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."`;")) {
 			
-			$skinProblems = new Array();
+			$skinProblems = array();
 			
 			while ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				

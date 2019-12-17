@@ -123,7 +123,7 @@ class UserProblemService {
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."';")) {
 			
-			$userProblems = new Array();
+			$userProblems = array();
 			
 			while ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
@@ -151,7 +151,7 @@ class UserProblemService {
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`skin_problem_id`='".$skinProblemID."';")) {
 			
-			$userProblems = new Array();
+			$userProblems = array();
 			
 			while ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				

@@ -134,7 +134,7 @@ class VacationService
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."' AND `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
 			
-			$vacations = new Array();
+			$vacations = array();
 			
 			while ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
@@ -165,7 +165,7 @@ class VacationService
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."';")) {
 			
-			$vacations = new Array();
+			$vacations = array();
 			
 			while ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
@@ -196,7 +196,7 @@ class VacationService
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
 			
-			$vacations = new Array();
+			$vacations = array();
 			
 			while ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				

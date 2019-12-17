@@ -103,7 +103,7 @@ class ConnectionService
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`buoy_id`='".$buoyID."';")) {
 			
-			$connections = new Array();
+			$connections = array();
 			
 			while ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
