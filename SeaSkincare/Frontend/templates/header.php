@@ -42,7 +42,11 @@ include_once "localization/localization.php";
 						<a class="nav-item nav-link" href="login.php"><?php echo getLocalString('header', 'login_button_text'); ?></a>
 						<a class="nav-item nav-link" href="register.php"><?php echo getLocalString('header', 'register_button_text'); ?></a>
 						<?php } else { ?>
-						<a class="nav-item nav-link" href="profile.php"><?php echo getLocalString('header', 'profile_button_text'); ?></a>
+						<?php if (isset($_SESSION['profile']->description)) { ?>
+						<a class="nav-item nav-link" href="business_profile.php"><?php echo getLocalString('header', 'profile_button_text'); ?></a>
+						<? } else { ?>
+						<a class="nav-item nav-link" href="user_profile.php"><?php echo getLocalString('header', 'profile_button_text'); ?></a>
+						<? } ?>
 						<a class="nav-item nav-link" href="logout.php"><?php echo getLocalString('header', 'logout_button_text'); ?></a>
 						<?php } ?>
 					</div>
