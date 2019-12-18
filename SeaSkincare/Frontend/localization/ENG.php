@@ -4,7 +4,7 @@ $header = array (
 	
 	'title' => 'SeaSkincare',
 	'index_button_text' => 'Home',
-	'businesses_button_text' => 'Businesses',
+	'businesses_button_text' => 'Vacation',
 	'login_button_text' => 'Login',
 	'register_button_text' => 'Register',
 	'profile_button_text' => 'My Profile',
@@ -79,6 +79,12 @@ $registration = array (
 
 );
 
+$user_profile = array (
+
+	'nickname' => 'Profile of',
+
+);
+
 return array (
 
 	'header' => $header,
@@ -87,7 +93,8 @@ return array (
 	'authorize' => $authorize,
 	'logout' => $logout,
 	'register' => $register,
-	'registration' => $registration
+	'registration' => $registration,
+	'user_profile' => $user_profile
 
 );
 

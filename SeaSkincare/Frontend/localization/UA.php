@@ -4,7 +4,7 @@ $header = array (
 	
 	'title' => 'SeaSkincare',
 	'index_button_text' => 'Головна сторінка',
-	'businesses_button_text' => 'Бізнеси',
+	'businesses_button_text' => 'Відпочинок',
 	'login_button_text' => 'Вхід',
 	'register_button_text' => 'Реєстрація',
 	'profile_button_text' => 'Мій профіль',

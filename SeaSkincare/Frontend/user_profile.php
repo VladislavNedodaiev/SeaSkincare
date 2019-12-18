@@ -3,6 +3,13 @@
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
+if (isset($_SESSION['profile'])) {
+
+	header("Location: index.php");
+	exit;
+
+}
+
 ?>
 
 <?php require "templates/header.php"; ?>
@@ -13,8 +20,8 @@ session_start();
 		<div class="card" style="width: 60rem;">
 			<div class="card-header">
 				<div class="row">
-					<div class="col-8 my-auto">Профіль користувача <a href="?account_id=<?php echo $account->account_id; ?>"><?php echo $account->login; ?></a></div>
-					<div class="col text-right my-auto"><?php if (isset($_SESSION['account']) && $_SESSION['account']->account_id == $account->account_id) echo '<a href="edit_profile.php"><i class="fas fa-pencil-alt"></i></a>';?> <a href="print_profile.php?account_id=<?php echo $account->account_id; ?>"><i class="fas fa-print"></i></a></div>
+					<div class="col-8 my-auto"><?php echo getLocalString('user_profile', 'nickname'); ?> <?php echo $_SESSION['profile']->nickname; ?></div>
+					<div class="col text-right my-auto"><a href="edit_profile.php"><i class="fas fa-pencil-alt"></i></a></div>
 				</div>
 			</div>
 			
@@ -22,11 +29,7 @@ session_start();
 				<div class="row">
 					<div class="col-3 border-right">
 						<div class="card">
-							<img class="card-img-top"
-								src="<?php
-									if ($account->avatar != "" && file_exists($account->avatar)) echo $account->avatar;
-									else echo "images/default_account.jpg";?>" 
-								alt="<?php echo $account->login;?>">
+							<img class="card-img-top" src="images/users/default.jpg" alt="<?php echo getLocalString('user_profile', 'nickname'); ?> <?php echo $_SESSION['profile']->nickname; ?>">
 							
 							<div class="card-header text-center">
 								<i class="far fa-calendar-alt"></i><small class = "text-muted"> Реєстрація: <?php echo substr($account->register_date, 0, 10); ?> </small>
