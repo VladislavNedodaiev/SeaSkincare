@@ -44,6 +44,13 @@ $authorize = array (
 
 );
 
+$logout = array (
+
+	'SUCCESS' => 'Ви успішно вийшли з профіля',
+	'NO_LOGIN' => 'Ви не авторизовані в системі'
+
+);
+
 $register = array (
 
 	'title' => 'Створення профілю',
@@ -72,23 +79,15 @@ $registration = array (
 
 );
 
-$logout = array (
-
-	'SUCCESS' => 'Ви успішно вийшли з профіля',
-	'NO_LOGIN' => 'Ви не авторизовані в системі',
-	'UNKNOWN' => 'Сталася невідома помилка'
-
-);
-
 return array (
 
 	'header' => $header,
 	'footer' => $footer,
 	'login' => $login,
 	'authorize' => $authorize,
+	'logout' => $logout,
 	'register' => $register,
-	'registration' => $registration,
-	'logout' => $logout
+	'registration' => $registration
 
 );
 

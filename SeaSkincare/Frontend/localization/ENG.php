@@ -44,6 +44,13 @@ $authorize = array (
 
 );
 
+$logout = array (
+
+	'SUCCESS' => 'You have successfully logged out',
+	'NO_LOGIN' => 'You are not logged in'
+
+);
+
 $register = array (
 
 	'title' => 'Create new profile',
@@ -72,23 +79,15 @@ $registration = array (
 
 );
 
-$logout = array (
-
-	'SUCCESS' => 'You have successfully logged out',
-	'NO_LOGIN' => 'You are not logged in',
-	'UNKNOWN' => 'Unknown error occured'
-
-);
-
 return array (
 
 	'header' => $header,
 	'footer' => $footer,
 	'login' => $login,
 	'authorize' => $authorize,
+	'logout' => $logout,
 	'register' => $register,
-	'registration' => $registration,
-	'logout' => $logout
+	'registration' => $registration
 
 );
 
