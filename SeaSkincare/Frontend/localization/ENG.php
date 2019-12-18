@@ -22,7 +22,7 @@ $footer = array (
 
 $login = array (
 
-	'title' => 'Login as User',
+	'title' => 'Login',
 	'email_placeholder' => 'Enter your email',
 	'password_placeholder' => 'Enter your password',
 	'as_user' => 'Login as user',

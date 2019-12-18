@@ -22,7 +22,7 @@ $footer = array (
 
 $login = array (
 
-	'title' => 'Вхід в якості користувача',
+	'title' => 'Вхід в систему',
 	'email_placeholder' => 'Введіть ваш email',
 	'password_placeholder' => 'Введіть ваш пароль',
 	'as_user' => 'Увійти в якості користувача',
