@@ -1,6 +1,14 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 session_start();
+
+if (isset($_SESSION['profile'])) {
+
+	header("Location: index.php");
+	exit;
+
+}
+
 ?>
 <?php require "templates/header.php"; ?>
 
