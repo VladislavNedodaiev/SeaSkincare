@@ -4,9 +4,7 @@ namespace SeaSkincare\Backend\Controllers;
 
 use SeaSkincare\Backend\Data\DataRepository;
 use SeaSkincare\Backend\Services\MailService;
-use SeaSkincare\Backend\Entities\Business;
 use SeaSkincare\Backend\DTOs\BusinessDTO;
-use SeaSkincare\Backend\Mappers\BusinessMapper;
 use SeaSkincare\Backend\Services\BusinessService;
 use SeaSkincare\Backend\Communication\Response;
 
@@ -63,6 +61,8 @@ class BusinessController
 			$this->mailService
 
 		);
+		
+		$this->vacationRequestController = new VacationRequestController;
 	
 	}
 	

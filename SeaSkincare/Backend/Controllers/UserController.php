@@ -8,9 +8,6 @@ use SeaSkincare\Backend\DTOs\UserDTO;
 use SeaSkincare\Backend\Services\UserService;
 use SeaSkincare\Backend\Communication\Response;
 
-use SeaSkincare\Backend\DTOs\VacationDTO;
-use SeaSkincare\Backend\Controllers\VacationController;
-
 use SeaSkincare\Backend\DTOs\UserProblemDTO;
 use SeaSkincare\Backend\Controllers\UserProblemController;
 
@@ -24,6 +21,7 @@ class UserController {
 	private $userService;
 	
 	private $vacationController;
+	private $vacationRequestController;
 	private $userProblemController;
 	private $skinProblemController;
 	
@@ -79,6 +77,7 @@ class UserController {
 		);
 		
 		$this->vacationController = new VacationController;
+		$this->vacationRequestController = new VacationRequestController;
 		$this->userProblemController = new UserProblemController;
 		$this->skinProblemController = new SkinProblemController;
 	
