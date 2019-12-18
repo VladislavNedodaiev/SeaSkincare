@@ -18,10 +18,6 @@ session_start();
 $req_dump = print_r($_POST, true);
 $fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].' POST:'.$req_dump.PHP_EOL, FILE_APPEND);
 
-if (!isset($_SESSION['profile'])) {
-	echo json_encode('NOT_LOGGED_IN', null);
-}
-
 $businessController = new BusinessController;
 
 echo json_encode($businessController->editBusiness($_POST['businessID'], $_POST['nickname'], $_POST['email']));

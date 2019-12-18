@@ -30,18 +30,10 @@ session_start();
 $req_dump = print_r($_GET, true);
 $fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].' GET:'.$req_dump.PHP_EOL, FILE_APPEND);
 
-if (isset($_SESSION['profile']))
-	echo json_encode(new Response("SUCCESS", $_SESSION['profile']));
-else {
-	
-	$userController = new UserController;
-	$result = $userController->login($_GET['email'], $_GET['password']);
-	if ($result->status == $userController->SUCCESS->status)
-		$_SESSION['profile'] = $result->content;
+$userController = new UserController;
+$result = $userController->login($_GET['email'], $_GET['password']);
 
-	echo json_encode($result);
-	
-}
+echo json_encode($result);
 
 exit;
 
