@@ -3,9 +3,7 @@
 namespace SeaSkincare\Backend\Controllers;
 
 use SeaSkincare\Backend\Data\DataRepository;
-use SeaSkincare\Backend\Entities\Buoy;
 use SeaSkincare\Backend\DTOs\BuoyDTO;
-use SeaSkincare\Backend\Mappers\BuoyMapper;
 use SeaSkincare\Backend\Services\BuoyService;
 use SeaSkincare\Backend\Communication\Response;
 

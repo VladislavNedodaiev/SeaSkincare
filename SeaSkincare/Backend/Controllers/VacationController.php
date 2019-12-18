@@ -3,9 +3,7 @@
 namespace SeaSkincare\Backend\Controllers;
 
 use SeaSkincare\Backend\Data\DataRepository;
-use SeaSkincare\Backend\Entities\Vacation;
 use SeaSkincare\Backend\DTOs\VacationDTO;
-use SeaSkincare\Backend\Mappers\VacationMapper;
 use SeaSkincare\Backend\Services\VacationService;
 use SeaSkincare\Backend\Communication\Response;
 
@@ -20,7 +18,12 @@ class VacationController
 	public $NO_USERID;
 	public $NO_BUSINESSID;
 	public $NO_STARTDATE;
-	public $NO_FINISHDATE;	
+	public $NO_FINISHDATE;
+	public $NO_DATEFLAG;	
+	public $NO_DATE;
+	public $INCORRECT_DATE;
+	public $INCORRECT_STARTDATE;
+	public $INCORRECT_FINISHDATE;
 	
 	public function __construct() {
 		
@@ -30,6 +33,11 @@ class VacationController
 		$this->NO_BUSINESSID = new Response("NO_BUSINESSID", null);
 		$this->NO_STARTDATE = new Response("NO_STARTDATE", null);
 		$this->NO_FINISHDATE = new Response("NO_FINISHDATE", null);
+		$this->NO_DATEFLAG = new Response("NO_DATEFLAG", null);
+		$this->NO_DATE = new Response("NO_DATE", null);
+		$this->INCORRECT_DATE = new Response("INCORRECT_DATE", null);
+		$this->INCORRECT_STARTDATE = new Response("INCORRECT_STARTDATE", null);
+		$this->INCORRECT_FINISHDATE = new Response("INCORRECT_FINISHDATE", null);
 		
 		$this->dataRep = new DataRepository;
 
@@ -95,12 +103,55 @@ class VacationController
 		
 	}
 	
+	// dateFlag - ended before someDate (<0), active at someDate (0), starting after someDate (>0)
+	// someDate - some date
+	public function getVacationsByIDsDate($userID, $businessID, $dateFlag, $someDate) {
+		
+		if (!isset($userID))
+			return $this->NO_USERID;
+		
+		if (!isset($businessID))
+			return $this->NO_BUSINESSID;
+		
+		if (!isset($dateFlag))
+			return $this->NO_DATEFLAG;
+		
+		if (!isset($someDate))
+			return $this->NO_DATE;
+		
+		if (!((bool)(strtotime($someDate))))
+			return $this->INCORRECT_DATE;
+		
+		return $this->vacationService->getVacationsByIDsDate($userID, $businessID, $dateFlag, $someDate);
+		
+	}
+	
 	public function getVacationsByUserID($userID) {
 		
 		if (!isset($userID))
 			return $this->NO_USERID;
 		
 		return $this->vacationService->getVacationsByUserID($userID);
+		
+	}
+	
+	// dateFlag - ended before someDate (<0), active at someDate (0), starting after someDate (>0)
+	// someDate - some date
+	public function getVacationsByUserIDDate($userID, $dateFlag, $someDate) {
+		
+		if (!isset($userID))
+			return $this->NO_USERID;
+		
+		if (!isset($dateFlag))
+			return $this->NO_DATEFLAG;
+		
+		if (!isset($someDate))
+			return $this->NO_DATE;
+		
+		if (!((bool)(strtotime($someDate))))
+			return $this->INCORRECT_DATE;
+		
+		return $this->vacationService->getVacationsByUserIDDate($userID, $dateFlag, $someDate);
 		
 	}
 	
@@ -113,22 +164,23 @@ class VacationController
 		
 	}
 	
-	public function getLastVacation() {
+	// dateFlag - ended before someDate (<0), active at someDate (0), starting after someDate (>0)
+	// someDate - some date
+	public function getVacationsByBusinessIDDate($businessID, $dateFlag, $someDate) {
 		
-		$vacationID = $this->vacationService->getLastID();
-		if ($vacationID->status != $this->vacationService->SUCCESS->status)
-			return $vacationID;
+		if (!isset($businessID))
+			return $this->NO_BUSINESSID;
 		
-		return $this->vacationService->getVacation($vacationID->content);
+		if (!isset($dateFlag))
+			return $this->NO_DATEFLAG;
 		
-	}
-	
-	public function getLastVacationByUserID($userID) {
+		if (!isset($someDate))
+			return $this->NO_DATE;
 		
-		if (!isset($userID))
-			return $this->NO_USERID;
+		if (!((bool)(strtotime($someDate))))
+			return $this->INCORRECT_DATE;
 		
-		return $this->vacationService->getLastVacationByUserID($userID);
+		return $this->vacationService->getVacationsByBusinessIDDate($businessID, $dateFlag, $someDate);
 		
 	}
 	

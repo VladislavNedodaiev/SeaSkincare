@@ -33,6 +33,10 @@ class UserController {
 	public $NO_REPEAT_PASSWORD;
 	public $DIFFERENT_PASSWORDS;
 	public $NO_NICKNAME;
+	public $NO_NAME;
+	public $NO_GENDER;
+	public $WRONG_GENDER;
+	public $NO_PHONENUMBER;
 	public $NO_USERID;
 	public $NO_VERIFICATION;
 	public $NO_LOGIN;
@@ -49,6 +53,10 @@ class UserController {
 		$this->NO_REPEAT_PASSWORD = new Response("NO_REPEAT_PASSWORD", null);
 		$this->DIFFERENT_PASSWORDS = new Response("DIFFERENT_PASSWORDS", null);
 		$this->NO_NICKNAME = new Response("NO_NICKNAME", null);
+		$this->NO_NAME = new Response("NO_NAME", null);
+		$this->NO_GENDER = new Response("NO_GENDER", null);
+		$this->WRONG_GENDER = new Response("WRONG_GENDER", null);
+		$this->NO_PHONENUMBER = new Response("NO_PHONENUMBER", null);
 		$this->NO_USERID = new Response("NO_USERID", null);
 		$this->NO_VERIFICATION = new Response("NO_VERIFICATION", null);
 		$this->NO_LOGIN = new Response("NO_LOGIN", null);
@@ -154,7 +162,7 @@ class UserController {
 		
 	}
 	
-	public function editUser($userID, $nickname, $email) {
+	public function editUser($userID, $nickname, $name, $gender, $phoneNumber) {
 	
 		if (!isset($userID))
 			return $this->NO_USERID;
@@ -162,13 +170,24 @@ class UserController {
 		if (!isset($nickname))
 			return $this->NO_NICKNAME;
 		
-		if (!isset($email))
-			return $this->NO_EMAIL;
+		if (!isset($name))
+			return $this->NO_NAME;
+		
+		if (!isset($gender))
+			return $this->NO_GENDER;
+		
+		if ($gender != -1 && $gender != 0 && $gender != 1)
+			return $this->WRONG_GENDER;
+		
+		if (!isset($phoneNumber))
+			return $this->NO_PHONENUMBER;
 		
 		$dto = new UserDTO;
 		$dto->id = $userID;
 		$dto->nickname = $nickname;
-		$dto->email = $email;
+		$dto->name = $name;
+		$dto->gender = $gender;
+		$dto->phoneNumber = $phoneNumber;
 		
 		return $this->userService->updateUser($dto);
 	

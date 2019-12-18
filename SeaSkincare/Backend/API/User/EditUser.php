@@ -32,7 +32,7 @@ $fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOS
 
 $userController = new UserController;
 
-echo json_encode($userController->editUser($_POST['userID'], $_POST['nickname'], $_POST['email']));
+echo json_encode($userController->editUser($_POST['userID'], $_POST['nickname'], $_POST['name'], $_POST['gender'],  $_POST['phoneNumber']));
 exit;
 
 ?>

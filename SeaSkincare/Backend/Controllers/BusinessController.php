@@ -22,6 +22,9 @@ class BusinessController
 	public $NO_REPEAT_PASSWORD;
 	public $DIFFERENT_PASSWORDS;
 	public $NO_NICKNAME;
+	public $NO_DESCRIPTION;
+	public $NO_PHOTO;
+	public $NO_PHONENUMBER;
 	public $NO_BUSINESSID;
 	public $NO_VERIFICATION;
 	public $NO_LOGIN;
@@ -37,6 +40,9 @@ class BusinessController
 		$this->NO_REPEAT_PASSWORD = new Response("NO_REPEAT_PASSWORD", null);
 		$this->DIFFERENT_PASSWORDS = new Response("DIFFERENT_PASSWORDS", null);
 		$this->NO_NICKNAME = new Response("NO_NICKNAME", null);
+		$this->NO_DESCRIPTION = new Response("NO_DESCRIPTION", null);
+		$this->NO_PHOTO = new Response("NO_PHOTO", null);
+		$this->NO_PHONENUMBER = new Response("NO_PHONENUMBER", null);
 		$this->NO_BUSINESSID = new Response("NO_BUSINESSID", null);
 		$this->NO_VERIFICATION = new Response("NO_VERIFICATION", null);
 		$this->NO_LOGIN = new Response("NO_LOGIN", null);
@@ -120,7 +126,7 @@ class BusinessController
 		
 	}
 	
-	public function editBusiness($businessID, $nickname, $email) {
+	public function editBusiness($businessID, $nickname, $description, $photo, $phoneNumber) {
 	
 		if (!isset($businessID))
 			return $this->NO_BUSINESSID;
@@ -128,13 +134,21 @@ class BusinessController
 		if (!isset($nickname))
 			return $this->NO_NICKNAME;
 		
-		if (!isset($email))
-			return $this->NO_EMAIL;
+		if (!isset($description))
+			return $this->NO_DESCRIPTION;
+		
+		if (!isset($photo))
+			return $this->NO_PHOTO;
+		
+		if (!isset($phoneNumber))
+			return $this->NO_PHONENUMBER;
 		
 		$dto = new BusinessDTO;
 		$dto->id = $businessID;
 		$dto->nickname = $nickname;
-		$dto->email = $email;
+		$dto->description = $description;
+		$dto->photo = $photo;
+		$dto->phoneNumber = $phoneNumber;
 		
 		return $this->businessService->updateBusiness($dto);
 	

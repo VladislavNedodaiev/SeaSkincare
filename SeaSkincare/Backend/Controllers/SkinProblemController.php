@@ -3,9 +3,7 @@
 namespace SeaSkincare\Backend\Controllers;
 
 use SeaSkincare\Backend\Data\DataRepository;
-use SeaSkincare\Backend\Entities\SkinProblem;
 use SeaSkincare\Backend\DTOs\SkinProblemDTO;
-use SeaSkincare\Backend\Mappers\SkinProblemMapper;
 use SeaSkincare\Backend\Services\SkinProblemService;
 use SeaSkincare\Backend\Communication\Response;
 

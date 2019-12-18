@@ -20,7 +20,7 @@ $fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOS
 
 $businessController = new BusinessController;
 
-echo json_encode($businessController->editBusiness($_POST['businessID'], $_POST['nickname'], $_POST['email']));
+echo json_encode($businessController->editBusiness($_POST['businessID'], $_POST['nickname'], $_POST['description'], $_POST['photo'], $_POST['phoneNumber']));
 exit;
 
 ?>

@@ -3,9 +3,7 @@
 namespace SeaSkincare\Backend\Controllers;
 
 use SeaSkincare\Backend\Data\DataRepository;
-use SeaSkincare\Backend\Entities\Subscription;
 use SeaSkincare\Backend\DTOs\SubscriptionDTO;
-use SeaSkincare\Backend\Mappers\SubscriptionMapper;
 use SeaSkincare\Backend\Services\SubscriptionService;
 use SeaSkincare\Backend\Communication\Response;
 

@@ -2,13 +2,15 @@
 
 namespace SeaSkincare\Backend\DTOs;
 
-class UserProblemDTO
+class VacationRequestDTO
 {
 	
 	// Data
 	public $id;
 	public $userID;
-	public $skinProblemID;
+	public $businessID;
+	public $requestDate;
+	public $status;
 	
 }
 

@@ -3,9 +3,7 @@
 namespace SeaSkincare\Backend\Controllers;
 
 use SeaSkincare\Backend\Data\DataRepository;
-use SeaSkincare\Backend\Entities\Water;
 use SeaSkincare\Backend\DTOs\WaterDTO;
-use SeaSkincare\Backend\Mappers\WaterMapper;
 use SeaSkincare\Backend\Services\WaterService;
 use SeaSkincare\Backend\Communication\Response;
 

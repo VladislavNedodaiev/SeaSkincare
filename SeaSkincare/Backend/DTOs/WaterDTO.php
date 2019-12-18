@@ -2,8 +2,6 @@
 
 namespace SeaSkincare\Backend\DTOs;
 
-use SeaSkincare\Backend\Entities;
-
 class WaterDTO
 {
 	

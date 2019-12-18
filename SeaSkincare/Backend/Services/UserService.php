@@ -16,7 +16,6 @@ class UserService
 	
 	public $UNVERIFIED;
 	public $EMAIL_REGISTERED;
-	public $NICKNAME_REGISTERED;
 	public $WRONG_PASSWORD;
 	public $EMAIL_UNSENT;
 	public $SAME_PASSWORDS;
@@ -29,7 +28,6 @@ class UserService
 		
 		$this->UNVERIFIED = new Response("UNVERIFIED_USER", null);
 		$this->EMAIL_REGISTERED = new Response("EMAIL_REGISTERED", null);
-		$this->NICKNAME_REGISTERED = new Response("NICKNAME_REGISTERED", null);
 		$this->WRONG_PASSWORD = new Response("WRONG_PASSWORD", null);
 		$this->EMAIL_UNSENT = new Response("EMAIL_UNSENT", null);
 		$this->SAME_PASSWORDS = new Response("SAME_PASSWORDS", null);
@@ -72,10 +70,14 @@ class UserService
 					$dto = new UserDTO;
 					
 					$dto->id = $res['user_id'];
+					$dto->registerDate = $res['register_date'];
 					$dto->password = $res['hash'];
 					$dto->nickname = $res['nickname'];
 					$dto->email = $res['email'];
 					$dto->verification = $res['verification'];
+					$dto->name = $res['name'];
+					$dto->gender = $res['gender'];
+					$dto->phoneNumber = $res['phone_number'];
 					
 					return new Response($this->SUCCESS->status, $dto);
 					
@@ -95,12 +97,9 @@ class UserService
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."' OR `".self::DB_TABLE."`.`nickname`='".$nickname."';")) {
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				if ($email == $res['email'])
-					return $this->EMAIL_REGISTERED;
-				else
-					return $this->NICKNAME_REGISTERED;
+				return $this->EMAIL_REGISTERED;
 			}
 		}
 		
@@ -154,7 +153,7 @@ class UserService
 	
 	}
 	
-	// getting public data of user by id from database
+	// getting data for business of user by id from database
 	public function getUser($userID) {
 		
 		if (!$this->database || $this->database->connect_errno)
@@ -166,9 +165,14 @@ class UserService
 				
 				$dto = new UserDTO;
 					
-				$dto->ID = $res['user_id'];
+				$dto->id = $res['user_id'];
+				$dto->registerDate = $res['register_date'];
 				$dto->nickname = $res['nickname'];
 				$dto->email = $res['email'];
+				$dto->verification = $res['verification'];
+				$dto->name = $res['name'];
+				$dto->gender = $res['gender'];
+				$dto->phoneNumber = $res['phone_number'];
 				
 				return new Response($this->SUCCESS->status, $dto);
 				
@@ -185,7 +189,7 @@ class UserService
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `nickname`=".$dto->nickname.", `email`=".$dto->email." WHERE `user_id`='".$dto->id."';"))
+		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `nickname`=".$dto->nickname.", `name`=".$dto->name.", `gender`=".$dto->gender.", `phone_number`=".$dto->phoneNumber." WHERE `user_id`='".$dto->id."';"))
 			return $this->SUCCESS;
 			
 		return $this->DB_ERROR;
@@ -202,7 +206,7 @@ class UserService
 			return $this->DB_ERROR;
 		
 		$userResponse = $this->getUser($userID);
-		if ($userResponse->status !=$this->SUCCESS)
+		if ($userResponse->status != $this->SUCCESS)
 			return $userResponse;
 		
 		$result = $this->login($userResponse->content->email, $oldPassword);

@@ -3,9 +3,7 @@
 namespace SeaSkincare\Backend\Controllers;
 
 use SeaSkincare\Backend\Data\DataRepository;
-use SeaSkincare\Backend\Entities\Air;
 use SeaSkincare\Backend\DTOs\AirDTO;
-use SeaSkincare\Backend\Mappers\AirMapper;
 use SeaSkincare\Backend\Services\AirService;
 use SeaSkincare\Backend\Communication\Response;
 
