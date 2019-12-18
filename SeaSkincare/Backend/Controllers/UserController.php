@@ -20,8 +20,6 @@ class UserController {
 	private $mailService;
 	private $userService;
 	
-	private $vacationController;
-	private $vacationRequestController;
 	private $userProblemController;
 	private $skinProblemController;
 	
@@ -41,7 +39,6 @@ class UserController {
 	public $SUCCESS;
 	public $NO_OLD_PASSWORD;
 	public $NO_NEW_PASSWORD;
-	
 	
 	public function __construct() {
 		
@@ -76,8 +73,6 @@ class UserController {
 
 		);
 		
-		$this->vacationController = new VacationController;
-		$this->vacationRequestController = new VacationRequestController;
 		$this->userProblemController = new UserProblemController;
 		$this->skinProblemController = new SkinProblemController;
 	

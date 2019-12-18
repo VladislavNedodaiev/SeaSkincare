@@ -18,6 +18,7 @@ class VacationRequestController
 	public $NO_USERID;
 	public $NO_BUSINESSID;
 	public $NO_STATUS;
+	public $INCORRECT_STATUS;
 	
 	public function __construct() {
 		
@@ -26,6 +27,7 @@ class VacationRequestController
 		$this->NO_USERID = new Response("NO_USERID", null);
 		$this->NO_BUSINESSID = new Response("NO_BUSINESSID", null);
 		$this->NO_STATUS = new Response("NO_STATUS", null);
+		$this->INCORRECT_STATUS = new Response("INCORRECT_STATUS", null);
 		
 		$this->dataRep = new DataRepository;
 
@@ -88,6 +90,9 @@ class VacationRequestController
 		if (!isset($status))
 			return $this->NO_STATUS;
 		
+		if ($status != -1 && $status != 0 && $status != 1)
+			return $this->INCORRECT_STATUS;
+		
 		return $this->vacationRequestService->getVacationRequestsByIDsStatus($userID, $businessID, $status);
 		
 	}
@@ -108,6 +113,9 @@ class VacationRequestController
 		
 		if (!isset($status))
 			return $this->NO_STATUS;
+		
+		if ($status != -1 && $status != 0 && $status != 1)
+			return $this->INCORRECT_STATUS;
 		
 		return $this->vacationService->getVacationsByUserIDStatus($userID, $status);
 		
@@ -130,6 +138,9 @@ class VacationRequestController
 		if (!isset($status))
 			return $this->NO_STATUS;
 		
+		if ($status != -1 && $status != 0 && $status != 1)
+			return $this->INCORRECT_STATUS;
+		
 		return $this->vacationService->getVacationsByBusinessIDStatus($businessID, $status);
 		
 	}
@@ -141,6 +152,9 @@ class VacationRequestController
 		
 		if (!isset($status))
 			return $this->NO_STATUS;
+		
+		if ($status != -1 && $status != 0 && $status != 1)
+			return $this->INCORRECT_STATUS;
 		
 		$dto = new VacationRequestDTO;
 		$dto->id = $vacationRequestID;

@@ -9,10 +9,6 @@ include_once '../../DTOs/UserDTO.php';
 include_once '../../Services/UserService.php';
 include_once '../../Controllers/UserController.php';
 
-include_once '../../DTOs/VacationDTO.php';
-include_once '../../Services/VacationService.php';
-include_once '../../Controllers/VacationController.php';
-
 include_once '../../DTOs/UserProblemDTO.php';
 include_once '../../Services/UserProblemService.php';
 include_once '../../Controllers/UserProblemController.php';

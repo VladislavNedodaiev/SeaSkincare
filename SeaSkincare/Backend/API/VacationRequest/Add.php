@@ -1,22 +1,19 @@
 <?php
-namespace SeaSkincare\Backend\API\User;
+namespace SeaSkincare\Backend\API\VacationRequest;
 
 include_once '../../Data/DataRepository.php';
 include_once '../../Services/MailService.php';
 include_once '../../Communication/Response.php';
 
+include_once '../../DTOs/VacationRequestDTO.php';
+include_once '../../Services/VacationRequestService.php';
+include_once '../../Controllers/VacationRequestController.php';
+
 include_once '../../DTOs/UserDTO.php';
 include_once '../../Services/UserService.php';
 include_once '../../Controllers/UserController.php';
 
-include_once '../../DTOs/UserProblemDTO.php';
-include_once '../../Services/UserProblemService.php';
-include_once '../../Controllers/UserProblemController.php';
-
-include_once '../../DTOs/SkinProblemDTO.php';
-include_once '../../Services/SkinProblemService.php';
-include_once '../../Controllers/SkinProblemController.php';
-
+use SeaSkincare\Backend\Controllers\VacationRequestController;
 use SeaSkincare\Backend\Controllers\UserController;
 use SeaSkincare\Backend\Communication\Response;
 
@@ -26,6 +23,7 @@ session_start();
 $req_dump = print_r($_POST, true);
 $fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].' POST:'.$req_dump.PHP_EOL, FILE_APPEND);
 
+$vacationRequestController = new VacationRequestController;
 $userController = new UserController;
 
 if ($response = $userController->login($_POST['email'], $_POST['password'])) {
@@ -37,7 +35,7 @@ if ($response = $userController->login($_POST['email'], $_POST['password'])) {
 	}
 }
 
-echo json_encode($userController->editPassword($_POST['userID'], $_POST['oldPassword'], $_POST['newPassword']));
+echo json_encode($vacationRequestController->createVacationRequest($_POST['userID'], $_POST['businessID']));
 exit;
 
 ?>

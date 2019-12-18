@@ -30,7 +30,6 @@ class BusinessController
 	public $NO_OLD_PASSWORD;
 	public $NO_NEW_PASSWORD;
 	
-	
 	public function __construct() {
 		
 		$this->NO_EMAIL = new Response("NO_EMAIL", null);
@@ -61,8 +60,6 @@ class BusinessController
 			$this->mailService
 
 		);
-		
-		$this->vacationRequestController = new VacationRequestController;
 	
 	}
 	

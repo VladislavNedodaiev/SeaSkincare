@@ -20,6 +20,15 @@ $fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOS
 
 $businessController = new BusinessController;
 
+if ($response = $businessController->login($_POST['email'], $_POST['password'])) {
+	if ($response->status != $businessController->SUCCESS->status) {
+	
+		echo json_encode($response);
+		exit;
+	
+	}
+}
+
 echo json_encode($businessController->editPassword($_POST['businessID'], $_POST['oldPassword'], $_POST['newPassword']));
 exit;
 
