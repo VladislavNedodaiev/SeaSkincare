@@ -126,16 +126,6 @@ class UserController {
 	
 	}
 	
-	public function logout(&$user) {
-	
-		if (!isset($user))
-			return $this->NO_LOGIN;
-		
-		unset($user);
-		return $this->SUCCESS;
-	
-	}
-	
 	// getting public data of user by id from database
 	public function getUser($userID) {
 		

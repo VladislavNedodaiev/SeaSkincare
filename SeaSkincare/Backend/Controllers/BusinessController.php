@@ -110,16 +110,6 @@ class BusinessController
 	
 	}
 	
-	public function logout(&$business) {
-	
-		if (!isset($business))
-			return $this->NO_LOGIN;
-		
-		unset($business);
-		return $this->SUCCESS;
-	
-	}
-	
 	// getting public data of user by id from database
 	public function getBusiness($businessID) {
 		
