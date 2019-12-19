@@ -263,7 +263,7 @@ class BusinessService
 		if ($result->status ==$this->SUCCESS->status) {
 			
 			$temp = password_hash($newPassword, PASSWORD_BCRYPT);
-			if ($mysqli->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$temp." WHERE `business_id`='".$businessID."';"))
+			if ($mysqli->query("UPDATE `".self::DB_TABLE."` SET `hash`='".$temp."' WHERE `business_id`='".$businessID."';"))
 				return $this->SUCCESS;
 			
 			return $this->NOT_FOUND;

@@ -189,7 +189,7 @@ class UserService
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `nickname`=".$dto->nickname.", `name`=".$dto->name.", `gender`=".$dto->gender.", `phone_number`=".$dto->phoneNumber." WHERE `user_id`='".$dto->id."';"))
+		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `nickname`='".$dto->nickname."', `name`='".$dto->name."', `gender`='".$dto->gender."', `phone_number`='".$dto->phoneNumber."' WHERE `user_id`='".$dto->id."';"))
 			return $this->SUCCESS;
 			
 		return $this->DB_ERROR;
@@ -214,7 +214,7 @@ class UserService
 		if ($result->status ==$this->SUCCESS->status) {
 			
 			$temp = password_hash($newPassword, PASSWORD_BCRYPT);
-			if ($mysqli->query("UPDATE `".self::DB_TABLE."` SET `hash`=".$temp." WHERE `user_id`='".$userID."';"))
+			if ($mysqli->query("UPDATE `".self::DB_TABLE."` SET `hash`='".$temp."' WHERE `user_id`='".$userID."';"))
 				return $this->SUCCESS;
 			
 			return $this->NOT_FOUND;
