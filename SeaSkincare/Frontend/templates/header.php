@@ -4,6 +4,8 @@ if (!isset($_SESSION))
 
 include_once "localization/localization.php";
 
+//var_dump ($_SESSION['profile']);
+
 ?>
 
 <html>

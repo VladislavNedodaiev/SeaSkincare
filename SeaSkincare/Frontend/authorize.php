@@ -41,7 +41,10 @@ if ($response->status == "SUCCESS") {
 	$response->password = $_GET['password'];
 	$_SESSION['profile'] = $response->content;
 	
-	header("Location: user_profile.php");
+	if ($_GET['login_option'] == 'as_user')
+		header("Location: user_profile.php");
+	else
+		header("Location: business_profile.php");
 	exit;
 	
 } else if ($response->status == "UNVERIFIED") {
