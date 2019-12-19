@@ -26,7 +26,7 @@ class BusinessService
 	
 	public function __construct($host, $user, $pswd, $db, $mailService) {
 		
-		$this->UNVERIFIED = new Response("UNVERIFIED_BUSINESS", null);
+		$this->UNVERIFIED = new Response("UNVERIFIED", null);
 		$this->EMAIL_REGISTERED = new Response("EMAIL_REGISTERED", null);
 		$this->WRONG_PASSWORD = new Response("WRONG_PASSWORD", null);
 		$this->EMAIL_UNSENT = new Response("EMAIL_UNSENT", null);
