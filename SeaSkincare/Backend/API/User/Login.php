@@ -9,10 +9,6 @@ include_once '../../DTOs/UserDTO.php';
 include_once '../../Services/UserService.php';
 include_once '../../Controllers/UserController.php';
 
-include_once '../../DTOs/VacationDTO.php';
-include_once '../../Services/VacationService.php';
-include_once '../../Controllers/VacationController.php';
-
 include_once '../../DTOs/UserProblemDTO.php';
 include_once '../../Services/UserProblemService.php';
 include_once '../../Controllers/UserProblemController.php';
@@ -27,17 +23,13 @@ use SeaSkincare\Backend\Communication\Response;
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-if (isset($_SESSION['profile']))
-	echo json_encode(new Response("SUCCESS", $_SESSION['profile']));
-else {
-	
-	$userController = new UserController;
-	$result = $userController->login($_GET['email'], $_GET['password']);
-	$_SESSION['profile'] = $result->content;
+$req_dump = print_r($_GET, true);
+$fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].' GET:'.$req_dump.PHP_EOL, FILE_APPEND);
 
-	echo json_encode($result);
-	
-}
+$userController = new UserController;
+$result = $userController->login($_GET['email'], $_GET['password']);
+
+echo json_encode($result);
 
 exit;
 

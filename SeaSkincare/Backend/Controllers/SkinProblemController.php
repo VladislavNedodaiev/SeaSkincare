@@ -3,9 +3,7 @@
 namespace SeaSkincare\Backend\Controllers;
 
 use SeaSkincare\Backend\Data\DataRepository;
-use SeaSkincare\Backend\Entities\SkinProblem;
 use SeaSkincare\Backend\DTOs\SkinProblemDTO;
-use SeaSkincare\Backend\Mappers\SkinProblemMapper;
 use SeaSkincare\Backend\Services\SkinProblemService;
 use SeaSkincare\Backend\Communication\Response;
 
@@ -15,18 +13,27 @@ class SkinProblemController
 	private $dataRep;
 	private $skinProblemService;
 	
-	public const SUCCESS = new Response("SUCCESS", null);
-	public const NO_SKINPROBLEMID = new Response("NO_SKINPROBLEMID", null);
-	public const NO_TITLE = new Response("NO_TITLE", null);
-	public const NO_NORMAL_PH = new Response("NO_NORMAL_PH", null);
-	public const NO_NORMAL_SALT = new Response("NO_NORMAL_SALT", null);
-	public const NO_NORMAL_AIR_POLLUTION = new Response("NO_NORMAL_AIR_POLLUTION", null);
-	public const NO_NORMAL_SUN_POWER = new Response("NO_NORMAL_SUN_POWER", null);
-	public const UNDEFINED = new Response("UNDEFINED", null);
+	public $SUCCESS;
+	public $NO_SKINPROBLEMID;
+	public $NO_TITLE;
+	public $NO_NORMAL_PH;
+	public $NO_NORMAL_SALT;
+	public $NO_NORMAL_AIR_POLLUTION;
+	public $NO_NORMAL_SUN_POWER;
+	public $UNDEFINED;
 	
 	
 	public function __construct() {
-	
+		
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->NO_SKINPROBLEMID = new Response("NO_SKINPROBLEMID", null);
+		$this->NO_TITLE = new Response("NO_TITLE", null);
+		$this->NO_NORMAL_PH = new Response("NO_NORMAL_PH", null);
+		$this->NO_NORMAL_SALT = new Response("NO_NORMAL_SALT", null);
+		$this->NO_NORMAL_AIR_POLLUTION = new Response("NO_NORMAL_AIR_POLLUTION", null);
+		$this->NO_NORMAL_SUN_POWER = new Response("NO_NORMAL_SUN_POWER", null);
+		$this->UNDEFINED = new Response("UNDEFINED", null);
+		
 		$this->dataRep = new DataRepository;
 
 		$this->skinProblemService = new SkinProblemService(
@@ -43,19 +50,19 @@ class SkinProblemController
 	public function createSkinProblem($title, $normalPH, $normalSalt, $normalAirPollution, $normalSunPower) {
 		
 		if (!isset($title))
-			return self::NO_TITLE;
+			return $this->NO_TITLE;
 		
 		if (!isset($normalPH))
-			return self::NO_NORMAL_PH;
+			return $this->NO_NORMAL_PH;
 		
 		if (!isset($normalSalt))
-			return self::NO_NORMAL_SALT;
+			return $this->NO_NORMAL_SALT;
 		
 		if (!isset($normalAirPollution))
-			return self::NO_NORMAL_AIR_POLLUTION;
+			return $this->NO_NORMAL_AIR_POLLUTION;
 		
 		if (!isset($normalSunPower))
-			return self::NO_NORMAL_SUN_POWER;
+			return $this->NO_NORMAL_SUN_POWER;
 		
 		$dto = new SkinProblemDTO;
 		$dto->title = $title;
@@ -71,7 +78,7 @@ class SkinProblemController
 	public function getSkinProblem($skinProblemID) {
 		
 		if (!isset($skinProblemID))
-			return self::NO_SKINPROBLEMID;
+			return $this->NO_SKINPROBLEMID;
 		
 		return $this->skinProblemService->getSkinProblem($skinProblemID);
 		
@@ -86,7 +93,7 @@ class SkinProblemController
 	public function getLastSkinProblem() {
 		
 		$skinProblemID = $this->skinProblemService->getLastID();
-		if ($skinProblemID->status != SkinProblemService::SUCCESS->status)
+		if ($skinProblemID->status != $this->skinProblemService->SUCCESS->status)
 			return $skinProblemID;
 		
 		return $this->skinProblemService->getSkinProblem($skinProblemID->content);
@@ -124,29 +131,29 @@ class SkinProblemController
 			
 		}
 		
-		return self::UNDEFINED;
+		return $this->UNDEFINED;
 		
 	}
 	
 	public function editSkinProblem($skinProblemID, $title, $normalPH, $normalSalt, $normalAirPollution, $normalSunPower) {
 	
 		if (!isset($skinProblemID))
-			return self::NO_SKINPROBLEMID;
+			return $this->NO_SKINPROBLEMID;
 	
 		if (!isset($title))
-			return self::NO_TITLE;
+			return $this->NO_TITLE;
 		
 		if (!isset($normalPH))
-			return self::NO_NORMAL_PH;
+			return $this->NO_NORMAL_PH;
 		
 		if (!isset($normalSalt))
-			return self::NO_NORMAL_SALT;
+			return $this->NO_NORMAL_SALT;
 		
 		if (!isset($normalAirPollution))
-			return self::NO_NORMAL_AIR_POLLUTION;
+			return $this->NO_NORMAL_AIR_POLLUTION;
 		
 		if (!isset($normalSunPower))
-			return self::NO_NORMAL_SUN_POWER;
+			return $this->NO_NORMAL_SUN_POWER;
 		
 		$dto = new SkinProblemDTO;
 		$dto->id = $skinProblemID;
@@ -163,7 +170,7 @@ class SkinProblemController
 	public function deleteSkinProblem($skinProblemID) {
 	
 		if (!isset($skinProblemID))
-			return self::NO_SKINPROBLEMID;
+			return $this->NO_SKINPROBLEMID;
 		
 		return $this->skinProblemService->deleteSkinProblem($skinProblemID);
 	

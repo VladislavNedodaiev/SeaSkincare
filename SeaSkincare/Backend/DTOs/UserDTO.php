@@ -2,21 +2,26 @@
 
 namespace SeaSkincare\Backend\DTOs;
 
-use SeaSkincare\Backend\Entities;
+
 
 class UserDTO
 {
 	
 	// Data
 	public $id;
+	public $registerDate;
 	public $password;
 	public $nickname;
 	public $email;
 	public $verification;
+	public $name;
+	public $gender;
+	public $phoneNumber;
 	
 	// Relations
 	public $userProblems;
 	public $vacations;
+	public $vacationRequests;
 	
 }
 

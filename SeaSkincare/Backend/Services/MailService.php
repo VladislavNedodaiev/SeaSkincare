@@ -1,17 +1,21 @@
 <?php
 
 namespace SeaSkincare\Backend\Services;
+use SeaSkincare\Backend\Communication\Response;
 
 class MailService
 {
 	
 	public $host;
 	
-	public const SUCCESS = new Response("SUCCESS", null);
-	public const EMAIL_UNSENT = new Response("EMAIL_UNSENT", null);
+	public $SUCCESS;
+	public $EMAIL_UNSENT;
 	
 	public function __construct($host) {
-	
+		
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->EMAIL_UNSENT = new Response("EMAIL_UNSENT", null);
+		
 		$this->host = $host;
 	
 	}
@@ -38,9 +42,9 @@ class MailService
 		);
 		
 		if (mail($email, $subject, $message, $headers))
-			return self::SUCCESS;
+			return $this->SUCCESS;
 		
-		return self::EMAIL_UNSENT;
+		return $this->EMAIL_UNSENT;
 		
 	}
 	

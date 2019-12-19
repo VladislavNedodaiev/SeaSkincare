@@ -12,12 +12,16 @@ class WeatherService
 	
 	private const DB_TABLE = "Weather";
 	
-	public const NOT_FOUND = new Response("NOT_FOUND", null);
-	public const SUCCESS = new Response("SUCCESS", null);
-	public const DB_ERROR = new Response("DB_ERROR", null);
+	public $NOT_FOUND;
+	public $SUCCESS;
+	public $DB_ERROR;
 	
 	public function __construct($host, $user, $pswd, $db) {
-	
+		
+		$this->NOT_FOUND = new Response("NOT_FOUND", null);
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->DB_ERROR = new Response("DB_ERROR", null);
+		
 		$this->connectToDB($host, $user, $pswd, $db);
 	
 	}
@@ -27,19 +31,19 @@ class WeatherService
 		$this->database = new \mysqli($host, $user, $pswd, $db);
 
 		if ($this->database->connect_errno) {
-			return self::DB_ERROR;
+			return $this->DB_ERROR;
 		}
 
 		$this->database->set_charset('utf8');
 
-		return new Response(self::SUCCESS->status, $this->database);
+		return new Response($this->SUCCESS->status, $this->database);
 		
 	}
 	
 	public function createWeather($dto) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return $this->DB_ERROR;
 	
 		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`connection_id`, `sun_power`, `wind_speed`)".
 						   "VALUES (".
@@ -47,11 +51,11 @@ class WeatherService
 						   "'".$dto->sunPower."', ".
 						   "'".$dto->windSpeed."');")) {
 			
-			return new Response(self::SUCCESS->status, $dto);
+			return new Response($this->SUCCESS->status, $dto);
 			
 		}
 			
-		return self::DB_ERROR;
+		return $this->DB_ERROR;
 		
 	}
 	
@@ -59,7 +63,7 @@ class WeatherService
 	public function getWeather($connectionID) {
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`connection_id`='".$connectionID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -71,12 +75,12 @@ class WeatherService
 				$dto->sunPower = $res['sun_power'];
 				$dto->windSpeed = $res['wind_speed'];
 				
-				return new Response(self::SUCCESS->status, $dto);
+				return new Response($this->SUCCESS->status, $dto);
 				
 			}
 		}
 		
-		return self::NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	
@@ -84,12 +88,12 @@ class WeatherService
 		
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `sun_power`='".$dto->sunPower."', `wind_speed`='".$dto->windSpeed."' WHERE `connection_id`='".$dto->id."';"))
-			return self::SUCCESS;
+			return $this->SUCCESS;
 			
-		return self::NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	
@@ -97,12 +101,12 @@ class WeatherService
 	{
 		
 		if (!$this->database || $this->database->connect_errno)
-			return self::DB_ERROR;
+			return $this->DB_ERROR;
 		
 		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `connection_id`='".$connectionID."';"))
-			return self::SUCCESS;
+			return $this->SUCCESS;
 			
-		return self::NOT_FOUND;
+		return $this->NOT_FOUND;
 		
 	}
 	

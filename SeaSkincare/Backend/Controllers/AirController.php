@@ -3,9 +3,7 @@
 namespace SeaSkincare\Backend\Controllers;
 
 use SeaSkincare\Backend\Data\DataRepository;
-use SeaSkincare\Backend\Entities\Air;
 use SeaSkincare\Backend\DTOs\AirDTO;
-use SeaSkincare\Backend\Mappers\AirMapper;
 use SeaSkincare\Backend\Services\AirService;
 use SeaSkincare\Backend\Communication\Response;
 
@@ -15,13 +13,18 @@ class AirController
 	private $dataRep;
 	private $airService;
 	
-	public const SUCCESS = new Response("SUCCESS", null);
-	public const NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
-	public const NO_TEMPERATURE = new Response("NO_TEMPERATURE", null);
-	public const NO_POLLUTION = new Response("NO_POLLUTION", null);
+	public $SUCCESS;
+	public $NO_CONNECTIONID;
+	public $NO_TEMPERATURE;
+	public $NO_POLLUTION;
 	
 	
 	public function __construct() {
+	
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
+		$this->NO_TEMPERATURE = new Response("NO_TEMPERATURE", null);
+		$this->NO_POLLUTION = new Response("NO_POLLUTION", null);
 	
 		$this->dataRep = new DataRepository;
 
@@ -39,13 +42,13 @@ class AirController
 	public function createAir($connectionID, $temperature, $pollution) {
 		
 		if (!isset($connectionID))
-			return self::NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		if (!isset($temperature))
-			return self::NO_TEMPERATURE;
+			return $this->NO_TEMPERATURE;
 		
 		if (!isset($pollution))
-			return self::NO_POLLUTION;
+			return $this->NO_POLLUTION;
 		
 		$dto = new AirDTO;
 		$dto->id = $connectionID;
@@ -59,7 +62,7 @@ class AirController
 	public function getAir($airID) {
 		
 		if (!isset($airID))
-			return self::NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		return $this->airService->getAir($airID);
 		
@@ -68,13 +71,13 @@ class AirController
 	public function editAir($connectionID, $temperature, $pollution) {
 	
 		if (!isset($connectionID))
-			return self::NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		if (!isset($temperature))
-			return self::NO_TEMPERATURE;
+			return $this->NO_TEMPERATURE;
 		
 		if (!isset($pollution))
-			return self::NO_POLLUTION;
+			return $this->NO_POLLUTION;
 		
 		$dto = new AirDTO;
 		$dto->id = $connectionID;
@@ -88,7 +91,7 @@ class AirController
 	public function deleteAir($airID) {
 	
 		if (!isset($airID))
-			return self::NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		return $this->airService->deleteAir($airID);
 	

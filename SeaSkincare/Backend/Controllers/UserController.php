@@ -8,9 +8,6 @@ use SeaSkincare\Backend\DTOs\UserDTO;
 use SeaSkincare\Backend\Services\UserService;
 use SeaSkincare\Backend\Communication\Response;
 
-use SeaSkincare\Backend\DTOs\VacationDTO;
-use SeaSkincare\Backend\Controllers\VacationController;
-
 use SeaSkincare\Backend\DTOs\UserProblemDTO;
 use SeaSkincare\Backend\Controllers\UserProblemController;
 
@@ -23,26 +20,45 @@ class UserController {
 	private $mailService;
 	private $userService;
 	
-	private $vacationController;
 	private $userProblemController;
 	private $skinProblemController;
 	
-	public const NO_EMAIL = new Response("NO_EMAIL", null);
-	public const INCORRECT_EMAIL = new Response("INCORRECT_EMAIL", null);
-	public const NO_PASSWORD = new Response("NO_PASSWORD", null);
-	public const NO_REPEAT_PASSWORD = new Response("NO_REPEAT_PASSWORD", null);
-	public const DIFFERENT_PASSWORDS = new Response("DIFFERENT_PASSWORDS", null);
-	public const NO_NICKNAME = new Response("NO_NICKNAME", null);
-	public const NO_USERID = new Response("NO_USERID", null);
-	public const NO_VERIFICATION = new Response("NO_VERIFICATION", null);
-	public const NO_LOGIN = new Response("NO_LOGIN", null);
-	public const SUCCESS = new Response("SUCCESS", null);
-	public const NO_OLD_PASSWORD = new Response("NO_OLD_PASSWORD", null);
-	public const NO_NEW_PASSWORD = new Response("NO_NEW_PASSWORD", null);
-	
+	public $NO_EMAIL;
+	public $INCORRECT_EMAIL;
+	public $NO_PASSWORD;
+	public $NO_REPEAT_PASSWORD;
+	public $DIFFERENT_PASSWORDS;
+	public $NO_NICKNAME;
+	public $NO_NAME;
+	public $NO_GENDER;
+	public $WRONG_GENDER;
+	public $NO_PHONENUMBER;
+	public $NO_USERID;
+	public $NO_VERIFICATION;
+	public $NO_LOGIN;
+	public $SUCCESS;
+	public $NO_OLD_PASSWORD;
+	public $NO_NEW_PASSWORD;
 	
 	public function __construct() {
-	
+		
+		$this->NO_EMAIL = new Response("NO_EMAIL", null);
+		$this->INCORRECT_EMAIL = new Response("INCORRECT_EMAIL", null);
+		$this->NO_PASSWORD = new Response("NO_PASSWORD", null);
+		$this->NO_REPEAT_PASSWORD = new Response("NO_REPEAT_PASSWORD", null);
+		$this->DIFFERENT_PASSWORDS = new Response("DIFFERENT_PASSWORDS", null);
+		$this->NO_NICKNAME = new Response("NO_NICKNAME", null);
+		$this->NO_NAME = new Response("NO_NAME", null);
+		$this->NO_GENDER = new Response("NO_GENDER", null);
+		$this->WRONG_GENDER = new Response("WRONG_GENDER", null);
+		$this->NO_PHONENUMBER = new Response("NO_PHONENUMBER", null);
+		$this->NO_USERID = new Response("NO_USERID", null);
+		$this->NO_VERIFICATION = new Response("NO_VERIFICATION", null);
+		$this->NO_LOGIN = new Response("NO_LOGIN", null);
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->NO_OLD_PASSWORD = new Response("NO_OLD_PASSWORD", null);
+		$this->NO_NEW_PASSWORD = new Response("NO_NEW_PASSWORD", null);
+		
 		$this->dataRep = new DataRepository;
 
 		$this->mailService = new MailService($_SERVER['HTTP_HOST']);
@@ -57,7 +73,6 @@ class UserController {
 
 		);
 		
-		$this->vacationController = new VacationController;
 		$this->userProblemController = new UserProblemController;
 		$this->skinProblemController = new SkinProblemController;
 	
@@ -66,10 +81,10 @@ class UserController {
 	public function login($email, $password) {
 		
 		if (!isset($email))
-			return self::NO_EMAIL;
+			return $this->NO_EMAIL;
 		
 		if (!isset($password))
-			return self::NO_PASSWORD;
+			return $this->NO_PASSWORD;
 		
 		return $this->userService->login($email, $password);
 		
@@ -79,22 +94,22 @@ class UserController {
 	public function register($email, $password, $repeat_password, $nickname) {
 		
 		if (!isset($email))
-			return self::NO_EMAIL;
+			return $this->NO_EMAIL;
 		
 		if (!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $email))
-			return self::INCORRECT_EMAIL;
+			return $this->INCORRECT_EMAIL;
 		
 		if (!isset($password))
-			return self::NO_PASSWORD;
+			return $this->NO_PASSWORD;
 		
 		if (!isset($repeat_password))
-			return self::NO_REPEAT_PASSWORD;
+			return $this->NO_REPEAT_PASSWORD;
 		
 		if ($password != $repeat_password)
-			return self::DIFFERENT_PASSWORDS;
+			return $this->DIFFERENT_PASSWORDS;
 		
 		if (!isset($nickname))
-			return self::NO_NICKNAME;
+			return $this->NO_NICKNAME;
 		
 		return $this->userService->register($email, $password, $nickname);
 		
@@ -104,22 +119,12 @@ class UserController {
 	public function verify($userID, $verification) {
 	
 		if (!isset($userID))
-			return self::NO_USERID;
+			return $this->NO_USERID;
 		
 		if (!isset($verification))
-			return self::NO_VERIFICATION;
+			return $this->NO_VERIFICATION;
 		
 		return $this->userService->verify($userID, $verification);
-	
-	}
-	
-	public function logout(&user) {
-	
-		if (!isset($user))
-			return self::NO_LOGIN;
-		
-		unset($user);
-		return self::SUCCESS;
 	
 	}
 	
@@ -127,7 +132,7 @@ class UserController {
 	public function getUser($userID) {
 		
 		if (!isset($userID))
-			return self::NO_USERID;
+			return $this->NO_USERID;
 		
 		return $this->userService->getUser($userID);
 		
@@ -151,21 +156,32 @@ class UserController {
 		
 	}
 	
-	public function editUser($userID, $nickname, $email) {
+	public function editUser($userID, $nickname, $name, $gender, $phoneNumber) {
 	
 		if (!isset($userID))
-			return self::NO_USERID;
+			return $this->NO_USERID;
 		
 		if (!isset($nickname))
-			return self::NO_NICKNAME;
+			return $this->NO_NICKNAME;
 		
-		if (!isset($email))
-			return self::NO_EMAIL;
+		if (!isset($name))
+			return $this->NO_NAME;
+		
+		if (!isset($gender))
+			return $this->NO_GENDER;
+		
+		if ($gender != -1 && $gender != 0 && $gender != 1)
+			return $this->WRONG_GENDER;
+		
+		if (!isset($phoneNumber))
+			return $this->NO_PHONENUMBER;
 		
 		$dto = new UserDTO;
 		$dto->id = $userID;
 		$dto->nickname = $nickname;
-		$dto->email = $email;
+		$dto->name = $name;
+		$dto->gender = $gender;
+		$dto->phoneNumber = $phoneNumber;
 		
 		return $this->userService->updateUser($dto);
 	
@@ -174,13 +190,13 @@ class UserController {
 	public function editPassword($userID, $oldPassword, $newPassword) {
 	
 		if (!isset($userID))
-			return self::NO_USERID;
+			return $this->NO_USERID;
 		
 		if (!isset($oldPassword))
-			return self::NO_OLD_PASSWORD;
+			return $this->NO_OLD_PASSWORD;
 		
 		if (!isset($newPassword))
-			return self::NO_NEW_PASSWORD;
+			return $this->NO_NEW_PASSWORD;
 		
 		return $this->userService->updatePassword($userID, $oldPassword, $newPassword);
 	

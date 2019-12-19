@@ -9,23 +9,23 @@ include_once '../../DTOs/BusinessDTO.php';
 include_once '../../Services/BusinessService.php';
 include_once '../../Controllers/BusinessController.php';
 
+include_once '../../DTOs/SubscriptionDTO.php';
+include_once '../../Services/SubscriptionService.php';
+include_once '../../Controllers/SubscriptionController.php';
+
 use SeaSkincare\Backend\Controllers\BusinessController;
 use SeaSkincare\Backend\Communication\Response;
 
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-if (isset($_SESSION['profile']))
-	echo json_encode(new Response("SUCCESS", $_SESSION['profile']));
-else {
-	
-	$businessController = new BusinessController;
-	$result = $businessController->login($_GET['email'], $_GET['password']);
-	$_SESSION['profile'] = $result->content;
+$req_dump = print_r($_GET, true);
+$fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].' GET:'.$req_dump.PHP_EOL, FILE_APPEND);
 
-	echo json_encode($result);
-	
-}
+$businessController = new BusinessController;
+$result = $businessController->login($_GET['email'], $_GET['password']);
+
+echo json_encode($result);
 
 exit;
 

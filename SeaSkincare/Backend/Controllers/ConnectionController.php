@@ -3,9 +3,7 @@
 namespace SeaSkincare\Backend\Controllers;
 
 use SeaSkincare\Backend\Data\DataRepository;
-use SeaSkincare\Backend\Entities\Connection;
 use SeaSkincare\Backend\DTOs\ConnectionDTO;
-use SeaSkincare\Backend\Mappers\ConnectionMapper;
 use SeaSkincare\Backend\Services\ConnectionService;
 use SeaSkincare\Backend\Communication\Response;
 
@@ -15,15 +13,21 @@ class ConnectionController
 	private $dataRep;
 	private $connectionService;
 	
-	public const SUCCESS = new Response("SUCCESS", null);
-	public const NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
-	public const NO_BUOYID = new Response("NO_BUOYID", null);
-	public const NO_LATITUDE = new Response("NO_LATITUDE", null);
-	public const NO_LONGITUDE = new Response("NO_LONGITUDE", null);
-	public const NO_BATTERY = new Response("NO_BATTERY", null);
-	
+	public $SUCCESS;
+	public $NO_CONNECTIONID;
+	public $NO_BUOYID;
+	public $NO_LATITUDE;
+	public $NO_LONGITUDE;
+	public $NO_BATTERY;
 	
 	public function __construct() {
+	
+		$this->SUCCESS = new Response("SUCCESS", null);
+		$this->NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
+		$this->NO_BUOYID = new Response("NO_BUOYID", null);
+		$this->NO_LATITUDE = new Response("NO_LATITUDE", null);
+		$this->NO_LONGITUDE = new Response("NO_LONGITUDE", null);
+		$this->NO_BATTERY = new Response("NO_BATTERY", null);
 	
 		$this->dataRep = new DataRepository;
 
@@ -41,16 +45,16 @@ class ConnectionController
 	public function createConnection($buoyID, $latitude, $longitude, $battery) {
 		
 		if (!isset($buoyID))
-			return self::NO_BUOYID;
+			return $this->NO_BUOYID;
 		
 		if (!isset($latitude))
-			return self::NO_LATITUDE;
+			return $this->NO_LATITUDE;
 		
 		if (!isset($longitude))
-			return self::NO_LONGITUDE;
+			return $this->NO_LONGITUDE;
 		
 		if (!isset($battery))
-			return self::NO_BATTERY;
+			return $this->NO_BATTERY;
 		
 		$dto = new ConnectionDTO;
 		$dto->buoyID = $buoyID;
@@ -65,7 +69,7 @@ class ConnectionController
 	public function getConnection($connectionID) {
 		
 		if (!isset($connectionID))
-			return self::NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		return $this->connectionService->getConnection($connectionID);
 		
@@ -74,7 +78,7 @@ class ConnectionController
 	public function getBuoyConnections($buoyID) {
 		
 		if (!isset($buoyID))
-			return self::NO_BUOYID;
+			return $this->NO_BUOYID;
 		
 		return $this->connectionService->getBuoyConnections($buoyID);
 		
@@ -93,7 +97,7 @@ class ConnectionController
 	public function getLastConnectionByBuoy($buoyID) {
 		
 		$connectionID = $this->connectionService->getLastIDByBuoy($buoyID);
-		if ($connectionID->status != ConnectionService::SUCCESS->status)
+		if ($connectionID->status != $this->connectionService->SUCCESS->status)
 			return $connectionID;
 		
 		return $this->connectionService->getConnection($connectionID->content);
@@ -103,16 +107,16 @@ class ConnectionController
 	public function editConnection($connectionID, $latitude, $longitude, $battery) {
 	
 		if (!isset($connectionID))
-			return self::NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		if (!isset($latitude))
-			return self::NO_LATITUDE;
+			return $this->NO_LATITUDE;
 		
 		if (!isset($longitude))
-			return self::NO_LONGITUDE;
+			return $this->NO_LONGITUDE;
 		
 		if (!isset($battery))
-			return self::NO_BATTERY;
+			return $this->NO_BATTERY;
 		
 		$dto = new ConnectionDTO;
 		$dto->id = $connectionID;
@@ -127,7 +131,7 @@ class ConnectionController
 	public function deleteConnection($connectionID) {
 	
 		if (!isset($connectionID))
-			return self::NO_CONNECTIONID;
+			return $this->NO_CONNECTIONID;
 		
 		return $this->connectionService->deleteConnection($connectionID);
 	
