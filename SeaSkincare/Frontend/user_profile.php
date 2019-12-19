@@ -3,7 +3,7 @@
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-if (!isset($_SESSION['profile']))) {
+if (!isset($_SESSION['profile'])) {
 
 	header("Location: index.php");
 	exit;
@@ -29,10 +29,12 @@ if (!$account) {
 		<div class="card" style="width: 60rem;">
 			<div class="card-header">
 				<div class="row">
-					<div class="col-8 my-auto"><?php echo getLocalString('user_profile', 'my_profile'); ?></div>
 					<?php if (!isset($_SESSION['profile']->description)) { ?>
+						<div class="col-8 my-auto"><?php echo getLocalString('user_profile', 'my_profile'); ?></div>
 						<div class="col text-right my-auto"><a href="edit_profile.php"><i class="fas fa-pencil-alt"></i></a></div>
-					<? } ?>
+					<?php } else { ?>
+						<div class="col-8 my-auto"><?php echo getLocalString('user_profile', 'profile'); ?> <?php echo $account->nickname; ?></div>
+					<?php } ?>
 				</div>
 			</div>
 			
@@ -51,11 +53,11 @@ if (!$account) {
 					<div class="col">
 						<div class="row m-2 border-bottom">
 							<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-envelope"></i> <?php echo getLocalString('user_profile', 'email'); ?>: </h4></div>
-							<div class="col my-auto"><h4></h4></div>
+							<div class="col my-auto"><h4><?php echo $account->email; ?></h4></div>
 						</div>
 						<div class="row m-2 border-bottom">
 							<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-user"></i> <?php echo getLocalString('user_profile', 'nickname'); ?>: </h4></div>
-							<div class="col my-auto"><h4></h4></div>
+							<div class="col my-auto"><h4><?php echo $account->nickname; ?></h4></div>
 						</div>
 						<div class="row m-2 border-bottom">
 							<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-user"></i> <?php echo getLocalString('user_profile', 'name'); ?>: </h4></div>

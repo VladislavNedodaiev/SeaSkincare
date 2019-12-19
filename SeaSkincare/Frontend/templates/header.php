@@ -46,16 +46,16 @@ include_once "localization/localization.php";
 								<a class="nav-item nav-link" href="my_guests.php"><?php echo getLocalString('header', 'guests_button_text'); ?></a>
 								<a class="nav-item nav-link" href="my_subscriptions.php"><?php echo getLocalString('header', 'subscriptions_button_text'); ?></a>
 								<a class="nav-item nav-link" href="business_profile.php"><?php echo getLocalString('header', 'profile_button_text'); ?></a>
-							<? } else { ?>
+							<?php } else { ?>
 								<a class="nav-item nav-link" href="my_vacations.php"><?php echo getLocalString('header', 'vacations_button_text'); ?></a>
 								<a class="nav-item nav-link" href="user_profile.php"><?php echo getLocalString('header', 'profile_button_text'); ?></a>
-							<? } ?>
+							<?php } ?>
 							<a class="nav-item nav-link" href="logout.php"><?php echo getLocalString('header', 'logout_button_text'); ?></a>
 						<?php } ?>
 					</div>
 					<span class="mx-3">
-						<a href="localization/localize.php?language=ENG&address=<?php echo urlencode($_SERVER['REQUEST_URI'])?>"><img src='images/languages/ENG.png'></a>
-						<a href="localization/localize.php?language=UA&address=<?php echo urlencode($_SERVER['REQUEST_URI'])?>"><img src='images/languages/UA.png'></a>
+						<a href="localization/localize.php?language=ENG&address=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><img src='images/languages/ENG.png'></a>
+						<a href="localization/localize.php?language=UA&address=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><img src='images/languages/UA.png'></a>
 					</span>
 				</div>
 			</nav>

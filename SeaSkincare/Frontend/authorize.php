@@ -41,7 +41,7 @@ if ($response->status == "SUCCESS") {
 	$response->password = $_GET['password'];
 	$_SESSION['profile'] = $response->content;
 	
-	header("Location: index.php");
+	header("Location: user_profile.php");
 	exit;
 	
 } else if ($response->status == "UNVERIFIED") {
