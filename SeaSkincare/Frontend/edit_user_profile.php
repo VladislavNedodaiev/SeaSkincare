@@ -20,7 +20,7 @@ $account = $_SESSION['profile'];
 	<?php include "templates/alert.php" ?>
 	<article class="card-body mx-auto">
 		<div class="card" style="width: 70rem;">
-			<form action="save_profile.php" method="POST">
+			<form action="save_user_profile.php" method="POST">
 			<div class="card-header">
 				<div class="row">
 					<div class="col-8 my-auto"><?php echo getLocalString('edit_profile', 'edit_profile_title'); ?></div>
@@ -75,7 +75,7 @@ $account = $_SESSION['profile'];
 						<div class="row m-2 border-bottom">
 							<div class="col-5 my-auto"><h4 class = "text-muted"><i class="fas fa-phone"></i> <?php echo getLocalString('user_profile', 'phone'); ?>: </h4></div>
 							<div class="col p-2">
-								<h4><input type="text" class="form-control" id="phone" name="phone" placeholder="<?php echo getLocalString('edit_profile', 'phone_placeholder'); ?>" value="<?php echo $account->phoneNumber; ?>"></h4>
+								<h4><input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="<?php echo getLocalString('edit_profile', 'phone_placeholder'); ?>" value="<?php echo $account->phoneNumber; ?>"></h4>
 								<small class = "text-muted">*<?php echo getLocalString('edit_profile', 'user_private'); ?></small>
 							</div>
 						</div>

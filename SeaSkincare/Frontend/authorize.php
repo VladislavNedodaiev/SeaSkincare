@@ -38,8 +38,8 @@ if ($response->status == "SUCCESS") {
 	$_SESSION['msg']['type'] = 'alert-success';
 	$_SESSION['msg']['text'] = getLocalString('authorize', 'SUCCESS');
 	
-	$response->password = $_GET['password'];
 	$_SESSION['profile'] = $response->content;
+	$_SESSION['profile']->password = $_GET['password'];
 	
 	if ($_GET['login_option'] == 'as_user')
 		header("Location: user_profile.php");

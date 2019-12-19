@@ -111,6 +111,14 @@ $edit_profile = array (
 
 );
 
+$save_user_profile = array (
+
+	'SUCCESS' => 'Зміни були застосовані',
+	'DB_ERROR' => 'Сталася помилка при зверненні до бази даних',
+	'UNKNOWN' => 'Сталася невідома помилка'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -121,7 +129,8 @@ return array (
 	'register' => $register,
 	'registration' => $registration,
 	'user_profile' => $user_profile,
-	'edit_profile' => $edit_profile
+	'edit_profile' => $edit_profile,
+	'save_user_profile' => $save_user_profile
 
 );
 
