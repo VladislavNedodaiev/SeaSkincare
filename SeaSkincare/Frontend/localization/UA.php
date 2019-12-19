@@ -98,6 +98,19 @@ $user_profile = array (
 
 );
 
+$edit_profile = array (
+
+	'edit_profile_title' => 'Редагувати профіль',
+	'save_button_text' => 'Зберегти зміни',
+	'cancel_button_text' => 'Скасувати зміни',
+	'user_nickname_placeholder' => 'Введіть нікнейм',
+	'business_nickname_placeholder' => 'Введіть назву бізнеса',
+	'name_placeholder' => "Введіть ваше ім'я",
+	'phone_placeholder' => 'Введіть номер телефону',
+	'user_private' => 'Це можете бачити тільки ви та акаунт місця, де ви зупинилися'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -107,7 +120,8 @@ return array (
 	'logout' => $logout,
 	'register' => $register,
 	'registration' => $registration,
-	'user_profile' => $user_profile
+	'user_profile' => $user_profile,
+	'edit_profile' => $edit_profile
 
 );
 

@@ -98,6 +98,19 @@ $user_profile = array (
 
 );
 
+$edit_profile = array (
+
+	'edit_profile_title' => 'Edit profile',
+	'save_button_text' => 'Save changes',
+	'cancel_button_text' => 'Cancel changes',
+	'user_nickname_placeholder' => 'Enter nickname',
+	'business_nickname_placeholder' => 'Enter business name',
+	'name_placeholder' => 'Enter your name',
+	'phone_placeholder' => 'Enter phone number',
+	'user_private' => 'This can only be seen by you and account of place, where you are staying'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -107,7 +120,8 @@ return array (
 	'logout' => $logout,
 	'register' => $register,
 	'registration' => $registration,
-	'user_profile' => $user_profile
+	'user_profile' => $user_profile,
+	'edit_profile' => $edit_profile
 
 );
 

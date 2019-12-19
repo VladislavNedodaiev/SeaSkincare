@@ -26,12 +26,12 @@ if (!$account) {
 <div class="card bg-light">
 	<?php include "templates/alert.php" ?>
 	<article class="card-body mx-auto">
-		<div class="card" style="width: 60rem;">
+		<div class="card" style="width: 70rem;">
 			<div class="card-header">
 				<div class="row">
 					<?php if (!isset($_SESSION['profile']->description)) { ?>
 						<div class="col-8 my-auto"><?php echo getLocalString('user_profile', 'my_profile'); ?></div>
-						<div class="col text-right my-auto"><a href="edit_profile.php"><i class="fas fa-pencil-alt"></i></a></div>
+						<div class="col text-right my-auto"><a href="edit_user_profile.php"><i class="fas fa-pencil-alt"></i></a></div>
 					<?php } else { ?>
 						<div class="col-8 my-auto"><?php echo getLocalString('user_profile', 'profile'); ?> <?php echo $account->nickname; ?></div>
 					<?php } ?>
