@@ -1,13 +1,22 @@
-<?php include "classes/account.php";
+<?php
 
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-if (isset($_SESSION['profile'])) {
+if (!isset($_SESSION['profile']))) {
 
 	header("Location: index.php");
 	exit;
 
+}
+
+$account = require_once "templates/user_profile.php";
+
+if (!$account) {
+	
+	header("Location: index.php");
+	exit;
+	
 }
 
 ?>
@@ -20,8 +29,10 @@ if (isset($_SESSION['profile'])) {
 		<div class="card" style="width: 60rem;">
 			<div class="card-header">
 				<div class="row">
-					<div class="col-8 my-auto"><?php echo getLocalString('user_profile', 'nickname'); ?> <?php echo $_SESSION['profile']->nickname; ?></div>
-					<div class="col text-right my-auto"><a href="edit_profile.php"><i class="fas fa-pencil-alt"></i></a></div>
+					<div class="col-8 my-auto"><?php echo getLocalString('user_profile', 'my_profile'); ?></div>
+					<?php if (!isset($_SESSION['profile']->description)) { ?>
+						<div class="col text-right my-auto"><a href="edit_profile.php"><i class="fas fa-pencil-alt"></i></a></div>
+					<? } ?>
 				</div>
 			</div>
 			
@@ -29,90 +40,48 @@ if (isset($_SESSION['profile'])) {
 				<div class="row">
 					<div class="col-3 border-right">
 						<div class="card">
-							<img class="card-img-top" src="images/users/default.jpg" alt="<?php echo getLocalString('user_profile', 'nickname'); ?> <?php echo $_SESSION['profile']->nickname; ?>">
+							<img class="card-img-top" src="images/users/default.jpg" alt="<?php echo getLocalString('user_profile', 'nickname'); ?> <?php echo $account->nickname; ?>">
 							
 							<div class="card-header text-center">
-								<i class="far fa-calendar-alt"></i><small class = "text-muted"> Реєстрація: <?php echo substr($account->register_date, 0, 10); ?> </small>
+								<i class="far fa-calendar-alt"></i><small class = "text-muted"> <?php echo getLocalString('user_profile', 'register_date'); ?>: <?php echo substr($account->registerDate, 0, 10); ?> </small>
 							</div>
 						</div>
 					</div>
 					
 					<div class="col">
-						<ul class="nav nav-tabs" id="profileTab" role="tablist">
-							<li class="nav-item">
-								<a class="nav-link active" id="common-tab" data-toggle="tab" href="#common" role="tab" aria-controls="common" aria-selected="true">Загальне</a>
-							</li>
-							<?php if ($account->biography) { ?>
-							<li class="nav-item">
-								<a class="nav-link" id="bio-tab" data-toggle="tab" href="#bio" role="tab" aria-controls="bio" aria-selected="false">Біографія</a>
-							</li>
+						<div class="row m-2 border-bottom">
+							<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-envelope"></i> <?php echo getLocalString('user_profile', 'email'); ?>: </h4></div>
+							<div class="col my-auto"><h4></h4></div>
+						</div>
+						<div class="row m-2 border-bottom">
+							<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-user"></i> <?php echo getLocalString('user_profile', 'nickname'); ?>: </h4></div>
+							<div class="col my-auto"><h4></h4></div>
+						</div>
+						<div class="row m-2 border-bottom">
+							<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-user"></i> <?php echo getLocalString('user_profile', 'name'); ?>: </h4></div>
+							<?php if ($account->name) { ?>
+							<div class="col my-auto"><h4><?php echo $account->name; ?></h4></div>
+							<?php } else { ?>
+							<div class="col my-auto"><h4 class = "text-muted"><i><?php echo getLocalString('user_profile', 'no_information'); ?></i></h4></div>
 							<?php } ?>
-							<li class="nav-item">
-								<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Контакти</a>
-							</li>
-						</ul>
-						<div class="tab-content" id="profileTabContent">
-							<div class="tab-pane fade show active" id="common" role="tabpanel" aria-labelledby="common-tab">
-								<div class="row m-2 border-bottom">
-									<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-user"></i> Прізвище: </h4></div>
-									<?php if ($account->second_name) { ?>
-									<div class="col my-auto"><h4><?php echo $account->second_name; ?></h4></div>
-									<?php } else { ?>
-									<div class="col my-auto"><h4 class = "text-muted"><i>Інформація відсутня</i></h4></div>
-									<?php } ?>
-								</div>
-								<div class="row m-2 border-bottom">
-									<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-user"></i> Ім'я: </h4></div>
-									<?php if ($account->first_name) { ?>
-									<div class="col my-auto"><h4><?php echo $account->first_name; ?></h4></div>
-									<?php } else { ?>
-									<div class="col my-auto"><h4 class = "text-muted"><i>Інформація відсутня</i></h4></div>
-									<?php } ?>
-								</div>
-								<div class="row m-2 border-bottom">
-									<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-user"></i> По батькові: </h4></div>
-									<?php if ($account->patronymic) { ?>
-									<div class="col my-auto"><h4><?php echo $account->patronymic; ?></h4></div>
-									<?php } else { ?>
-									<div class="col my-auto"><h4 class = "text-muted"><i>Інформація відсутня</i></h4></div>
-									<?php } ?>
-								</div>
-								<div class="row m-2 border-bottom">
-									<div class="col-5 my-auto"><h4 class = "text-muted"><i class="fas fa-transgender-alt"></i> Гендер: </h4></div>
-									<?php if ($account->gender) { ?>
-									<div class="col my-auto"><h4><?php echo $account->gender; ?></h4></div>
-									<?php } else { ?>
-									<div class="col my-auto"><h4 class = "text-muted"><i>Інформація відсутня</i></h4></div>
-									<?php } ?>
-								</div>
-								<div class="row m-2 border-bottom">
-									<div class="col-5 my-auto"><h4 class = "text-muted"><i class="fas fa-birthday-cake"></i> День народження: </h4></div>
-									<?php if ($account->birthday) { ?>
-									<div class="col my-auto"><h4><?php echo $account->birthday; ?></h4></div>
-									<?php } else { ?>
-									<div class="col my-auto"><h4 class = "text-muted"><i>Інформація відсутня</i></h4></div>
-									<?php } ?>
-								</div>
-							</div>
-							<?php if ($account->biography) { ?>
-							<div class="tab-pane fade" id="bio" role="tabpanel" aria-labelledby="bio-tab">
-								<div class="container m-2"><?php echo $account->biography; ?></div>
-							</div>
+						</div>
+						<div class="row m-2 border-bottom">
+							<div class="col-5 my-auto"><h4 class = "text-muted"><i class="fas fa-transgender-alt"></i> <?php echo getLocalString('user_profile', 'gender'); ?>: </h4></div>
+							<?php if ($account->gender < 0) { ?>
+							<div class="col my-auto"><h4><?php echo getLocalString('user_profile', 'female'); ?></h4></div>
+							<?php } else if ($account->gender > 0) { ?>
+							<div class="col my-auto"><h4 class = "text-muted"><i><?php echo getLocalString('user_profile', 'male'); ?></i></h4></div>
+							<?php } else { ?>
+							<div class="col my-auto"><h4 class = "text-muted"><i><?php echo getLocalString('user_profile', 'no_information'); ?></i></h4></div>
 							<?php } ?>
-							<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-								<div class="row m-2 border-bottom">
-									<div class="col-5 my-auto"><h4 class = "text-muted"><i class="fas fa-phone"></i> Телефон: </h4></div>
-									<?php if ($account->phone) { ?>
-									<div class="col my-auto"><h4><?php echo $account->phone; ?></h4></div>
-									<?php } else { ?>
-									<div class="col my-auto"><h4 class = "text-muted"><i>Інформація відсутня</i></h4></div>
-									<?php } ?>
-								</div>
-								<div class="row m-2 border-bottom">
-									<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-envelope"></i> Електронна пошта: </h4></div>
-									<div class="col my-auto"><h4><?php echo $account->email; ?></h4></div>
-								</div>
-							</div>
+						</div>
+						<div class="row m-2 border-bottom">
+							<div class="col-5 my-auto"><h4 class = "text-muted"><i class="fas fa-phone"></i> <?php echo getLocalString('user_profile', 'phone'); ?>: </h4></div>
+							<?php if ($account->phoneNumber) { ?>
+							<div class="col my-auto"><h4><?php echo $account->phoneNumber; ?></h4></div>
+							<?php } else { ?>
+							<div class="col my-auto"><h4 class = "text-muted"><i><?php echo getLocalString('user_profile', 'no_information'); ?></i></h4></div>
+							<?php } ?>
 						</div>
 					</div>
 				</div>

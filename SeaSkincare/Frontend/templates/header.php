@@ -39,15 +39,18 @@ include_once "localization/localization.php";
 						<a class="nav-item nav-link" href="index.php"><?php echo getLocalString('header', 'index_button_text'); ?></a>
 						<a class="nav-item nav-link" href="businesses.php"><?php echo getLocalString('header', 'businesses_button_text'); ?></a>
 						<?php if (!isset($_SESSION['profile'])) { ?>
-						<a class="nav-item nav-link" href="login.php"><?php echo getLocalString('header', 'login_button_text'); ?></a>
-						<a class="nav-item nav-link" href="register.php"><?php echo getLocalString('header', 'register_button_text'); ?></a>
+							<a class="nav-item nav-link" href="login.php"><?php echo getLocalString('header', 'login_button_text'); ?></a>
+							<a class="nav-item nav-link" href="register.php"><?php echo getLocalString('header', 'register_button_text'); ?></a>
 						<?php } else { ?>
-						<?php if (isset($_SESSION['profile']->description)) { ?>
-						<a class="nav-item nav-link" href="business_profile.php"><?php echo getLocalString('header', 'profile_button_text'); ?></a>
-						<? } else { ?>
-						<a class="nav-item nav-link" href="user_profile.php"><?php echo getLocalString('header', 'profile_button_text'); ?></a>
-						<? } ?>
-						<a class="nav-item nav-link" href="logout.php"><?php echo getLocalString('header', 'logout_button_text'); ?></a>
+							<?php if (isset($_SESSION['profile']->description)) { ?>
+								<a class="nav-item nav-link" href="my_guests.php"><?php echo getLocalString('header', 'guests_button_text'); ?></a>
+								<a class="nav-item nav-link" href="my_subscriptions.php"><?php echo getLocalString('header', 'subscriptions_button_text'); ?></a>
+								<a class="nav-item nav-link" href="business_profile.php"><?php echo getLocalString('header', 'profile_button_text'); ?></a>
+							<? } else { ?>
+								<a class="nav-item nav-link" href="my_vacations.php"><?php echo getLocalString('header', 'vacations_button_text'); ?></a>
+								<a class="nav-item nav-link" href="user_profile.php"><?php echo getLocalString('header', 'profile_button_text'); ?></a>
+							<? } ?>
+							<a class="nav-item nav-link" href="logout.php"><?php echo getLocalString('header', 'logout_button_text'); ?></a>
 						<?php } ?>
 					</div>
 					<span class="mx-3">

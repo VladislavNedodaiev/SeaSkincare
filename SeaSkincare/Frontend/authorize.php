@@ -19,8 +19,8 @@ if (isset($_GET['login_option'])) {
 else
 	$url .= '/User/Login.php';
 
-$url .= '?email='.$_GET['email'];
-$url .= '&password='.$_GET['password'];
+$url .= '?email='.urlencode($_GET['email']);
+$url .= '&password='.urlencode($_GET['password']);
 
 curl_setopt($channel, CURLOPT_URL, $url);
 
@@ -38,6 +38,7 @@ if ($response->status == "SUCCESS") {
 	$_SESSION['msg']['type'] = 'alert-success';
 	$_SESSION['msg']['text'] = getLocalString('authorize', 'SUCCESS');
 	
+	$response->password = $_GET['password'];
 	$_SESSION['profile'] = $response->content;
 	
 	header("Location: index.php");

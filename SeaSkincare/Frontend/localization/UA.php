@@ -4,10 +4,13 @@ $header = array (
 	
 	'title' => 'SeaSkincare',
 	'index_button_text' => 'Головна сторінка',
-	'businesses_button_text' => 'Відпочинок',
+	'businesses_button_text' => 'Знайти відпочинок',
 	'login_button_text' => 'Вхід',
 	'register_button_text' => 'Реєстрація',
-	'profile_button_text' => 'Мій профіль',
+	'guests_button_text' => 'Наші гості',
+	'subscriptions_button_text' => 'Наші підписки',
+	'vacations_button_text' => 'Мої відпочинки',
+	'profile_button_text' => 'Профіль',
 	'logout_button_text' => 'Вийти'
 	
 );
@@ -79,6 +82,22 @@ $registration = array (
 
 );
 
+$user_profile = array (
+
+	'profile' => 'Профіль',
+	'my_profile' => 'Мій профіль',
+	'register_date' => 'Реєстрація',
+	'email' => 'Електронна пошта',
+	'nickname' => 'Нікнейм',
+	'name' => "Ім'я",
+	'gender' => 'Гендер',
+	'female' => 'Жінка',
+	'male' => 'Чоловік',
+	'phone' => 'Номер телефону',
+	'no_information' => 'Інформація відсутня'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -87,7 +106,8 @@ return array (
 	'authorize' => $authorize,
 	'logout' => $logout,
 	'register' => $register,
-	'registration' => $registration
+	'registration' => $registration,
+	'user_profile' => $user_profile
 
 );
 

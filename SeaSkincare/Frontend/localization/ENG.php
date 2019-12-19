@@ -7,7 +7,10 @@ $header = array (
 	'businesses_button_text' => 'Vacation',
 	'login_button_text' => 'Login',
 	'register_button_text' => 'Register',
-	'profile_button_text' => 'My Profile',
+	'guests_button_text' => 'Our guests',
+	'subscriptions_button_text' => 'Our subscriptions',
+	'vacations_button_text' => 'My vacations',
+	'profile_button_text' => 'Profile',
 	'logout_button_text' => 'Logout'
 	
 );
@@ -81,7 +84,17 @@ $registration = array (
 
 $user_profile = array (
 
-	'nickname' => 'Profile of',
+	'profile' => 'Profile',
+	'my_profile' => 'My profile',
+	'register_date' => 'Registered',
+	'email' => 'Email',
+	'nickname' => 'Nickname',
+	'name' => 'Name',
+	'gender' => 'Gender',
+	'female' => 'Female',
+	'male' => 'Male',
+	'phone' => 'Phone',
+	'no_information' => 'No information'
 
 );
 
