@@ -72,7 +72,7 @@ if (!$account) {
 							<?php if ($account->gender < 0) { ?>
 							<div class="col my-auto"><h4><?php echo getLocalString('user_profile', 'female'); ?></h4></div>
 							<?php } else if ($account->gender > 0) { ?>
-							<div class="col my-auto"><h4 class = "text-muted"><i><?php echo getLocalString('user_profile', 'male'); ?></i></h4></div>
+							<div class="col my-auto"><h4><?php echo getLocalString('user_profile', 'male'); ?></h4></div>
 							<?php } else { ?>
 							<div class="col my-auto"><h4 class = "text-muted"><i><?php echo getLocalString('user_profile', 'no_information'); ?></i></h4></div>
 							<?php } ?>
