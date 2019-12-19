@@ -24,7 +24,7 @@ $fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOS
 
 $businessController = new BusinessController;
 
-echo json_encode($businessController->getBusiness($_GET['businessID']));
+echo json_encode($businessController->getBusinessesActiveSubscriptions($_GET['date'], $_GET['offset'], $_GET['limit']));
 exit;
 
 ?>

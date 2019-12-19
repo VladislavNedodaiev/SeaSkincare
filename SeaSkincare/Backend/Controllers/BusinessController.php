@@ -8,12 +8,17 @@ use SeaSkincare\Backend\DTOs\BusinessDTO;
 use SeaSkincare\Backend\Services\BusinessService;
 use SeaSkincare\Backend\Communication\Response;
 
+use SeaSkincare\Backend\DTOs\SubscriptionDTO;
+use SeaSkincare\Backend\Controllers\SubscriptionController;
+
 class BusinessController
 {
 	
 	private $dataRep;
 	private $mailService;
 	private $businessService;
+	
+	private $subscriptionController;
 	
 	public $NO_EMAIL;
 	public $NO_PASSWORD;
@@ -26,6 +31,8 @@ class BusinessController
 	public $NO_BUSINESSID;
 	public $NO_VERIFICATION;
 	public $NO_LOGIN;
+	public $NO_OFFSET;
+	public $NO_LIMIT;
 	public $SUCCESS;
 	public $NO_OLD_PASSWORD;
 	public $NO_NEW_PASSWORD;
@@ -43,6 +50,8 @@ class BusinessController
 		$this->NO_BUSINESSID = new Response("NO_BUSINESSID", null);
 		$this->NO_VERIFICATION = new Response("NO_VERIFICATION", null);
 		$this->NO_LOGIN = new Response("NO_LOGIN", null);
+		$this->NO_OFFSET = new Response("NO_OFFSET", null);
+		$this->NO_LIMIT = new Response("NO_LIMIT", null);
 		$this->SUCCESS = new Response("SUCCESS", null);
 		$this->NO_OLD_PASSWORD = new Response("NO_OLD_PASSWORD", null);
 		$this->NO_NEW_PASSWORD = new Response("NO_NEW_PASSWORD", null);
@@ -60,6 +69,8 @@ class BusinessController
 			$this->mailService
 
 		);
+		
+		$this->subscriptionController = new SubscriptionController;
 	
 	}
 	
@@ -119,7 +130,57 @@ class BusinessController
 		if (!isset($businessID))
 			return $this->NO_BUSINESSID;
 		
-		return $this->$businessService->getBusiness($businessID);
+		return $this->businessService->getBusiness($businessID);
+		
+	}
+	
+	// getting businesses from database
+	// limit - how many
+	// offset - from which entry
+	public function getBusinesses($offset, $limit) {
+		
+		if (!isset($offset))
+			return $this->NO_OFFSET;
+		
+		if (!isset($limit))
+			return $this->NO_LIMIT;
+		
+		if ($offset < 0)
+			$offset = 0;
+		
+		if ($limit < 0)
+			$limit = 0;
+		
+		return $this->businessService->getBusinesses($offset, $limit);
+		
+	}
+	
+	public function getCount() {
+		
+		return $this->businessService->getCount();
+		
+	}
+	
+	public function getBusinessesActiveSubscriptions($someDate, $offset, $limit) {
+		
+		$subscriptions = $this->subscriptionController->getSubscriptionsActive($someDate, $offset, $limit);
+		
+		if ($subscriptions->status != $this->subscriptionController->SUCCESS->status)
+			return $subscriptions;
+		
+		$subscriptions = $subscriptions->content;
+		
+		$businesses = array();
+		
+		if ($subscriptions) {
+			foreach ($subscriptions as $key => &$value) {
+			
+				array_push($businesses, $this->getBusiness($value->businessID));
+			
+			}
+		}
+		
+		return new Response($this->SUCCESS->status, $businesses);
 		
 	}
 	

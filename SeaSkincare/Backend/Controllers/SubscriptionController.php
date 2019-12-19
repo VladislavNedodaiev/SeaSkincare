@@ -21,6 +21,8 @@ class SubscriptionController
 	public $INCORRECT_STARTDATE;
 	public $NO_FINISHDATE;
 	public $INCORRECT_FINISHDATE;
+	public $NO_DATE;
+	public $INCORRECT_DATE;
 	
 	public function __construct() {
 		
@@ -32,6 +34,8 @@ class SubscriptionController
 		$this->INCORRECT_STARTDATE = new Response("NO_STARTDATE", null);
 		$this->NO_FINISHDATE = new Response("NO_FINISHDATE", null);
 		$this->INCORRECT_FINISHDATE = new Response("NO_STARTDATE", null);
+		$this->NO_DATE = new Response("NO_DATE", null);
+		$this->INCORRECT_DATE = new Response("INCORRECT_DATE", null);
 		
 		$this->dataRep = new DataRepository;
 
@@ -131,6 +135,51 @@ class SubscriptionController
 			return $this->NO_BUOYID;
 		
 		return $this->subscriptionService->getLastSubscriptionByBuoyID($buoyID);
+		
+	}
+	
+	public function getLastSubscriptionByBusinessID($businessID) {
+		
+		if (!isset($businessID))
+			return $this->NO_BUSINESSID;
+		
+		return $this->subscriptionService->getLastSubscriptionByBusinessID($buoyID);
+		
+	}
+	
+	public function getSubscriptionsActive($someDate, $offset, $limit) {
+		
+		if (!isset($someDate))
+			return $this->NO_DATE;
+		
+		if (!isset($offset))
+			return $this->NO_OFFSET;
+		
+		if (!isset($limit))
+			return $this->NO_LIMIT;
+		
+		if (!((bool)(strtotime($someDate))))
+			return $this->INCORRECT_DATE;
+		
+		if ($offset < 0)
+			$offset = 0;
+		
+		if ($limit < 0)
+			$limit = 0;
+		
+		return $this->subscriptionService->getSubscriptionsActive($someDate, $offset, $limit);
+		
+	}
+	
+	public function getCountActiveDate($someDate) {
+		
+		if (!isset($someDate))
+			return $this->NO_DATE;
+		
+		if (!((bool)(strtotime($someDate))))
+			return $this->INCORRECT_DATE;
+		
+		return $this->subscriptionService->getCountActiveDate($someDate);
 		
 	}
 	

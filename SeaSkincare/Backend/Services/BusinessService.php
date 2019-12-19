@@ -162,7 +162,6 @@ class BusinessService
 		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
-				
 				$dto = new BusinessDTO;
 					
 				$dto->id = $res['business_id'];
@@ -178,6 +177,58 @@ class BusinessService
 		}
 		
 		return $this->NOT_FOUND;
+		
+	}
+	
+	// getting businesses from database
+	// limit - how many
+	// offset - from which entry
+	public function getBusinesses($offset, $limit) {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return $this->DB_ERROR;
+		
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`business_id`='".$businessID."' LIMIT ".$limit." OFFSET ".$offset.";")) {
+			
+			$businesses = array();
+			
+			while ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				
+				$dto = new BusinessDTO;
+					
+				$dto->id = $res['business_id'];
+				$dto->registerDate = $res['register_date'];
+				$dto->nickname = $res['nickname'];
+				$dto->description = $res['description'];
+				$dto->photo = $res['photo'];
+				$dto->phoneNumber = $res['phone_number'];
+				
+				array_push($businesses, $dto);
+				
+			}
+			
+			return new Response($this->SUCCESS->status, $businesses);
+			
+		}
+		
+		return $this->NOT_FOUND;
+		
+	}
+	
+	public function getCount() {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return new Response($this->DB_ERROR->status, 0);
+		
+		if ($result = $this->database->query("SELECT COUNT(`".self::DB_TABLE."`.`business_id`) AS `count` From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
+			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				
+				return new Response($this->SUCCESS->status, $res['count']);
+				
+			}
+		}
+		
+		return new Response($this->NOT_FOUND->status, 0);
 		
 	}
 	
