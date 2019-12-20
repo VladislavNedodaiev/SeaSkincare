@@ -81,8 +81,8 @@ class VacationService
 				$dto->id = $res['vacation_id'];
 				$dto->userID = $res['user_id'];
 				$dto->businessID = $res['business_id'];
-				$dto->startDate = $res['startDate'];
-				$dto->finishDate = $res['finishDate'];
+				$dto->startDate = $res['start_date'];
+				$dto->finishDate = $res['finish_date'];
 				
 				return new Response($this->SUCCESS->status, $dto);
 				
@@ -154,7 +154,7 @@ class VacationService
 		else if ($dateFlag > 0)
 			$query .= "`V1`.`start_date`>'".$someDate."'";
 		else
-			$query .= "`V1`.`start_date`<='".$someDate."' AND `V1`.`finish_date`>='".$someDate"'";
+			$query .= "`V1`.`start_date`<='".$someDate."' AND `V1`.`finish_date`>='".$someDate."'";
 		
 		$query .= ";";
 	
@@ -228,7 +228,7 @@ class VacationService
 		else if ($dateFlag > 0)
 			$query .= "`V1`.`start_date`>'".$someDate."'";
 		else
-			$query .= "`V1`.`start_date`<='".$someDate."' AND `V1`.`finish_date`>='".$someDate"'";
+			$query .= "`V1`.`start_date`<='".$someDate."' AND `V1`.`finish_date`>='".$someDate."'";
 		
 		$query .= ";";
 		
@@ -302,7 +302,7 @@ class VacationService
 		else if ($dateFlag > 0)
 			$query .= "`V1`.`start_date`>'".$someDate."'";
 		else
-			$query .= "`V1`.`start_date`<='".$someDate."' AND `V1`.`finish_date`>='".$someDate"'";
+			$query .= "`V1`.`start_date`<='".$someDate."' AND `V1`.`finish_date`>='".$someDate."'";
 		
 		$query .= ";";
 		

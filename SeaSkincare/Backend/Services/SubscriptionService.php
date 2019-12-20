@@ -81,8 +81,8 @@ class SubscriptionService
 				$dto->id = $res['subscription_id'];
 				$dto->buoyID = $res['buoy_id'];
 				$dto->businessID = $res['business_id'];
-				$dto->startDate = $res['startDate'];
-				$dto->finishDate = $res['finishDate'];
+				$dto->startDate = $res['start_date'];
+				$dto->finishDate = $res['finish_date'];
 				
 				return new Response($this->SUCCESS->status, $dto);
 				
@@ -109,8 +109,8 @@ class SubscriptionService
 				$dto->id = $res['subscription_id'];
 				$dto->buoyID = $res['buoy_id'];
 				$dto->businessID = $res['business_id'];
-				$dto->startDate = $res['startDate'];
-				$dto->finishDate = $res['finishDate'];
+				$dto->startDate = $res['start_date'];
+				$dto->finishDate = $res['finish_date'];
 				
 				array_push($subscriptions, $dto);
 				
@@ -139,8 +139,8 @@ class SubscriptionService
 				$dto->id = $res['subscription_id'];
 				$dto->buoyID = $res['buoy_id'];
 				$dto->businessID = $res['business_id'];
-				$dto->startDate = $res['startDate'];
-				$dto->finishDate = $res['finishDate'];
+				$dto->startDate = $res['start_date'];
+				$dto->finishDate = $res['finish_date'];
 				
 				array_push($subscriptions, $dto);
 				
@@ -170,8 +170,8 @@ class SubscriptionService
 				$dto->id = $res['subscription_id'];
 				$dto->buoyID = $res['buoy_id'];
 				$dto->businessID = $res['business_id'];
-				$dto->startDate = $res['startDate'];
-				$dto->finishDate = $res['finishDate'];
+				$dto->startDate = $res['start_date'];
+				$dto->finishDate = $res['finish_date'];
 				
 				array_push($subscriptions, $dto);
 				
@@ -218,8 +218,8 @@ class SubscriptionService
 				$dto->id = $res['subscription_id'];
 				$dto->buoyID = $res['buoy_id'];
 				$dto->businessID = $res['business_id'];
-				$dto->startDate = $res['startDate'];
-				$dto->finishDate = $res['finishDate'];
+				$dto->startDate = $res['start_date'];
+				$dto->finishDate = $res['finish_date'];
 				
 				return new Response($this->SUCCESS->status, $dto);
 				
@@ -243,8 +243,8 @@ class SubscriptionService
 				$dto->id = $res['subscription_id'];
 				$dto->buoyID = $res['buoy_id'];
 				$dto->businessID = $res['business_id'];
-				$dto->startDate = $res['startDate'];
-				$dto->finishDate = $res['finishDate'];
+				$dto->startDate = $res['start_date'];
+				$dto->finishDate = $res['finish_date'];
 				
 				return new Response($this->SUCCESS->status, $dto);
 				
@@ -271,8 +271,8 @@ class SubscriptionService
 				$dto->id = $res['subscription_id'];
 				$dto->buoyID = $res['buoy_id'];
 				$dto->businessID = $res['business_id'];
-				$dto->startDate = $res['startDate'];
-				$dto->finishDate = $res['finishDate'];
+				$dto->startDate = $res['start_date'];
+				$dto->finishDate = $res['finish_date'];
 				
 				array_push($subscriptions, $dto);
 				
