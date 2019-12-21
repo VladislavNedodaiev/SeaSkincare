@@ -169,6 +169,7 @@ class BusinessService
 				$dto->nickname = $res['nickname'];
 				$dto->description = $res['description'];
 				$dto->photo = $res['photo'];
+				$dto->email = $res['email'];
 				$dto->phoneNumber = $res['phone_number'];
 				
 				return new Response($this->SUCCESS->status, $dto);
@@ -201,6 +202,7 @@ class BusinessService
 				$dto->nickname = $res['nickname'];
 				$dto->description = $res['description'];
 				$dto->photo = $res['photo'];
+				$dto->email = $res['email'];
 				$dto->phoneNumber = $res['phone_number'];
 				
 				array_push($businesses, $dto);
