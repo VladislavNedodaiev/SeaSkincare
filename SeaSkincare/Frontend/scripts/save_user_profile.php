@@ -6,7 +6,7 @@ if (!isset($_SESSION))
 
 include_once '../localization/localization.php';
 
-if (!isset($_SESSION['profile']) || isset($_SESSION['profile']->description)) {
+if (!isset($_SESSION['profile']) || $_SESSION['profile_type']) {
 
 	header("Location: ../index.php");
 	exit;

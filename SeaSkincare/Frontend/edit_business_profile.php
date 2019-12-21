@@ -51,14 +51,21 @@ $account = $_SESSION['profile'];
 				
 				<div class="col">
 					<div class="row m-2 border-bottom">
-						<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-envelope"></i> <?php echo getLocalString('user_profile', 'email'); ?>: </h4></div>
+						<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-envelope"></i> <?php echo getLocalString('business_profile', 'email'); ?>: </h4></div>
 						<div class="col p-2"><h4><?php echo $account->email; ?></h4></div>
 					</div>
 					<div class="row m-2 border-bottom">
-						<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-user"></i> <?php echo getLocalString('user_profile', 'nickname'); ?>: </h4></div>
+						<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-user"></i> <?php echo getLocalString('business_profile', 'nickname'); ?>: </h4></div>
 						<div class="col p-2"><h4><input type="text" class="form-control" id="nickname" name="nickname" placeholder="<?php echo getLocalString('edit_profile', 'business_nickname_placeholder'); ?>" value="<?php echo $account->nickname; ?>"></h4></div>
 					</div>
 				</div>
+				<div class="row m-2 border-bottom">
+					<div class="col-5 my-auto"><h4 class = "text-muted"><i class="fas fa-phone"></i> <?php echo getLocalString('business_profile', 'phone'); ?>: </h4></div>
+					<div class="col p-2">
+						<h4><input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="<?php echo getLocalString('edit_profile', 'phone_placeholder'); ?>" value="<?php echo $account->phoneNumber; ?>"></h4>
+					</div>
+				</div>
+					
 			</div>
 			
 			<h3 class = "text-center m-2"><?php echo getLocalString('business_profile', 'description'); ?></h3>

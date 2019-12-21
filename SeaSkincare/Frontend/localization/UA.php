@@ -125,10 +125,20 @@ $business_profile = array (
 	'show_vacations' => 'Мої відпочинки тут',
 	'register_date' => 'Реєстрація',
 	'email' => 'Електронна пошта',
+	'nickname' => 'Назва бізнесу',
 	'phone' => 'Номер телефону',
 	'no_information' => 'Інформація відсутня',
 	'description' => 'Опис'
 
+);
+
+$save_business_profile = array (
+	
+	'SUCCESS' => 'Зміни були застосовані',
+	'DB_ERROR' => 'Сталася помилка при зверненні до бази даних',
+	'UNKNOWN' => 'Сталася невідома помилка',
+	'PHOTO_ERROR' => 'Сталася помилка під час збереження зображення'
+	
 );
 
 return array (
@@ -143,7 +153,8 @@ return array (
 	'user_profile' => $user_profile,
 	'edit_profile' => $edit_profile,
 	'save_user_profile' => $save_user_profile,
-	'business_profile' => $business_profile
+	'business_profile' => $business_profile,
+	'save_business_profile' => $save_business_profile
 
 );
 

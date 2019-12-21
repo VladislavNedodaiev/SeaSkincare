@@ -125,10 +125,20 @@ $business_profile = array (
 	'show_vacations' => 'My vacations here',
 	'register_date' => 'Registered',
 	'email' => 'Email',
+	'nickname' => 'Business title',
 	'phone' => 'Phone',
 	'no_information' => 'No information',
 	'description' => 'Description'
 
+);
+
+$save_business_profile = array (
+	
+	'SUCCESS' => 'Changes saved successfully',
+	'DB_ERROR' => 'Database error occured',
+	'UNKNOWN' => 'Unknown error occured',
+	'PHOTO_ERROR' => 'Error occured while saving photo'
+	
 );
 
 return array (
@@ -143,7 +153,8 @@ return array (
 	'user_profile' => $user_profile,
 	'edit_profile' => $edit_profile,
 	'save_user_profile' => $save_user_profile,
-	'business_profile' => $business_profile
+	'business_profile' => $business_profile,
+	'save_business_profile' => $save_business_profile
 
 );
 
