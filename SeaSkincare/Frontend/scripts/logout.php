@@ -2,7 +2,7 @@
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-include_once 'localization/localization.php';
+include_once '../localization/localization.php';
 
 if (isset($_SESSION['profile'])) {
 	
@@ -18,7 +18,7 @@ if (isset($_SESSION['profile'])) {
 	
 }
 
-header("Location: login.php");
+header("Location: ../login.php");
 exit;
 
 ?>

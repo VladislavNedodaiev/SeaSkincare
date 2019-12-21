@@ -17,7 +17,7 @@ if (isset($_SESSION['profile'])) {
 <article class="card-body mx-auto" style="max-width: 400px;">
 	<h4 class="card-title mt-3 text-center"><?php echo getLocalString('login', 'title'); ?></h4>
 	
-	<form action="authorize.php" method="GET">
+	<form action="scripts/authorize.php" method="GET">
 		<div class="form-group input-group">
 			<div class="input-group-prepend">
 				<span class="input-group-text"> <i class="fa fa-user"></i> </span>

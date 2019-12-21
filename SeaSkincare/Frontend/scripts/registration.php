@@ -2,7 +2,7 @@
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-include_once 'localization/localization.php';
+include_once '../localization/localization.php';
 
 // Initialize session and set URL.
 $channel = curl_init();
@@ -38,7 +38,7 @@ if ($response->status == "SUCCESS") {
 	$_SESSION['msg']['type'] = 'alert-success';
 	$_SESSION['msg']['text'] = getLocalString('registration', 'SUCCESS');
 	
-	header("Location: login.php");
+	header("Location: ../login.php");
 	exit;
 	
 } else if ($response->status == "EMAIL_REGISTERED") {
@@ -78,7 +78,7 @@ if ($response->status == "SUCCESS") {
 	
 } 
 
-header("Location: register.php");
+header("Location: ../register.php");
 exit;
 
 ?>

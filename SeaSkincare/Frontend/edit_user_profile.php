@@ -20,7 +20,7 @@ $account = $_SESSION['profile'];
 
 <article class="card-body mx-auto">
 	<div class="card" style="width: 70rem;">
-		<form action="save_user_profile.php" method="POST">
+		<form action="scripts/save_user_profile.php" method="POST">
 		<div class="card-header">
 			<div class="row">
 				<div class="col-8 my-auto"><?php echo getLocalString('edit_profile', 'edit_profile_title'); ?></div>

@@ -52,7 +52,7 @@ include_once "localization/localization.php";
 								<a class="nav-item nav-link" href="my_vacations.php"><?php echo getLocalString('header', 'vacations_button_text'); ?></a>
 								<a class="nav-item nav-link" href="user_profile.php"><?php echo getLocalString('header', 'profile_button_text'); ?></a>
 							<?php } ?>
-							<a class="nav-item nav-link" href="logout.php"><?php echo getLocalString('header', 'logout_button_text'); ?></a>
+							<a class="nav-item nav-link" href="scripts/logout.php"><?php echo getLocalString('header', 'logout_button_text'); ?></a>
 						<?php } ?>
 					</div>
 					<span class="mx-3">
