@@ -31,15 +31,15 @@ if ($_SESSION['profile_type']) {
 	curl_setopt($channel, CURLOPT_URL, $url);
 	$response_vacationRequest = curl_exec($channel);
 	
-	if ($response_vacation->status == 'SUCCESS'
-		|| $response_vacationRequest->status == 'SUCCESS') {
+	if (json_decode($response_vacation)->status == 'SUCCESS'
+		|| json_decode($response_vacationRequest)->status == 'SUCCESS') {
 			
 		$url = $api_url.$user_url.$email."&".$password_url."&".$userID_url;
 		curl_setopt($channel, CURLOPT_URL, $url);
 		$response_user = curl_exec($channel);
 		
 		curl_close($channel);
-		return $response_user->content;
+		return json_decode($response_user)->content;
 			
 	}
 	

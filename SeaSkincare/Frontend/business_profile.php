@@ -34,7 +34,7 @@ $vacation = require_once "scripts/business_profile_user_vacation.php";
 							<a href="user_business_subscriptions.php?businessID=<?php echo $account->id; ?>"><button type="button" class="btn btn-primary"><?php echo getLocalString('business_profile', 'show_devices'); ?></button></a>
 						<?php 
 						} 
-						if (isset($_SEESION['profile_type']) && !$_SESSION['profile_type']) { ?>
+						if (isset($_SESSION['profile_type']) && !$_SESSION['profile_type']) { ?>
 							<a href="user_business_vacations.php?businessID=<?php echo $account->id; ?>"><button type="button" class="btn btn-primary"><?php echo getLocalString('business_profile', 'show_vacations'); ?></button></a>
 						<?php
 						} ?>
@@ -53,16 +53,6 @@ $vacation = require_once "scripts/business_profile_user_vacation.php";
 						<div class="card-header text-center">
 							<i class="far fa-calendar-alt"></i><small class = "text-muted"> <?php echo getLocalString('business_profile', 'register_date'); ?>: <?php echo substr($account->registerDate, 0, 10); ?> </small>
 						</div>
-						<?php if ($vacation) {?>
-						<div class="card-header text-center">
-							<a href="user_business_subscriptions.php?businessID=<?php echo $account->id; ?>"><button type="button" class="btn btn-primary"><?php echo getLocalString('business_profile', 'show_devices'); ?></button></a>
-						</div>
-						<?php } ?>
-						<?php if (isset($_SEESION['profile_type']) && !$_SESSION['profile_type']) { ?>
-						<div class="card-header text-center">
-							<a href="user_business_vacations.php?businessID=<?php echo $account->id; ?>"><button type="button" class="btn btn-primary"><?php echo getLocalString('business_profile', 'show_vacations'); ?></button></a>
-						</div>
-						<?php } ?>
 					</div>
 				</div>
 				

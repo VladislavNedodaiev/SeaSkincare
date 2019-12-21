@@ -122,7 +122,7 @@ $save_user_profile = array (
 $business_profile = array (
 
 	'show_devices' => 'Show devices',
-	'show_vacations' => 'Show my vacations',
+	'show_vacations' => 'My vacations here',
 	'register_date' => 'Registered',
 	'email' => 'Email',
 	'phone' => 'Phone',

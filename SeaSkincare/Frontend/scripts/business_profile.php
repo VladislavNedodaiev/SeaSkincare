@@ -22,6 +22,7 @@ curl_setopt($channel, CURLOPT_URL, $url);
 $response = curl_exec($channel);
 
 curl_close($channel);
-return $response->content;
+
+return json_decode($response)->content;
 
 ?>

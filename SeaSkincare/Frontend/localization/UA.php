@@ -122,7 +122,7 @@ $save_user_profile = array (
 $business_profile = array (
 
 	'show_devices' => 'Переглянути пристрої',
-	'show_vacations' => 'Переглянути мої відпочинки',
+	'show_vacations' => 'Мої відпочинки тут',
 	'register_date' => 'Реєстрація',
 	'email' => 'Електронна пошта',
 	'phone' => 'Номер телефону',
