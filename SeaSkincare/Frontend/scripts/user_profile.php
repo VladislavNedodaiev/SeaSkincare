@@ -1,6 +1,6 @@
 <?php
 
-if (isset($_SESSION['profile']->description)) {
+if ($_SESSION['profile_type']) {
 	
 	if (!isset($_GET['userID']))
 		return null;
@@ -32,7 +32,7 @@ if (isset($_SESSION['profile']->description)) {
 	$response_vacationRequest = curl_exec($channel);
 	
 	if ($response_vacation->status == 'SUCCESS'
-		|| $response_vacationRequest == 'SUCCESS') {
+		|| $response_vacationRequest->status == 'SUCCESS') {
 			
 		$url = $api_url.$user_url.$email."&".$password_url."&".$userID_url;
 		curl_setopt($channel, CURLOPT_URL, $url);

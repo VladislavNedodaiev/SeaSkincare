@@ -3,14 +3,8 @@
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-if (!isset($_SESSION['profile'])) {
-
-	header("Location: index.php");
-	exit;
-
-}
-
-$account = require_once "templates/business_profile.php";
+$account = require_once "scripts/business_profile.php";
+$vacation = require_once "scripts/business_profile_user_vacation.php";
 
 if (!$account) {
 	
@@ -29,11 +23,12 @@ if (!$account) {
 	<div class="card" style="width: 70rem;">
 		<div class="card-header">
 			<div class="row">
-				<?php if (!isset($_SESSION['profile']->description)) { ?>
-					<div class="col-8 my-auto"><?php echo getLocalString('user_profile', 'my_profile'); ?></div>
-					<div class="col text-right my-auto"><a href="edit_user_profile.php"><i class="fas fa-pencil-alt"></i></a></div>
-				<?php } else { ?>
-					<div class="col-8 my-auto"><?php echo getLocalString('user_profile', 'profile'); ?> <?php echo $account->nickname; ?></div>
+			
+				<div class="col-6 my-auto"><?php echo $account->nickname; ?></div>
+				<?php if ($account == $_SESSION['profile']) { ?>
+					<div class="col text-right my-auto"><a href="edit_business_profile.php"><i class="fas fa-pencil-alt"></i></a></div>
+				<?php } else if ($vacation) { ?>
+					<div class="col text-right my-auto"><a href="edit_business_profile.php"><i class="fas fa-pencil-alt"></i></a></div>
 				<?php } ?>
 			</div>
 		</div>

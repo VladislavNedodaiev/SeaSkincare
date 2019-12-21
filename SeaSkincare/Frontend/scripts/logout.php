@@ -10,6 +10,7 @@ if (isset($_SESSION['profile'])) {
 	$_SESSION['msg']['text'] = getLocalString('logout', 'SUCCESS');
 	
 	unset($_SESSION['profile']);
+	unset($_SESSION['profile_type']);
 	
 } else {
 	

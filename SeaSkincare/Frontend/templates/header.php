@@ -44,7 +44,7 @@ include_once "localization/localization.php";
 							<a class="nav-item nav-link" href="login.php"><?php echo getLocalString('header', 'login_button_text'); ?></a>
 							<a class="nav-item nav-link" href="register.php"><?php echo getLocalString('header', 'register_button_text'); ?></a>
 						<?php } else { ?>
-							<?php if (isset($_SESSION['profile']->description)) { ?>
+							<?php if ($_SESSION['profile_type']) { ?>
 								<a class="nav-item nav-link" href="my_guests.php"><?php echo getLocalString('header', 'guests_button_text'); ?></a>
 								<a class="nav-item nav-link" href="my_subscriptions.php"><?php echo getLocalString('header', 'subscriptions_button_text'); ?></a>
 								<a class="nav-item nav-link" href="business_profile.php"><?php echo getLocalString('header', 'profile_button_text'); ?></a>

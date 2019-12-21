@@ -3,7 +3,7 @@
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-if (!isset($_SESSION['profile']) || isset($_SESSION['profile']->description)) {
+if (!isset($_SESSION['profile']) || $_SESSION['profile_type']) {
 
 	header("Location: index.php");
 	exit;

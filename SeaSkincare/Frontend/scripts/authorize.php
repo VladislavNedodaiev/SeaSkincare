@@ -41,10 +41,14 @@ if ($response->status == "SUCCESS") {
 	$_SESSION['profile'] = $response->content;
 	$_SESSION['profile']->password = $_GET['password'];
 	
-	if ($_GET['login_option'] == 'as_user')
+	if ($_GET['login_option'] == 'as_user') {
 		header("Location: ../user_profile.php");
-	else
+		$_SESSION['profile_type'] = 0;
+	}
+	else {
 		header("Location: ../business_profile.php");
+		$_SESSION['profile_type'] = 1;
+	}
 	exit;
 	
 } else if ($response->status == "UNVERIFIED") {
