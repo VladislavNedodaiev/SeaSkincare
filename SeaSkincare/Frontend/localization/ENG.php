@@ -119,6 +119,18 @@ $save_user_profile = array (
 
 );
 
+$business_profile = array (
+
+	'show_devices' => 'Show devices',
+	'show_vacations' => 'Show my vacations',
+	'register_date' => 'Registered',
+	'email' => 'Email',
+	'phone' => 'Phone',
+	'no_information' => 'No information',
+	'description' => 'Description'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -130,7 +142,8 @@ return array (
 	'registration' => $registration,
 	'user_profile' => $user_profile,
 	'edit_profile' => $edit_profile,
-	'save_user_profile' => $save_user_profile
+	'save_user_profile' => $save_user_profile,
+	'business_profile' => $business_profile
 
 );
 
