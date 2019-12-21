@@ -18,7 +18,7 @@ if (isset($_SESSION['profile']) && !$_SESSION['profile_type']) {
 	curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
 	
 	// vacation
-	$url = $api_url.$vacation_url.$email."&".$password_url."&".$userID_url."&".$businessID_url;
+	$url = $api_url.$vacation_url.$email.$password_url."&".$userID_url."&".$businessID_url;
 	curl_setopt($channel, CURLOPT_URL, $url);
 	$response = curl_exec($channel);
 	
