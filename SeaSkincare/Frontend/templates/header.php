@@ -63,4 +63,4 @@ include_once "localization/localization.php";
 			</nav>
 		</header>
 		
-		<div class = "content" style="background-color: #FFF">
+		<div id = "content" class="content card bg-light" style="min-height: 80%">

@@ -4,10 +4,6 @@ session_start();
 ?>
 <?php require "templates/header.php"; ?>
 
-<div class="card bg-light">
-
-	<?php include "templates/alert.php"; ?>
-	
-</div>
+<?php include "templates/alert.php"; ?>
 
 <?php require "templates/footer.php"; ?>
