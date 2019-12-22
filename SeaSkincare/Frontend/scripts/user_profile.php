@@ -22,19 +22,22 @@ if ($_SESSION['profile_type']) {
 	curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
 	
 	// vacation
-	$url = $api_url.$vacation_url.$email."&".$password_url."&".$userID_url."&".$businessID_url;
+	$url = $api_url.$vacation_url.$email_url."&".$password_url."&".$userID_url."&".$businessID_url;
 	curl_setopt($channel, CURLOPT_URL, $url);
 	$response_vacation = curl_exec($channel);
 	
 	// vacation request
-	$url = $api_url.$vacationRequest_url.$email."&".$password_url."&".$userID_url."&".$businessID_url;
+	$url = $api_url.$vacationRequest_url.$email_url."&".$password_url."&".$userID_url."&".$businessID_url;
 	curl_setopt($channel, CURLOPT_URL, $url);
 	$response_vacationRequest = curl_exec($channel);
+	
+	var_dump($response_vacation);
+	var_dump($response_vacationRequest);
 	
 	if (json_decode($response_vacation)->status == 'SUCCESS'
 		|| json_decode($response_vacationRequest)->status == 'SUCCESS') {
 			
-		$url = $api_url.$user_url.$email."&".$password_url."&".$userID_url;
+		$url = $api_url.$user_url.$email_url."&".$password_url."&".$userID_url;
 		curl_setopt($channel, CURLOPT_URL, $url);
 		$response_user = curl_exec($channel);
 		
