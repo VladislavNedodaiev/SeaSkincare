@@ -146,7 +146,14 @@ $my_skin_problems = array (
 
 	'title' => 'My skin problems',
 	'add_problem' => 'Add skin problem',
-	'no_information' => 'You are lucky one! No problems found!'
+	'add_problem_modal_title' => 'Add skin problem',
+	'add_problem_no_information' => 'Select skin problem',
+	'modal_close' => 'Cancel',
+	'add_problem_modal_submit' => 'Add skin problem',
+	'remove_problem_modal_title' => 'Remove skin problem',
+	'remove_problem_modal_text' => 'Are you sure you want to remove this problem?',
+	'remove_problem_modal_submit' => 'Remove problem',
+	'no_information' => 'No problems found!'
 
 );
 

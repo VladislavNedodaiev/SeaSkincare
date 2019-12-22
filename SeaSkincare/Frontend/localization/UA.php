@@ -146,7 +146,14 @@ $my_skin_problems = array (
 
 	'title' => "Моє здоров'я",
 	'add_problem' => 'Додати хворобу',
-	'no_information' => 'Щаслива людина! Не знайдено жодної проблеми!'
+	'add_problem_modal_title' => 'Додати хворобу',
+	'add_problem_no_information' => 'Оберіть хворобу',
+	'modal_close' => 'Скасувати',
+	'remove_problem_modal_title' => 'Видалити хворобу',
+	'remove_problem_modal_text' => 'Ви впевнені, що хочете прибрати цю хворобу з вашого профілю?',
+	'remove_problem_modal_submit' => 'Видалити хворобу',
+	'add_problem_modal_submit' => 'Додати',
+	'no_information' => 'Не знайдено жодної проблеми!'
 
 );
 
