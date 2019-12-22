@@ -27,14 +27,14 @@ $skin_problems = require_once "scripts/skin_problems.php";
 			
 				<div class="col-6 my-auto"><?php echo getLocalString('my_skin_problems', 'title'); ?></div>
 				<div class="col text-right my-auto">
-					<a href=""><i class="text-success fas fa-plus"></i></a>
+					<a href=""><i class="text-success fas fa-plus"></i> <?php echo getLocalString('my_skin_problems', 'add_problem'); ?></a>
 				</div>
 			</div>
 		</div>
 		
 		<div class="card-body">
 			<?php if (!$user_problems || empty($user_problems)) { ?>
-				<div class="row text-center m-2"><h4 class = "text-muted"><?php echo getLocalString('my_skin_problems', 'no_information'); ?></h4></div>
+				<div class="text-center m-2" style="width: 100%"><h4 class = "text-muted"><?php echo getLocalString('my_skin_problems', 'no_information'); ?></h4></div>
 			<?php } else { ?>
 				<?php foreach ($user_problems as $key => &$value) { ?>
 					<div class="row m-2 border-bottom">
