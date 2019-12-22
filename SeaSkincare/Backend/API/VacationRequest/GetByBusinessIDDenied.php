@@ -1,17 +1,10 @@
 <?php
 namespace SeaSkincare\Backend\API\VacationRequest;
 
-include_once '../../Data/DataRepository.php';
-include_once '../../Services/MailService.php';
-include_once '../../Communication/Response.php';
-
-include_once '../../DTOs/VacationRequestDTO.php';
-include_once '../../Services/VacationRequestService.php';
-include_once '../../Controllers/VacationRequestController.php';
-
-include_once '../../DTOs/BusinessDTO.php';
-include_once '../../Services/BusinessService.php';
-include_once '../../Controllers/BusinessController.php';
+include_once '../../Includes/CommonInclude.php';
+include_once '../../Includes/SubscriptionInclude.php';
+include_once '../../Includes/BusinessInclude.php';
+include_once '../../Includes/VacationRequestInclude.php';
 
 use SeaSkincare\Backend\Controllers\VacationRequestController;
 use SeaSkincare\Backend\Controllers\BusinessController;

@@ -1,12 +1,8 @@
 <?php
 namespace SeaSkincare\Backend\API\Subscription;
 
-include_once '../../Data/DataRepository.php';
-include_once '../../Communication/Response.php';
-
-include_once '../../DTOs/SubscriptionDTO.php';
-include_once '../../Services/SubscriptionService.php';
-include_once '../../Controllers/SubscriptionController.php';
+include_once '../../Includes/CommonInclude.php';
+include_once '../../Includes/SubscriptionInclude.php';
 
 use SeaSkincare\Backend\Controllers\SubscriptionController;
 use SeaSkincare\Backend\Communication\Response;

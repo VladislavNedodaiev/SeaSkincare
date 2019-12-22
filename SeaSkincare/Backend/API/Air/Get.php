@@ -1,12 +1,8 @@
 <?php
 namespace SeaSkincare\Backend\API\Air;
 
-include_once '../../Data/DataRepository.php';
-include_once '../../Communication/Response.php';
-
-include_once '../../DTOs/AirDTO.php';
-include_once '../../Services/AirService.php';
-include_once '../../Controllers/AirController.php';
+include_once '../../Includes/CommonInclude.php';
+include_once '../../Includes/AirInclude.php';
 
 use SeaSkincare\Backend\Controllers\AirController;
 use SeaSkincare\Backend\Communication\Response;

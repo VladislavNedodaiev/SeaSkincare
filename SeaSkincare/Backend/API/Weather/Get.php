@@ -1,12 +1,8 @@
 <?php
 namespace SeaSkincare\Backend\API\Weather;
 
-include_once '../../Data/DataRepository.php';
-include_once '../../Communication/Response.php';
-
-include_once '../../DTOs/WeatherDTO.php';
-include_once '../../Services/WeatherService.php';
-include_once '../../Controllers/WeatherController.php';
+include_once '../../Includes/CommonInclude.php';
+include_once '../../Includes/WeatherInclude.php';
 
 use SeaSkincare\Backend\Controllers\WeatherController;
 use SeaSkincare\Backend\Communication\Response;

@@ -1,12 +1,8 @@
 <?php
 namespace SeaSkincare\Backend\API\SkinProblem;
 
-include_once '../../Data/DataRepository.php';
-include_once '../../Communication/Response.php';
-
-include_once '../../DTOs/SkinProblemDTO.php';
-include_once '../../Services/SkinProblemService.php';
-include_once '../../Controllers/SkinProblemController.php';
+include_once '../../Includes/CommonInclude.php';
+include_once '../../Includes/SkinProblemInclude.php';
 
 use SeaSkincare\Backend\Controllers\SkinProblemController;
 use SeaSkincare\Backend\Communication\Response;

@@ -1,17 +1,9 @@
 <?php
 namespace SeaSkincare\Backend\API\Business;
 
-include_once '../../Data/DataRepository.php';
-include_once '../../Services/MailService.php';
-include_once '../../Communication/Response.php';
-
-include_once '../../DTOs/BusinessDTO.php';
-include_once '../../Services/BusinessService.php';
-include_once '../../Controllers/BusinessController.php';
-
-include_once '../../DTOs/SubscriptionDTO.php';
-include_once '../../Services/SubscriptionService.php';
-include_once '../../Controllers/SubscriptionController.php';
+include_once '../../Includes/CommonInclude.php';
+include_once '../../Includes/SubscriptionInclude.php';
+include_once '../../Includes/BusinessInclude.php';
 
 use SeaSkincare\Backend\Controllers\BusinessController;
 use SeaSkincare\Backend\Communication\Response;

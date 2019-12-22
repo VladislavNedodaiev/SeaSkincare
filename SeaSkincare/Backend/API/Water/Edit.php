@@ -1,12 +1,8 @@
 <?php
 namespace SeaSkincare\Backend\API\Water;
 
-include_once '../../Data/DataRepository.php';
-include_once '../../Communication/Response.php';
-
-include_once '../../DTOs/WaterDTO.php';
-include_once '../../Services/WaterService.php';
-include_once '../../Controllers/WaterController.php';
+include_once '../../Includes/CommonInclude.php';
+include_once '../../Includes/WaterInclude.php';
 
 use SeaSkincare\Backend\Controllers\WaterController;
 use SeaSkincare\Backend\Communication\Response;

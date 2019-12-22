@@ -1,12 +1,8 @@
 <?php
 namespace SeaSkincare\Backend\API\Buoy;
 
-include_once '../../Data/DataRepository.php';
-include_once '../../Communication/Response.php';
-
-include_once '../../DTOs/BuoyDTO.php';
-include_once '../../Services/BuoyService.php';
-include_once '../../Controllers/BuoyController.php';
+include_once '../../Includes/CommonInclude.php';
+include_once '../../Includes/BuoyInclude.php';
 
 use SeaSkincare\Backend\Controllers\BuoyController;
 use SeaSkincare\Backend\Communication\Response;
