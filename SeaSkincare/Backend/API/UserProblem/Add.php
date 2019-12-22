@@ -3,6 +3,7 @@ namespace SeaSkincare\Backend\API\UserProblem;
 
 include_once '../../Includes/CommonInclude.php';
 include_once '../../Includes/UserProblemInclude.php';
+include_once '../../Includes/SkinProblemInclude.php';
 include_once '../../Includes/UserInclude.php';
 
 use SeaSkincare\Backend\Controllers\UserProblemController;
