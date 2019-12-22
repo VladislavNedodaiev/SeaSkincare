@@ -23,7 +23,6 @@ $response = curl_exec($channel);
 curl_close($channel);
 
 $response = json_decode($response);
-var_dump($url);
 
 if ($response->status == 'SUCCESS') {
 	
