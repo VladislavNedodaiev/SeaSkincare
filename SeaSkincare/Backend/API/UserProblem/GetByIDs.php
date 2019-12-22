@@ -18,7 +18,7 @@ $fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOS
 $userProblemController = new UserProblemController;
 $userController = new UserController;
 
-if ($response = $userController->login($_POST['email'], $_POST['password'])) {
+if ($response = $userController->login($_GET['email'], $_GET['password'])) {
 	if ($response->status != $userController->SUCCESS->status) {
 	
 		echo json_encode($response);
