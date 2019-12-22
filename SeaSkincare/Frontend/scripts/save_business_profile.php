@@ -18,8 +18,15 @@ $moveResult = false;
 if (isset($_FILES['photo']['name']) && $_FILES['photo']['tmp_name'] != "") {
 	
 	$imageFileType = strtolower(pathinfo(basename($_FILES['photo']['name']),PATHINFO_EXTENSION));
-	$newpath = 'images/businesses/'.$_SESSION['profile']->id.'.'.$imageFileType;
-	$moveResult = move_uploaded_file($_FILES['photo']['tmp_name'], $newpath);
+	$newpath = 'images/businesses/'.$_SESSION['profile']->id.'/';
+	
+	if(!is_dir('../'.$newpath)) {
+		mkdir('../'.$newpath);
+	}
+	
+	$newpath .= 'photo.'.$imageFileType;
+	
+	$moveResult = move_uploaded_file($_FILES['photo']['tmp_name'], '../'.$newpath);
 	if (!$moveResult) {
 	
 		$_SESSION['msg']['type'] = 'alert-danger';
@@ -32,10 +39,9 @@ if (isset($_FILES['photo']['name']) && $_FILES['photo']['tmp_name'] != "") {
 // Initialize session and set URL.
 $channel = curl_init();
 
-$url = '127.0.0.1/SeaSkincare/Backend/API/User/EditUser.php';
+$url = '127.0.0.1/SeaSkincare/Backend/API/Business/EditBusiness.php';
 
 curl_setopt($channel, CURLOPT_URL, $url);
-
 curl_setopt($channel, CURLOPT_POST, 1);
 
 $_POST['businessID'] = $_SESSION['profile']->id;
@@ -59,8 +65,10 @@ $response = json_decode($response);
 
 if ($response->status == "SUCCESS") {
 	
-	$_SESSION['msg']['type'] = 'alert-success';
-	$_SESSION['msg']['text'] = getLocalString('save_business_profile', 'SUCCESS');
+	if ($moveResult) {
+		$_SESSION['msg']['type'] = 'alert-success';
+		$_SESSION['msg']['text'] = getLocalString('save_business_profile', 'SUCCESS');
+	}
 	
 	$_SESSION['profile']->nickname = $_POST['nickname'];
 	$_SESSION['profile']->description = $_POST['description'];
