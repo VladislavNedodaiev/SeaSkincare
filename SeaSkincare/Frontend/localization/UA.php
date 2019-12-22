@@ -145,7 +145,7 @@ $save_business_profile = array (
 $my_skin_problems = array (
 
 	'title' => "Моє здоров'я",
-	'add_problem', => 'Додати хворобу',
+	'add_problem' => 'Додати хворобу',
 	'no_information' => 'Щаслива людина! Не знайдено жодної проблеми!'
 
 );

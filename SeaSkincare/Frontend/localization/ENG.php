@@ -145,7 +145,7 @@ $save_business_profile = array (
 $my_skin_problems = array (
 
 	'title' => 'My skin problems',
-	'add_problem', => 'Add skin problem',
+	'add_problem' => 'Add skin problem',
 	'no_information' => 'You are lucky one! No problems found!'
 
 );
