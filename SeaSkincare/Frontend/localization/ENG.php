@@ -165,6 +165,20 @@ $skin_problems = array (
 
 );
 
+$add_skin_problem = array (
+
+	'SUCCESS' => 'The problem has been successfully added',
+	'UNKNOWN' => 'Unknown error occured!'
+
+);
+
+$remove_skin_problem = array (
+
+	'SUCCESS' => 'The problem has been successfully removed',
+	'UNKNOWN' => 'Unknown error occured!'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -180,7 +194,9 @@ return array (
 	'business_profile' => $business_profile,
 	'save_business_profile' => $save_business_profile,
 	'my_skin_problems' => $my_skin_problems,
-	'skin_problems' => $skin_problems
+	'skin_problems' => $skin_problems,
+	'add_skin_problem' => $add_skin_problem,
+	'remove_skin_problem' => $remove_skin_problem
 
 );
 

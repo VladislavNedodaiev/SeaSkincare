@@ -165,6 +165,20 @@ $skin_problems = array (
 
 );
 
+$add_skin_problem = array (
+
+	'SUCCESS' => 'Захворювання додано до вашого профілю',
+	'UNKNOWN' => 'Сталася невідома помилка!'
+
+);
+
+$remove_skin_problem = array (
+
+	'SUCCESS' => 'Захворювання видалено з вашого профілю',
+	'UNKNOWN' => 'Сталася невідома помилка!'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -180,7 +194,9 @@ return array (
 	'business_profile' => $business_profile,
 	'save_business_profile' => $save_business_profile,
 	'my_skin_problems' => $my_skin_problems,
-	'skin_problems' => $skin_problems
+	'skin_problems' => $skin_problems,
+	'add_skin_problem' => $add_skin_problem,
+	'remove_skin_problem' => $remove_skin_problem
 
 );
 
