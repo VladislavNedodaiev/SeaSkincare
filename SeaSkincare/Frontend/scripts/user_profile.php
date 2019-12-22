@@ -31,9 +31,6 @@ if ($_SESSION['profile_type']) {
 	curl_setopt($channel, CURLOPT_URL, $url);
 	$response_vacationRequest = curl_exec($channel);
 	
-	var_dump($response_vacation);
-	var_dump($response_vacationRequest);
-	
 	if (json_decode($response_vacation)->status == 'SUCCESS'
 		|| json_decode($response_vacationRequest)->status == 'SUCCESS') {
 			
