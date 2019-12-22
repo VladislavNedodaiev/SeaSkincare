@@ -119,7 +119,8 @@ class SkinProblemService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $skinProblems);
+			if (!empty($skinProblems))
+				return new Response($this->SUCCESS->status, $skinProblems);
 		}
 		
 		return $this->NOT_FOUND;

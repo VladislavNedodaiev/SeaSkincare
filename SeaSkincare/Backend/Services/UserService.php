@@ -225,8 +225,7 @@ class UserService
 	
 	}
 	
-	public function deleteUser($userID)
-	{
+	public function deleteUser($userID) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;

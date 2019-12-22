@@ -134,7 +134,8 @@ class VacationRequestService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $vacationRequests);
+			if (!empty($vacationRequests))
+				return new Response($this->SUCCESS->status, $vacationRequests);
 			
 		}
 		
@@ -166,7 +167,8 @@ class VacationRequestService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $vacationRequests);
+			if (!empty($vacationRequests))
+				return new Response($this->SUCCESS->status, $vacationRequests);
 			
 		}
 		
@@ -197,7 +199,8 @@ class VacationRequestService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $vacationRequests);
+			if (!empty($vacationRequests))
+				return new Response($this->SUCCESS->status, $vacationRequests);
 			
 		}
 		
@@ -229,7 +232,8 @@ class VacationRequestService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $vacationRequests);
+			if (!empty($vacationRequests))
+				return new Response($this->SUCCESS->status, $vacationRequests);
 			
 		}
 		
@@ -260,7 +264,8 @@ class VacationRequestService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $vacationRequests);
+			if (!empty($vacationRequests))
+				return new Response($this->SUCCESS->status, $vacationRequests);
 			
 		}
 		
@@ -292,7 +297,8 @@ class VacationRequestService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $vacationRequests);
+			if (!empty($vacationRequests))
+				return new Response($this->SUCCESS->status, $vacationRequests);
 			
 		}
 		

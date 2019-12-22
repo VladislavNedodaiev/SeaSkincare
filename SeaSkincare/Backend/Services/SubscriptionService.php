@@ -116,7 +116,8 @@ class SubscriptionService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $subscriptions);
+			if (!empty($subscriptions))
+				return new Response($this->SUCCESS->status, $subscriptions);
 		}
 		
 		return $this->NOT_FOUND;
@@ -146,7 +147,8 @@ class SubscriptionService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $subscriptions);
+			if (!empty($subscriptions))
+				return new Response($this->SUCCESS->status, $subscriptions);
 			
 		}
 		
@@ -177,7 +179,8 @@ class SubscriptionService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $subscriptions);
+			if (!empty($subscriptions))
+				return new Response($this->SUCCESS->status, $subscriptions);
 			
 		}
 		
@@ -278,7 +281,8 @@ class SubscriptionService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $subscriptions);
+			if (!empty($subscriptions))
+				return new Response($this->SUCCESS->status, $subscriptions);
 			
 		}
 		

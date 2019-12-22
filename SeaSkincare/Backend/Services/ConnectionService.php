@@ -120,7 +120,8 @@ class ConnectionService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $connections);
+			if (!empty($connections))
+				return new Response($this->SUCCESS->status, $connections);
 		}
 		
 		return $this->NOT_FOUND;

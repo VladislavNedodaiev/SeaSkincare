@@ -209,7 +209,8 @@ class BusinessService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $businesses);
+			if (!empty($businesses))
+				return new Response($this->SUCCESS->status, $businesses);
 			
 		}
 		

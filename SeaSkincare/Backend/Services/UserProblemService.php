@@ -137,7 +137,8 @@ class UserProblemService {
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $userProblems);
+			if (!empty($userProblems))
+				return new Response($this->SUCCESS->status, $userProblems);
 		}
 		
 		return $this->NOT_FOUND;
@@ -165,7 +166,8 @@ class UserProblemService {
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $userProblems);
+			if (!empty($userProblems))
+				return new Response($this->SUCCESS->status, $userProblems);
 		}
 		
 		return $this->NOT_FOUND;
