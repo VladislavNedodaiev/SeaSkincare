@@ -11,7 +11,7 @@ $user_problem_url = 'UserProblem/GetByUser.php?';
 
 $email_url = 'email='.urlencode($_SESSION['profile']->email);
 $password_url = 'password='.urlencode($_SESSION['profile']->password);
-$userID_url = 'userID='.urlencode($_SESSION['profile']->userID);
+$userID_url = 'userID='.urlencode($_SESSION['profile']->id);
 
 // Set so curl_exec returns the result instead of outputting it.
 curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
@@ -23,6 +23,7 @@ $response = curl_exec($channel);
 curl_close($channel);
 
 $response = json_decode($response);
+var_dump($url);
 
 if ($response->status == 'SUCCESS') {
 	
