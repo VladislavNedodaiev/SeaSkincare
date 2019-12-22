@@ -12,12 +12,12 @@ if (!isset($_SESSION['profile'])) {
 
 $account = require_once "scripts/user_profile.php";
 
-/*if (!$account) {
+if (!$account) {
 	
 	header("Location: index.php");
 	exit;
 	
-}*/
+}
 
 ?>
 
