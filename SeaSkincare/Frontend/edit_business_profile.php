@@ -20,7 +20,7 @@ $account = $_SESSION['profile'];
 
 <article class="card-body mx-auto">
 	<div class="card" style="width: 70rem;">
-		<form action="scripts/save_business_profile.php" method="POST" enctype="multipart/form-data">
+		<form action="scripts/save_business_profile.php" id='form' method="POST" enctype="multipart/form-data">
 		<div class="card-header">
 			<div class="row">
 				<div class="col-8 my-auto"><?php echo getLocalString('edit_profile', 'edit_profile_title'); ?></div>
@@ -92,6 +92,8 @@ photo.onchange = function(event) {
 	filepath.innerHTML="<small>" + photo.value.split(/(\\|\/)/g).pop() + "</small>";
 	
 }
+
+tinymce.init({selector:'#description'});
 
 </script>
 

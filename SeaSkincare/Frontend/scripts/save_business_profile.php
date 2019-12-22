@@ -15,6 +15,7 @@ if (!isset($_SESSION['profile']) || !$_SESSION['profile_type']) {
 
 $newpath = "";
 $moveResult = false;
+//var_dump ($_POST['description']);
 if (isset($_FILES['photo']['name']) && $_FILES['photo']['tmp_name'] != "") {
 	
 	$imageFileType = strtolower(pathinfo(basename($_FILES['photo']['name']),PATHINFO_EXTENSION));
