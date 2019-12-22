@@ -41,8 +41,8 @@ if ($user_problems && !empty($user_problems)) {
 				</button>
 			</div>
 			<div class="modal-body">
-				<select id="addSkinProblemID" name="addSkinProblemID" class="form-control">
-					<option value="0" selected disabled><?php echo getLocalString('my_skin_problems', 'add_problem_no_information'); ?></option>
+				<select id="addSkinProblemID" name="addSkinProblemID" class="form-control" required>
+					<option value="" selected disabled><?php echo getLocalString('my_skin_problems', 'add_problem_no_information'); ?></option>
 					<?php if ($add_problems && !empty($add_problems)) { ?>
 						<?php foreach ($add_problems as $key => &$value) { ?>
 							<option value="<?php echo $value->id; ?>"><?php echo getLocalString('skin_problems', $value->title); ?></option>
