@@ -7,6 +7,7 @@ include_once '../../Includes/SkinProblemInclude.php';
 include_once '../../Includes/UserInclude.php';
 
 use SeaSkincare\Backend\Controllers\UserProblemController;
+use SeaSkincare\Backend\Controllers\UserController;
 use SeaSkincare\Backend\Communication\Response;
 
 header('Content-Type: text/html; charset=utf-8');
