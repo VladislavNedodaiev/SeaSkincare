@@ -44,7 +44,7 @@ class UserProblemService {
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 
-		$response = $this->getUserProblemByIDs($dto->userID, $dto->skinProblemID);
+		$response = $this->getUserProblemsByIDs($dto->userID, $dto->skinProblemID);
 		if ($response->status ==$this->SUCCESS->status)
 			return $response;
 
