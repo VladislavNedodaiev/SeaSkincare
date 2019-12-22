@@ -17,7 +17,7 @@ session_start();
 $req_dump = print_r($_GET, true);
 $fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].' GET:'.$req_dump.PHP_EOL, FILE_APPEND);
 
-$vacationRequestController = new VacationController;
+$vacationRequestController = new VacationRequestController;
 
 echo json_encode($vacationRequestController->getVacationRequestsByIDs($_GET['userID'], $_GET['businessID']));
 exit;
