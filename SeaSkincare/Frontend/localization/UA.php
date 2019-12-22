@@ -10,6 +10,7 @@ $header = array (
 	'guests_button_text' => 'Наші гості',
 	'subscriptions_button_text' => 'Наші підписки',
 	'vacations_button_text' => 'Мої відпочинки',
+	'skin_problems_button_text' => "Моє здоров'я",
 	'profile_button_text' => 'Профіль',
 	'logout_button_text' => 'Вийти'
 	
@@ -141,6 +142,21 @@ $save_business_profile = array (
 	
 );
 
+$my_skin_problems = array (
+
+	'title' => "Моє здоров'я",
+	'no_information' => 'Щаслива людина! Не знайдено жодної проблеми!'
+
+);
+
+$skin_problems = array (
+
+	'Atopic Dermatit' => 'Атопічний дерматит',
+	'Sun Allergy' => 'Алергія на сонце',
+	'Water Allergy' => 'Алергія на воду'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -154,7 +170,9 @@ return array (
 	'edit_profile' => $edit_profile,
 	'save_user_profile' => $save_user_profile,
 	'business_profile' => $business_profile,
-	'save_business_profile' => $save_business_profile
+	'save_business_profile' => $save_business_profile,
+	'my_skin_problems' => $my_skin_problems,
+	'skin_problems' => $skin_problems
 
 );
 

@@ -6,12 +6,12 @@ session_start();
 $account = require_once "scripts/business_profile.php";
 $vacation = require_once "scripts/business_profile_user_vacation.php";
 
-/*if (!$account) {
+if (!$account) {
 	
 	header("Location: index.php");
 	exit;
 	
-}*/
+}
 
 ?>
 

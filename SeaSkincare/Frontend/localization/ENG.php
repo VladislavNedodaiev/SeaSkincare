@@ -10,6 +10,7 @@ $header = array (
 	'guests_button_text' => 'Our guests',
 	'subscriptions_button_text' => 'Our subscriptions',
 	'vacations_button_text' => 'My vacations',
+	'skin_problems_button_text' => 'My skin problems',
 	'profile_button_text' => 'Profile',
 	'logout_button_text' => 'Logout'
 	
@@ -141,6 +142,21 @@ $save_business_profile = array (
 	
 );
 
+$my_skin_problems = array (
+
+	'title' => 'My skin problems',
+	'no_information' => 'You are lucky one! No problems found!'
+
+);
+
+$skin_problems = array (
+
+	'Atopic Dermatit' => 'Atopic dermatit',
+	'Sun Allergy' => 'Sun allergy',
+	'Water Allergy' => 'Water allergy'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -154,7 +170,9 @@ return array (
 	'edit_profile' => $edit_profile,
 	'save_user_profile' => $save_user_profile,
 	'business_profile' => $business_profile,
-	'save_business_profile' => $save_business_profile
+	'save_business_profile' => $save_business_profile,
+	'my_skin_problems' => $my_skin_problems,
+	'skin_problems' => $skin_problems
 
 );
 

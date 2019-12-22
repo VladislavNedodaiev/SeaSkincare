@@ -53,6 +53,7 @@ include_once "localization/localization.php";
 								<a class="nav-item nav-link" href="business_profile.php"><?php echo getLocalString('header', 'profile_button_text'); ?></a>
 							<?php } else { ?>
 								<a class="nav-item nav-link" href="my_vacations.php"><?php echo getLocalString('header', 'vacations_button_text'); ?></a>
+								<a class="nav-item nav-link" href="my_skin_problems.php"><?php echo getLocalString('header', 'skin_problems_button_text'); ?></a>
 								<a class="nav-item nav-link" href="user_profile.php"><?php echo getLocalString('header', 'profile_button_text'); ?></a>
 							<?php } ?>
 							<a class="nav-item nav-link" href="scripts/logout.php"><?php echo getLocalString('header', 'logout_button_text'); ?></a>

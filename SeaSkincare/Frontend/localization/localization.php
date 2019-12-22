@@ -19,7 +19,7 @@ function getLanguageString($language, $section, $string) {
 		
 	if (!isset($_SERVER['localization'][$language][$section])
 		|| !isset($_SERVER['localization'][$language][$section][$string]))
-		return '';
+		return $string;
 		
 	return $_SERVER['localization'][$language][$section][$string];
 	
