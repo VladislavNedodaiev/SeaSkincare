@@ -9,6 +9,10 @@ include_once '../../Includes/ConnectionInclude.php';
 include_once '../../Includes/BuoyInclude.php';
 
 use SeaSkincare\Backend\Controllers\BuoyController;
+use SeaSkincare\Backend\Controllers\ConnectionController;
+use SeaSkincare\Backend\Controllers\AirController;
+use SeaSkincare\Backend\Controllers\WaterController;
+use SeaSkincare\Backend\Controllers\WeatherController;
 use SeaSkincare\Backend\Communication\Response;
 
 header('Content-Type: text/html; charset=utf-8');
