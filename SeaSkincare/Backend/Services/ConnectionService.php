@@ -50,9 +50,9 @@ class ConnectionService
 						   '".$dto->latitude."',
 						   '".$dto->longitude."',
 						   '".$dto->battery."');")) {
-			$lastID = $this->getLastIDByBuoy();
+			$lastID = $this->getLastIDByBuoy($dto->buoyID);
 			if ($lastID->status ==$this->SUCCESS->status
-				&& $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`connection_id`=".$lastID->content.";")) {
+				&& $result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`connection_id`=".$lastID->content.";")) {
 				if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 					
 					$dto->id = $res['connection_id'];

@@ -31,7 +31,7 @@ if ($response->status == "SUCCESS") {
 	$connectionController = new ConnectionController;
 	$response = $connectionController->createConnection($response->id, $_POST['latitude'], $_POST['longitude'], $_POST['battery']);
 	
-	if ($reponse->status == "SUCCESS") {
+	if ($response->status == "SUCCESS") {
 	
 		$airController = new AirController;
 		$airController->createAir($response->content->id, $_POST['temperature'], $_POST['pollution']);

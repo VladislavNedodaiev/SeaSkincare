@@ -54,7 +54,7 @@ class SkinProblemService
 						   "'".$dto->normalSunPower."');")) {
 			$lastID = $this->getLastID();
 			if ($lastID->status ==$this->SUCCESS->status
-				&& $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`skin_problem_id`=".$lastID->content.";")) {
+				&& $result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`skin_problem_id`=".$lastID->content.";")) {
 				if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 					
 					$dto->id = $res['skin_problem_id'];
