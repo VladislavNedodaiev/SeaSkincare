@@ -15,12 +15,16 @@ class BuoyService
 	public $NOT_FOUND;
 	public $SUCCESS;
 	public $DB_ERROR;
+	public $SERIALNUMBER_REGISTERED;
+	public $WRONG_PASSWORD;
 	
 	public function __construct($host, $user, $pswd, $db) {
 		
 		$this->NOT_FOUND = new Response("NOT_FOUND", null);
 		$this->SUCCESS = new Response("SUCCESS", null);
 		$this->DB_ERROR = new Response("DB_ERROR", null);
+		$this->SERIALNUMBER_REGISTERED = new Response("SERIALNUMBER_REGISTERED", null);
+		$this->WRONG_PASSWORD = new Response("WRONG_PASSWORD", null);
 		
 		$this->connectToDB($host, $user, $pswd, $db);
 	
@@ -40,30 +44,56 @@ class BuoyService
 		
 	}
 	
-	public function createBuoy() {
+	// logging in (getting private data, such as email)
+	public function login($serialNumber, $password) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`()".
-						   "VALUES ();")) {
-							   
-			$lastID = $this->getLastID();
-			if ($lastID->status ==$this->SUCCESS->status
-				&& $result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`buoy_id`=".$lastID->content.";")) {
-				if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-					
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`serial_number`='".$serialNumber."';")) {
+			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				if (password_verify($password, $res['hash'])) {
+
 					$dto = new BuoyDTO;
 					
-					$dto->id = $res['buoy_id'];
+					$dto->id = $res['user_id'];
 					$dto->fabricationDate = $res['fabrication_date'];
+					$dto->serialNumber = $res['serial_number'];
+					$dto->password = $res['hash'];
 					
 					return new Response($this->SUCCESS->status, $dto);
 					
 				}
+				else
+					return $this->WRONG_PASSWORD;
 			}
 		}
+		
+		return $this->NOT_FOUND;
+		
+	}
+	
+	// registering user
+	public function register($serialNumber, $password) {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return $this->DB_ERROR;
+		
+		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`serial_number`='".$serialNumber."';")) {
+			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				return $this->SERIALNUMBER_REGISTERED;
+			}
+		}
+		
+		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`serial_number`, `password`)".
+						   "VALUES (".
+						   "'".$serialNumber."',".
+						   "'".password_hash($password, PASSWORD_BCRYPT)."');")) {
 			
+			return $this->SUCCESS;
+			
+		}
+		
 		return $this->DB_ERROR;
 		
 	}
