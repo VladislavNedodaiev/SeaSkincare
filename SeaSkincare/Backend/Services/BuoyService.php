@@ -56,7 +56,7 @@ class BuoyService
 
 					$dto = new BuoyDTO;
 					
-					$dto->id = $res['user_id'];
+					$dto->id = $res['buoy_id'];
 					$dto->fabricationDate = $res['fabrication_date'];
 					$dto->serialNumber = $res['serial_number'];
 					$dto->password = $res['hash'];
