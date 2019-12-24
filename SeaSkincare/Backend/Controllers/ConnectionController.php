@@ -87,7 +87,7 @@ class ConnectionController
 	public function getLastConnection() {
 		
 		$connectionID = $this->connectionService->getLastID();
-		if ($connectionID->status != ConnectionService::SUCCESS->status)
+		if ($connectionID->status != $this->connectionService->SUCCESS->status)
 			return $connectionID;
 		
 		return $this->connectionService->getConnection($connectionID->content);
