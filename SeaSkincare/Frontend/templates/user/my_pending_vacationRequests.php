@@ -35,7 +35,7 @@
 			<?php } else { ?>
 				<?php foreach ($my_pending_vacationRequests as $key => &$value) { ?>
 					<div class="row m-2 border-bottom">
-						<div class="col-8 my-auto"><h4><a href="business_profile.php?businessID=<?php echo $value->business_id; ?>"><?php echo $businesses[$value->business_id]->nickname; ?></a></h4></div>
+						<div class="col-8 my-auto"><h4><a href="business_profile.php?businessID=<?php echo $value->businessID; ?>"><?php echo $businesses[$value->businessID]->nickname; ?></a></h4></div>
 						<div class="col-3 text-right my-auto">
 							<h4><?php echo substr($value->requestDate, 0, 10); ?></h4>
 							<i class="far fa-calendar-alt"></i><small class = "text-muted"> <?php echo getLocalString('my_vacations', 'request_date'); ?></small>
