@@ -4,11 +4,11 @@ header('Content-Type: text/html; charset=utf-8');
 if (!isset($_SESSION))
 	session_start();
 
-include_once '../localization/localization.php';
+include_once '../../localization/localization.php';
 
 if (!isset($_SESSION['profile']) || $_SESSION['profile_type']) {
 
-	header("Location: ../index.php");
+	header("Location: ../../index.php");
 	exit;
 
 }
@@ -58,7 +58,7 @@ if ($response->status == "SUCCESS") {
 	
 } 
 
-header("Location: ../user_profile.php");
+header("Location: ../../user_profile.php");
 exit;
 
 ?>

@@ -11,7 +11,7 @@ if (!isset($_SESSION['profile'])
 	
 }
 
-$user_problems = require_once "scripts/my_user_problems.php";
+$user_problems = require_once "scripts/user/my_user_problems.php";
 $skin_problems = require_once "scripts/skin_problems.php";
 $add_problems = $skin_problems;
 
@@ -30,7 +30,7 @@ if ($user_problems && !empty($user_problems)) {
 
 <?php include "templates/alert.php" ?>
 
-<form action="scripts/add_skin_problem.php" id='add_skin_problem' method="POST">
+<form action="scripts/user/add_skin_problem.php" id='add_skin_problem' method="POST">
 <div class="modal fade" id="addSkinProblemModal" tabindex="-1" role="dialog" aria-labelledby="addSkinProblemModalTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
@@ -59,7 +59,7 @@ if ($user_problems && !empty($user_problems)) {
 </div>
 </form>
 
-<form action="scripts/remove_skin_problem.php" id='remove_skin_problem' method="POST">
+<form action="scripts/user/remove_skin_problem.php" id='remove_skin_problem' method="POST">
 <div class="modal fade" id="removeSkinProblemModal" tabindex="-1" role="dialog" aria-labelledby="removeSkinProblemModalTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">

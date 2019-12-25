@@ -2,11 +2,11 @@
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-include_once '../localization/localization.php';
+include_once '../../localization/localization.php';
 
 if (!isset($_SESSION['profile']) || $_SESSION['profile_type']) {
 	
-	header("Location: ../index.php");
+	header("Location: ../../index.php");
 	exit;
 	
 }
@@ -14,13 +14,13 @@ if (!isset($_SESSION['profile']) || $_SESSION['profile_type']) {
 // Initialize session and set URL.
 $channel = curl_init();
 
-$url = '127.0.0.1/SeaSkincare/Backend/API/UserProblem/Add.php';
+$url = '127.0.0.1/SeaSkincare/Backend/API/UserProblem/Delete.php';
 
 $_POST['email'] = $_SESSION['profile']->email;
 $_POST['password'] = $_SESSION['profile']->password;
 $_POST['userID'] = $_SESSION['profile']->id;
-$_POST['skinProblemID'] = $_POST['addSkinProblemID'];
-unset($_POST['addSkinProblemID']);
+$_POST['userProblemID'] = $_POST['removeSkinProblemID'];
+unset($_POST['removeSkinProblemID']);
 
 curl_setopt($channel, CURLOPT_URL, $url);
 
@@ -39,16 +39,16 @@ $response = json_decode($response);
 if ($response->status == "SUCCESS") {
 	
 	$_SESSION['msg']['type'] = 'alert-success';
-	$_SESSION['msg']['text'] = getLocalString('add_skin_problem', 'SUCCESS');
+	$_SESSION['msg']['text'] = getLocalString('remove_skin_problem', 'SUCCESS');
 	
 } else {
 	
 	$_SESSION['msg']['type'] = 'alert-danger';
-	$_SESSION['msg']['text'] = getLocalString('add_skin_problem', 'UNKNOWN');
+	$_SESSION['msg']['text'] = getLocalString('remove_skin_problem', 'UNKNOWN');
 	
 } 
 
-header("Location: ../my_skin_problems.php");
+header("Location: ../../my_skin_problems.php");
 exit;
 
 ?>

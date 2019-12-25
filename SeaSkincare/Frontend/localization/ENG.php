@@ -179,6 +179,28 @@ $remove_skin_problem = array (
 
 );
 
+$my_vacations = array (
+
+	'my_past_vacations_title' => 'Past vacations',
+	'no_information' => 'No information',
+	'start_date' => 'Start date',
+	'finish_date' => 'Finish date',
+	'remove_vacation_title' => 'Remove vacation',
+	'remove_current_vacation_text' => 'Are you sure you want to remove current vacation?',
+	'modal_close' => 'Cancel',
+	'remove_submit' => 'Remove',
+	'my_current_vacations_title' => 'Current vacations',
+	'remove_future_vacation_text' => 'Are you sure you want to remove future vacation?',
+	'my_future_vacations_title' => 'Future vacations',
+	'remove_vacationRequest_title' => 'Remove vacation request',
+	'remove_denied_vacationRequest_text' => 'Are you sure you want to remove denied vacation request?',
+	'my_denied_vacationRequests_title' => 'Denied vacation requests',
+	'request_date' => 'Request date',
+	'remove_pending_vacationRequest_text' => 'Are you sure you want to remove pending vacation request?',
+	'my_pending_vacationRequests_title' => 'Pending vacation requests'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -196,7 +218,8 @@ return array (
 	'my_skin_problems' => $my_skin_problems,
 	'skin_problems' => $skin_problems,
 	'add_skin_problem' => $add_skin_problem,
-	'remove_skin_problem' => $remove_skin_problem
+	'remove_skin_problem' => $remove_skin_problem,
+	'my_vacations' => $my_vacations
 
 );
 

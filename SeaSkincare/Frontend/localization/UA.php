@@ -179,6 +179,28 @@ $remove_skin_problem = array (
 
 );
 
+$my_vacations = array (
+
+	'my_past_vacations_title' => 'Минулі відпочинки',
+	'no_information' => 'Інформація відсутня',
+	'start_date' => 'Дата початку',
+	'finish_date' => 'Дата закінчення',
+	'remove_vacation_title' => 'Видалити відпочинок',
+	'remove_current_vacation_text' => 'Ви впевнені, що хочете видалити поточний відпочинок?',
+	'modal_close' => 'Скасувати',
+	'remove_submit' => 'Видалити',
+	'my_current_vacations_title' => 'Поточні відпочинки',
+	'remove_future_vacation_text' => 'Ви впевнені, що хочете видалити майбутній відпочинок?',
+	'my_future_vacations_title' => 'Майбутні відпочинки',
+	'remove_vacationRequest_title' => 'Видалити запит на відпочинок',
+	'remove_denied_vacationRequest_text' => 'Ви впевнені, що хочете видалити відхилений запит на відпочинок?',
+	'my_denied_vacationRequests_title' => 'Відхилені запити на відпочинок',
+	'request_date' => 'Дата запиту',
+	'remove_pending_vacationRequest_text' => 'Ви впевнені, що хочете видалити запит на відпочинок, який очікує на відповідь?',
+	'my_pending_vacationRequests_title' => 'Запити на відпочинок в очікуванні'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -196,7 +218,8 @@ return array (
 	'my_skin_problems' => $my_skin_problems,
 	'skin_problems' => $skin_problems,
 	'add_skin_problem' => $add_skin_problem,
-	'remove_skin_problem' => $remove_skin_problem
+	'remove_skin_problem' => $remove_skin_problem,
+	'my_vacations' => $my_vacations
 
 );
 
