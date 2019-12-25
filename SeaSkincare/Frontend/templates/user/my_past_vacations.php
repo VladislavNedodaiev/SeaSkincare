@@ -13,11 +13,11 @@
 				<?php foreach ($my_past_vacations as $key => &$value) { ?>
 					<div class="row m-2 border-bottom">
 						<div class="col-5 my-auto"><h4><a href="business_profile.php?businessID=<?php echo $value->businessID; ?>"><?php echo $businesses[$value->businessID]->nickname; ?></a></h4></div>
-						<div class="col-3 text-right my-auto">
+						<div class="col-3 text-center my-auto">
 							<h4><?php echo substr($value->startDate, 0, 10); ?></h4>
 							<i class="far fa-calendar-alt"></i><small class = "text-muted"> <?php echo getLocalString('my_vacations', 'start_date'); ?></small>
 						</div>
-						<div class="col-3 text-right my-auto">
+						<div class="col-3 text-center my-auto">
 							<h4><?php echo substr($value->finishDate, 0, 10); ?></h4>
 							<i class="far fa-calendar-alt"></i><small class = "text-muted"> <?php echo getLocalString('my_vacations', 'finish_date'); ?></small>
 						</div>

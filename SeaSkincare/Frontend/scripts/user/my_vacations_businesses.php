@@ -10,7 +10,7 @@ $channel = curl_init();
 curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
 
 $api_url = '127.0.0.1/SeaSkincare/Backend/API/';
-$business_url = 'Vacation/GetBusiness.php?businessID=';
+$business_url = 'Business/GetBusiness.php?businessID=';
 
 $businesses = array();
 
