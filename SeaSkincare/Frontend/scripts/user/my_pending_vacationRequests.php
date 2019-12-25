@@ -30,8 +30,18 @@ if (isset($response->status) && $response->status == 'SUCCESS') {
 	$result = array();
 	
 	$response = $response->content;
-	foreach ($response as &$value)
-		$result[$value->id] = $value;
+	if (!isset($_GET['businessID'])) {
+		foreach ($response as &$value) {
+			$result[$value->id] = $value;
+		}
+	} else {
+		
+		foreach ($response as &$value) {
+			if ($value->businessID == $_GET['businessID'])
+				$result[$value->id] = $value;
+		}
+		
+	}
 	
 	return $result;
 		

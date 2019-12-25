@@ -197,7 +197,11 @@ $my_vacations = array (
 	'my_denied_vacationRequests_title' => 'Відхилені запити на відпочинок',
 	'request_date' => 'Дата запиту',
 	'remove_pending_vacationRequest_text' => 'Ви впевнені, що хочете видалити запит на відпочинок, який очікує на відповідь?',
-	'my_pending_vacationRequests_title' => 'Запити на відпочинок в очікуванні'
+	'my_pending_vacationRequests_title' => 'Запити на відпочинок в очікуванні',
+	'add_submit' => 'Send request',
+	'add_pending_vacationRequest' => 'Надіслати запит на відпочинок',
+	'add_vacationRequest_title' => 'Надіслати запит на відпочинок',
+	'add_pending_vacationRequest_text' => 'Ви впевнені, що хочете надіслати запит на відпочинок?'
 
 );
 

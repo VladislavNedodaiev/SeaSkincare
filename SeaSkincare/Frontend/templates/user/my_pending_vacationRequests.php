@@ -2,7 +2,12 @@
 	<div class="card" style="width: 70rem;">
 		<div class="card-header">
 			<div class="row">
-				<div class="col my-auto"><?php echo getLocalString('my_vacations', 'my_pending_vacationRequests_title'); ?></div>
+				<div class="col-8 my-auto"><?php echo getLocalString('my_vacations', 'my_pending_vacationRequests_title'); ?></div>
+				<div class="col-4 text-right my-auto">
+					<?php if (isset($_GET['businessID']) && (!$my_pending_vacationRequests || !empty($my_pending_vacationRequests))) { ?>
+						<a href="#" data-toggle="modal" data-target="#formModal" onclick="addPendingVacationRequest(<?php echo $_GET['businessID']; ?>)" id="addPendingVacationRequest<?php echo $_GET['businessID']; ?>"><i class="text-success fas fa-plus"></i> <?php echo getLocalString('my_vacations', 'add_pending_vacationRequest'); ?></a>
+					<?php } ?>
+				</div>
 			</div>
 		</div>
 		
@@ -33,6 +38,21 @@ function removePendingVacationRequest(id) {
 	document.getElementById('formModalTitle').innerHTML = '<?php echo getLocalString("my_vacations", "remove_vacationRequest_title"); ?>';
 	document.getElementById('body_text').innerHTML = '<?php echo getLocalString("my_vacations", "remove_pending_vacationRequest_text"); ?>';
 	document.getElementById('input').value = id;
+	document.getElementById('submit').value = '<?php echo getLocalString("my_vacations", "remove_submit"); ?>';
+	document.getElementById('submit').classList.remove('btn-success');
+	document.getElementById('submit').classList.add('btn-danger');
+
+}
+
+function addPendingVacationRequest(id) {
+
+	document.getElementById('form').action = 'scripts/user/add_pending_vacationRequest.php';
+	document.getElementById('formModalTitle').innerHTML = '<?php echo getLocalString("my_vacations", "add_vacationRequest_title"); ?>';
+	document.getElementById('body_text').innerHTML = '<?php echo getLocalString("my_vacations", "add_pending_vacationRequest_text"); ?>';
+	document.getElementById('input').value = id;
+	document.getElementById('submit').value = '<?php echo getLocalString("my_vacations", "add_submit"); ?>';
+	document.getElementById('submit').classList.remove('btn-danger');
+	document.getElementById('submit').classList.add('btn-success');
 
 }
 

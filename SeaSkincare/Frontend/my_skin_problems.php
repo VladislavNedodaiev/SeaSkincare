@@ -87,8 +87,8 @@ if ($user_problems && !empty($user_problems)) {
 		<div class="card-header">
 			<div class="row">
 			
-				<div class="col-6 my-auto"><?php echo getLocalString('my_skin_problems', 'title'); ?></div>
-				<div class="col text-right my-auto">
+				<div class="col-8 my-auto"><?php echo getLocalString('my_skin_problems', 'title'); ?></div>
+				<div class="col-4 text-right my-auto">
 					<a href="#" data-toggle="modal" data-target="#addSkinProblemModal"><i class="text-success fas fa-plus"></i> <?php echo getLocalString('my_skin_problems', 'add_problem'); ?></a>
 				</div>
 			</div>

@@ -35,7 +35,7 @@ if (!$account) {
 						<?php 
 						} 
 						if (isset($_SESSION['profile_type']) && !$_SESSION['profile_type']) { ?>
-							<a href="user_business_vacations.php?businessID=<?php echo $account->id; ?>"><button type="button" class="btn btn-primary"><?php echo getLocalString('business_profile', 'show_vacations'); ?></button></a>
+							<a href="my_vacations.php?businessID=<?php echo $account->id; ?>"><button type="button" class="btn btn-primary"><?php echo getLocalString('business_profile', 'show_vacations'); ?></button></a>
 						<?php
 						} ?>
 					<?php

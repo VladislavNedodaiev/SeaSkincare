@@ -33,6 +33,9 @@ function removeDeniedVacationRequest(id) {
 	document.getElementById('formModalTitle').innerHTML = '<?php echo getLocalString("my_vacations", "remove_vacationRequest_title"); ?>';
 	document.getElementById('body_text').innerHTML = '<?php echo getLocalString("my_vacations", "remove_denied_vacationRequest_text"); ?>';
 	document.getElementById('input').value = id;
+	document.getElementById('submit').value = '<?php echo getLocalString("my_vacations", "remove_submit"); ?>';
+	document.getElementById('submit').classList.remove('btn-success');
+	document.getElementById('submit').classList.add('btn-danger');
 
 }
 

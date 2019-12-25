@@ -197,7 +197,11 @@ $my_vacations = array (
 	'my_denied_vacationRequests_title' => 'Denied vacation requests',
 	'request_date' => 'Request date',
 	'remove_pending_vacationRequest_text' => 'Are you sure you want to remove pending vacation request?',
-	'my_pending_vacationRequests_title' => 'Pending vacation requests'
+	'my_pending_vacationRequests_title' => 'Pending vacation requests',
+	'add_submit' => 'Send request',
+	'add_pending_vacationRequest' => 'Send vacation request',
+	'add_vacationRequest_title' => 'Send vacation request',
+	'add_pending_vacationRequest_text' => 'Are you sure you want to send vacation request?'
 
 );
 
