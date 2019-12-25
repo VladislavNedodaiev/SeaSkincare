@@ -1,26 +1,3 @@
-<form action="scripts/user/remove_current_vacation.php" id='removeCurrentVacation' method="POST">
-<div class="modal fade" id="removeCurrentVacationModal" tabindex="-1" role="dialog" aria-labelledby="removeCurrentVacationModalTitle" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="removeCurrentVacationModalTitle"><?php echo getLocalString('my_vacations', 'remove_vacation_title'); ?></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body text-center">
-				<?php echo getLocalString('my_vacations', 'remove_current_vacation_text'); ?>
-				<input id="removeCurrentVacationID" name="removeCurrentVacationID" type="hidden" value="0">
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo getLocalString('my_vacations', 'modal_close'); ?></button>
-				<input type="submit" class="btn btn-danger" value='<?php echo getLocalString('my_vacations', 'remove_submit'); ?>'>
-			</div>
-		</div>
-	</div>
-</div>
-</form>
-
 <article class="card-body mx-auto">
 	<div class="card" style="width: 70rem;">
 		<div class="card-header">
@@ -44,7 +21,7 @@
 							<h4><?php echo substr($value->finishDate, 0, 10); ?></h4>
 							<i class="far fa-calendar-alt"></i><small class = "text-muted"> <?php echo getLocalString('my_vacations', 'finish_date'); ?></small>
 						</div>
-						<div class="col text-right my-auto"><a href="#" data-toggle="modal" data-target="#removeCurrentVacation" onclick="removeCurrentVacation(<?php echo $value->id; ?>)" id="removeCurrentVacation<?php echo $value->id; ?>"><i class="text-danger fas fa-times"></i></a></div>
+						<div class="col text-right my-auto"><a href="#" data-toggle="modal" data-target="#formModal" onclick="removeCurrentVacation(<?php echo $value->id; ?>)" id="removeCurrentVacation<?php echo $value->id; ?>"><i class="text-danger fas fa-times"></i></a></div>
 					</div>
 				<?php } ?>
 			<?php } ?>
@@ -56,7 +33,10 @@
 
 function removeCurrentVacation(id) {
 
-	document.getElementById('removeCurrentVacationID').value = id;
+	document.getElementById('form').action = 'scripts/user/remove_current_vacation.php';
+	document.getElementById('formModalTitle').innerHTML = '<?php echo getLocalString("my_vacations", "remove_vacation_title"); ?>';
+	document.getElementById('body_text').innerHTML = '<?php echo getLocalString("my_vacations", "remove_current_vacation_text"); ?>';
+	document.getElementById('input').value = id;
 
 }
 
