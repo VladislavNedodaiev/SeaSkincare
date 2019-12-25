@@ -12,12 +12,13 @@ $vacationRequest_url = 'VacationRequest/GetByUserDenied.php?';
 $email_url = 'email='.urlencode($_SESSION['profile']->email);
 $password_url = 'password='.urlencode($_SESSION['profile']->password);
 $userID_url = 'userID='.urlencode($_SESSION['profile']->id);
+$date_url = 'date='.urlencode(date('Y-m-d'));
 
 // Set so curl_exec returns the result instead of outputting it.
 curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
 
 // user problem
-$url = $api_url.$vacationRequest_url.$email_url."&".$password_url."&".$userID_url;
+$url = $api_url.$vacationRequest_url.$email_url."&".$password_url."&".$userID_url."&".$date_url;
 curl_setopt($channel, CURLOPT_URL, $url);
 $response = curl_exec($channel);
 curl_close($channel);

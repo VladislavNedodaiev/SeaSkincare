@@ -10,7 +10,7 @@ if (!isset($_SESSION['profile'])) {
 
 }
 
-$account = require_once "scripts/user_profile.php";
+$account = require_once "scripts/user/user_profile.php";
 
 if (!$account) {
 	
