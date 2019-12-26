@@ -81,7 +81,7 @@ class ConnectionService
 				$dto = new ConnectionDTO;
 					
 				$dto->id = $res['connection_id'];
-				$dto->buoyID = $res['buoyID'];
+				$dto->buoyID = $res['buoy_id'];
 				$dto->connectionDate = $res['connection_date'];
 				$dto->latitude = $res['latitude'];
 				$dto->longitude = $res['longitude'];
@@ -110,7 +110,7 @@ class ConnectionService
 				$dto = new ConnectionDTO;
 					
 				$dto->id = $res['connection_id'];
-				$dto->buoyID = $res['buoyID'];
+				$dto->buoyID = $res['buoy_id'];
 				$dto->connectionDate = $res['connection_date'];
 				$dto->latitude = $res['latitude'];
 				$dto->longitude = $res['longitude'];
