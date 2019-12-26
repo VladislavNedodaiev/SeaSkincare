@@ -184,12 +184,36 @@ class BusinessService
 	// getting businesses from database
 	// limit - how many
 	// offset - from which entry
-	public function getBusinesses($offset, $limit) {
+	// search must be associative array where key is parameter to apply search pattern and value is pattern string
+	public function getBusinesses($offset, $limit, $search = null) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`business_id`='".$businessID."' LIMIT ".$limit." OFFSET ".$offset.";")) {
+		$selectQuery = "SELECT `".self::DB_TABLE."`.*";
+		$whereQuery = " FROM `".self::DB_TABLE."`";
+		$likeQuery = "";
+		
+		if ($search && !empty($search)) {
+		
+			$likeQuery = " WHERE";
+		
+			foreach ($search as $key => &$value) {
+			
+				$likeQuery .= " `".self::DB_TABLE."`.`".$key."`";
+				$likeQuery .= " LIKE ";
+				$likeQuery .= "'".$value."'";
+			
+			}
+		
+		}
+		
+		$limitQuery = " LIMIT ".$limit;
+		$offsetQuery = " OFFSET ".$offset;
+		
+		$query = $selectQuery.$whereQuery.$likeQuery.$limitQuery.$offsetQuery.";";
+		
+		if ($result = $this->database->query($query)) {
 			
 			$businesses = array();
 			
@@ -218,12 +242,33 @@ class BusinessService
 		
 	}
 	
-	public function getCount() {
+	// search must be associative array where key is parametre to apply search pattern and value is pattern string
+	public function getCount($search = null) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return new Response($this->DB_ERROR->status, 0);
 		
-		if ($result = $this->database->query("SELECT COUNT(`".self::DB_TABLE."`.`business_id`) AS `count` From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
+		$selectQuery = "SELECT COUNT(`".self::DB_TABLE."`.`business_id`) AS `count`";
+		$whereQuery = " FROM `".self::DB_TABLE."`";
+		$likeQuery = "";
+		
+		if ($search && !empty($search)) {
+		
+			$likeQuery = " WHERE";
+		
+			foreach ($search as $key => &$value) {
+			
+				$likeQuery .= " `".self::DB_TABLE."`.`".$key."`";
+				$likeQuery .= " LIKE ";
+				$likeQuery .= "'".$value."'";
+			
+			}
+		
+		}
+		
+		$query = $selectQuery.$whereQuery.$likeQuery.";";
+		
+		if ($result = $this->database->query($query)) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				return new Response($this->SUCCESS->status, $res['count']);

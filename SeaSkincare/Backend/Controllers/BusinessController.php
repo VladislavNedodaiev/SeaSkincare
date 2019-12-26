@@ -137,7 +137,7 @@ class BusinessController
 	// getting businesses from database
 	// limit - how many
 	// offset - from which entry
-	public function getBusinesses($offset, $limit) {
+	public function getBusinesses($offset, $limit, $search = null) {
 		
 		if (!isset($offset))
 			return $this->NO_OFFSET;
@@ -151,13 +151,13 @@ class BusinessController
 		if ($limit < 0)
 			$limit = 0;
 		
-		return $this->businessService->getBusinesses($offset, $limit);
+		return $this->businessService->getBusinesses($offset, $limit, $search);
 		
 	}
 	
-	public function getCount() {
+	public function getCount($search = null) {
 		
-		return $this->businessService->getCount();
+		return $this->businessService->getCount($search);
 		
 	}
 	

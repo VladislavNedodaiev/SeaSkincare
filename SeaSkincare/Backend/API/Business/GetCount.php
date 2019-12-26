@@ -16,7 +16,14 @@ $fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOS
 
 $businessController = new BusinessController;
 
-echo json_encode($businessController->getCount());
+$search = null;
+if (isset($_GET['search'])) {
+
+	parse_str(http_build_query($_GET['search']), $search);
+
+}
+
+echo json_encode($businessController->getCount($search));
 exit;
 
 ?>
