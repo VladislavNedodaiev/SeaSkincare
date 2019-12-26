@@ -72,7 +72,7 @@ function addPendingVacationRequest(id) {
 				addinnerHTML += '<i class="far fa-calendar-alt"></i> <?php echo getLocalString("my_vacations", "start_date"); ?>';
 			addinnerHTML += '</div>';
 			addinnerHTML += '<div class="col-6 text-right">';
-				addinnerHTML += '<input id="startDate" type="date" value="<?php echo date("Y-m-d"); ?>" min="<?php echo date("Y-m-d"); ?>" required>';
+				addinnerHTML += '<input name="startDate" id="startDate" type="date" value="<?php echo date("Y-m-d"); ?>" min="<?php echo date("Y-m-d"); ?>" required>';
 			addinnerHTML += '</div>';
 		addinnerHTML += '</div>';
 		addinnerHTML += '<div class="row m-1">';
@@ -80,7 +80,7 @@ function addPendingVacationRequest(id) {
 				addinnerHTML += '<i class="far fa-calendar-alt"></i> <?php echo getLocalString("my_vacations", "finish_date"); ?>';
 			addinnerHTML += '</div>';
 			addinnerHTML += '<div class="col-6 text-right">';
-				addinnerHTML += '<input id="finishDate" type="date" min="<?php echo date("Y-m-d"); ?>" required>';
+				addinnerHTML += '<input name="finishDate" id="finishDate" type="date" min="<?php echo date("Y-m-d"); ?>" required>';
 			addinnerHTML += '</div>';
 		addinnerHTML += '</div>';
 		
