@@ -60,7 +60,7 @@ if ($response->status == "SUCCESS") {
 	
 } 
 
-//header("Location: ../../business_subscriptions.php");
-//exit;
+header("Location: ../../business_subscriptions.php");
+exit;
 
 ?>
