@@ -29,7 +29,7 @@
 						<div class="col text-right my-auto">
 							<a href="#" data-toggle="modal" data-target="#formModal" onclick="removePendingVacationRequest(<?php echo $value->id; ?>)" id="removePendingVacationRequest<?php echo $value->id; ?>"><i class="text-danger fas fa-times"></i></a> 
 							<?php if ($_SESSION['profile_type']) { ?>
-								<a href="#" data-toggle="modal" data-target="#formModal" onclick="addPendingVacationRequest(<?php echo $value->id; ?>)" id="addPendingVacationRequest<?php echo $value->id; ?>"><i class="text-success fas fa-plus"></i></a>
+								<a href="#" data-toggle="modal" data-target="#formModal" onclick="addPendingVacationRequest(<?php echo $value->id; ?>)" id="addPendingVacationRequest<?php echo $value->id; ?>"><i class="text-success fas fa-check"></i></a>
 							<?php } ?>
 						</div>
 					</div>
