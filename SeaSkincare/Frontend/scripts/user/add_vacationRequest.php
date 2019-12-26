@@ -48,7 +48,7 @@ if ($response->status == "SUCCESS") {
 	
 } 
 
-header("Location: ../../my_vacations.php");
+header("Location: ../../my_vacations.php?".$_POST['businessID']);
 exit;
 
 ?>
