@@ -15,7 +15,7 @@ $fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOS
 
 $buoyController = new BuoyController;
 
-echo json_encode($buoyController->getFreeBuoys($_GET['someDate'], $_GET['offset'], $_GET['limit']));
+echo json_encode($buoyController->getFreeBuoys($_GET['date'], $_GET['offset'], $_GET['limit']));
 exit;
 
 ?>

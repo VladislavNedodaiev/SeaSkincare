@@ -15,7 +15,7 @@ $fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOS
 
 $buoyController = new BuoyController;
 
-echo json_encode($buoyController->getCountFree($_GET['someDate']));
+echo json_encode($buoyController->getCountFree($_GET['date']));
 exit;
 
 ?>
