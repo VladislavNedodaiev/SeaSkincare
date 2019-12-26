@@ -146,7 +146,7 @@ class BuoyService
 		
 		$selectQuery = "SELECT `B1`.*";
 		$fromQuery = " FROM `".self::DB_TABLE."` AS `B1`";
-		$whereQuery = " WHERE `B1`.`buoy_id` NOT IN (SELECT `S1`.`buoy_id` FROM `".self::DB_TABLE."` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."')";
+		$whereQuery = " WHERE `B1`.`buoy_id` NOT IN (SELECT `S1`.`buoy_id` FROM `Subscription` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."')";
 		$limitQuery = " LIMIT ".$limit;
 		$offsetQuery = " OFFSET ".$offset;
 		
@@ -206,7 +206,7 @@ class BuoyService
 		
 		$selectQuery = "SELECT COUNT(`B1`.`buoy_id`) AS `count`";
 		$fromQuery = " FROM `".self::DB_TABLE."` AS `B1`";
-		$whereQuery = " WHERE `B1`.`buoy_id` NOT IN (SELECT `S1`.`buoy_id` FROM `".self::DB_TABLE."` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."')";
+		$whereQuery = " WHERE `B1`.`buoy_id` NOT IN (SELECT `S1`.`buoy_id` FROM `Subscription` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."')";
 		
 		$query = $selectQuery.$fromQuery.$whereQuery.";";
 		
