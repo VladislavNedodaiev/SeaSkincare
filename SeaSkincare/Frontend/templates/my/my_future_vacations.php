@@ -12,7 +12,11 @@
 			<?php } else { ?>
 				<?php foreach ($my_future_vacations as $key => &$value) { ?>
 					<div class="row m-2 border-bottom">
-						<div class="col-5 my-auto"><h4><a href="business_profile.php?businessID=<?php echo $value->businessID; ?>"><?php echo $businesses[$value->businessID]->nickname; ?></a></h4></div>
+						<?php if (!$_SESSION['profile_type']) { ?>
+							<div class="col-5 my-auto"><h4><a href="business_profile.php?businessID=<?php echo $value->businessID; ?>"><?php echo $accounts[$value->businessID]->nickname; ?></a></h4></div>
+						<?php } else { ?>
+							<div class="col-5 my-auto"><h4><a href="user_profile.php?userID=<?php echo $value->userID; ?>"><?php echo $accounts[$value->userID]->nickname; ?></a></h4></div>
+						<?php } ?>
 						<div class="col-3 text-center my-auto">
 							<h4><?php echo substr($value->startDate, 0, 10); ?></h4>
 							<i class="far fa-calendar-alt"></i><small class = "text-muted"> <?php echo getLocalString('my_vacations', 'start_date'); ?></small>
@@ -33,7 +37,11 @@
 
 function removeFutureVacation(id) {
 
-	document.getElementById('form').action = 'scripts/user/remove_vacation.php';
+	<?php if (!$_SESSION['profile_type']) { ?>
+		document.getElementById('form').action = 'scripts/user/remove_vacation.php';
+	<?php } else { ?>
+		document.getElementById('form').action = 'scripts/business/remove_vacation.php';
+	<?php } ?>
 	document.getElementById('formModalTitle').innerHTML = '<?php echo getLocalString("my_vacations", "remove_future_vacation_title"); ?>';
 	document.getElementById('body_text').innerHTML = '<?php echo getLocalString("my_vacations", "remove_future_vacation_text"); ?>';
 	document.getElementById('input').value = id;
