@@ -67,7 +67,7 @@ function addSubscription() {
 				addinnerHTML += '<i class="far fa-calendar-alt"></i> <?php echo getLocalString("business_subscriptions", "start_date"); ?>';
 			addinnerHTML += '</div>';
 			addinnerHTML += '<div class="col-6 text-right">';
-				addinnerHTML += '<input name="startDate" id="startDate" type="date" value="<?php echo date("Y-m-d"); ?>" min="<?php echo date("Y-m-d"); ?>" required>';
+				addinnerHTML += '<input name="startDate" id="startDate" type="date" value="<?php echo date("Y-m-d"); ?>" readonly>';
 			addinnerHTML += '</div>';
 		addinnerHTML += '</div>';
 		addinnerHTML += '<div class="row m-1">';
