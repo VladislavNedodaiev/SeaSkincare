@@ -45,7 +45,7 @@ class VacationService
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`user_id`, `business_id`, `startDate`, `finishDate`)".
+		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`user_id`, `business_id`, `start_date`, `finish_date`)".
 						   "VALUES (".
 						   "'".$dto->userID."',".
 						   "'".$dto->businessID."', ".
