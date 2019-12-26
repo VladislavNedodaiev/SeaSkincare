@@ -64,22 +64,27 @@ function addPendingVacationRequest(id) {
 		document.getElementById('body_text').innerHTML = '<?php echo getLocalString("my_vacations", "add_pending_vacationRequest_text"); ?>';
 	<?php } else { ?>
 		document.getElementById('form').action = 'scripts/business/confirm_vacationRequest.php';
-		document.getElementById('body_text').innerHTML = '<div class="row m-1">';
-			document.getElementById('body_text').innerHTML += '<div class="col-6">';
-				document.getElementById('body_text').innerHTML += '<i class="far fa-calendar-alt"></i><small class = "text-muted"> <?php echo getLocalString("my_vacations", "start_date"); ?></small>';
-			document.getElementById('body_text').innerHTML += '</div>';
-			document.getElementById('body_text').innerHTML += '<div class="col-6">';
-				document.getElementById('body_text').innerHTML += '<input id="startDate" type="date" min="<?php echo date("Y-m-d"); ?>">';
-			document.getElementById('body_text').innerHTML += '</div>';
-		document.getElementById('body_text').innerHTML += '</div>';
-		document.getElementById('body_text').innerHTML = '<div class="row m-1">';
-			document.getElementById('body_text').innerHTML += '<div class="col-6">';
-				document.getElementById('body_text').innerHTML += '<i class="far fa-calendar-alt"></i><small class = "text-muted"> <?php echo getLocalString("my_vacations", "finish_date"); ?></small>';
-			document.getElementById('body_text').innerHTML += '</div>';
-			document.getElementById('body_text').innerHTML += '<div class="col-6">';
-				document.getElementById('body_text').innerHTML += '<input id="finishDate" type="date" min="<?php echo date("Y-m-d"); ?>">';
-			document.getElementById('body_text').innerHTML += '</div>';
-		document.getElementById('body_text').innerHTML += '</div>';
+		
+		var addinnerHTML = '';
+		
+		addinnerHTML += '<div class="row m-1">';
+			addinnerHTML += '<div class="col-6 text-left">';
+				addinnerHTML += '<i class="far fa-calendar-alt"></i> <?php echo getLocalString("my_vacations", "start_date"); ?>';
+			addinnerHTML += '</div>';
+			addinnerHTML += '<div class="col-6 text-right">';
+				addinnerHTML += '<input id="startDate" type="date" value="<?php echo date("Y-m-d"); ?>" min="<?php echo date("Y-m-d"); ?>" required>';
+			addinnerHTML += '</div>';
+		addinnerHTML += '</div>';
+		addinnerHTML += '<div class="row m-1">';
+			addinnerHTML += '<div class="col-6 text-left">';
+				addinnerHTML += '<i class="far fa-calendar-alt"></i> <?php echo getLocalString("my_vacations", "finish_date"); ?>';
+			addinnerHTML += '</div>';
+			addinnerHTML += '<div class="col-6 text-right">';
+				addinnerHTML += '<input id="finishDate" type="date" min="<?php echo date("Y-m-d"); ?>" required>';
+			addinnerHTML += '</div>';
+		addinnerHTML += '</div>';
+		
+		document.getElementById('body_text').innerHTML = addinnerHTML;
 	<?php } ?>
 	document.getElementById('formModalTitle').innerHTML = '<?php echo getLocalString("my_vacations", "add_vacationRequest_title"); ?>';
 	document.getElementById('input').value = id;
