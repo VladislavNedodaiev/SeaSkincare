@@ -49,7 +49,7 @@ include_once "localization/localization.php";
 						<?php } else { ?>
 							<?php if ($_SESSION['profile_type']) { ?>
 								<a class="nav-item nav-link" href="my_vacations.php"><?php echo getLocalString('header', 'guests_button_text'); ?></a>
-								<a class="nav-item nav-link" href="my_subscriptions.php"><?php echo getLocalString('header', 'subscriptions_button_text'); ?></a>
+								<a class="nav-item nav-link" href="business_subscriptions.php"><?php echo getLocalString('header', 'subscriptions_button_text'); ?></a>
 								<a class="nav-item nav-link" href="business_profile.php"><?php echo getLocalString('header', 'profile_button_text'); ?></a>
 							<?php } else { ?>
 								<a class="nav-item nav-link" href="my_vacations.php"><?php echo getLocalString('header', 'vacations_button_text'); ?></a>

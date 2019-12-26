@@ -29,7 +29,7 @@ if (!$account) {
 					<?php if (isset ($_SESSION['profile']) && $account == $_SESSION['profile']) { ?>
 						<div class="col text-right my-auto"><a href="edit_business_profile.php"><i class="fas fa-pencil-alt"></i></a></div>
 					<?php } else { ?>
-						<a href="user_business_subscriptions.php?businessID=<?php echo $account->id; ?>"><button type="button" class="btn btn-primary"><?php echo getLocalString('business_profile', 'show_devices'); ?></button></a>
+						<a href="business_subscriptions.php?businessID=<?php echo $account->id; ?>"><button type="button" class="btn btn-primary"><?php echo getLocalString('business_profile', 'show_devices'); ?></button></a>
 						<?php if (isset($_SESSION['profile_type']) && !$_SESSION['profile_type']) { ?>
 							<a href="my_vacations.php?businessID=<?php echo $account->id; ?>"><button type="button" class="btn btn-primary"><?php echo getLocalString('business_profile', 'show_vacations'); ?></button></a>
 						<?php
