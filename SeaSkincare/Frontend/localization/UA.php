@@ -219,6 +219,13 @@ $add_vacationRequest = array (
 
 );
 
+$remove_vacationRequest = array (
+
+	'SUCCESS' => 'Запит на відпочинок було успішно скасовано!',
+	'UNKNOWN' => 'Сталася невідома помилка'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -239,7 +246,8 @@ return array (
 	'remove_skin_problem' => $remove_skin_problem,
 	'my_vacations' => $my_vacations,
 	'remove_vacation' => $remove_vacation,
-	'add_vacationRequest' => $add_vacationRequest
+	'add_vacationRequest' => $add_vacationRequest,
+	'remove_vacationRequest' => $remove_vacationRequest
 
 );
 

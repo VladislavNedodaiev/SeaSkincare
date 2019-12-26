@@ -14,12 +14,11 @@ if (!isset($_SESSION['profile']) || $_SESSION['profile_type'] || !isset($_POST['
 // Initialize session and set URL.
 $channel = curl_init();
 
-$url = '127.0.0.1/SeaSkincare/Backend/API/VacationRequest/Add.php';
+$url = '127.0.0.1/SeaSkincare/Backend/API/VacationRequest/Delete.php';
 
 $_POST['email'] = $_SESSION['profile']->email;
 $_POST['password'] = $_SESSION['profile']->password;
-$_POST['userID'] = $_SESSION['profile']->id;
-$_POST['businessID'] = $_POST['input'];
+$_POST['vacationRequestID'] = $_POST['input'];
 unset($_POST['input']);
 
 curl_setopt($channel, CURLOPT_URL, $url);
@@ -39,12 +38,12 @@ $response = json_decode($response);
 if ($response->status == "SUCCESS") {
 	
 	$_SESSION['msg']['type'] = 'alert-success';
-	$_SESSION['msg']['text'] = getLocalString('remove_vacationRequest', 'SUCCESS');
+	$_SESSION['msg']['text'] = getLocalString('remove_vacation', 'SUCCESS');
 	
 } else {
 	
 	$_SESSION['msg']['type'] = 'alert-danger';
-	$_SESSION['msg']['text'] = getLocalString('remove_vacationRequest', 'UNKNOWN');
+	$_SESSION['msg']['text'] = getLocalString('remove_vacation', 'UNKNOWN');
 	
 } 
 
