@@ -6,7 +6,7 @@ include_once '../../Includes/UserProblemInclude.php';
 include_once '../../Includes/SkinProblemInclude.php';
 include_once '../../Includes/UserInclude.php';
 include_once '../../Includes/SubscriptionInclude.php';
-include_once '../../Includes/BuinessInclude.php';
+include_once '../../Includes/BusinessInclude.php';
 
 use SeaSkincare\Backend\Controllers\UserController;
 use SeaSkincare\Backend\Controllers\BusinessController;
