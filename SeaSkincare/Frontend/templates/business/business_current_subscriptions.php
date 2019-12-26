@@ -102,7 +102,7 @@ function editSubscription(startDate, finishDate, id) {
 			addinnerHTML += '<i class="far fa-calendar-alt"></i> <?php echo getLocalString("business_subscriptions", "start_date"); ?>';
 		addinnerHTML += '</div>';
 		addinnerHTML += '<div class="col-6 text-right">';
-			addinnerHTML += '<input name="startDate" id="startDate" type="date" value="' + startDate + '" disabled>';
+			addinnerHTML += '<input name="startDate" id="startDate" type="date" value="' + startDate + '" readonly>';
 		addinnerHTML += '</div>';
 	addinnerHTML += '</div>';
 	addinnerHTML += '<div class="row m-1">';

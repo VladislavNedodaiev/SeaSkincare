@@ -11,9 +11,9 @@ $subscription_url = 'Subscription/GetByBusiness.php?';
 
 $businessID_url = "businessID=";
 if (isset($_GET['businessID']))
-	$businessID_url = $_GET['businessID'];
+	$businessID_url .= $_GET['businessID'];
 else
-	$businessID_url = $_SESSION['profile']->id;
+	$businessID_url .= $_SESSION['profile']->id;
 
 // Set so curl_exec returns the result instead of outputting it.
 curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
