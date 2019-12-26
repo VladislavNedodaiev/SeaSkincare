@@ -184,7 +184,7 @@ $my_vacations = array (
 	'my_past_vacations_title' => 'Минулі відпочинки',
 	'no_information' => 'Інформація відсутня',
 	'start_date' => 'Дата початку',
-	'finish_date' => 'Дата закінчення',
+	'finish_date' => 'Дата завершення',
 	'remove_vacation_title' => 'Видалити відпочинок',
 	'remove_current_vacation_text' => 'Ви впевнені, що хочете видалити поточний відпочинок?',
 	'modal_close' => 'Скасувати',
@@ -226,6 +226,48 @@ $remove_vacationRequest = array (
 
 );
 
+$business_subscriptions = array (
+
+	'business_current_subscriptions_title' => 'Поточні підписки',
+	'add_subscription' => 'Оформити підписку',
+	'device_text' => 'Пристрій',
+	'no_information' => 'Інформація відсутня',
+	'start_date' => 'Дата початку',
+	'finish_date' => 'Дата завершення',
+	'remove_subscription_title' => 'Скасувати підписку',
+	'remove_subscription_text' => 'Ви впевнені, що хочете скасувати дану підписку? Ми не зможемо повернути Вам кошти.',
+	'add_subscription_title' => 'Оформлення підписки',
+	'edit_subscription_title' => 'Редагування підписки',
+	'business_past_subscriptions_title' => 'Попередні підписки',
+	'modal_close' => 'Скасувати',
+	'remove_submit' => 'Видалити',
+	'add_submit' => 'Оформити',
+	'edit_submit' => 'Зберегти зміни',
+	'no_free_buoys' => 'Не знайдено вільних пристроїв!'
+
+);
+
+$remove_subscription = array (
+
+	'SUCCESS' => 'Підписку скасовано!',
+	'UNKNOWN' => 'Сталася невідома помилка'
+
+);
+
+$add_subscription = array (
+
+	'SUCCESS' => 'Підписку оформлено!',
+	'UNKNOWN' => 'Сталася невідома помилка'
+
+);
+
+$edit_subscription = array (
+
+	'SUCCESS' => 'Зміни застосовано!',
+	'UNKNOWN' => 'Сталася невідома помилка'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -247,7 +289,11 @@ return array (
 	'my_vacations' => $my_vacations,
 	'remove_vacation' => $remove_vacation,
 	'add_vacationRequest' => $add_vacationRequest,
-	'remove_vacationRequest' => $remove_vacationRequest
+	'remove_vacationRequest' => $remove_vacationRequest,
+	'business_subscriptions' => $business_subscriptions,
+	'remove_subscription' => $remove_subscription,
+	'add_subscription' => $add_subscription,
+	'edit_subscription' => $edit_subscription
 
 );
 

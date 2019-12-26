@@ -226,6 +226,48 @@ $remove_vacationRequest = array (
 
 );
 
+$business_subscriptions = array (
+
+	'business_current_subscriptions_title' => 'Current subscriptions',
+	'add_subscription' => 'Add subscription',
+	'device_text' => 'Device',
+	'no_information' => 'No information',
+	'start_date' => 'Start date',
+	'finish_date' => 'Finish date',
+	'remove_subscription_title' => 'Remove subscription',
+	'remove_subscription_text' => 'Are you sure you want to remove subscription? We will not make a refund.',
+	'add_subscription_title' => 'Add subscription',
+	'edit_subscription_title' => 'Edit subscription',
+	'business_past_subscriptions_title' => 'Past subscriptions',
+	'modal_close' => 'Cancel',
+	'remove_submit' => 'Remove',
+	'add_submit' => 'Subscribe',
+	'edit_submit' => 'Save changes',
+	'no_free_buoys' => "Can't find any free devices!"
+
+);
+
+$remove_subscription = array (
+
+	'SUCCESS' => 'The subscription has been successfully canceled!',
+	'UNKNOWN' => 'Unknown error occured'
+
+);
+
+$add_subscription = array (
+
+	'SUCCESS' => 'The subscription has been successfully added!',
+	'UNKNOWN' => 'Unknown error occured'
+
+);
+
+$edit_subscription = array (
+
+	'SUCCESS' => 'The subscription has been successfully edited!',
+	'UNKNOWN' => 'Unknown error occured'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -247,7 +289,11 @@ return array (
 	'my_vacations' => $my_vacations,
 	'remove_vacation' => $remove_vacation,
 	'add_vacationRequest' => $add_vacationRequest,
-	'remove_vacationRequest' => $remove_vacationRequest
+	'remove_vacationRequest' => $remove_vacationRequest,
+	'business_subscriptions' => $business_subscriptions,
+	'remove_subscription' => $remove_subscription,
+	'add_subscription' => $add_subscription,
+	'edit_subscription' => $edit_subscription
 
 );
 

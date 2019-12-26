@@ -10,7 +10,11 @@ if (!isset($_GET['businessID']) && (!isset($_SESSION['profile']) || !$_SESSION['
 	
 }
 
-$subscriptions = require_once "scripts/business/business_subscriptions.php";
+$business_subscriptions = require_once "scripts/business/business_subscriptions.php";
+
+$business_current_subscriptions = require_once "scripts/business/business_current_subscriptions.php";
+$business_past_subscriptions = require_once "scripts/business/business_past_subscriptions.php";
+
 $free_buoys_count = require_once "scripts/buoy/free_buoys_count.php";
 
 ?>
