@@ -19,7 +19,7 @@ $_POST['password'] = $_SESSION['profile']->password;
 $_POST['businessID'] = $_SESSION['profile']->id;
 
 $freeurl = '127.0.0.1/SeaSkincare/Backend/API/Buoy/GetFree.php?date='.urlencode(date('Y-m-d')).'&offset=0&limit=1';
-var_dump ($freeurl);
+
 curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($channel, CURLOPT_URL, $freeurl);
 
