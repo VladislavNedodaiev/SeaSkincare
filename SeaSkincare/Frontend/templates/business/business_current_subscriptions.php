@@ -49,6 +49,7 @@ function removeSubscription(id) {
 	document.getElementById('formModalTitle').innerHTML = '<?php echo getLocalString("business_subscriptions", "remove_subscription_title"); ?>';
 	document.getElementById('body_text').innerHTML = '<?php echo getLocalString("business_subscriptions", "remove_subscription_text"); ?>';
 	document.getElementById('input').value = id;
+	document.getElementById('submit').style.display = "inline-block";
 	document.getElementById('submit').value = '<?php echo getLocalString("business_subscriptions", "remove_submit"); ?>';
 	document.getElementById('submit').classList.remove('btn-success');
 	document.getElementById('submit').classList.add('btn-danger');
@@ -78,8 +79,10 @@ function addSubscription() {
 				addinnerHTML += '<input name="finishDate" id="finishDate" type="date" min="<?php echo date("Y-m-d"); ?>" required>';
 			addinnerHTML += '</div>';
 		addinnerHTML += '</div>';
+		document.getElementById('submit').style.display = "inline-block";
 	<?php } else { ?>
 		addinnerHTML += '<?php echo getLocalString("business_subscriptions", "no_free_buoys"); ?>';
+		document.getElementById('submit').style.display = "none";
 	<?php } ?>
 	
 	document.getElementById('body_text').innerHTML = addinnerHTML;
@@ -118,6 +121,7 @@ function editSubscription(startDate, finishDate, id) {
 		
 	document.getElementById('formModalTitle').innerHTML = '<?php echo getLocalString("business_subscriptions", "edit_subscription_title"); ?>';
 	document.getElementById('input').value = id;
+	document.getElementById('submit').style.display = "inline-block";
 	document.getElementById('submit').value = '<?php echo getLocalString("business_subscriptions", "edit_submit"); ?>';
 	document.getElementById('submit').classList.remove('btn-danger');
 	document.getElementById('submit').classList.add('btn-success');
