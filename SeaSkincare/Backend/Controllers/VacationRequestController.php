@@ -102,7 +102,7 @@ class VacationRequestController
 		if (!isset($userID))
 			return $this->NO_USERID;
 		
-		return $this->vacationService->getVacationsByUserID($userID);
+		return $this->vacationRequestService->getVacationsByUserID($userID);
 		
 	}
 	
@@ -117,7 +117,7 @@ class VacationRequestController
 		if ($status != -1 && $status != 0 && $status != 1)
 			return $this->INCORRECT_STATUS;
 		
-		return $this->vacationService->getVacationsByUserIDStatus($userID, $status);
+		return $this->vacationRequestService->getVacationsByUserIDStatus($userID, $status);
 		
 	}
 	
@@ -126,7 +126,7 @@ class VacationRequestController
 		if (!isset($businessID))
 			return $this->NO_BUSINESSID;
 		
-		return $this->vacationService->getVacationsByBusinessID($businessID);
+		return $this->vacationRequestService->getVacationsByBusinessID($businessID);
 		
 	}
 	
@@ -141,7 +141,7 @@ class VacationRequestController
 		if ($status != -1 && $status != 0 && $status != 1)
 			return $this->INCORRECT_STATUS;
 		
-		return $this->vacationService->getVacationsByBusinessIDStatus($businessID, $status);
+		return $this->vacationRequestService->getVacationsByBusinessIDStatus($businessID, $status);
 		
 	}
 	
