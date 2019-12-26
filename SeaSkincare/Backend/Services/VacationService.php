@@ -262,7 +262,7 @@ class VacationService
 		
 	}
 	
-	public function getVacationByBusinessID($businessID) {
+	public function getVacationsByBusinessID($businessID) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
@@ -296,7 +296,7 @@ class VacationService
 	
 	// dateFlag - ended before someDate (<0), active at someDate (0), starting after someDate (>0)
 	// someDate - some date
-	public function getVacationByBusinessIDDate($businessID, $dateFlag, $someDate) {
+	public function getVacationsByBusinessIDDate($businessID, $dateFlag, $someDate) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
