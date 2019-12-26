@@ -45,7 +45,7 @@ class SubscriptionService
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 
-		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`buoy_id`, `business_id`, `startDate`, `finishDate`)".
+		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`buoy_id`, `business_id`, `start_date`, `finish_date`)".
 						   "VALUES (".
 						   "'".$dto->buoyID."',".
 						   "'".$dto->businessID."', ".
