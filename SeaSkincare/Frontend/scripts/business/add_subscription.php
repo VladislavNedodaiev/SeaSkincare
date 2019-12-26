@@ -17,6 +17,7 @@ $channel = curl_init();
 $_POST['email'] = $_SESSION['profile']->email;
 $_POST['password'] = $_SESSION['profile']->password;
 $_POST['businessID'] = $_SESSION['profile']->id;
+unset($_POST['input']);
 
 $freeurl = '127.0.0.1/SeaSkincare/Backend/API/Buoy/GetFree.php?date='.urlencode(date('Y-m-d')).'&offset=0&limit=1';
 
@@ -28,7 +29,7 @@ $response = curl_exec($channel);
 $response = json_decode($response);
 if ($response->status == "SUCCESS") {
 	
-	$_POST['buoyID'] = $response->content->id;
+	$_POST['buoyID'] = $response->content[0]->id;
 	
 	$url = '127.0.0.1/SeaSkincare/Backend/API/Subscription/Add.php';
 	curl_setopt($channel, CURLOPT_URL, $url);
