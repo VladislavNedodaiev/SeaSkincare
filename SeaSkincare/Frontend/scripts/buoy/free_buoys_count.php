@@ -4,8 +4,9 @@
 $channel = curl_init();
 
 $api_url = '127.0.0.1/SeaSkincare/Backend/API/';
-$buoy_url = 'Buoy/GetFreeCount.php?';
+$buoy_url = 'Buoy/GetCountFree.php?';
 $date_url = 'date='.urlencode(date('Y-m-d'));
+
 
 // Set so curl_exec returns the result instead of outputting it.
 curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
