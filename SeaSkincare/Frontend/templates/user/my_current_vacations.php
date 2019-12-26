@@ -33,7 +33,7 @@
 
 function removeCurrentVacation(id) {
 
-	document.getElementById('form').action = 'scripts/user/remove_current_vacation.php';
+	document.getElementById('form').action = 'scripts/user/remove_vacation.php';
 	document.getElementById('formModalTitle').innerHTML = '<?php echo getLocalString("my_vacations", "remove_vacation_title"); ?>';
 	document.getElementById('body_text').innerHTML = '<?php echo getLocalString("my_vacations", "remove_current_vacation_text"); ?>';
 	document.getElementById('input').value = id;

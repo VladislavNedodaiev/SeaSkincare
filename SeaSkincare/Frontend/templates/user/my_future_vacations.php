@@ -33,7 +33,7 @@
 
 function removeFutureVacation(id) {
 
-	document.getElementById('form').action = 'scripts/user/remove_future_vacation.php';
+	document.getElementById('form').action = 'scripts/user/remove_vacation.php';
 	document.getElementById('formModalTitle').innerHTML = '<?php echo getLocalString("my_vacations", "remove_future_vacation_title"); ?>';
 	document.getElementById('body_text').innerHTML = '<?php echo getLocalString("my_vacations", "remove_future_vacation_text"); ?>';
 	document.getElementById('input').value = id;

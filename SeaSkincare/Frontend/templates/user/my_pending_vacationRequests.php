@@ -34,7 +34,7 @@
 
 function removePendingVacationRequest(id) {
 
-	document.getElementById('form').action = 'scripts/user/remove_pending_vacationRequest.php';
+	document.getElementById('form').action = 'scripts/user/remove_vacationRequest.php';
 	document.getElementById('formModalTitle').innerHTML = '<?php echo getLocalString("my_vacations", "remove_vacationRequest_title"); ?>';
 	document.getElementById('body_text').innerHTML = '<?php echo getLocalString("my_vacations", "remove_pending_vacationRequest_text"); ?>';
 	document.getElementById('input').value = id;
@@ -46,7 +46,7 @@ function removePendingVacationRequest(id) {
 
 function addPendingVacationRequest(id) {
 
-	document.getElementById('form').action = 'scripts/user/add_pending_vacationRequest.php';
+	document.getElementById('form').action = 'scripts/user/add_vacationRequest.php';
 	document.getElementById('formModalTitle').innerHTML = '<?php echo getLocalString("my_vacations", "add_vacationRequest_title"); ?>';
 	document.getElementById('body_text').innerHTML = '<?php echo getLocalString("my_vacations", "add_pending_vacationRequest_text"); ?>';
 	document.getElementById('input').value = id;

@@ -205,6 +205,20 @@ $my_vacations = array (
 
 );
 
+$remove_vacation = array (
+
+	'SUCCESS' => 'The vacation has been successfully removed!',
+	'UNKNOWN' => 'Unknown error occured'
+
+);
+
+$add_vacationRequest = array (
+
+	'SUCCESS' => 'The vacation has been successfully sent!',
+	'UNKNOWN' => 'Unknown error occured'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -223,7 +237,9 @@ return array (
 	'skin_problems' => $skin_problems,
 	'add_skin_problem' => $add_skin_problem,
 	'remove_skin_problem' => $remove_skin_problem,
-	'my_vacations' => $my_vacations
+	'my_vacations' => $my_vacations,
+	'remove_vacation' => $remove_vacation,
+	'add_vacationRequest' => $add_vacationRequest
 
 );
 

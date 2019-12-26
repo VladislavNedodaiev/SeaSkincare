@@ -205,6 +205,20 @@ $my_vacations = array (
 
 );
 
+$remove_vacation = array (
+
+	'SUCCESS' => 'Відпочинок успішно видалено!',
+	'UNKNOWN' => 'Сталася невідома помилка'
+
+);
+
+$add_vacationRequest = array (
+
+	'SUCCESS' => 'Запит на відпочинок надіслано!',
+	'UNKNOWN' => 'Сталася невідома помилка'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -223,7 +237,9 @@ return array (
 	'skin_problems' => $skin_problems,
 	'add_skin_problem' => $add_skin_problem,
 	'remove_skin_problem' => $remove_skin_problem,
-	'my_vacations' => $my_vacations
+	'my_vacations' => $my_vacations,
+	'remove_vacation' => $remove_vacation,
+	'add_vacationRequest' => $add_vacationRequest
 
 );
 
