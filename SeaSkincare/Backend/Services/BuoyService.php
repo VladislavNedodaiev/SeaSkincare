@@ -151,7 +151,7 @@ class BuoyService
 		$offsetQuery = " OFFSET ".$offset;
 		
 		
-		$query = $selectQuery.$fromQuery.$whereQuery.$limitQuery.$offsetQuery";";
+		$query = $selectQuery.$fromQuery.$whereQuery.$limitQuery.$offsetQuery.";";
 		
 		if ($result = $this->database->query($query)) {
 			
