@@ -4,7 +4,7 @@
 			<div class="row">
 				<div class="col-8 my-auto"><?php echo getLocalString('my_vacations', 'my_pending_vacationRequests_title'); ?></div>
 				<div class="col-4 text-right my-auto">
-					<?php if (isset($_GET['businessID']) && ($my_pending_vacationRequests || empty($my_pending_vacationRequests))) { ?>
+					<?php if (isset($_GET['businessID']) && (!$my_pending_vacationRequests || empty($my_pending_vacationRequests))) { ?>
 						<a href="#" data-toggle="modal" data-target="#formModal" onclick="addPendingVacationRequest(<?php echo $_GET['businessID']; ?>)" id="addPendingVacationRequest<?php echo $_GET['businessID']; ?>"><i class="text-success fas fa-plus"></i> <?php echo getLocalString('my_vacations', 'add_pending_vacationRequest'); ?></a>
 					<?php } ?>
 				</div>
