@@ -196,11 +196,11 @@ class BusinessService
 		
 		if ($search && !empty($search)) {
 		
-			$likeQuery = " WHERE";
+			$likeQuery = " WHERE 1=1";
 		
 			foreach ($search as $key => &$value) {
 			
-				$likeQuery .= " `".self::DB_TABLE."`.`".$key."`";
+				$likeQuery .= " AND `".self::DB_TABLE."`.`".$key."`";
 				$likeQuery .= " LIKE ";
 				$likeQuery .= "'".$value."'";
 			
@@ -254,11 +254,11 @@ class BusinessService
 		
 		if ($search && !empty($search)) {
 		
-			$likeQuery = " WHERE";
+			$likeQuery = " WHERE 1=1";
 		
 			foreach ($search as $key => &$value) {
 			
-				$likeQuery .= " `".self::DB_TABLE."`.`".$key."`";
+				$likeQuery .= " AND `".self::DB_TABLE."`.`".$key."`";
 				$likeQuery .= " LIKE ";
 				$likeQuery .= "'".$value."'";
 			

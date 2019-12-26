@@ -19,7 +19,10 @@ class BuoyController
 	public $INCORRECT_FABRICATIONDATE;
 	public $NO_SERIALNUMBER;
 	public $NO_PASSWORD;
-	
+	public $NO_DATE;
+	public $INCORRECT_DATE;
+	public $NO_OFFSET;
+	public $NO_LIMIT;
 	
 	public function __construct() {
 	
@@ -29,6 +32,10 @@ class BuoyController
 		$this->INCORRECT_FABRICATIONDATE = new Response("INCORRECT_FABRICATIONDATE", null);
 		$this->NO_SERIALNUMBER = new Response("NO_SERIALNUMBER", null);
 		$this->NO_PASSWORD = new Response("NO_PASSWORD", null);
+		$this->NO_DATE = new Response("NO_DATE", null);
+		$this->INCORRECT_DATE = new Response("INCORRECT_DATE", null);
+		$this->NO_OFFSET = new Response("NO_OFFSET", null);
+		$this->NO_LIMIT = new Response("NO_LIMIT", null);
 	
 		$this->dataRep = new DataRepository;
 
@@ -79,6 +86,42 @@ class BuoyController
 			return $this->NO_BUOYID;
 		
 		return $this->buoyService->getBuoy($buoyID);
+		
+	}
+	
+	public function getFreeBuoys($someDate, $offset, $limit) {
+		
+		if (!isset($someDate))
+			return $this->NO_DATE;
+		
+		if (!isset($offset))
+			return $this->NO_OFFSET;
+		
+		if (!isset($limit))
+			return $this->NO_LIMIT;
+		
+		if (!((bool)(strtotime($someDate))))
+			return $this->INCORRECT_DATE;
+		
+		return $this->buoyService->getFreeBuoys($someDate, $offset, $limit);
+		
+	}
+	
+	public function getCount() {
+		
+		return $this->buoyService->getCount();
+		
+	}
+	
+	public function getCountFree($someDate) {
+		
+		if (!isset($someDate))
+			return $this->NO_DATE;
+		
+		if (!((bool)(strtotime($someDate))))
+			return $this->INCORRECT_DATE;
+		
+		return $this->buoyService->getCountFree($someDate);
 		
 	}
 	

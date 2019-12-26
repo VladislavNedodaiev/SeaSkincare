@@ -263,7 +263,7 @@ class SubscriptionService
 		if (!$this->database || $this->database->connect_errno)
 			return new Response($this->DB_ERROR->status, 0);
 		
-		if ($result = $this->database->query("SELECT COUNT(`S1`.`subscription_id`) AS `count` From `".self::DB_TABLE."` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."' LIMIT ".$limit." OFFSET ".$offset.";")) {
+		if ($result = $this->database->query("SELECT `S1`.* FROM `".self::DB_TABLE."` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."' LIMIT ".$limit." OFFSET ".$offset.";")) {
 			
 			$subscriptions = array();
 			
@@ -295,7 +295,7 @@ class SubscriptionService
 		if (!$this->database || $this->database->connect_errno)
 			return new Response($this->DB_ERROR->status, 0);
 		
-		if ($result = $this->database->query("SELECT COUNT(`S1`.`subscription_id`) AS `count` From `".self::DB_TABLE."` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."';")) {
+		if ($result = $this->database->query("SELECT COUNT(`S1`.`subscription_id`) AS `count` FROM `".self::DB_TABLE."` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				return new Response($this->SUCCESS->status, $res['count']);

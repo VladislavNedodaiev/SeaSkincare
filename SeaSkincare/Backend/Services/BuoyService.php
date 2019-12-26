@@ -139,6 +139,89 @@ class BuoyService
 		
 	}
 	
+	public function getFreeBuoys($someDate, $offset, $limit) {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return new Response($this->DB_ERROR->status, 0);
+		
+		$selectQuery = "SELECT `B1`.*";
+		$fromQuery = " FROM `".self::DB_TABLE."` AS `B1`";
+		$whereQuery = " WHERE `B1`.`buoy_id` NOT IN (SELECT `S1`.`buoy_id` FROM `".self::DB_TABLE."` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."')";
+		$limitQuery = " LIMIT ".$limit;
+		$offsetQuery = " OFFSET ".$offset;
+		
+		
+		$query = $selectQuery.$fromQuery.$whereQuery.$limitQuery.$offsetQuery";";
+		
+		if ($result = $this->database->query($query)) {
+			
+			$buoys = array();
+			
+			while ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				
+				$dto = new BuoyDTO;
+					
+				$dto->id = $res['buoy_id'];
+				$dto->fabricationDate = $res['fabrication_date'];
+				
+				array_push($buoys, $dto);
+				
+			}
+			
+			if (!empty($buoys))
+				return new Response($this->SUCCESS->status, $buoys);
+			
+		}
+		
+		return new Response($this->NOT_FOUND->status, 0);
+		
+	}
+	
+	public function getCount() {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return new Response($this->DB_ERROR->status, 0);
+		
+		$selectQuery = "SELECT COUNT(`B1`.`buoy_id`) AS `count`";
+		$fromQuery = " FROM `".self::DB_TABLE."` AS `B1`";
+		
+		$query = $selectQuery.$fromQuery.";";
+		
+		if ($result = $this->database->query($query)) {
+			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				
+				return new Response($this->SUCCESS->status, $res['count']);
+				
+			}
+		}
+		
+		return new Response($this->NOT_FOUND->status, 0);
+		
+	}
+	
+	public function getCountFree($someDate) {
+		
+		if (!$this->database || $this->database->connect_errno)
+			return new Response($this->DB_ERROR->status, 0);
+		
+		$selectQuery = "SELECT COUNT(`B1`.`buoy_id`) AS `count`";
+		$fromQuery = " FROM `".self::DB_TABLE."` AS `B1`";
+		$whereQuery = " WHERE `B1`.`buoy_id` NOT IN (SELECT `S1`.`buoy_id` FROM `".self::DB_TABLE."` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."')";
+		
+		$query = $selectQuery.$fromQuery.$whereQuery.";";
+		
+		if ($result = $this->database->query($query)) {
+			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				
+				return new Response($this->SUCCESS->status, $res['count']);
+				
+			}
+		}
+		
+		return new Response($this->NOT_FOUND->status, 0);
+		
+	}
+	
 	public function updateBuoy($dto) {
 		
 		
