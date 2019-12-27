@@ -5,7 +5,7 @@
 	<div class="col text-center">
 	<div class="card d-inline-block m-3" style="width: 18rem">
 
-		<a href="business.php?businessID=<?php echo $business->id; ?>">
+		<a href="business_profile.php?businessID=<?php echo $business->id; ?>">
 			<div class="card-header text-center">
 				<?php echo $business->nickname;?>
 			</div>
