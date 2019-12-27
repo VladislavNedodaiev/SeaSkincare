@@ -12,4 +12,6 @@
 		</a>
 	
 	<?php } ?>
+<?php } else { ?>
+	<div class="text-center m-2" style="width: 100%"><h4 class = "text-muted"><?php echo getLocalString('businesses', 'no_information'); ?></h4></div>
 <?php } ?>

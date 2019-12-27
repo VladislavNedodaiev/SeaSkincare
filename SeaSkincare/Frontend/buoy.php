@@ -100,19 +100,6 @@ function initMap() {
 	// The marker, positioned at Uluru
 	var marker = new google.maps.Marker({position: {lat:<?php echo $buoy['connection']->latitude; ?>, lng:<?php echo $buoy['connection']->longitude; ?>}, map: map});
 
-	/*map.addListener('click', function(e) {
-		placeMarkerAndPanTo(e.latLng, map);
-	});
-
-	function placeMarkerAndPanTo(latLng, map) {
-		var marker = new google.maps.Marker({
-			position: latLng,
-			map: map
-		});
-		
-		map.panTo(latLng);
-	}*/
-
 }
 
 </script>

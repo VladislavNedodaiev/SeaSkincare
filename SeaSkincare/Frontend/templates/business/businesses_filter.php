@@ -13,7 +13,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="filter_search_prepend"><i class="fas fa-search"></i></span>
 				</div>
-				<input type="text" value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>" class="form-control" id="search" name="search" aria-describedby="filter_search_prepend">
+				<input type="text" placeholder="<?php echo getLocalString('businesses', 'filter_search_placeholder'); ?>" value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>" class="form-control" id="search" name="search" aria-describedby="filter_search_prepend">
 			</div>
 		</div>
 		<div class="col-3 text-right my-auto">
