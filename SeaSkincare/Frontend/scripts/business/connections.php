@@ -7,7 +7,7 @@ if (!isset($businesses) || empty($businesses))
 $channel = curl_init();
 
 $api_url = '127.0.0.1/SeaSkincare/Backend/API/';
-$subscription_url = 'Subscription/GetByBusiness?';
+$subscription_url = 'Subscription/GetByBusiness.php?';
 $connection_url = 'Connection/GetLastByBuoy.php?';
 
 // Set so curl_exec returns the result instead of outputting it.
@@ -27,9 +27,9 @@ foreach ($businesses as $key => &$value) {
 	if (isset($response->status) && $response->status == 'SUCCESS') {
 		
 		$response = $response->content;
-		foreach ($response as &$value) {
-			if (!isset($subscriptions[$value->id]))
-				$subscriptions[$value->id] = $value;
+		foreach ($response as &$value2) {
+			if (!isset($subscriptions[$value2->id]))
+				$subscriptions[$value2->id] = $value2;
 		}
 			
 	}
@@ -47,10 +47,8 @@ foreach ($subscriptions as $key => &$value) {
 	if (isset($response->status) && $response->status == 'SUCCESS') {
 		
 		$response = $response->content;
-		foreach ($response as &$value) {
-			if (!isset($connections[$value->id]))
-				$connections[$value->id] = $value;
-		}
+		if (!isset($connections[$response->id]))
+			$connections[$response->id] = $response;
 			
 	}
 

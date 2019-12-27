@@ -12,8 +12,9 @@ function initMap() {
 
 	// The marker, positioned at Uluru
 	<?php foreach ($connections as $key => &$value) { ?> 
-	var marker = new google.maps.Marker({position: {lat:<?php echo $value->latitude; ?>, lng:<?php echo $value->longitude; ?>}, map: map, url: "buoy.php?buoyID=" + <?php $value->buoyID; ?>});
+	var marker = new google.maps.Marker({position: {lat:<?php echo $value->latitude; ?>, lng:<?php echo $value->longitude; ?>}, map: map, url: "buoy.php?buoyID=" + <?php echo $value->buoyID; ?>});
 	<?php } ?>
+	
 
 }
 
