@@ -28,35 +28,21 @@ if (!$buoy) {
 <article class="card-body mx-auto">
 	<div class="card" style="width: 70rem;">
 		<div class="card-header">
-			<div class="row">
-			
-				<div class="col-6 my-auto"><?php echo $account->nickname; ?></div>
-				<div class="col text-right my-auto">
-					<?php if (isset ($_SESSION['profile']) && $account == $_SESSION['profile']) { ?>
-						<div class="col text-right my-auto"><a href="edit_business_profile.php"><i class="fas fa-pencil-alt"></i></a></div>
-					<?php } else { ?>
-						<a href="business_subscriptions.php?businessID=<?php echo $account->id; ?>"><button type="button" class="btn btn-primary"><?php echo getLocalString('business_profile', 'show_devices'); ?></button></a>
-						<?php if (isset($_SESSION['profile_type']) && !$_SESSION['profile_type']) { ?>
-							<a href="my_vacations.php?businessID=<?php echo $account->id; ?>"><button type="button" class="btn btn-primary"><?php echo getLocalString('business_profile', 'show_vacations'); ?></button></a>
-						<?php
-						} ?>
-					<?php
-					} ?>
-				</div>
-			</div>
+			<div class="my-auto"><?php echo getLocalString('buoy', 'device_title'); ?> #<?php echo $buoy['buoy']->id; ?></div>
 		</div>
 		
 		<div class="card-body">
 			<div class="row">
+				<?php if (isset($buoy['connection'])) { ?>
 				<div class="col-3 border-right">
-					<div class="card">
-						<img class="card-img-top" src="<?php if ($account->photo && file_exists($account->photo)) echo $account->photo; else echo "images/businesses/default.jpg" ?>" alt="<?php echo $account->nickname; ?>">
+				<div class="card" style="width:100%">
+					<div class="card-img-top" id="map" style="width:100%; height:12rem"></div>
 						
-						<div class="card-header text-center">
-							<i class="far fa-calendar-alt"></i><small class = "text-muted"> <?php echo getLocalString('business_profile', 'register_date'); ?>: <?php echo substr($account->registerDate, 0, 10); ?> </small>
-						</div>
+					<div class="card-header text-center">
+						<i class="far fa-calendar-alt"></i><small class = "text-muted"> <?php echo getLocalString('buoy', 'connection_date'); ?>: <?php echo $buoy['connection']->connectionDate; ?> </small>
 					</div>
 				</div>
+				<?php } ?>
 				
 				<div class="col">
 					<div class="row m-2 border-bottom">
@@ -82,5 +68,38 @@ if (!$buoy) {
 		</div>
 	</div>
 </article>
+
+<?php if (isset($buoy['connection'])) { ?>
+<script>
+
+// Initialize and add the map
+function initMap() {
+	
+	// The location of Uluru
+	var map = new google.maps.Map(
+	document.getElementById('map'), {zoom: 8, center: {lat:<?php echo $buoy['connection']->latitude; ?>, lng:<?php echo $buoy['connection']->longitude; ?>}});
+	// The map, centered at Uluru
+
+	// The marker, positioned at Uluru
+	var marker = new google.maps.Marker({position: {lat:<?php echo $buoy['connection']->latitude; ?>, lng:<?php echo $buoy['connection']->longitude; ?>}, map: map});
+
+	/*map.addListener('click', function(e) {
+		placeMarkerAndPanTo(e.latLng, map);
+	});
+
+	function placeMarkerAndPanTo(latLng, map) {
+		var marker = new google.maps.Marker({
+			position: latLng,
+			map: map
+		});
+		
+		map.panTo(latLng);
+	}*/
+
+}
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbasOSQ5BTWpi9m27uwi-eacxKchXHSBM&callback=initMap" async defer></script>
+<?php } ?>
 
 <?php require "templates/footer.php"; ?>
