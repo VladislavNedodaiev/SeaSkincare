@@ -76,53 +76,52 @@ if (isset($response->status) && $response->status == 'SUCCESS') {
 					
 				}
 				
+				// getting connection info
+				$connection_url = "Connection/GetLastByBuoy.php?";
+				$url = $api_url.$connection_url.$buoyID_url;
+				curl_setopt($channel, CURLOPT_URL, $url);
+				$response = curl_exec($channel);
+
+				$response = json_decode($response);
+				if (isset($response->status) && $response->status == 'SUCCESS') {
+					$buoy['connection'] = $response->content;
+				}
+				
 				// get connection, air, water and weather data if has access
 				if ($hasAccess) {
 					
-					// getting connection info
-					$connection_url = "Connection/GetLastByBuoy.php?";
-					$url = $api_url.$connection_url.$buoyID_url;
+					// getting air info
+					$air_url = "Air/Get.php?";
+					$connectionID_url = "connectionID=".$buoy['connection']->id;
+					$url = $api_url.$air_url.$connectionID_url;
 					curl_setopt($channel, CURLOPT_URL, $url);
 					$response = curl_exec($channel);
-
-					$response = json_decode($response);
-					if (isset($response->status) && $response->status == 'SUCCESS') {
-						$buoy['connection'] = $response->content;
-						
-						// getting air info
-						$air_url = "Air/Get.php?";
-						$connectionID_url = "connectionID=".$buoy['connection']->id;
-						$url = $api_url.$air_url.$connectionID_url;
-						curl_setopt($channel, CURLOPT_URL, $url);
-						$response = curl_exec($channel);
-						
-						$response = json_decode($response);
-						if (isset($response->status) && $response->status == 'SUCCESS')
-							$buoy['air'] = $response->content;
-						
-						// getting Water info
-						$water_url = "Water/Get.php?";
-						$connectionID_url = "connectionID=".$buoy['connection']->id;
-						$url = $api_url.$water_url.$connectionID_url;
-						curl_setopt($channel, CURLOPT_URL, $url);
-						$response = curl_exec($channel);
-						
-						$response = json_decode($response);
-						if (isset($response->status) && $response->status == 'SUCCESS')
-							$buoy['water'] = $response->content;
-						
-						// getting Weather info
-						$weather_url = "Weather/Get.php?";
-						$connectionID_url = "connectionID=".$buoy['connection']->id;
-						$url = $api_url.$weather_url.$connectionID_url;
-						curl_setopt($channel, CURLOPT_URL, $url);
-						$response = curl_exec($channel);
-						
-						$response = json_decode($response);
-						if (isset($response->status) && $response->status == 'SUCCESS')
-							$buoy['weather'] = $response->content;
 					
-					}
+					$response = json_decode($response);
+					if (isset($response->status) && $response->status == 'SUCCESS')
+						$buoy['air'] = $response->content;
+					
+					// getting Water info
+					$water_url = "Water/Get.php?";
+					$connectionID_url = "connectionID=".$buoy['connection']->id;
+					$url = $api_url.$water_url.$connectionID_url;
+					curl_setopt($channel, CURLOPT_URL, $url);
+					$response = curl_exec($channel);
+					
+					$response = json_decode($response);
+					if (isset($response->status) && $response->status == 'SUCCESS')
+						$buoy['water'] = $response->content;
+					
+					// getting Weather info
+					$weather_url = "Weather/Get.php?";
+					$connectionID_url = "connectionID=".$buoy['connection']->id;
+					$url = $api_url.$weather_url.$connectionID_url;
+					curl_setopt($channel, CURLOPT_URL, $url);
+					$response = curl_exec($channel);
+					
+					$response = json_decode($response);
+					if (isset($response->status) && $response->status == 'SUCCESS')
+						$buoy['weather'] = $response->content;
 					
 				}
 				

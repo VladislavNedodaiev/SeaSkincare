@@ -36,35 +36,52 @@ if (!$buoy) {
 				<?php if (isset($buoy['connection'])) { ?>
 				<div class="col-3 border-right">
 				<div class="card" style="width:100%">
+					<div class="card-header text-center">
+						<small class="text-center"><?php echo getLocalString('buoy', 'battery'); ?></small>
+						<div class="progress">
+							<div class="progress-bar progress-bar-striped <?php if ($buoy['connection']->battery/10 < 50) echo 'bg-danger'; else echo 'bg-success'; ?>" role="progressbar" style="width: <?php echo $buoy['connection']->battery/10; ?>%" aria-valuenow="<?php echo $buoy['connection']->battery/10; ?>" aria-valuemin="0" aria-valuemax="1000"></div>
+						</div>
+					</div>
 					<div class="card-img-top" id="map" style="width:100%; height:12rem"></div>
 						
 					<div class="card-header text-center">
-						<i class="far fa-calendar-alt"></i><small class = "text-muted"> <?php echo getLocalString('buoy', 'connection_date'); ?>: <?php echo $buoy['connection']->connectionDate; ?> </small>
+						<div><i class="far fa-calendar-alt"></i><small> <?php echo getLocalString('buoy', 'connection_date'); ?></div><div><?php echo $buoy['connection']->connectionDate; ?></div></small>
 					</div>
+				</div>
 				</div>
 				<?php } ?>
 				
 				<div class="col">
 					<div class="row m-2 border-bottom">
-						<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-envelope"></i> <?php echo getLocalString('business_profile', 'email'); ?>: </h4></div>
-						<div class="col my-auto"><h4><?php echo $account->email; ?></h4></div>
-					</div>
-					<div class="row m-2 border-bottom">
-						<div class="col-5 my-auto"><h4 class = "text-muted"><i class="fas fa-phone"></i> <?php echo getLocalString('business_profile', 'phone'); ?>: </h4></div>
-						<?php if ($account->phoneNumber) { ?>
-						<div class="col my-auto"><h4><?php echo $account->phoneNumber; ?></h4></div>
+						<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-building"></i> <?php echo getLocalString('buoy', 'owner'); ?>: </h4></div>
+						<?php if (isset($buoy['business'])) { ?>
+						<div class="col-7 my-auto"><h4><a href="business.php?businessID=<?php echo $buoy['business']->id; ?>"><?php echo $buoy['business']->nickname; ?></a></h4></div>
 						<?php } else { ?>
-						<div class="col my-auto"><h4 class = "text-muted"><i><?php echo getLocalString('business_profile', 'no_information'); ?></i></h4></div>
+						<div class="col-7 my-auto"><h4><?php echo getLocalString('buoy', 'no_information'); ?></h4></div>
 						<?php } ?>
 					</div>
+					<div class="row m-2 border-bottom">
+						<div class="col-5 my-auto"><h4 class = "text-muted"><i class="fas fa-cubes"></i> <?php echo getLocalString('buoy', 'fabrication_date'); ?>: </h4></div>
+						<div class="col-7 my-auto"><h4><?php echo substr($buoy['buoy']->fabricationDate, 0, 10); ?></h4></div>
+					</div>
+					<?php if (isset($buoy['connection'])) { ?>
+					
+						<div class="row m-2 border-bottom">
+							<div class="col-5 my-auto"><h4 class = "text-muted"><i class="fas fa-map-marker-alt"></i> <?php echo getLocalString('buoy', 'latitude'); ?>: </h4></div>
+							<div class="col-7 my-auto"><h4><?php echo $buoy['connection']->latitude; ?></h4></div>
+						</div>
+						<div class="row m-2 border-bottom">
+							<div class="col-5 my-auto"><h4 class = "text-muted"><i class="fas fa-map-marker-alt"></i> <?php echo getLocalString('buoy', 'longitude'); ?>: </h4></div>
+							<div class="col-7 my-auto"><h4><?php echo $buoy['connection']->longitude; ?></h4></div>
+						</div>					
+					<?php } ?>
 				</div>
 			</div>
-			<h3 class = "text-center m-2"><?php echo getLocalString('business_profile', 'description'); ?></h3>
-			<?php if (!$account->description) { ?>
-				<h4 class = "text-center text-muted m-2"><i><?php echo getLocalString('business_profile', 'no_information'); ?></i></h4>
-			<?php } else { ?>
-				<h4 class = "m-2"><?php echo $account->description; ?></h4>
-			<?php } ?>
+			
+			<?php include 'templates/buoy/air.php'; ?>
+			<?php include 'templates/buoy/water.php'; ?>
+			<?php include 'templates/buoy/weather.php'; ?>
+			
 		</div>
 	</div>
 </article>
