@@ -268,6 +268,30 @@ $edit_subscription = array (
 
 );
 
+$buoy = array (
+
+	'device_title' => 'Device',
+	'battery' => 'Battery level',
+	'connection_date' => 'Last connected on',
+	'owner' => 'Owner',
+	'no_information' => 'No information',
+	'fabrication_date' => 'Date of fabrication',
+	'latitude' => 'Latitude',
+	'longitude' => 'Longitude',
+	'air_title' => 'Air data',
+	'temperature' => 'Temperature',
+	'bad' => 'Bad',
+	'good' => 'Good',
+	'air_pollution' => 'Air pollution',
+	'water_title' => 'Water data',
+	'water_pH' => 'Level of pH',
+	'water_component' => 'Component',
+	'water_content' => 'Water content',
+	'weather_title' => 'Weather data',
+	'weather_wind_speed' => 'Wind speed'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -293,7 +317,8 @@ return array (
 	'business_subscriptions' => $business_subscriptions,
 	'remove_subscription' => $remove_subscription,
 	'add_subscription' => $add_subscription,
-	'edit_subscription' => $edit_subscription
+	'edit_subscription' => $edit_subscription,
+	'buoy' => $buoy
 
 );
 

@@ -268,6 +268,30 @@ $edit_subscription = array (
 
 );
 
+$buoy = array (
+
+	'device_title' => 'Пристрій',
+	'battery' => 'Рівень заряду батареї',
+	'connection_date' => 'Останнє підключення',
+	'owner' => 'Власник',
+	'no_information' => 'Інформація відсутня',
+	'fabrication_date' => 'Дата виробництва',
+	'latitude' => 'Широта',
+	'longitude' => 'Довгота',
+	'air_title' => 'Дані про повітря',
+	'temperature' => 'Температура',
+	'bad' => 'Погано',
+	'good' => 'Добре',
+	'air_pollution' => 'Забрудненість повітря',
+	'water_title' => 'Дані про воду',
+	'water_pH' => 'Рівень pH',
+	'water_component' => 'Компонент',
+	'water_content' => 'Склад води',
+	'weather_title' => 'Дані про погоду',
+	'weather_wind_speed' => 'Швидкість вітру'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -293,7 +317,8 @@ return array (
 	'business_subscriptions' => $business_subscriptions,
 	'remove_subscription' => $remove_subscription,
 	'add_subscription' => $add_subscription,
-	'edit_subscription' => $edit_subscription
+	'edit_subscription' => $edit_subscription,
+	'buoy' => $buoy
 
 );
 
