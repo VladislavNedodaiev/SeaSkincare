@@ -292,6 +292,15 @@ $buoy = array (
 
 );
 
+$businesses = array (
+
+	'filter_title' => 'Filtration',
+	'filter_active_check' => 'Only with active devices',
+	'filter_search_placeholder' => 'Enter to search',
+	'filter_submit' => 'Apply settings'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -318,8 +327,9 @@ return array (
 	'remove_subscription' => $remove_subscription,
 	'add_subscription' => $add_subscription,
 	'edit_subscription' => $edit_subscription,
-	'buoy' => $buoy
-
+	'buoy' => $buoy,
+	'businesses' => $businesses
+	
 );
 
 ?>

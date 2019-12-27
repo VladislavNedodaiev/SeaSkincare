@@ -3,6 +3,12 @@
 <nav class="navbar navbar-light bg-light justify-content-center">
 <div class="pagination">
 	<?php
+	$per_page = 9;
+	$count = count($businesses);
+	if (isset($_GET['page']))
+		$page = $_GET['page'];
+	else
+		$page = 0;
 	$pages['current']=$page;
 	if ($page > 0) {
 		$pages['first']=0;

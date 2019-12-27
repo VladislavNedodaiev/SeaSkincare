@@ -292,6 +292,15 @@ $buoy = array (
 
 );
 
+$businesses = array (
+
+	'filter_title' => 'Фільтрація',
+	'filter_active_check' => 'Тільки з активними пристроями',
+	'filter_search_placeholder' => 'Введіть для пошуку',
+	'filter_submit' => 'Застосувати'
+
+);
+
 return array (
 
 	'header' => $header,
@@ -318,8 +327,9 @@ return array (
 	'remove_subscription' => $remove_subscription,
 	'add_subscription' => $add_subscription,
 	'edit_subscription' => $edit_subscription,
-	'buoy' => $buoy
-
+	'buoy' => $buoy,
+	'businesses' => $businesses
+	
 );
 
 ?>
