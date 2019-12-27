@@ -173,9 +173,13 @@ class BusinessController
 		$businesses = array();
 		
 		if ($subscriptions) {
-			foreach ($subscriptions as $key => &$value) {
+			foreach ($subscriptions as &$value) {
 			
-				array_push($businesses, $this->getBusiness($value->businessID));
+				if (!isset($businesses[$value->businessID])) {
+					$business = $this->getBusiness($value->businessID);
+					if ($business->status == $this->SUCCESS->status)
+						$businesses[$value->businessID]=$business->content;
+				}
 			
 			}
 		}
