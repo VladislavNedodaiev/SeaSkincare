@@ -55,7 +55,7 @@ if (!$buoy) {
 					<div class="row m-2 border-bottom">
 						<div class="col-5 my-auto"><h4 class = "text-muted"><i class="far fa-building"></i> <?php echo getLocalString('buoy', 'owner'); ?>: </h4></div>
 						<?php if (isset($buoy['business'])) { ?>
-						<div class="col-7 my-auto"><h4><a href="business.php?businessID=<?php echo $buoy['business']->id; ?>"><?php echo $buoy['business']->nickname; ?></a></h4></div>
+						<div class="col-7 my-auto"><h4><a href="business_profile.php?businessID=<?php echo $buoy['business']->id; ?>"><?php echo $buoy['business']->nickname; ?></a></h4></div>
 						<?php } else { ?>
 						<div class="col-7 my-auto"><h4><?php echo getLocalString('buoy', 'no_information'); ?></h4></div>
 						<?php } ?>
