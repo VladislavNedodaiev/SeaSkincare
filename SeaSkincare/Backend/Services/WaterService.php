@@ -85,7 +85,7 @@ class WaterService
 				$dto->CaSO4 = $res['CaSO4'];
 				$dto->NaBr = $res['NaBr'];
 				
-				return new Response($this->DB_ERROR->status, $dto);
+				return new Response($this->SUCCESS->status, $dto);
 				
 			}
 		}
