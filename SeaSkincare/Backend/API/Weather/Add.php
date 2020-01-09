@@ -4,6 +4,7 @@ namespace SeaSkincare\Backend\API\Weather;
 include_once '../../Includes/CommonInclude.php';
 include_once '../../Includes/WeatherInclude.php';
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Controllers\WeatherController;
 use SeaSkincare\Backend\Communication\Response;
 

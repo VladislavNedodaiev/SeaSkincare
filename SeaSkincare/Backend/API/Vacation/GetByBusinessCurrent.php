@@ -10,6 +10,7 @@ include_once '../../DTOs/BusinessDTO.php';
 include_once '../../Services/BusinessService.php';
 include_once '../../Controllers/BusinessController.php';
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Controllers\VacationController;
 use SeaSkincare\Backend\Controllers\BusinessController;
 use SeaSkincare\Backend\Communication\Response;

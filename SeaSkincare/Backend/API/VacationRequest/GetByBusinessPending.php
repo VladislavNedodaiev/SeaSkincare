@@ -6,6 +6,7 @@ include_once '../../Includes/SubscriptionInclude.php';
 include_once '../../Includes/BusinessInclude.php';
 include_once '../../Includes/VacationRequestInclude.php';
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Controllers\VacationRequestController;
 use SeaSkincare\Backend\Controllers\BusinessController;
 use SeaSkincare\Backend\Communication\Response;

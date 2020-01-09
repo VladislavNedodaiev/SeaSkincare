@@ -2,15 +2,16 @@
 
 namespace SeaSkincare\Backend\Controllers;
 
+use SeaSkincare\Backend\Controllers\Controller;
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Data\DataRepository;
 use SeaSkincare\Backend\DTOs\WeatherDTO;
 use SeaSkincare\Backend\Services\WeatherService;
 use SeaSkincare\Backend\Communication\Response;
 
-class WeatherController
+class WeatherController extends Controller
 {
 	
-	private $dataRep;
 	private $weatherService;
 	
 	public $SUCCESS;
@@ -21,19 +22,20 @@ class WeatherController
 	
 	public function __construct() {
 	
+		parent::__construct();
+	
 		$this->SUCCESS = new Response("SUCCESS", null);
 		$this->NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
 		$this->NO_SUNPOWER = new Response("NO_SUNPOWER", null);
 		$this->NO_WINDSPEED = new Response("NO_WINDSPEED", null);
-		
-		$this->dataRep = new DataRepository;
 
 		$this->weatherService = new WeatherService(
 
 			$this->dataRep->getHost(),
 			$this->dataRep->getUser(),
 			$this->dataRep->getPassword(),
-			$this->dataRep->getDatabase()
+			$this->dataRep->getDatabase(),
+			$this->logService
 
 		);
 	
@@ -41,59 +43,67 @@ class WeatherController
 	
 	public function createWeather($connectionID, $sunPower, $windSpeed) {
 		
+		$this->logService->logMessage("WeatherController CreateWeather");
+		
 		if (!isset($connectionID))
-			return $this->NO_CONNECTIONID;
+			return $this->logResponse($this->NO_CONNECTIONID);
 		
 		if (!isset($sunPower))
-			return $this->NO_TEMPERATURE;
+			return $this->logResponse($this->NO_SUNPOWER);
 		
 		if (!isset($windSpeed))
-			return $this->NO_POLLUTION;
+			return $this->logResponse($this->NO_WINDSPEED);
 		
 		$dto = new WeatherDTO;
 		$dto->id = $connectionID;
 		$dto->sunPower = $sunPower;
 		$dto->windSpeed = $windSpeed;
 		
-		return $this->weatherService->createWeather($dto);
+		return $this->logResponse($this->weatherService->createWeather($dto));
 		
 	}
 	
 	public function getWeather($weatherID) {
 		
-		if (!isset($weatherID))
-			return $this->NO_CONNECTIONID;
+		$this->logService->logMessage("WeatherController GetWeather");
 		
-		return $this->weatherService->getWeather($weatherID);
+		if (!isset($weatherID))
+			return $this->logResponse($this->NO_CONNECTIONID);
+		
+		return $this->logResponse($this->weatherService->getWeather($weatherID));
 		
 	}
 	
 	public function editWeather($connectionID, $temperature, $pollution) {
 	
+		$this->logService->logMessage("WeatherController EditWeather");
+		
 		if (!isset($connectionID))
-			return $this->NO_CONNECTIONID;
+			return $this->logResponse($this->NO_CONNECTIONID);
 		
 		if (!isset($sunPower))
-			return $this->NO_TEMPERATURE;
+			return $this->logResponse($this->NO_SUNPOWER);
 		
 		if (!isset($windSpeed))
-			return $this->NO_POLLUTION;
+			return $this->logResponse($this->NO_WINDSPEED);
 		
 		$dto = new WeatherDTO;
 		$dto->id = $connectionID;
 		$dto->sunPower = $sunPower;
 		$dto->windSpeed = $windSpeed;
 		
-		return $this->weatherService->updateWeather($dto);
+		return $this->logResponse($this->weatherService->updateWeather($dto));
 	
 	}
 	
 	public function deleteWeather($weatherID) {
 	
+		$this->logService->logMessage("WeatherController DeleteWeather");
+	
 		if (!isset($weatherID))
-			return $this->NO_CONNECTIONID;
+			return $this->logResponse($this->NO_CONNECTIONID);
 		
-		return $this->weatherService->deleteWeather($weatherID);
+		return $this->logResponse($this->weatherService->deleteWeather($weatherID));
 	
 	}
 	

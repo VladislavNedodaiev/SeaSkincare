@@ -4,6 +4,7 @@ namespace SeaSkincare\Backend\API\Water;
 include_once '../../Includes/CommonInclude.php';
 include_once '../../Includes/WaterInclude.php';
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Controllers\WaterController;
 use SeaSkincare\Backend\Communication\Response;
 

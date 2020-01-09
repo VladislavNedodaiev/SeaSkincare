@@ -4,6 +4,7 @@ namespace SeaSkincare\Backend\API\Buoy;
 include_once '../../Includes/CommonInclude.php';
 include_once '../../Includes/BuoyInclude.php';
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Controllers\BuoyController;
 use SeaSkincare\Backend\Communication\Response;
 

@@ -4,6 +4,7 @@ namespace SeaSkincare\Backend\API\VacationRequest;
 include_once '../../Includes/CommonInclude.php';
 include_once '../../Includes/VacationRequestInclude.php';
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Controllers\VacationRequestController;
 use SeaSkincare\Backend\Communication\Response;
 

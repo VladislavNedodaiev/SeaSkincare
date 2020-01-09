@@ -8,6 +8,7 @@ include_once '../../Includes/UserInclude.php';
 include_once '../../Includes/SubscriptionInclude.php';
 include_once '../../Includes/BusinessInclude.php';
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Controllers\UserController;
 use SeaSkincare\Backend\Controllers\BusinessController;
 use SeaSkincare\Backend\Communication\Response;

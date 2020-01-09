@@ -8,6 +8,7 @@ include_once '../../Includes/WeatherInclude.php';
 include_once '../../Includes/ConnectionInclude.php';
 include_once '../../Includes/BuoyInclude.php';
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Controllers\BuoyController;
 use SeaSkincare\Backend\Controllers\ConnectionController;
 use SeaSkincare\Backend\Controllers\AirController;

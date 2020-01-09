@@ -4,6 +4,7 @@ namespace SeaSkincare\Backend\API\SkinProblem;
 include_once '../../Includes/CommonInclude.php';
 include_once '../../Includes/SkinProblemInclude.php';
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Controllers\SkinProblemController;
 use SeaSkincare\Backend\Communication\Response;
 

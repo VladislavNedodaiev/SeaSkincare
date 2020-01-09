@@ -4,6 +4,7 @@ namespace SeaSkincare\Backend\API\Subscription;
 include_once '../../Includes/CommonInclude.php';
 include_once '../../Includes/SubscriptionInclude.php';
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Controllers\SubscriptionController;
 use SeaSkincare\Backend\Communication\Response;
 

@@ -4,6 +4,7 @@ namespace SeaSkincare\Backend\API\Air;
 include_once '../../Includes/CommonInclude.php';
 include_once '../../Includes/AirInclude.php';
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Controllers\AirController;
 use SeaSkincare\Backend\Communication\Response;
 

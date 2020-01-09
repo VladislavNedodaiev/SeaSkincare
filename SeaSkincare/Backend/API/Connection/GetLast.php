@@ -4,6 +4,7 @@ namespace SeaSkincare\Backend\API\Connection;
 include_once '../../Includes/CommonInclude.php';
 include_once '../../Includes/ConnectionInclude.php';
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Controllers\ConnectionController;
 use SeaSkincare\Backend\Communication\Response;
 

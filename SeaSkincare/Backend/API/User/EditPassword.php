@@ -6,6 +6,7 @@ include_once '../../Includes/UserProblemInclude.php';
 include_once '../../Includes/SkinProblemInclude.php';
 include_once '../../Includes/UserInclude.php';
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Controllers\UserController;
 use SeaSkincare\Backend\Communication\Response;
 

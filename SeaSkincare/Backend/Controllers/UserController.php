@@ -2,6 +2,8 @@
 
 namespace SeaSkincare\Backend\Controllers;
 
+use SeaSkincare\Backend\Controllers\Controller;
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Data\DataRepository;
 use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\DTOs\UserDTO;
@@ -14,9 +16,9 @@ use SeaSkincare\Backend\Controllers\UserProblemController;
 use SeaSkincare\Backend\DTOs\SkinProblemDTO;
 use SeaSkincare\Backend\Controllers\SkinProblemController;
 
-class UserController {
+class UserController extends Controller
+{
 	
-	private $dataRep;
 	private $mailService;
 	private $userService;
 	
@@ -42,6 +44,8 @@ class UserController {
 	
 	public function __construct() {
 		
+		parent::__construct();
+		
 		$this->NO_EMAIL = new Response("NO_EMAIL", null);
 		$this->INCORRECT_EMAIL = new Response("INCORRECT_EMAIL", null);
 		$this->NO_PASSWORD = new Response("NO_PASSWORD", null);
@@ -58,8 +62,6 @@ class UserController {
 		$this->SUCCESS = new Response("SUCCESS", null);
 		$this->NO_OLD_PASSWORD = new Response("NO_OLD_PASSWORD", null);
 		$this->NO_NEW_PASSWORD = new Response("NO_NEW_PASSWORD", null);
-		
-		$this->dataRep = new DataRepository;
 
 		$this->mailService = new MailService($_SERVER['HTTP_HOST']);
 
@@ -69,7 +71,8 @@ class UserController {
 			$this->dataRep->getUser(),
 			$this->dataRep->getPassword(),
 			$this->dataRep->getDatabase(),
-			$this->mailService
+			$this->mailService,
+			$this->logService
 
 		);
 		
@@ -80,70 +83,80 @@ class UserController {
 	
 	public function login($email, $password) {
 		
+		$this->logService->logMessage("UserController Login");
+		
 		if (!isset($email))
-			return $this->NO_EMAIL;
+			return $this->logResponse($this->NO_EMAIL);
 		
 		if (!isset($password))
-			return $this->NO_PASSWORD;
+			return $this->logResponse($this->NO_PASSWORD);
 		
-		return $this->userService->login($email, $password);
+		return $this->logResponse($this->userService->login($email, $password));
 		
 	}
 	
 	// registering user
 	public function register($email, $password, $repeat_password, $nickname) {
 		
+		$this->logService->logMessage("UserController Register");
+		
 		if (!isset($email))
-			return $this->NO_EMAIL;
+			return $this->logResponse($this->NO_EMAIL);
 		
 		if (!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $email))
 			return $this->INCORRECT_EMAIL;
 		
 		if (!isset($password))
-			return $this->NO_PASSWORD;
+			return $this->logResponse($this->NO_PASSWORD);
 		
 		if (!isset($repeat_password))
-			return $this->NO_REPEAT_PASSWORD;
+			return $this->logResponse($this->NO_REPEAT_PASSWORD);
 		
 		if ($password != $repeat_password)
-			return $this->DIFFERENT_PASSWORDS;
+			return $this->logResponse($this->DIFFERENT_PASSWORDS);
 		
 		if (!isset($nickname))
-			return $this->NO_NICKNAME;
+			return $this->logResponse($this->NO_NICKNAME);
 		
-		return $this->userService->register($email, $password, $nickname);
+		return $this->logResponse($this->userService->register($email, $password, $nickname));
 		
 	}
 	
 	// verifying user
 	public function verify($userID, $verification) {
 	
+		$this->logService->logMessage("UserController Verify");
+	
 		if (!isset($userID))
-			return $this->NO_USERID;
+			return $this->logResponse($this->NO_USERID);
 		
 		if (!isset($verification))
-			return $this->NO_VERIFICATION;
+			return $this->logResponse($this->NO_VERIFICATION);
 		
-		return $this->userService->verify($userID, $verification);
+		return $this->logResponse($this->userService->verify($userID, $verification));
 	
 	}
 	
 	// getting public data of user by id from database
 	public function getUser($userID) {
 		
-		if (!isset($userID))
-			return $this->NO_USERID;
+		$this->logService->logMessage("UserController GetUser");
 		
-		return $this->userService->getUser($userID);
+		if (!isset($userID))
+			return $this->logResponse($this->NO_USERID);
+		
+		return $this->logResponse($this->userService->getUser($userID));
 		
 	}
 	
 	public function getAverageSkinProblem($userID) {
 		
+		$this->logService->logMessage("UserController GetAverageSkinProblem");
+		
 		$userProblems = $this->userProblemController->getUserProblemsByUserID($userID);
 		
 		if ($userProblems->status != UserProblemController::SUCCESS)
-			return $userProblems;
+			return $this->logResponse($userProblems);
 		
 		$userProblems = $userProblems->content;
 		foreach ($userProblems as $key => &$value) {
@@ -152,29 +165,31 @@ class UserController {
 		
 		}
 		
-		return $this->skinProblemController->getAverageSkinProblem($userProblems);
+		return $this->logResponse($this->skinProblemController->getAverageSkinProblem($userProblems));
 		
 	}
 	
 	public function editUser($userID, $nickname, $name, $gender, $phoneNumber) {
 	
+		$this->logService->logMessage("UserController EditUser");
+	
 		if (!isset($userID))
-			return $this->NO_USERID;
+			return $this->logResponse($this->NO_USERID);
 		
 		if (!isset($nickname))
-			return $this->NO_NICKNAME;
+			return $this->logResponse($this->NO_NICKNAME);
 		
 		if (!isset($name))
-			return $this->NO_NAME;
+			return $this->logResponse($this->NO_NAME);
 		
 		if (!isset($gender))
-			return $this->NO_GENDER;
+			return $this->logResponse($this->NO_GENDER);
 		
 		if ($gender != -1 && $gender != 0 && $gender != 1)
-			return $this->WRONG_GENDER;
+			return $this->logResponse($this->WRONG_GENDER);
 		
 		if (!isset($phoneNumber))
-			return $this->NO_PHONENUMBER;
+			return $this->logResponse($this->NO_PHONENUMBER);
 		
 		$dto = new UserDTO;
 		$dto->id = $userID;
@@ -183,22 +198,24 @@ class UserController {
 		$dto->gender = $gender;
 		$dto->phoneNumber = $phoneNumber;
 		
-		return $this->userService->updateUser($dto);
+		return $this->logResponse($this->userService->updateUser($dto));
 	
 	}
 	
 	public function editPassword($userID, $oldPassword, $newPassword) {
 	
+		$this->logService->logMessage("UserController EditPassword");
+	
 		if (!isset($userID))
-			return $this->NO_USERID;
+			return $this->logResponse($this->NO_USERID);
 		
 		if (!isset($oldPassword))
-			return $this->NO_OLD_PASSWORD;
+			return $this->logResponse($this->NO_OLD_PASSWORD);
 		
 		if (!isset($newPassword))
-			return $this->NO_NEW_PASSWORD;
+			return $this->logResponse($this->NO_NEW_PASSWORD);
 		
-		return $this->userService->updatePassword($userID, $oldPassword, $newPassword);
+		return $this->logResponse($this->userService->updatePassword($userID, $oldPassword, $newPassword));
 	
 	}
 	
