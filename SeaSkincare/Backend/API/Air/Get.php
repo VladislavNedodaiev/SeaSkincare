@@ -11,7 +11,7 @@ header('Content-Type: text/html; charset=utf-8');
 session_start();
 
 $logService = new LogService;
-$logService->logMessage("AIR GET ".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+$logService->logMessage($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 
 $airController = new AirController;
 
