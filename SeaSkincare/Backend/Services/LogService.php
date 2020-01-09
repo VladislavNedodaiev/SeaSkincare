@@ -23,20 +23,20 @@ class LogService
 	// print message
 	public function logMessage($message) {
 		
-		if (file_put_contents($loggerPath, date('d.m.Y H:i:s ').$message.PHP_EOL, FILE_APPEND))
-			return $SUCCESS;
+		if (file_put_contents($this->loggerPath, date('d.m.Y H:i:s ').$message.PHP_EOL, FILE_APPEND))
+			return $this->SUCCESS;
 		
-		return $LOG_ERROR;
+		return $this->LOG_ERROR;
 		
 	}
 	
 	// print response
 	public function logResponse($response) {
 	
-		if (file_put_contents($loggerPath, date('d.m.Y H:i:s ').json_encode($response).PHP_EOL, FILE_APPEND))
-			return $SUCCESS;
+		if (file_put_contents($this->loggerPath, date('d.m.Y H:i:s ').json_encode($response).PHP_EOL, FILE_APPEND))
+			return $this->SUCCESS;
 		
-		return $LOG_ERROR;
+		return $this->LOG_ERROR;
 	
 	}
 	
