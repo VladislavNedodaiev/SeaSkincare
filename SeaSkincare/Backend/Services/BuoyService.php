@@ -2,11 +2,12 @@
 
 namespace SeaSkincare\Backend\Services;
 
+use SeaSkincare\Backend\Services\Service;
 use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\DTOs\BuoyDTO;
 use SeaSkincare\Backend\Communication\Response;
 
-class BuoyService
+class BuoyService extends Service
 {
 	
 	private const DB_TABLE = "Buoy";

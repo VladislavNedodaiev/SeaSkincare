@@ -2,11 +2,12 @@
 
 namespace SeaSkincare\Backend\Services;
 
+use SeaSkincare\Backend\Services\Service;
 use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\DTOs\ConnectionDTO;
 use SeaSkincare\Backend\Communication\Response;
 
-class ConnectionService
+class ConnectionService extends Service
 {
 	
 	private const DB_TABLE = "Connection";

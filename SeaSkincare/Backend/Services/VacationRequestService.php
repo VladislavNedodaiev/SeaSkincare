@@ -2,11 +2,12 @@
 
 namespace SeaSkincare\Backend\Services;
 
+use SeaSkincare\Backend\Services\Service;
 use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\DTOs\VacationRequestDTO;
 use SeaSkincare\Backend\Communication\Response;
 
-class VacationRequestService
+class VacationRequestService extends Service
 {
 	
 	private const DB_TABLE = "Vacation_Request";
