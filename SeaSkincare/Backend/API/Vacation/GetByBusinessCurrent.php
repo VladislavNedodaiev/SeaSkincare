@@ -10,16 +10,12 @@ include_once '../../DTOs/BusinessDTO.php';
 include_once '../../Services/BusinessService.php';
 include_once '../../Controllers/BusinessController.php';
 
-use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Controllers\VacationController;
 use SeaSkincare\Backend\Controllers\BusinessController;
 use SeaSkincare\Backend\Communication\Response;
 
 header('Content-Type: text/html; charset=utf-8');
 session_start();
-
-$logService = new LogService;
-$logService->logMessage($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 
 $vacationController = new VacationController;
 $businessController = new BusinessController;
