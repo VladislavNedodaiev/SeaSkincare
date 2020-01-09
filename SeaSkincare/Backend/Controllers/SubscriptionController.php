@@ -2,15 +2,16 @@
 
 namespace SeaSkincare\Backend\Controllers;
 
+use SeaSkincare\Backend\Controllers\Controller;
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Data\DataRepository;
 use SeaSkincare\Backend\DTOs\SubscriptionDTO;
 use SeaSkincare\Backend\Services\SubscriptionService;
 use SeaSkincare\Backend\Communication\Response;
 
-class SubscriptionController
+class SubscriptionController extends Controller
 {
 	
-	private $dataRep;
 	private $subscriptionService;
 	
 	public $SUCCESS;
@@ -26,6 +27,8 @@ class SubscriptionController
 	
 	public function __construct() {
 		
+		parent::__construct();
+		
 		$this->SUCCESS = new Response("SUCCESS", null);
 		$this->NO_SUBSCRIPTIONID = new Response("NO_SUBSCRIPTIONID", null);
 		$this->NO_BUOYID = new Response("NO_BUOYID", null);
@@ -36,15 +39,14 @@ class SubscriptionController
 		$this->INCORRECT_FINISHDATE = new Response("NO_STARTDATE", null);
 		$this->NO_DATE = new Response("NO_DATE", null);
 		$this->INCORRECT_DATE = new Response("INCORRECT_DATE", null);
-		
-		$this->dataRep = new DataRepository;
 
 		$this->subscriptionService = new SubscriptionService(
 
 			$this->dataRep->getHost(),
 			$this->dataRep->getUser(),
 			$this->dataRep->getPassword(),
-			$this->dataRep->getDatabase()
+			$this->dataRep->getDatabase(),
+			$this->logService
 
 		);
 	
@@ -52,23 +54,25 @@ class SubscriptionController
 	
 	public function createSubscription($buoyID, $businessID, $startDate, $finishDate) {
 		
+		$this->logService->logMessage("SubscriptionController CreateSubscription");
+		
 		if (!isset($buoyID))
-			return $this->NO_BUOYID;
+			return $this->logResponse($this->NO_BUOYID);
 		
 		if (!isset($businessID))
-			return $this->NO_BUSINESSID;
+			return $this->logResponse($this->NO_BUSINESSID);
 		
 		if (!isset($startDate))
-			return $this->NO_STARTDATE;
+			return $this->logResponse($this->NO_STARTDATE);
 		
 		if (!isset($finishDate))
-			return $this->NO_FINISHDATE;
+			return $this->logResponse($this->NO_FINISHDATE);
 		
 		if (!((bool)(strtotime($startDate))))
-			return $this->INCORRECT_STARTDATE;
+			return $this->logResponse($this->INCORRECT_STARTDATE);
 		
 		if (!((bool)(strtotime($finishDate))))
-			return $this->INCORRECT_FINISHDATE;
+			return $this->logResponse($this->INCORRECT_FINISHDATE);
 		
 		$dto = new SubscriptionDTO;
 		$dto->buoyID = $buoyID;
@@ -76,90 +80,106 @@ class SubscriptionController
 		$dto->startDate = $startDate;
 		$dto->finishDate = $finishDate;
 		
-		return $this->subscriptionService->createSubscription($dto);
+		return $this->logResponse($this->subscriptionService->createSubscription($dto));
 		
 	}
 	
 	public function getSubscription($subscriptionID) {
 		
-		if (!isset($subscriptionID))
-			return $this->NO_SUBSCRIPTIONID;
+		$this->logService->logMessage("SubscriptionController GetSubscription");
 		
-		return $this->subscriptionService->getSubscription($subscriptionID);
+		if (!isset($subscriptionID))
+			return $this->logResponse($this->NO_SUBSCRIPTIONID);
+		
+		return $this->logResponse($this->subscriptionService->getSubscription($subscriptionID));
 		
 	}
 	
 	public function getSubscriptionsByIDs($buoyID, $businessID) {
 		
+		$this->logService->logMessage("SubscriptionController GetSubscriptionByIDs");
+		
 		if (!isset($buoyID))
-			return $this->NO_BUOYID;
+			return $this->logResponse($this->NO_BUOYID);
 		
 		if (!isset($businessID))
-			return $this->NO_BUSINESSID;
+			return $this->logResponse($this->NO_BUSINESSID);
 		
-		return $this->subscriptionService->getSubscriptionsByIDs($buoyID, $businessID);
+		return $this->logResponse($this->subscriptionService->getSubscriptionsByIDs($buoyID, $businessID));
 		
 	}
 	
 	public function getSubscriptionsByBuoyID($buoyID) {
 		
-		if (!isset($buoyID))
-			return $this->NO_BUOYID;
+		$this->logService->logMessage("SubscriptionController GetSubscriptionByBuoyID");
 		
-		return $this->subscriptionService->getSubscriptionsByBuoyID($buoyID);
+		if (!isset($buoyID))
+			return $this->logResponse($this->NO_BUOYID);
+		
+		return $this->logResponse($this->subscriptionService->getSubscriptionsByBuoyID($buoyID));
 		
 	}
 	
 	public function getSubscriptionsByBusinessID($businessID) {
 		
-		if (!isset($businessID))
-			return $this->NO_BUSINESSID;
+		$this->logService->logMessage("SubscriptionController GetSubscriptionByBusinessID");
 		
-		return $this->subscriptionService->getSubscriptionsByBusinessID($businessID);
+		if (!isset($businessID))
+			return $this->logResponse($this->NO_BUSINESSID);
+		
+		return $this->logResponse($this->subscriptionService->getSubscriptionsByBusinessID($businessID));
 		
 	}
 	
 	public function getLastSubscription() {
 		
+		$this->logService->logMessage("SubscriptionController GetLastSubscription");
+		
 		$subscriptionID = $this->subscriptionService->getLastID();
 		if ($subscriptionID->status != $this->subscriptionService->SUCCESS->status)
-			return $subscriptionID;
+			return $this->logResponse($subscriptionID);
 		
-		return $this->subscriptionService->getSubscription($subscriptionID->content);
+		return $this->logResponse($this->subscriptionService->getSubscription($subscriptionID->content));
 		
 	}
 	
 	public function getLastSubscriptionByBuoyID($buoyID) {
 		
-		if (!isset($buoyID))
-			return $this->NO_BUOYID;
+		$this->logService->logMessage("SubscriptionController GetLastSubscriptionByBuoyID");
 		
-		return $this->subscriptionService->getLastSubscriptionByBuoyID($buoyID);
+		if (!isset($buoyID))
+			return $this->logResponse($this->NO_BUOYID);
+		
+		return $this->logResponse($this->subscriptionService->getLastSubscriptionByBuoyID($buoyID));
 		
 	}
 	
 	public function getLastSubscriptionByBusinessID($businessID) {
 		
-		if (!isset($businessID))
-			return $this->NO_BUSINESSID;
+		$this->logService->logMessage("SubscriptionController GetLastSubscriptionByBusinessID");
 		
-		return $this->subscriptionService->getLastSubscriptionByBusinessID($buoyID);
+		if (!isset($businessID))
+			return $this->logResponse($this->NO_BUSINESSID);
+		
+		return $this->logResponse($this->subscriptionService->getLastSubscriptionByBusinessID($buoyID));
 		
 	}
 	
 	public function getSubscriptionsActive($someDate, $offset, $limit) {
 		
+		$this->logService->logMessage("SubscriptionController GetSubscriptionsActive");
+		
 		if (!isset($someDate))
-			return $this->NO_DATE;
+			return $this->logResponse($this->NO_DATE);
 		
 		if (!isset($offset))
-			return $this->NO_OFFSET;
+			return $this->logResponse($this->NO_OFFSET);
 		
 		if (!isset($limit))
-			return $this->NO_LIMIT;
+			return $this->logResponse($this->NO_LIMIT);
 		
 		if (!((bool)(strtotime($someDate))))
-			return $this->INCORRECT_DATE;
+			return $this->logResponse($this->INCORRECT_DATE);
 		
 		if ($offset < 0)
 			$offset = 0;
@@ -167,54 +187,60 @@ class SubscriptionController
 		if ($limit < 0)
 			$limit = 0;
 		
-		return $this->subscriptionService->getSubscriptionsActive($someDate, $offset, $limit);
+		return $this->logResponse($this->subscriptionService->getSubscriptionsActive($someDate, $offset, $limit));
 		
 	}
 	
 	public function getCountActiveDate($someDate) {
 		
+		$this->logService->logMessage("SubscriptionController GetCountActiveDate");
+		
 		if (!isset($someDate))
-			return $this->NO_DATE;
+			return $this->logResponse($this->NO_DATE);
 		
 		if (!((bool)(strtotime($someDate))))
-			return $this->INCORRECT_DATE;
+			return $this->logResponse($this->INCORRECT_DATE);
 		
-		return $this->subscriptionService->getCountActiveDate($someDate);
+		return $this->logResponse($this->subscriptionService->getCountActiveDate($someDate));
 		
 	}
 	
 	public function editSubscription($subscriptionID, $startDate, $finishDate) {
 		
+		$this->logService->logMessage("SubscriptionController EditSubscription");
+		
 		if (!isset($subscriptionID))
-			return $this->NO_SUBSCRIPTIONID;
+			return $this->logResponse($this->NO_SUBSCRIPTIONID);
 		
 		if (!isset($startDate))
-			return $this->NO_STARTDATE;
+			return $this->logResponse($this->NO_STARTDATE);
 		
 		if (!isset($finishDate))
-			return $this->NO_FINISHDATE;
+			return $this->logResponse($this->NO_FINISHDATE);
 		
 		if (!((bool)(strtotime($startDate))))
-			return $this->INCORRECT_STARTDATE;
+			return $this->logResponse($this->INCORRECT_STARTDATE);
 		
 		if (!((bool)(strtotime($finishDate))))
-			return $this->INCORRECT_FINISHDATE;
+			return $this->logResponse($this->INCORRECT_FINISHDATE);
 		
 		$dto = new SubscriptionDTO;
 		$dto->id = $subscriptionID;
 		$dto->startDate = $startDate;
 		$dto->finishDate = $finishDate;
 		
-		return $this->subscriptionService->updateSubscription($dto);
+		return $this->logResponse($this->subscriptionService->updateSubscription($dto));
 	
 	}
 	
 	public function deleteSubscription($subscriptionID) {
 	
+		$this->logService->logMessage("SubscriptionController DeleteSubscription");
+	
 		if (!isset($subscriptionID))
-			return $this->NO_SUBSCRIPTIONID;
+			return $this->logResponse($this->NO_SUBSCRIPTIONID);
 		
-		return $this->subscriptionService->deleteSubscription($subscriptionID);
+		return $this->logResponse($this->subscriptionService->deleteSubscription($subscriptionID));
 	
 	}
 	

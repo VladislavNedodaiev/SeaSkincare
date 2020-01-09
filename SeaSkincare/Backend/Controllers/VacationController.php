@@ -2,15 +2,16 @@
 
 namespace SeaSkincare\Backend\Controllers;
 
+use SeaSkincare\Backend\Controllers\Controller;
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Data\DataRepository;
 use SeaSkincare\Backend\DTOs\VacationDTO;
 use SeaSkincare\Backend\Services\VacationService;
 use SeaSkincare\Backend\Communication\Response;
 
-class VacationController
+class VacationController extends Controller
 {
 	
-	private $dataRep;
 	private $vacationService;
 	
 	public $SUCCESS;
@@ -27,6 +28,8 @@ class VacationController
 	
 	public function __construct() {
 		
+		parent::__construct();
+		
 		$this->SUCCESS = new Response("SUCCESS", null);
 		$this->NO_VACATIONID = new Response("NO_VACATIONID", null);
 		$this->NO_USERID = new Response("NO_USERID", null);
@@ -38,15 +41,14 @@ class VacationController
 		$this->INCORRECT_DATE = new Response("INCORRECT_DATE", null);
 		$this->INCORRECT_STARTDATE = new Response("INCORRECT_STARTDATE", null);
 		$this->INCORRECT_FINISHDATE = new Response("INCORRECT_FINISHDATE", null);
-		
-		$this->dataRep = new DataRepository;
 
 		$this->vacationService = new VacationService(
 
 			$this->dataRep->getHost(),
 			$this->dataRep->getUser(),
 			$this->dataRep->getPassword(),
-			$this->dataRep->getDatabase()
+			$this->dataRep->getDatabase(),
+			$this->logService
 
 		);
 	
@@ -54,23 +56,25 @@ class VacationController
 	
 	public function createVacation($userID, $businessID, $startDate, $finishDate) {
 		
+		$this->logService->logMessage("VacationController CreateVacation");
+		
 		if (!isset($userID))
-			return $this->NO_USERID;
+			return $this->logResponse($this->NO_USERID);
 		
 		if (!isset($businessID))
-			return $this->NO_BUSINESSID;
+			return $this->logResponse($this->NO_BUSINESSID);
 		
 		if (!isset($startDate))
-			return $this->NO_STARTDATE;
+			return $this->logResponse($this->NO_STARTDATE);
 		
 		if (!isset($finishDate))
-			return $this->NO_FINISHDATE;
+			return $this->logResponse($this->NO_FINISHDATE);
 		
 		if (!((bool)(strtotime($startDate))))
-			return $this->INCORRECT_STARTDATE;
+			return $this->logResponse($this->INCORRECT_STARTDATE);
 		
 		if (!((bool)(strtotime($finishDate))))
-			return $this->INCORRECT_FINISHDATE;
+			return $this->logResponse($this->INCORRECT_FINISHDATE);
 		
 		$dto = new VacationDTO;
 		$dto->userID = $userID;
@@ -78,28 +82,32 @@ class VacationController
 		$dto->startDate = $startDate;
 		$dto->finishDate = $finishDate;
 		
-		return $this->vacationService->createVacation($dto);
+		return $this->logResponse($this->vacationService->createVacation($dto));
 		
 	}
 	
 	public function getVacation($vacationID) {
 		
-		if (!isset($vacationID))
-			return $this->NO_VACATIONID;
+		$this->logService->logMessage("VacationController GetVacation");
 		
-		return $this->vacationService->getVacation($vacationID);
+		if (!isset($vacationID))
+			return $this->logResponse($this->NO_VACATIONID);
+		
+		return $this->logResponse($this->vacationService->getVacation($vacationID));
 		
 	}
 	
 	public function getVacationsByIDs($userID, $businessID) {
 		
+		$this->logService->logMessage("VacationController GetVacationsByIDs");
+		
 		if (!isset($userID))
-			return $this->NO_USERID;
+			return $this->logResponse($this->NO_USERID);
 		
 		if (!isset($businessID))
-			return $this->NO_BUSINESSID;
+			return $this->logResponse($this->NO_BUSINESSID);
 		
-		return $this->vacationService->getVacationsByIDs($userID, $businessID);
+		return $this->logResponse($this->vacationService->getVacationsByIDs($userID, $businessID));
 		
 	}
 	
@@ -107,31 +115,35 @@ class VacationController
 	// someDate - some date
 	public function getVacationsByIDsDate($userID, $businessID, $dateFlag, $someDate) {
 		
+		$this->logService->logMessage("VacationController GetVacationsByIDsDate");
+		
 		if (!isset($userID))
-			return $this->NO_USERID;
+			return $this->logResponse($this->NO_USERID);
 		
 		if (!isset($businessID))
-			return $this->NO_BUSINESSID;
+			return $this->logResponse($this->NO_BUSINESSID);
 		
 		if (!isset($dateFlag))
-			return $this->NO_DATEFLAG;
+			return $this->logResponse($this->NO_DATEFLAG);
 		
 		if (!isset($someDate))
-			return $this->NO_DATE;
+			return $this->logResponse($this->NO_DATE);
 		
 		if (!((bool)(strtotime($someDate))))
-			return $this->INCORRECT_DATE;
+			return $this->logResponse($this->INCORRECT_DATE);
 		
-		return $this->vacationService->getVacationsByIDsDate($userID, $businessID, $dateFlag, $someDate);
+		return $this->logResponse($this->vacationService->getVacationsByIDsDate($userID, $businessID, $dateFlag, $someDate));
 		
 	}
 	
 	public function getVacationsByUserID($userID) {
 		
-		if (!isset($userID))
-			return $this->NO_USERID;
+		$this->logService->logMessage("VacationController GetVacationsByUserID");
 		
-		return $this->vacationService->getVacationsByUserID($userID);
+		if (!isset($userID))
+			return $this->logResponse($this->NO_USERID);
+		
+		return $this->logResponse($this->vacationService->getVacationsByUserID($userID));
 		
 	}
 	
@@ -139,28 +151,32 @@ class VacationController
 	// someDate - some date
 	public function getVacationsByUserIDDate($userID, $dateFlag, $someDate) {
 		
+		$this->logService->logMessage("VacationController GetVacationsByUserIDDate");
+		
 		if (!isset($userID))
-			return $this->NO_USERID;
+			return $this->logResponse($this->NO_USERID);
 		
 		if (!isset($dateFlag))
-			return $this->NO_DATEFLAG;
+			return $this->logResponse($this->NO_DATEFLAG);
 		
 		if (!isset($someDate))
-			return $this->NO_DATE;
+			return $this->logResponse($this->NO_DATE);
 		
 		if (!((bool)(strtotime($someDate))))
-			return $this->INCORRECT_DATE;
+			return $this->logResponse($this->INCORRECT_DATE);
 		
-		return $this->vacationService->getVacationsByUserIDDate($userID, $dateFlag, $someDate);
+		return $this->logResponse($this->vacationService->getVacationsByUserIDDate($userID, $dateFlag, $someDate));
 		
 	}
 	
 	public function getVacationsByBusinessID($businessID) {
 		
-		if (!isset($businessID))
-			return $this->NO_BUSINESSID;
+		$this->logService->logMessage("VacationController GetVacationsByBusinessID");
 		
-		return $this->vacationService->getVacationsByBusinessID($businessID);
+		if (!isset($businessID))
+			return $this->logResponse($this->NO_BUSINESSID);
+		
+		return $this->logResponse($this->vacationService->getVacationsByBusinessID($businessID));
 		
 	}
 	
@@ -168,57 +184,63 @@ class VacationController
 	// someDate - some date
 	public function getVacationsByBusinessIDDate($businessID, $dateFlag, $someDate) {
 		
+		$this->logService->logMessage("VacationController GetVacationsByBusinessIDDate");
+		
 		if (!isset($businessID))
-			return $this->NO_BUSINESSID;
+			return $this->logResponse($this->NO_BUSINESSID);
 		
 		if (!isset($dateFlag))
-			return $this->NO_DATEFLAG;
+			return $this->logResponse($this->NO_DATEFLAG);
 		
 		if (!isset($someDate))
-			return $this->NO_DATE;
+			return $this->logResponse($this->NO_DATE);
 		
 		if (!((bool)(strtotime($someDate))))
-			return $this->INCORRECT_DATE;
+			return $this->logResponse($this->INCORRECT_DATE);
 		
-		return $this->vacationService->getVacationsByBusinessIDDate($businessID, $dateFlag, $someDate);
+		return $this->logResponse($this->vacationService->getVacationsByBusinessIDDate($businessID, $dateFlag, $someDate));
 		
 	}
 	
 	public function editVacation($vacationID, $startDate, $finishDate) {
 		
+		$this->logService->logMessage("VacationController EditVacation");
+		
 		if (!isset($userID))
-			return $this->NO_USERID;
+			return $this->logResponse($this->NO_USERID);
 		
 		if (!isset($businessID))
-			return $this->NO_BUSINESSID;
+			return $this->logResponse($this->NO_BUSINESSID);
 		
 		if (!isset($startDate))
-			return $this->NO_STARTDATE;
+			return $this->logResponse($this->NO_STARTDATE);
 		
 		if (!isset($finishDate))
-			return $this->NO_FINISHDATE;
+			return $this->logResponse($this->NO_FINISHDATE);
 		
 		if (!((bool)(strtotime($startDate))))
-			return $this->INCORRECT_STARTDATE;
+			return $this->logResponse($this->INCORRECT_STARTDATE);
 		
 		if (!((bool)(strtotime($finishDate))))
-			return $this->INCORRECT_FINISHDATE;
+			return $this->logResponse($this->INCORRECT_FINISHDATE);
 		
 		$dto = new VacationDTO;
 		$dto->id = $vacationID;
 		$dto->startDate = $startDate;
 		$dto->finishDate = $finishDate;
 		
-		return $this->vacationService->updateVacation($dto);
+		return $this->logResponse($this->vacationService->updateVacation($dto));
 	
 	}
 	
 	public function deleteVacation($vacationID) {
 	
+		$this->logService->logMessage("VacationController DeleteVacation");
+	
 		if (!isset($vacationID))
-			return $this->NO_VACATIONID;
+			return $this->logResponse($this->NO_VACATIONID);
 		
-		return $this->vacationService->deleteVacation($vacationID);
+		return $this->logResponse($this->vacationService->deleteVacation($vacationID));
 	
 	}
 	

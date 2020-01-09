@@ -2,42 +2,19 @@
 
 namespace SeaSkincare\Backend\Services;
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\DTOs\ConnectionDTO;
 use SeaSkincare\Backend\Communication\Response;
 
 class ConnectionService
 {
 	
-	private $database;
-	
 	private const DB_TABLE = "Connection";
 	
-	public $NOT_FOUND;
-	public $SUCCESS;
-	public $DB_ERROR;
+	public function __construct($host, $user, $pswd, $db, $logService) {
 	
-	public function __construct($host, $user, $pswd, $db) {
+		parent::__construct($host, $user, $pswd, $db, $logService);
 	
-		$this->NOT_FOUND = new Response("NOT_FOUND", null);
-		$this->SUCCESS = new Response("SUCCESS", null);
-		$this->DB_ERROR = new Response("DB_ERROR", null);
-	
-		$this->connectToDB($host, $user, $pswd, $db);
-	
-	}
-	
-	private function connectToDB($host, $user, $pswd, $db) {
-
-		$this->database = new \mysqli($host, $user, $pswd, $db);
-
-		if ($this->database->connect_errno) {
-			return $this->DB_ERROR;
-		}
-
-		$this->database->set_charset('utf8');
-
-		return new Response($this->SUCCESS->status, $this->database);
-		
 	}
 	
 	public function createConnection($dto) {
@@ -50,9 +27,9 @@ class ConnectionService
 						   '".$dto->latitude."',
 						   '".$dto->longitude."',
 						   '".$dto->battery."');")) {
-			$lastID = $this->getLastIDByBuoy();
+			$lastID = $this->getLastIDByBuoy($dto->buoyID);
 			if ($lastID->status ==$this->SUCCESS->status
-				&& $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`connection_id`=".$lastID->content.";")) {
+				&& $result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`connection_id`=".$lastID->content.";")) {
 				if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 					
 					$dto->id = $res['connection_id'];
@@ -81,8 +58,8 @@ class ConnectionService
 				$dto = new ConnectionDTO;
 					
 				$dto->id = $res['connection_id'];
-				$dto->buoyID = $res['buoyID'];
-				$dto->connectionDate = $res['connectionDate'];
+				$dto->buoyID = $res['buoy_id'];
+				$dto->connectionDate = $res['connection_date'];
 				$dto->latitude = $res['latitude'];
 				$dto->longitude = $res['longitude'];
 				$dto->battery = $res['battery'];
@@ -110,8 +87,8 @@ class ConnectionService
 				$dto = new ConnectionDTO;
 					
 				$dto->id = $res['connection_id'];
-				$dto->buoyID = $res['buoyID'];
-				$dto->connectionDate = $res['connectionDate'];
+				$dto->buoyID = $res['buoy_id'];
+				$dto->connectionDate = $res['connection_date'];
 				$dto->latitude = $res['latitude'];
 				$dto->longitude = $res['longitude'];
 				$dto->battery = $res['battery'];
@@ -120,7 +97,8 @@ class ConnectionService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $connections);
+			if (!empty($connections))
+				return new Response($this->SUCCESS->status, $connections);
 		}
 		
 		return $this->NOT_FOUND;

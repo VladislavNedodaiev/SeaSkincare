@@ -1,26 +1,19 @@
 <?php
 namespace SeaSkincare\Backend\API\Business;
 
-include_once '../../Data/DataRepository.php';
-include_once '../../Services/MailService.php';
-include_once '../../Communication/Response.php';
+include_once '../../Includes/CommonInclude.php';
+include_once '../../Includes/SubscriptionInclude.php';
+include_once '../../Includes/BusinessInclude.php';
 
-include_once '../../DTOs/BusinessDTO.php';
-include_once '../../Services/BusinessService.php';
-include_once '../../Controllers/BusinessController.php';
-
-include_once '../../DTOs/SubscriptionDTO.php';
-include_once '../../Services/SubscriptionService.php';
-include_once '../../Controllers/SubscriptionController.php';
-
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Controllers\BusinessController;
 use SeaSkincare\Backend\Communication\Response;
 
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-$req_dump = print_r($_GET, true);
-$fp = file_put_contents('../../log.txt', date('d.m.Y H:i:s ').$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].' GET:'.$req_dump.PHP_EOL, FILE_APPEND);
+$logService = new LogService;
+$logService->logMessage($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 
 $businessController = new BusinessController;
 $result = $businessController->login($_GET['email'], $_GET['password']);

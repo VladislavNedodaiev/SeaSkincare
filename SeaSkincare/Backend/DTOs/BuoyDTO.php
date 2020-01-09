@@ -2,7 +2,7 @@
 
 namespace SeaSkincare\Backend\DTOs;
 
-class Buoy
+class BuoyDTO
 {
 	
 	// Data

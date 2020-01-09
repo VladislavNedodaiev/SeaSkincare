@@ -2,6 +2,8 @@
 
 namespace SeaSkincare\Backend\Controllers;
 
+use SeaSkincare\Backend\Controllers\Controller;
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Data\DataRepository;
 use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\DTOs\BusinessDTO;
@@ -11,10 +13,9 @@ use SeaSkincare\Backend\Communication\Response;
 use SeaSkincare\Backend\DTOs\SubscriptionDTO;
 use SeaSkincare\Backend\Controllers\SubscriptionController;
 
-class BusinessController
+class BusinessController extends Controller
 {
 	
-	private $dataRep;
 	private $mailService;
 	private $businessService;
 	
@@ -39,6 +40,8 @@ class BusinessController
 	
 	public function __construct() {
 		
+		parent::__construct();
+		
 		$this->NO_EMAIL = new Response("NO_EMAIL", null);
 		$this->NO_PASSWORD = new Response("NO_PASSWORD", null);
 		$this->NO_REPEAT_PASSWORD = new Response("NO_REPEAT_PASSWORD", null);
@@ -55,8 +58,6 @@ class BusinessController
 		$this->SUCCESS = new Response("SUCCESS", null);
 		$this->NO_OLD_PASSWORD = new Response("NO_OLD_PASSWORD", null);
 		$this->NO_NEW_PASSWORD = new Response("NO_NEW_PASSWORD", null);
-		
-		$this->dataRep = new DataRepository;
 
 		$this->mailService = new MailService($_SERVER['HTTP_HOST']);
 
@@ -66,7 +67,8 @@ class BusinessController
 			$this->dataRep->getUser(),
 			$this->dataRep->getPassword(),
 			$this->dataRep->getDatabase(),
-			$this->mailService
+			$this->mailService,
+			$this->logService
 
 		);
 		
@@ -76,74 +78,84 @@ class BusinessController
 	
 	public function login($email, $password) {
 		
+		$this->logService->logMessage("BusinessController Login");
+		
 		if (!isset($email))
-			return $this->NO_EMAIL;
+			return $this->logResponse($this->NO_EMAIL);
 		
 		if (!isset($password))
-			return $this->NO_PASSWORD;
+			return $this->logResponse($this->NO_PASSWORD);
 		
-		return $this->businessService->login($email, $password);
+		return $this->logResponse($this->businessService->login($email, $password));
 		
 	}
 	
 	// registering user
 	public function register($email, $password, $repeat_password, $nickname) {
 		
+		$this->logService->logMessage("BusinessController Register");
+		
 		if (!isset($email))
-			return $this->NO_EMAIL;
+			return $this->logResponse($this->NO_EMAIL);
 		
 		if (!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $email))
-			return $this->NO_PASSWORD;
+			return $this->logResponse($this->NO_PASSWORD);
 		
 		if (!isset($password))
-			return $this->NO_PASSWORD;
+			return $this->logResponse($this->NO_PASSWORD);
 		
 		if (!isset($repeat_password))
-			return $this->NO_REPEAT_PASSWORD;
+			return $this->logResponse($this->NO_REPEAT_PASSWORD);
 		
 		if ($password != $repeat_password)
-			return $this->DIFFERENT_PASSWORDS;
+			return $this->logResponse($this->DIFFERENT_PASSWORDS);
 		
 		if (!isset($nickname))
-			return $this->NO_NICKNAME;
+			return $this->logResponse($this->NO_NICKNAME);
 		
-		return $this->businessService->register($email, $password, $nickname);
+		return $this->logResponse($this->businessService->register($email, $password, $nickname));
 		
 	}
 	
 	// verifying user
 	public function verify($businessID, $verification) {
 	
+		$this->logService->logMessage("BusinessController Verify");
+	
 		if (!isset($businessID))
-			return $this->NO_BUSINESSID;
+			return $this->logResponse($this->NO_BUSINESSID);
 		
 		if (!isset($verification))
-			return $this->NO_VERIFICATION;
+			return $this->logResponse($this->NO_VERIFICATION);
 		
-		return $this->businessService->verify($businessID, $verification);
+		return $this->logResponse($this->businessService->verify($businessID, $verification));
 	
 	}
 	
 	// getting public data of user by id from database
 	public function getBusiness($businessID) {
 		
-		if (!isset($businessID))
-			return $this->NO_BUSINESSID;
+		$this->logService->logMessage("BusinessController GetBusiness");
 		
-		return $this->businessService->getBusiness($businessID);
+		if (!isset($businessID))
+			return $this->logResponse($this->NO_BUSINESSID);
+		
+		return $this->logResponse($this->businessService->getBusiness($businessID));
 		
 	}
 	
 	// getting businesses from database
 	// limit - how many
 	// offset - from which entry
-	public function getBusinesses($offset, $limit) {
+	public function getBusinesses($offset, $limit, $search = null) {
+		
+		$this->logService->logMessage("BusinessController GetBusinesses");
 		
 		if (!isset($offset))
-			return $this->NO_OFFSET;
+			return $this->logResponse($this->NO_OFFSET);
 		
 		if (!isset($limit))
-			return $this->NO_LIMIT;
+			return $this->logResponse($this->NO_LIMIT);
 		
 		if ($offset < 0)
 			$offset = 0;
@@ -151,55 +163,65 @@ class BusinessController
 		if ($limit < 0)
 			$limit = 0;
 		
-		return $this->businessService->getBusinesses($offset, $limit);
+		return $this->logResponse($this->businessService->getBusinesses($offset, $limit, $search));
 		
 	}
 	
-	public function getCount() {
+	public function getCount($search = null) {
 		
-		return $this->businessService->getCount();
+		$this->logService->logMessage("BusinessController GetCount");
+		
+		return $this->logResponse($this->businessService->getCount($search));
 		
 	}
 	
 	public function getBusinessesActiveSubscriptions($someDate, $offset, $limit) {
 		
+		$this->logService->logMessage("BusinessController GetBusinessesActiveSubscriptions");
+		
 		$subscriptions = $this->subscriptionController->getSubscriptionsActive($someDate, $offset, $limit);
 		
 		if ($subscriptions->status != $this->subscriptionController->SUCCESS->status)
-			return $subscriptions;
+			return $this->logResponse($subscriptions);
 		
 		$subscriptions = $subscriptions->content;
 		
 		$businesses = array();
 		
 		if ($subscriptions) {
-			foreach ($subscriptions as $key => &$value) {
+			foreach ($subscriptions as &$value) {
 			
-				array_push($businesses, $this->getBusiness($value->businessID));
+				if (!isset($businesses[$value->businessID])) {
+					$business = $this->getBusiness($value->businessID);
+					if ($business->status == $this->SUCCESS->status)
+						$businesses[$value->businessID]=$business->content;
+				}
 			
 			}
 		}
 		
-		return new Response($this->SUCCESS->status, $businesses);
+		return $this->logResponse(new Response($this->SUCCESS->status, $businesses));
 		
 	}
 	
 	public function editBusiness($businessID, $nickname, $description, $photo, $phoneNumber) {
 	
+		$this->logService->logMessage("BusinessController EditBusiness");
+	
 		if (!isset($businessID))
-			return $this->NO_BUSINESSID;
+			return $this->logResponse($this->NO_BUSINESSID);
 		
 		if (!isset($nickname))
-			return $this->NO_NICKNAME;
+			return $this->logResponse($this->NO_NICKNAME);
 		
 		if (!isset($description))
-			return $this->NO_DESCRIPTION;
+			return $this->logResponse($this->NO_DESCRIPTION);
 		
 		if (!isset($photo))
-			return $this->NO_PHOTO;
+			return $this->logResponse($this->NO_PHOTO);
 		
 		if (!isset($phoneNumber))
-			return $this->NO_PHONENUMBER;
+			return $this->logResponse($this->NO_PHONENUMBER);
 		
 		$dto = new BusinessDTO;
 		$dto->id = $businessID;
@@ -208,22 +230,24 @@ class BusinessController
 		$dto->photo = $photo;
 		$dto->phoneNumber = $phoneNumber;
 		
-		return $this->businessService->updateBusiness($dto);
+		return $this->logResponse($this->businessService->updateBusiness($dto));
 	
 	}
 	
 	public function editPassword($businessID, $oldPassword, $newPassword) {
 	
+		$this->logService->logMessage("BusinessController EditPassword");
+	
 		if (!isset($businessID))
-			return $this->NO_BUSINESSID;
+			return $this->logResponse($this->NO_BUSINESSID);
 		
 		if (!isset($oldPassword))
-			return $this->NO_OLD_PASSWORD;
+			return $this->logResponse($this->NO_OLD_PASSWORD);
 		
 		if (!isset($newPassword))
-			return $this->NO_NEW_PASSWORD;
+			return $this->logResponse($this->NO_NEW_PASSWORD);
 		
-		return $this->businessService->updatePassword($businessID, $oldPassword, $newPassword);
+		return $this->logResponse($this->businessService->updatePassword($businessID, $oldPassword, $newPassword));
 	
 	}
 	

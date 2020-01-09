@@ -2,15 +2,16 @@
 
 namespace SeaSkincare\Backend\Controllers;
 
+use SeaSkincare\Backend\Controllers\Controller;
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\Data\DataRepository;
 use SeaSkincare\Backend\DTOs\WaterDTO;
 use SeaSkincare\Backend\Services\WaterService;
 use SeaSkincare\Backend\Communication\Response;
 
-class WaterController
+class WaterController extends Controller
 {
 	
-	private $dataRep;
 	private $waterService;
 	
 	public $SUCCESS;
@@ -26,6 +27,8 @@ class WaterController
 	
 	public function __construct() {
 		
+		parent::__construct();
+		
 		$this->SUCCESS = new Response("SUCCESS", null);
 		$this->NO_CONNECTIONID = new Response("NO_CONNECTIONID", null);
 		$this->NO_TEMPERATURE = new Response("NO_TEMPERATURE", null);
@@ -35,15 +38,14 @@ class WaterController
 		$this->NO_MGSO4 = new Response("NO_MGSO4", null);
 		$this->NO_CASO4 = new Response("NO_CASO4", null);
 		$this->NO_NABR = new Response("NO_NABR", null);
-		
-		$this->dataRep = new DataRepository;
 
 		$this->waterService = new WaterService(
 
 			$this->dataRep->getHost(),
 			$this->dataRep->getUser(),
 			$this->dataRep->getPassword(),
-			$this->dataRep->getDatabase()
+			$this->dataRep->getDatabase(),
+			$this->logService
 
 		);
 	
@@ -51,29 +53,31 @@ class WaterController
 	
 	public function createWater($connectionID, $temperature, $pH, $NaCl, $MgCl2, $MgSO4, $CaSO4, $NaBr) {
 		
+		$this->logService->logMessage("WaterController CreateWater");
+		
 		if (!isset($connectionID))
-			return $this->NO_CONNECTIONID;
+			return $this->logResponse($this->NO_CONNECTIONID);
 		
 		if (!isset($temperature))
-			return $this->NO_TEMPERATURE;
+			return $this->logResponse($this->NO_TEMPERATURE);
 		
 		if (!isset($pH))
-			return $this->NO_PH;
+			return $this->logResponse($this->NO_PH);
 		
 		if (!isset($NaCl))
-			return $this->NO_NACL;
+			return $this->logResponse($this->NO_NACL);
 		
 		if (!isset($MgCl2))
-			return $this->NO_MGCL2;
+			return $this->logResponse($this->NO_MGCL2);
 		
 		if (!isset($MgSO4))
-			return $this->NO_MGSO4;
+			return $this->logResponse($this->NO_MGSO4);
 		
 		if (!isset($CaSO4))
-			return $this->NO_CASO4;
+			return $this->logResponse($this->NO_CASO4);
 		
 		if (!isset($NaBr))
-			return $this->NO_NABR;
+			return $this->logResponse($this->NO_NABR);
 		
 		$dto = new WaterDTO;
 		$dto->id = $connectionID;
@@ -85,44 +89,48 @@ class WaterController
 		$dto->CaSO4 = $CaSO4;
 		$dto->NaBr = $NaBr;
 		
-		return $this->waterService->createWater($dto);
+		return $this->logResponse($this->waterService->createWater($dto));
 		
 	}
 	
 	public function getWater($waterID) {
 		
-		if (!isset($waterID))
-			return $this->NO_CONNECTIONID;
+		$this->logService->logMessage("WaterController GetWater");
 		
-		return $this->waterService->getWater($waterID);
+		if (!isset($waterID))
+			return $this->logResponse($this->NO_CONNECTIONID);
+		
+		return $this->logResponse($this->waterService->getWater($waterID));
 		
 	}
 	
 	public function editWater($connectionID, $temperature, $pH, $NaCl, $MgCl2, $MgSO4, $CaSO4, $NaBr) {
 		
+		$this->logService->logMessage("WaterController EditWater");
+		
 		if (!isset($connectionID))
-			return $this->NO_CONNECTIONID;
+			return $this->logResponse($this->NO_CONNECTIONID);
 		
 		if (!isset($temperature))
-			return $this->NO_TEMPERATURE;
+			return $this->logResponse($this->NO_TEMPERATURE);
 		
 		if (!isset($pH))
-			return $this->NO_PH;
+			return $this->logResponse($this->NO_PH);
 		
 		if (!isset($NaCl))
-			return $this->NO_NACL;
+			return $this->logResponse($this->NO_NACL);
 		
 		if (!isset($MgCl2))
-			return $this->NO_MGCL2;
+			return $this->logResponse($this->NO_MGCL2);
 		
 		if (!isset($MgSO4))
-			return $this->NO_MGSO4;
+			return $this->logResponse($this->NO_MGSO4);
 		
 		if (!isset($CaSO4))
-			return $this->NO_CASO4;
+			return $this->logResponse($this->NO_CASO4);
 		
 		if (!isset($NaBr))
-			return $this->NO_NABR;
+			return $this->logResponse($this->NO_NABR);
 		
 		$dto = new WaterDTO;
 		$dto->id = $connectionID;
@@ -134,16 +142,18 @@ class WaterController
 		$dto->CaSO4 = $CaSO4;
 		$dto->NaBr = $NaBr;
 		
-		return $this->waterService->updateWater($dto);
+		return $this->logResponse($this->waterService->updateWater($dto));
 	
 	}
 	
 	public function deleteWater($waterID) {
 	
+		$this->logService->logMessage("WaterController DeleteWater");
+	
 		if (!isset($waterID))
-			return $this->NO_CONNECTIONID;
+			return $this->logResponse($this->NO_CONNECTIONID);
 		
-		return $this->waterService->deleteWater($waterID);
+		return $this->logResponse($this->waterService->deleteWater($waterID));
 	
 	}
 	

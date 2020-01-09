@@ -2,42 +2,19 @@
 
 namespace SeaSkincare\Backend\Services;
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\DTOs\VacationDTO;
 use SeaSkincare\Backend\Communication\Response;
 
 class VacationService
 {
-	
-	private $database;
-	
+		
 	private const DB_TABLE = "Vacation";
 	
-	public $NOT_FOUND;
-	public $SUCCESS;
-	public $DB_ERROR;
+	public function __construct($host, $user, $pswd, $db, $logService) {
 	
-	public function __construct($host, $user, $pswd, $db) {
+		parent::__construct($host, $user, $pswd, $db, $logService);
 	
-		$this->NOT_FOUND = new Response("NOT_FOUND", null);
-		$this->SUCCESS = new Response("SUCCESS", null);
-		$this->DB_ERROR = new Response("DB_ERROR", null);
-		
-		$this->connectToDB($host, $user, $pswd, $db);
-	
-	}
-	
-	private function connectToDB($host, $user, $pswd, $db) {
-
-		$this->database = new \mysqli($host, $user, $pswd, $db);
-
-		if ($this->database->connect_errno) {
-			return $this->DB_ERROR;
-		}
-
-		$this->database->set_charset('utf8');
-
-		return new Response($this->SUCCESS->status, $this->database);
-		
 	}
 	
 	public function createVacation($dto) {
@@ -45,7 +22,7 @@ class VacationService
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`user_id`, `business_id`, `startDate`, `finishDate`)".
+		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`user_id`, `business_id`, `start_date`, `finish_date`)".
 						   "VALUES (".
 						   "'".$dto->userID."',".
 						   "'".$dto->businessID."', ".
@@ -81,8 +58,8 @@ class VacationService
 				$dto->id = $res['vacation_id'];
 				$dto->userID = $res['user_id'];
 				$dto->businessID = $res['business_id'];
-				$dto->startDate = $res['startDate'];
-				$dto->finishDate = $res['finishDate'];
+				$dto->startDate = $res['start_date'];
+				$dto->finishDate = $res['finish_date'];
 				
 				return new Response($this->SUCCESS->status, $dto);
 				
@@ -133,7 +110,8 @@ class VacationService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $vacations);
+			if (!empty($vacations))
+				return new Response($this->SUCCESS->status, $vacations);
 			
 		}
 		
@@ -154,7 +132,7 @@ class VacationService
 		else if ($dateFlag > 0)
 			$query .= "`V1`.`start_date`>'".$someDate."'";
 		else
-			$query .= "`V1`.`start_date`<='".$someDate."' AND `V1`.`finish_date`>='".$someDate"'";
+			$query .= "`V1`.`start_date`<='".$someDate."' AND `V1`.`finish_date`>='".$someDate."'";
 		
 		$query .= ";";
 	
@@ -176,7 +154,8 @@ class VacationService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $vacations);
+			if (!empty($vacations))
+				return new Response($this->SUCCESS->status, $vacations);
 			
 		}
 		
@@ -207,7 +186,8 @@ class VacationService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $vacations);
+			if (!empty($vacations))
+				return new Response($this->SUCCESS->status, $vacations);
 			
 		}
 		
@@ -228,7 +208,7 @@ class VacationService
 		else if ($dateFlag > 0)
 			$query .= "`V1`.`start_date`>'".$someDate."'";
 		else
-			$query .= "`V1`.`start_date`<='".$someDate."' AND `V1`.`finish_date`>='".$someDate"'";
+			$query .= "`V1`.`start_date`<='".$someDate."' AND `V1`.`finish_date`>='".$someDate."'";
 		
 		$query .= ";";
 		
@@ -250,7 +230,8 @@ class VacationService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $vacations);
+			if (!empty($vacations))
+				return new Response($this->SUCCESS->status, $vacations);
 			
 		}
 		
@@ -258,7 +239,7 @@ class VacationService
 		
 	}
 	
-	public function getVacationByBusinessID($businessID) {
+	public function getVacationsByBusinessID($businessID) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
@@ -281,7 +262,8 @@ class VacationService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $vacations);
+			if (!empty($vacations))
+				return new Response($this->SUCCESS->status, $vacations);
 			
 		}
 		
@@ -291,7 +273,7 @@ class VacationService
 	
 	// dateFlag - ended before someDate (<0), active at someDate (0), starting after someDate (>0)
 	// someDate - some date
-	public function getVacationByBusinessIDDate($businessID, $dateFlag, $someDate) {
+	public function getVacationsByBusinessIDDate($businessID, $dateFlag, $someDate) {
 		
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
@@ -302,7 +284,7 @@ class VacationService
 		else if ($dateFlag > 0)
 			$query .= "`V1`.`start_date`>'".$someDate."'";
 		else
-			$query .= "`V1`.`start_date`<='".$someDate."' AND `V1`.`finish_date`>='".$someDate"'";
+			$query .= "`V1`.`start_date`<='".$someDate."' AND `V1`.`finish_date`>='".$someDate."'";
 		
 		$query .= ";";
 		
@@ -324,7 +306,8 @@ class VacationService
 				
 			}
 			
-			return new Response($this->SUCCESS->status, $vacations);
+			if (!empty($vacations))
+				return new Response($this->SUCCESS->status, $vacations);
 			
 		}
 		

@@ -2,42 +2,19 @@
 
 namespace SeaSkincare\Backend\Services;
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\DTOs\WaterDTO;
 use SeaSkincare\Backend\Communication\Response;
 
 class WaterService
 {
 	
-	private $database;
-	
 	private const DB_TABLE = "Water";
 	
-	public $NOT_FOUND;
-	public $SUCCESS;
-	public $DB_ERROR;
-	
-	public function __construct($host, $user, $pswd, $db) {
+	public function __construct($host, $user, $pswd, $db, $logService) {
 		
-		$this->NOT_FOUND = new Response("NOT_FOUND", null);
-		$this->SUCCESS = new Response("SUCCESS", null);
-		$this->DB_ERROR = new Response("DB_ERROR", null);
-		
-		$this->connectToDB($host, $user, $pswd, $db);
+		parent::__construct($host, $user, $pswd, $db, $logService);
 	
-	}
-	
-	private function connectToDB($host, $user, $pswd, $db) {
-
-		$this->database = new \mysqli($host, $user, $pswd, $db);
-
-		if ($this->database->connect_errno) {
-			return $this->DB_ERROR;
-		}
-
-		$this->database->set_charset('utf8');
-
-		return new Response($this->SUCCESS->status, $this->database);
-		
 	}
 	
 	public function createWater($dto) {
@@ -85,7 +62,7 @@ class WaterService
 				$dto->CaSO4 = $res['CaSO4'];
 				$dto->NaBr = $res['NaBr'];
 				
-				return new Response($this->DB_ERROR->status, $dto);
+				return new Response($this->SUCCESS->status, $dto);
 				
 			}
 		}
