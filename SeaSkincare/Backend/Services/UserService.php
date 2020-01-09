@@ -2,6 +2,7 @@
 
 namespace SeaSkincare\Backend\Services;
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\DTOs\UserDTO;
 use SeaSkincare\Backend\Services\MailService;
 use SeaSkincare\Backend\Communication\Response;
@@ -9,7 +10,6 @@ use SeaSkincare\Backend\Communication\Response;
 class UserService
 {
 	
-	private $database;
 	private $mailService;
 	
 	private const DB_TABLE = "User";
@@ -20,11 +20,9 @@ class UserService
 	public $EMAIL_UNSENT;
 	public $SAME_PASSWORDS;
 	
-	public $NOT_FOUND;
-	public $SUCCESS;
-	public $DB_ERROR;
-	
-	public function __construct($host, $user, $pswd, $db, $mailService) {
+	public function __construct($host, $user, $pswd, $db, $mailService, $logService) {
+		
+		parent::__construct($host, $user, $pswd, $db, $logService);
 		
 		$this->UNVERIFIED = new Response("UNVERIFIED_USER", null);
 		$this->EMAIL_REGISTERED = new Response("EMAIL_REGISTERED", null);
@@ -32,27 +30,8 @@ class UserService
 		$this->EMAIL_UNSENT = new Response("EMAIL_UNSENT", null);
 		$this->SAME_PASSWORDS = new Response("SAME_PASSWORDS", null);
 		
-		$this->NOT_FOUND = new Response("NOT_FOUND", null);
-		$this->SUCCESS = new Response("SUCCESS", null);
-		$this->DB_ERROR = new Response("DB_ERROR", null);
-		
-		$this->connectToDB($host, $user, $pswd, $db);
 		$this->mailService = $mailService;
 	
-	}
-	
-	private function connectToDB($host, $user, $pswd, $db) {
-
-		$this->database = new \mysqli($host, $user, $pswd, $db);
-
-		if ($this->database->connect_errno) {
-			return $this->DB_ERROR;
-		}
-
-		$this->database->set_charset('utf8');
-
-		return new Response($this->SUCCESS->status, $this->database);
-		
 	}
 	
 	// logging in (getting private data, such as email)

@@ -2,46 +2,25 @@
 
 namespace SeaSkincare\Backend\Services;
 
+use SeaSkincare\Backend\Services\LogService;
 use SeaSkincare\Backend\DTOs\BuoyDTO;
 use SeaSkincare\Backend\Communication\Response;
 
 class BuoyService
 {
 	
-	private $database;
-	
 	private const DB_TABLE = "Buoy";
 	
-	public $NOT_FOUND;
-	public $SUCCESS;
-	public $DB_ERROR;
 	public $SERIALNUMBER_REGISTERED;
 	public $WRONG_PASSWORD;
 	
-	public function __construct($host, $user, $pswd, $db) {
+	public function __construct($host, $user, $pswd, $db, $logService) {
 		
-		$this->NOT_FOUND = new Response("NOT_FOUND", null);
-		$this->SUCCESS = new Response("SUCCESS", null);
-		$this->DB_ERROR = new Response("DB_ERROR", null);
+		parent::__construct($host, $user, $pswd, $db, $logService);
+		
 		$this->SERIALNUMBER_REGISTERED = new Response("SERIALNUMBER_REGISTERED", null);
 		$this->WRONG_PASSWORD = new Response("WRONG_PASSWORD", null);
-		
-		$this->connectToDB($host, $user, $pswd, $db);
 	
-	}
-	
-	private function connectToDB($host, $user, $pswd, $db) {
-
-		$this->database = new \mysqli($host, $user, $pswd, $db);
-
-		if ($this->database->connect_errno) {
-			return $this->DB_ERROR;
-		}
-
-		$this->database->set_charset('utf8');
-
-		return new Response($this->SUCCESS->status, $this->database);
-		
 	}
 	
 	// logging in (getting private data, such as email)
