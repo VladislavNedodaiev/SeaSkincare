@@ -40,7 +40,7 @@ if (isset($_FILES['photo']['name']) && $_FILES['photo']['tmp_name'] != "") {
 // Initialize session and set URL.
 $channel = curl_init();
 
-$url = '127.0.0.1/SeaSkincare/Backend/API/Business/EditBusiness.php';
+$url = 'https://sea-skincare-1577376592545.appspot.com/Backend/API/Business/EditBusiness.php';
 
 curl_setopt($channel, CURLOPT_URL, $url);
 curl_setopt($channel, CURLOPT_POST, 1);

@@ -5,7 +5,7 @@ if (isset($_SESSION['profile']) && !$_SESSION['profile_type']) {
 	// Initialize session and set URL.
 	$channel = curl_init();
 	
-	$api_url = '127.0.0.1/SeaSkincare/Backend/API/';
+	$api_url = 'https://sea-skincare-1577376592545.appspot.com/Backend/API/';
 	$vacation_url = 'Vacation/GetByIDs.php?';
 	$user_url = 'Business/GetBusiness.php?';
 	
