@@ -32,7 +32,7 @@ class BuoyService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`serial_number`='".$serialNumber."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`serial_number`='".$serialNumber."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				if (password_verify($password, $res['hash'])) {
 
@@ -61,13 +61,13 @@ class BuoyService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`serial_number`='".$serialNumber."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`serial_number`='".$serialNumber."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				return $this->SERIALNUMBER_REGISTERED;
 			}
 		}
 		
-		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`serial_number`, `password`)".
+		if ($this->database->query("INSERT INTO `".$this->DB_TABLE."`(`serial_number`, `password`)".
 						   "VALUES (".
 						   "'".$serialNumber."',".
 						   "'".password_hash($password, PASSWORD_BCRYPT)."');")) {
@@ -86,7 +86,7 @@ class BuoyService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`buoy_id`='".$buoyID."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`buoy_id`='".$buoyID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				
@@ -109,7 +109,7 @@ class BuoyService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return new Response($this->DB_ERROR->status, 0);
 		
-		if ($result = $this->database->query("SELECT MAX(`".self::DB_TABLE."`.`buoy_id`) AS `id` FROM `".self::DB_TABLE."`;")) {
+		if ($result = $this->database->query("SELECT MAX(`".$this->DB_TABLE."`.`buoy_id`) AS `id` FROM `".$this->DB_TABLE."`;")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				return new Response($this->SUCCESS->status, $res['id']);
@@ -127,7 +127,7 @@ class BuoyService extends Service
 			return new Response($this->DB_ERROR->status, 0);
 		
 		$selectQuery = "SELECT `B1`.*";
-		$fromQuery = " FROM `".self::DB_TABLE."` AS `B1`";
+		$fromQuery = " FROM `".$this->DB_TABLE."` AS `B1`";
 		$whereQuery = " WHERE `B1`.`buoy_id` NOT IN (SELECT `S1`.`buoy_id` FROM `Subscription` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."')";
 		$limitQuery = " LIMIT ".$limit;
 		$offsetQuery = " OFFSET ".$offset;
@@ -165,7 +165,7 @@ class BuoyService extends Service
 			return new Response($this->DB_ERROR->status, 0);
 		
 		$selectQuery = "SELECT COUNT(`B1`.`buoy_id`) AS `count`";
-		$fromQuery = " FROM `".self::DB_TABLE."` AS `B1`";
+		$fromQuery = " FROM `".$this->DB_TABLE."` AS `B1`";
 		
 		$query = $selectQuery.$fromQuery.";";
 		
@@ -187,7 +187,7 @@ class BuoyService extends Service
 			return new Response($this->DB_ERROR->status, 0);
 		
 		$selectQuery = "SELECT COUNT(`B1`.`buoy_id`) AS `count`";
-		$fromQuery = " FROM `".self::DB_TABLE."` AS `B1`";
+		$fromQuery = " FROM `".$this->DB_TABLE."` AS `B1`";
 		$whereQuery = " WHERE `B1`.`buoy_id` NOT IN (SELECT `S1`.`buoy_id` FROM `Subscription` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."')";
 		
 		$query = $selectQuery.$fromQuery.$whereQuery.";";
@@ -210,7 +210,7 @@ class BuoyService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `fabrication_date`='".$dto->fabricationDate."' WHERE `buoy_id`='".$dto->id."';"))
+		if ($this->database->query("UPDATE `".$this->DB_TABLE."` SET `fabrication_date`='".$dto->fabricationDate."' WHERE `buoy_id`='".$dto->id."';"))
 			return $this->SUCCESS;
 			
 		return $this->NOT_FOUND;
@@ -222,7 +222,7 @@ class BuoyService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `buoy_id`='".$buoyID."';"))
+		if ($this->database->query("DELETE FROM `".$this->DB_TABLE."` WHERE `buoy_id`='".$buoyID."';"))
 			return $this->SUCCESS;
 			
 		return $this->NOT_FOUND;
