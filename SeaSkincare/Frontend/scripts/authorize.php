@@ -7,7 +7,8 @@ include_once '../localization/localization.php';
 // Initialize session and set URL.
 $channel = curl_init();
 
-$url = 'https://sea-skincare-1577376592545.appspot.com/Backend/API';
+$url = include_once 'backend_host.php';
+$url .= '/Backend/API';
 if (isset($_GET['login_option'])) {
 	
 	if ($_GET['login_option'] == 'as_user')

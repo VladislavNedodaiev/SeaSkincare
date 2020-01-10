@@ -6,7 +6,8 @@ if (!isset($businesses) || empty($businesses))
 // Initialize session and set URL.
 $channel = curl_init();
 
-$api_url = 'https://sea-skincare-1577376592545.appspot.com/Backend/API/';
+$api_url = include_once 'scripts/backend_host.php';
+$api_url .= '/Backend/API/';
 $subscription_url = 'Subscription/GetByBusiness.php?';
 $connection_url = 'Connection/GetLastByBuoy.php?';
 

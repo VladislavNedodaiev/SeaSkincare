@@ -8,7 +8,8 @@ $buoy = null;
 // Initialize session and set URL.
 $channel_buoy = curl_init();
 
-$api_url = 'https://sea-skincare-1577376592545.appspot.com/Backend/API/';
+$api_url = include_once 'scripts/backend_host.php';
+$api_url .= '/Backend/API/';
 $buoy_url = 'Buoy/Get.php?';
 $buoyID_url = 'buoyID='.$_GET['buoyID'];
 

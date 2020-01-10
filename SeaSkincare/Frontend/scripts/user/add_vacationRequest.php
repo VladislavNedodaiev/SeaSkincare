@@ -14,7 +14,8 @@ if (!isset($_SESSION['profile']) || $_SESSION['profile_type'] || !isset($_POST['
 // Initialize session and set URL.
 $channel = curl_init();
 
-$url = 'https://sea-skincare-1577376592545.appspot.com/Backend/API/VacationRequest/Add.php';
+$url = include_once '../backend_host.php';
+$url .= '/Backend/API/VacationRequest/Add.php';
 
 $_POST['email'] = $_SESSION['profile']->email;
 $_POST['password'] = $_SESSION['profile']->password;
