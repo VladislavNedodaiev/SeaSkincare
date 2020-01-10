@@ -7,7 +7,8 @@ include_once '../localization/localization.php';
 // Initialize session and set URL.
 $channel = curl_init();
 
-$url = '127.0.0.1/SeaSkincare/Backend/API';
+$url = include_once 'backend_host.php';
+$url .= '/Backend/API';
 if (isset($_POST['register_option'])) {
 	
 	if ($_POST['register_option'] == 'as_user')

@@ -16,7 +16,8 @@ if (!isset($_SESSION['profile']) || $_SESSION['profile_type']) {
 // Initialize session and set URL.
 $channel = curl_init();
 
-$url = '127.0.0.1/SeaSkincare/Backend/API/User/EditUser.php';
+$url = include_once '../backend_host.php';
+$url .= '/Backend/API/User/EditUser.php';
 
 curl_setopt($channel, CURLOPT_URL, $url);
 

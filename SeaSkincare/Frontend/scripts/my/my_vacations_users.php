@@ -9,7 +9,8 @@ $channel = curl_init();
 // Set so curl_exec returns the result instead of outputting it.
 curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
 
-$api_url = '127.0.0.1/SeaSkincare/Backend/API/';
+$api_url = include_once 'scripts/backend_host.php';
+$api_url .= '/Backend/API/';
 $user_url = 'User/GetUser.php?';
 $email_url = 'email='.urlencode($_SESSION['profile']->email);
 $password_url = 'password='.urlencode($_SESSION['profile']->password);
