@@ -3,8 +3,7 @@
 // Initialize session and set URL.
 $channel = curl_init();
 
-$api_url = include_once 'scripts/backend_host.php';
-$api_url .= '/Backend/API/';
+$api_url = 'https://sea-skincare-1577376592545.appspot.com/Backend/API/';
 $business_url = 'Business/GetBusinessesActiveSubscriptions.php?limit=1000&date='.urlencode(date('Y-m-d'));
 
 $add_url = '&offset=0';

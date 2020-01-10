@@ -9,8 +9,7 @@ $channel = curl_init();
 // Set so curl_exec returns the result instead of outputting it.
 curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
 
-$api_url = include_once 'scripts/backend_host.php';
-$api_url .= '/Backend/API/';
+$api_url = 'https://sea-skincare-1577376592545.appspot.com/Backend/API/';
 $user_url = 'User/GetUser.php?';
 $email_url = 'email='.urlencode($_SESSION['profile']->email);
 $password_url = 'password='.urlencode($_SESSION['profile']->password);
