@@ -13,7 +13,7 @@ class UserService extends Service
 	
 	private $mailService;
 	
-	private const DB_TABLE = "User";
+	private $DB_TABLE;
 	
 	public $UNVERIFIED;
 	public $EMAIL_REGISTERED;
@@ -32,6 +32,8 @@ class UserService extends Service
 		$this->SAME_PASSWORDS = new Response("SAME_PASSWORDS", null);
 		
 		$this->mailService = $mailService;
+		
+		$this->DB_TABLE = "User";
 	
 	}
 	
@@ -41,7 +43,7 @@ class UserService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`email`='".$email."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				if ($res['verification'])
 					return $this->UNVERIFIED;
@@ -77,7 +79,7 @@ class UserService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`email`='".$email."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`email`='".$email."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				return $this->EMAIL_REGISTERED;
 			}
@@ -89,7 +91,7 @@ class UserService extends Service
 		$this->database->query("START TRANSACTION;");
 		$this->database->query("SAVEPOINT reg_".$nickname.";");
 		
-		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`hash`, `nickname`, `email`, `verification`)".
+		if ($this->database->query("INSERT INTO `".$this->DB_TABLE."`(`hash`, `nickname`, `email`, `verification`)".
 						   "VALUES (".
 						   "'".password_hash($password, PASSWORD_BCRYPT)."',".
 						   "'".$nickname."', ".
@@ -120,9 +122,9 @@ class UserService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."' AND `verification`='".$verification."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* From `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`user_id`='".$userID."' AND `verification`='".$verification."';")) {
 			
-			if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `verification`=NULL WHERE `user_id`='".$userID."';"))
+			if ($this->database->query("UPDATE `".$this->DB_TABLE."` SET `verification`=NULL WHERE `user_id`='".$userID."';"))
 				return $this->SUCCESS;
 			
 			return $this->DB_ERROR;
@@ -139,7 +141,7 @@ class UserService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* From `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* From `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`user_id`='".$userID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				
@@ -169,7 +171,7 @@ class UserService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `nickname`='".$dto->nickname."', `name`='".$dto->name."', `gender`='".$dto->gender."', `phone_number`='".$dto->phoneNumber."' WHERE `user_id`='".$dto->id."';"))
+		if ($this->database->query("UPDATE `".$this->DB_TABLE."` SET `nickname`='".$dto->nickname."', `name`='".$dto->name."', `gender`='".$dto->gender."', `phone_number`='".$dto->phoneNumber."' WHERE `user_id`='".$dto->id."';"))
 			return $this->SUCCESS;
 			
 		return $this->DB_ERROR;
@@ -194,7 +196,7 @@ class UserService extends Service
 		if ($result->status ==$this->SUCCESS->status) {
 			
 			$temp = password_hash($newPassword, PASSWORD_BCRYPT);
-			if ($mysqli->query("UPDATE `".self::DB_TABLE."` SET `hash`='".$temp."' WHERE `user_id`='".$userID."';"))
+			if ($mysqli->query("UPDATE `".$this->DB_TABLE."` SET `hash`='".$temp."' WHERE `user_id`='".$userID."';"))
 				return $this->SUCCESS;
 			
 			return $this->NOT_FOUND;
@@ -210,7 +212,7 @@ class UserService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `user_id`='".$userID."';"))
+		if ($this->database->query("DELETE FROM `".$this->DB_TABLE."` WHERE `user_id`='".$userID."';"))
 			return $this->SUCCESS;
 			
 		return $this->NOT_FOUND;

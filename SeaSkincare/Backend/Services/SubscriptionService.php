@@ -10,11 +10,13 @@ use SeaSkincare\Backend\Communication\Response;
 class SubscriptionService extends Service
 {
 	
-	private const DB_TABLE = "Subscription";
+	private $DB_TABLE;
 	
 	public function __construct($host, $user, $pswd, $db, $logService) {
 	
 		parent::__construct($host, $user, $pswd, $db, $logService);
+		
+		$this->DB_TABLE = "Subscription";
 	
 	}
 	
@@ -23,7 +25,7 @@ class SubscriptionService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 
-		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`buoy_id`, `business_id`, `start_date`, `finish_date`)".
+		if ($this->database->query("INSERT INTO `".$this->DB_TABLE."`(`buoy_id`, `business_id`, `start_date`, `finish_date`)".
 						   "VALUES (".
 						   "'".$dto->buoyID."',".
 						   "'".$dto->businessID."', ".
@@ -31,7 +33,7 @@ class SubscriptionService extends Service
 						   "'".$dto->finishDate."');")) {
 			$lastID = $this->getLastID();
 			if ($lastID->status ==$this->SUCCESS->status
-				&& $result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`subscription_id`=".$lastID->content.";")) {
+				&& $result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`subscription_id`=".$lastID->content.";")) {
 				if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 					
 					$dto->id = $res['subscription_id'];
@@ -51,7 +53,7 @@ class SubscriptionService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`subscription_id`='".$subscriptionID."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`subscription_id`='".$subscriptionID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				$dto = new SubscriptionDTO;
@@ -76,7 +78,7 @@ class SubscriptionService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`buoy_id`='".$buoyID."' AND `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`buoy_id`='".$buoyID."' AND `".$this->DB_TABLE."`.`business_id`='".$businessID."';")) {
 			
 			$subscriptions = array();
 			
@@ -107,7 +109,7 @@ class SubscriptionService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`buoy_id`='".$buoyID."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`buoy_id`='".$buoyID."';")) {
 			
 			$subscriptions = array();
 			
@@ -139,7 +141,7 @@ class SubscriptionService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`business_id`='".$businessID."';")) {
 			
 			$subscriptions = array();
 			
@@ -171,7 +173,7 @@ class SubscriptionService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return new Response($this->DB_ERROR->status, 0);
 		
-		if ($result = $this->database->query("SELECT MAX(`".self::DB_TABLE."`.`subscription_id`) AS `id` FROM `".self::DB_TABLE."`;")) {
+		if ($result = $this->database->query("SELECT MAX(`".$this->DB_TABLE."`.`subscription_id`) AS `id` FROM `".$this->DB_TABLE."`;")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				return new Response($this->SUCCESS->status, $res['id']);
@@ -188,7 +190,7 @@ class SubscriptionService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `S1`.* FROM `".self::DB_TABLE."` AS `S1` WHERE `S1`.`buoy_id`='".$buoyID."' AND `S1`.`subscription_id`=(SELECT MAX(`S2`.`subscription_id`) FROM `".self::DB_TABLE."` AS `S2` WHERE `S2`.`buoy_id`='".$buoyID."');")) {
+		if ($result = $this->database->query("SELECT `S1`.* FROM `".$this->DB_TABLE."` AS `S1` WHERE `S1`.`buoy_id`='".$buoyID."' AND `S1`.`subscription_id`=(SELECT MAX(`S2`.`subscription_id`) FROM `".$this->DB_TABLE."` AS `S2` WHERE `S2`.`buoy_id`='".$buoyID."');")) {
 			
 			$vacations = array();
 			
@@ -216,7 +218,7 @@ class SubscriptionService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `S1`.* FROM `".self::DB_TABLE."` AS `S1` WHERE `S1`.`business_id`='".$businessID."' AND `S1`.`subscription_id`=(SELECT MAX(`S2`.`subscription_id`) FROM `".self::DB_TABLE."` AS `S2` WHERE `S2`.`business_id`='".$businessID."');")) {
+		if ($result = $this->database->query("SELECT `S1`.* FROM `".$this->DB_TABLE."` AS `S1` WHERE `S1`.`business_id`='".$businessID."' AND `S1`.`subscription_id`=(SELECT MAX(`S2`.`subscription_id`) FROM `".$this->DB_TABLE."` AS `S2` WHERE `S2`.`business_id`='".$businessID."');")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				$dto = new SubscriptionDTO;
@@ -241,7 +243,7 @@ class SubscriptionService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return new Response($this->DB_ERROR->status, 0);
 		
-		if ($result = $this->database->query("SELECT `S1`.* FROM `".self::DB_TABLE."` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."' LIMIT ".$limit." OFFSET ".$offset.";")) {
+		if ($result = $this->database->query("SELECT `S1`.* FROM `".$this->DB_TABLE."` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."' LIMIT ".$limit." OFFSET ".$offset.";")) {
 			
 			$subscriptions = array();
 			
@@ -273,7 +275,7 @@ class SubscriptionService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return new Response($this->DB_ERROR->status, 0);
 		
-		if ($result = $this->database->query("SELECT COUNT(`S1`.`subscription_id`) AS `count` FROM `".self::DB_TABLE."` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."';")) {
+		if ($result = $this->database->query("SELECT COUNT(`S1`.`subscription_id`) AS `count` FROM `".$this->DB_TABLE."` AS `S1` WHERE `S1`.`start_date`<='".$someDate."' AND `S1`.`finish_date`>='".$someDate."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				return new Response($this->SUCCESS->status, $res['count']);
@@ -291,7 +293,7 @@ class SubscriptionService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `start_date`='".$dto->startDate."', `finish_date`='".$dto->finishDate."' WHERE `subscription_id`='".$dto->id."';"))
+		if ($this->database->query("UPDATE `".$this->DB_TABLE."` SET `start_date`='".$dto->startDate."', `finish_date`='".$dto->finishDate."' WHERE `subscription_id`='".$dto->id."';"))
 			return $this->SUCCESS;
 			
 		return $this->NOT_FOUND;
@@ -303,7 +305,7 @@ class SubscriptionService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `subscription_id`='".$subscriptionID."';"))
+		if ($this->database->query("DELETE FROM `".$this->DB_TABLE."` WHERE `subscription_id`='".$subscriptionID."';"))
 			return $this->SUCCESS;
 			
 		return $this->NOT_FOUND;

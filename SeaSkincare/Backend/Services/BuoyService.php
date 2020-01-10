@@ -10,7 +10,7 @@ use SeaSkincare\Backend\Communication\Response;
 class BuoyService extends Service
 {
 	
-	private const DB_TABLE = "Buoy";
+	private $DB_TABLE;
 	
 	public $SERIALNUMBER_REGISTERED;
 	public $WRONG_PASSWORD;
@@ -18,6 +18,8 @@ class BuoyService extends Service
 	public function __construct($host, $user, $pswd, $db, $logService) {
 		
 		parent::__construct($host, $user, $pswd, $db, $logService);
+		
+		$this->DB_TABLE = "Buoy";
 		
 		$this->SERIALNUMBER_REGISTERED = new Response("SERIALNUMBER_REGISTERED", null);
 		$this->WRONG_PASSWORD = new Response("WRONG_PASSWORD", null);

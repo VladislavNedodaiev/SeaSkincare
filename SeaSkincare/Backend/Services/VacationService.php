@@ -10,11 +10,13 @@ use SeaSkincare\Backend\Communication\Response;
 class VacationService extends Service
 {
 		
-	private const DB_TABLE = "Vacation";
+	private $DB_TABLE;
 	
 	public function __construct($host, $user, $pswd, $db, $logService) {
 	
 		parent::__construct($host, $user, $pswd, $db, $logService);
+		
+		$this->DB_TABLE = "Vacation";
 	
 	}
 	
@@ -23,7 +25,7 @@ class VacationService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`user_id`, `business_id`, `start_date`, `finish_date`)".
+		if ($this->database->query("INSERT INTO `".$this->DB_TABLE."`(`user_id`, `business_id`, `start_date`, `finish_date`)".
 						   "VALUES (".
 						   "'".$dto->userID."',".
 						   "'".$dto->businessID."', ".
@@ -31,7 +33,7 @@ class VacationService extends Service
 						   "'".$dto->finishDate."');")) {
 			$lastID = $this->getLastID();
 			if ($lastID->status ==$this->SUCCESS->status
-				&& $result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`vacation_id`=".$lastID->content.";")) {
+				&& $result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`vacation_id`=".$lastID->content.";")) {
 				if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 					
 					$dto->id = $res['vacation_id'];
@@ -51,7 +53,7 @@ class VacationService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`vacation_id`='".$vacationID."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`vacation_id`='".$vacationID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				$dto = new VacationDTO;
@@ -76,7 +78,7 @@ class VacationService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return new Response($this->DB_ERROR->status, 0);
 		
-		if ($result = $this->database->query("SELECT MAX(`".self::DB_TABLE."`.`vacation_id`) AS `id` FROM `".self::DB_TABLE."`;")) {
+		if ($result = $this->database->query("SELECT MAX(`".$this->DB_TABLE."`.`vacation_id`) AS `id` FROM `".$this->DB_TABLE."`;")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				return new Response($this->SUCCESS->status, $res['id']);
@@ -93,7 +95,7 @@ class VacationService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."' AND `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`user_id`='".$userID."' AND `".$this->DB_TABLE."`.`business_id`='".$businessID."';")) {
 			
 			$vacations = array();
 			
@@ -127,7 +129,7 @@ class VacationService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		$query = "SELECT `V1`.* FROM `".self::DB_TABLE."` AS `V1` WHERE `V1`.`user_id`='".$userID."' AND `V1`.`business_id`='".$businessID."' AND ";
+		$query = "SELECT `V1`.* FROM `".$this->DB_TABLE."` AS `V1` WHERE `V1`.`user_id`='".$userID."' AND `V1`.`business_id`='".$businessID."' AND ";
 		if ($dateFlag < 0)
 			$query .= "`V1`.`finish_date`<'".$someDate."'";
 		else if ($dateFlag > 0)
@@ -169,7 +171,7 @@ class VacationService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`user_id`='".$userID."';")) {
 			
 			$vacations = array();
 			
@@ -203,7 +205,7 @@ class VacationService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		$query = "SELECT `V1`.* FROM `".self::DB_TABLE."` AS `V1` WHERE `V1`.`user_id`='".$userID."' AND ";
+		$query = "SELECT `V1`.* FROM `".$this->DB_TABLE."` AS `V1` WHERE `V1`.`user_id`='".$userID."' AND ";
 		if ($dateFlag < 0)
 			$query .= "`V1`.`finish_date`<'".$someDate."'";
 		else if ($dateFlag > 0)
@@ -245,7 +247,7 @@ class VacationService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`business_id`='".$businessID."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`business_id`='".$businessID."';")) {
 			
 			$vacations = array();
 			
@@ -279,7 +281,7 @@ class VacationService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		$query = "SELECT `V1`.* FROM `".self::DB_TABLE."` AS `V1` WHERE `V1`.`business_id`='".$businessID."' AND ";
+		$query = "SELECT `V1`.* FROM `".$this->DB_TABLE."` AS `V1` WHERE `V1`.`business_id`='".$businessID."' AND ";
 		if ($dateFlag < 0)
 			$query .= "`V1`.`finish_date`<'".$someDate."'";
 		else if ($dateFlag > 0)
@@ -322,7 +324,7 @@ class VacationService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `start_date`='".$dto->startDate."', `finish_date`='".$dto->finishDate."' WHERE `vacation_id`='".$dto->id."';"))
+		if ($this->database->query("UPDATE `".$this->DB_TABLE."` SET `start_date`='".$dto->startDate."', `finish_date`='".$dto->finishDate."' WHERE `vacation_id`='".$dto->id."';"))
 			return $this->SUCCESS;
 			
 		return $this->NOT_FOUND;
@@ -335,7 +337,7 @@ class VacationService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `vacation_id`='".$vacationID."';"))
+		if ($this->database->query("DELETE FROM `".$this->DB_TABLE."` WHERE `vacation_id`='".$vacationID."';"))
 			return $this->SUCCESS;
 			
 		return $this->NOT_FOUND;
