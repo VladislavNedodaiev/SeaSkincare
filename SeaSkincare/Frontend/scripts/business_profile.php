@@ -10,8 +10,7 @@ if (!isset($_GET['businessID']))
 // Initialize session and set URL.
 $channel = curl_init();
 
-$url = include_once 'scripts/backend_host.php';
-$url .= '/Backend/API/';
+$api_url = 'https://sea-skincare-1577376592545.appspot.com/Backend/API/';
 $business_url = 'Business/GetBusiness.php?';
 $businessID_url = 'businessID='.urlencode($_GET['businessID']);
 

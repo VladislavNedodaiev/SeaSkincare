@@ -19,8 +19,7 @@ $_POST['password'] = $_SESSION['profile']->password;
 $_POST['businessID'] = $_SESSION['profile']->id;
 unset($_POST['input']);
 
-$freeurl = include_once '../backend_host.php';
-$freeurl .= '/Backend/API/Buoy/GetFree.php?date='.urlencode(date('Y-m-d')).'&offset=0&limit=1';
+$freeurl = 'https://sea-skincare-1577376592545.appspot.com/Backend/API/Buoy/GetFree.php?date='.urlencode(date('Y-m-d')).'&offset=0&limit=1';
 
 curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($channel, CURLOPT_URL, $freeurl);
@@ -32,8 +31,7 @@ if ($response->status == "SUCCESS") {
 	
 	$_POST['buoyID'] = $response->content[0]->id;
 	
-	$url = include_once '../backend_host.php';
-	$url .= '/Backend/API/Subscription/Add.php';
+	$url = 'https://sea-skincare-1577376592545.appspot.com/Backend/API/Subscription/Add.php';
 	curl_setopt($channel, CURLOPT_URL, $url);
 	
 	curl_setopt($channel, CURLOPT_POST, 1);

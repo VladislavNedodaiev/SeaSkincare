@@ -14,8 +14,7 @@ if (!isset($_SESSION['profile']) || $_SESSION['profile_type']) {
 // Initialize session and set URL.
 $channel = curl_init();
 
-$url = include_once '../backend_host.php';
-$url .= '/Backend/API/UserProblem/Delete.php';
+$url = 'https://sea-skincare-1577376592545.appspot.com/Backend/API/UserProblem/Delete.php';
 
 $_POST['email'] = $_SESSION['profile']->email;
 $_POST['password'] = $_SESSION['profile']->password;

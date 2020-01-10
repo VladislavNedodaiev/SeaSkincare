@@ -16,8 +16,7 @@ if (!isset($_SESSION['profile']) || $_SESSION['profile_type']) {
 // Initialize session and set URL.
 $channel = curl_init();
 
-$url = include_once '../backend_host.php';
-$url .= '/Backend/API/User/EditUser.php';
+$url = 'https://sea-skincare-1577376592545.appspot.com/Backend/API/User/EditUser.php';
 
 curl_setopt($channel, CURLOPT_URL, $url);
 
