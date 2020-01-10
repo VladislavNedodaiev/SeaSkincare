@@ -10,11 +10,13 @@ use SeaSkincare\Backend\Communication\Response;
 class UserProblemService extends Service
 {
 	
-	private const DB_TABLE = "User_Problem";
+	private $DB_TABLE;
 	
 	public function __construct($host, $user, $pswd, $db, $logService) {
 		
 		parent::__construct($host, $user, $pswd, $db, $logService);
+	
+		$this->DB_TABLE = "User_Problem";
 	
 	}
 	
@@ -27,14 +29,14 @@ class UserProblemService extends Service
 		if ($response->status ==$this->SUCCESS->status)
 			return $response;
 
-		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`user_id`, `skin_problem_id`)".
+		if ($this->database->query("INSERT INTO `".$this->DB_TABLE."`(`user_id`, `skin_problem_id`)".
 						   "VALUES (".
 						   "'".$dto->userID."',".
 						   "'".$dto->skinProblemID."');")) {
 							   
 			$lastID = $this->getLastID();
 			if ($lastID->status ==$this->SUCCESS->status
-				&& $result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_problem_id`=".$lastID->content.";")) {
+				&& $result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`user_problem_id`=".$lastID->content.";")) {
 				if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 					
 					$dto->id = $res['user_problem_id'];
@@ -54,7 +56,7 @@ class UserProblemService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_problem_id`='".$userProblemID."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`user_problem_id`='".$userProblemID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				$dto = new UserProblemDTO;
@@ -77,7 +79,7 @@ class UserProblemService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."' AND `".self::DB_TABLE."`.`skin_problem_id`='".$skinProblemID."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`user_id`='".$userID."' AND `".$this->DB_TABLE."`.`skin_problem_id`='".$skinProblemID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				$dto = new UserProblemDTO;
@@ -100,7 +102,7 @@ class UserProblemService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`user_id`='".$userID."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`user_id`='".$userID."';")) {
 			
 			$userProblems = array();
 			
@@ -129,7 +131,7 @@ class UserProblemService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`skin_problem_id`='".$skinProblemID."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`skin_problem_id`='".$skinProblemID."';")) {
 			
 			$userProblems = array();
 			
@@ -158,7 +160,7 @@ class UserProblemService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return new Response($this->DB_ERROR->status, 0);
 		
-		if ($result = $this->database->query("SELECT MAX(`".self::DB_TABLE."`.`user_problem_id`) AS `id` FROM `".self::DB_TABLE."`;")) {
+		if ($result = $this->database->query("SELECT MAX(`".$this->DB_TABLE."`.`user_problem_id`) AS `id` FROM `".$this->DB_TABLE."`;")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				return new Response($this->SUCCESS->status, $res['id']);
@@ -175,7 +177,7 @@ class UserProblemService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `user_problem_id`='".$userProblemID."';"))
+		if ($this->database->query("DELETE FROM `".$this->DB_TABLE."` WHERE `user_problem_id`='".$userProblemID."';"))
 			return $this->SUCCESS;
 			
 		return $this->NOT_FOUND;

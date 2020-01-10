@@ -10,11 +10,13 @@ use SeaSkincare\Backend\Communication\Response;
 class WaterService extends Service
 {
 	
-	private const DB_TABLE = "Water";
+	private $DB_TABLE;
 	
 	public function __construct($host, $user, $pswd, $db, $logService) {
 		
 		parent::__construct($host, $user, $pswd, $db, $logService);
+		
+		$this->DB_TABLE = "Water";
 	
 	}
 	
@@ -23,7 +25,7 @@ class WaterService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 
-		if ($this->database->query("INSERT INTO `".self::DB_TABLE."`(`connection_id`, `temperature`, `pH`, `NaCl`, `MgCl2`, `MgSO4`, `CaSO4`, `NaBr`)".
+		if ($this->database->query("INSERT INTO `".$this->DB_TABLE."`(`connection_id`, `temperature`, `pH`, `NaCl`, `MgCl2`, `MgSO4`, `CaSO4`, `NaBr`)".
 						   "VALUES (".
 						   "'".$dto->id."',".
 						   "'".$dto->temperature."', ".
@@ -48,7 +50,7 @@ class WaterService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($result = $this->database->query("SELECT `".self::DB_TABLE."`.* FROM `".self::DB_TABLE."` WHERE `".self::DB_TABLE."`.`connection_id`='".$connectionID."';")) {
+		if ($result = $this->database->query("SELECT `".$this->DB_TABLE."`.* FROM `".$this->DB_TABLE."` WHERE `".$this->DB_TABLE."`.`connection_id`='".$connectionID."';")) {
 			if ($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
 				
@@ -78,7 +80,7 @@ class WaterService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("UPDATE `".self::DB_TABLE."` SET `temperature`='".$dto->temperature."', `pH`='".$dto->pH."', `NaCl`='".$dto->NaCl."', `MgCl2`='".$dto->MgCl2."', `MgSO4`='".$dto->MgSO4."', `CaSO4`='".$dto->CaSO4."', `NaBr`='".$dto->NaBr."' WHERE `connection_id`='".$dto->id."';"))
+		if ($this->database->query("UPDATE `".$this->DB_TABLE."` SET `temperature`='".$dto->temperature."', `pH`='".$dto->pH."', `NaCl`='".$dto->NaCl."', `MgCl2`='".$dto->MgCl2."', `MgSO4`='".$dto->MgSO4."', `CaSO4`='".$dto->CaSO4."', `NaBr`='".$dto->NaBr."' WHERE `connection_id`='".$dto->id."';"))
 			return $this->SUCCESS;
 			
 		return $this->NOT_FOUND;
@@ -91,7 +93,7 @@ class WaterService extends Service
 		if (!$this->database || $this->database->connect_errno)
 			return $this->DB_ERROR;
 		
-		if ($this->database->query("DELETE FROM `".self::DB_TABLE."` WHERE `connection_id`='".$connectionID."';"))
+		if ($this->database->query("DELETE FROM `".$this->DB_TABLE."` WHERE `connection_id`='".$connectionID."';"))
 			return $this->SUCCESS;
 			
 		return $this->NOT_FOUND;
